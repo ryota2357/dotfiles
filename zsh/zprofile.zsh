@@ -17,5 +17,5 @@ case "$CPU_TYPE" in
 esac
 
 # pyenv
-eval "$(pyenv init --path)"
 export PATH="${PATH//$(pyenv root)\/shims:/}"
+eval "$(pyenv init --path)"
