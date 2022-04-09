@@ -2,12 +2,12 @@
 
 [Homebrew](https://brew.sh/index_ja)
 
-|  type  |   arm64   | x86_64 |
-| :----: | :-------: | :----: |
-|  tmux  |    ok     |   ー   |
-|  vim   | nvim のみ |   ー   |
-| vscode |  未設定   |   ー   |
-|  zsh   |    ok     |   ー   |
+|  type  |   arm64   |  x86_64   |
+| :----: | :-------: | :-------: |
+|  tmux  |    ok     |    ok     |
+|  vim   | nvim のみ | nvim のみ |
+| vscode |  未設定   |  未設定   |
+|  zsh   |    ok     |    ok     |
 
 ## tmux
 
@@ -90,3 +90,9 @@ gem install neovim
 
 プラグインマネージャに [zplug](https://github.com/zplug/zplug) を使用  
 Homebrew でインストールしてる。
+
+プラグインのインストールは
+
+```sh
+zplug install
+```
