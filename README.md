@@ -18,11 +18,11 @@ TPM は現在(2022/4/9) `git clone` でしか入れられないっぽい(?)の�
 
 ## vim
 
-NeoVim のみ対応してない。  
+NeoVim のみ対応。  
 なので `~/.vimrc` にシンボリックリンクを作ってはいけない。エラーがたくさん出る。
 
-プラグインマネージャに[dein.vim](https://github.com/Shougo/dein.vim)を使用  
-手動でインストールしなくても自動的にインストールされると思う。
+プラグインマネージャに[dein.vim](https://github.com/Shougo/dein.vim)を使用。  
+手動でインストールしなくても自動的にインストールされる。
 
 ### checkhealth
 
@@ -32,9 +32,9 @@ NeoVim の `:checkhealth` 対応方法
 
 `pyenv` がすでに Homebrew で入ってると思う。  
 その後の手順は pyenv の[README.md の Installation](https://github.com/pyenv/pyenv/blob/master/README.md#installation)を参考に進める。  
-zsh にパスを通す、init の実行はすでに zshrc, zprofile 記述済みであるかもだけど、確認する
+zsh にパスを通す、init の実行はすでに zshrc, zprofile 記述済みであるかもだけど、確認する。
 
-続いて python をインストールする
+続いて python をインストールする。
 
 ```sh
 # install できるバージョンの確認
@@ -88,7 +88,7 @@ gem install neovim
 
 ## zsh
 
-プラグインマネージャに [zplug](https://github.com/zplug/zplug) を使用  
+プラグインマネージャに [zplug](https://github.com/zplug/zplug) を使用。  
 Homebrew でインストールしてる。
 
 プラグインのインストールは
