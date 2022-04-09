@@ -12,7 +12,7 @@ esac
 
 # zplug
 case "$CPU_TYPE" in
-  "Intel" ) ;;
+  "Intel" ) source /usr/local/opt/zplug/init.zsh ;;
   "Apple" ) source /opt/homebrew/opt/zplug/init.zsh ;;
 esac
 
