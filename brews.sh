@@ -10,6 +10,7 @@ brew install zplug
 brew install pyenv
 brew install rbenv ruby-build
 brew install rust
+brew install php
 
 # denops.vim
 brew install deno
