@@ -1,0 +1,1 @@
+execute 'source ~/dotfiles/vim/rc/vim.rc.vim'

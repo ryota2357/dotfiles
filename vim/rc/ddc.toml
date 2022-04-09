@@ -1,0 +1,117 @@
+[[plugins]]
+repo = 'Shougo/ddc.vim'
+depends = ['denops.vim', 'pum.vim']
+on_event = 'InsertEnter'
+hook_source = '''
+  call ddc#custom#patch_global('sources', ['nvim-lsp', 'around'])
+  call ddc#custom#patch_global('sourceOptions', {
+    \   '_': {
+    \     'matchers': ['matcher_head'],
+    \     'sorters': ['sorter_rank'],
+    \     'converters': ['converter_remove_overlap'],
+    \   },
+    \   'around': {'mark': 'A'},
+    \   'nvim-lsp': {
+    \     'mark': 'LSP',
+    \     'forceCompletionPattern': '\.\w*|:\w*|->\w*',
+    \   },
+    \ })
+  call ddc#custom#patch_global('sourceParams', {
+    \   'around': {'maxSize': 500},
+    \ })
+
+  " pum settings
+  call ddc#custom#patch_global('completionMenu', 'pum.vim')
+  inoremap <expr><C-n>   pum#visible() ? '<Cmd>call pum#map#select_relative(+1)<CR>' : '<Down>'
+  inoremap <expr><C-p>   pum#visible() ? '<Cmd>call pum#map#select_relative(-1)<CR>' : '<Up>'
+  inoremap <expr><Enter> pum#visible() ? '<Cmd>call pum#map#confirm()<CR>' : '<Enter>'
+
+  call ddc#enable()
+'''
+
+[[plugins]]
+repo = 'Shougo/pum.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-around'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-matcher_head'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-sorter_rank'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-converter_remove_overlap'
+on_source = 'ddc.vim'
+
+
+# LSP
+# 参考: https://riq0h.jp/2021/09/15/084023/
+[[plugins]]
+repo = 'Shougo/ddc-nvim-lsp'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'neovim/nvim-lspconfig'
+on_event = 'BufEnter'
+hook_source = '''
+  lua << EOF
+  local nvim_lsp = require('lspconfig')
+  local on_attach = function (client, bufnr)
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+  local opts = { noremap=true, silent=true }
+  --[[
+    buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+    buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+    buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+    buf_set_keymap('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+    buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+    buf_set_keymap('n', 'gx', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+    buf_set_keymap('n', 'g[', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+    buf_set_keymap('n', 'g]', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  ]]
+  end
+
+  local lsp_installer = require("nvim-lsp-installer")
+  lsp_installer.on_server_ready(function(server)
+    local opts = {}
+    opts.on_attach = on_attach
+    server:setup(opts)
+    vim.cmd [[ do User LspAttachBuffers ]]
+  end)
+EOF
+'''
+
+[[plugins]]
+repo ='williamboman/nvim-lsp-installer'
+on_source = 'nvim-lspconfig'
+
+[[plugins]]
+repo = 'matsui54/denops-signature_help'
+on_source = 'ddc.vim'
+hook_source = '''
+  call signature_help#enable()
+'''
+
+[[plugins]]
+repo = 'matsui54/denops-popup-preview.vim'
+on_source = 'ddc.vim'
+hook_source = '''
+  call popup_preview#enable()
+'''
+
+[[plugins]]
+repo = 'hrsh7th/vim-vsnip'
+on_event = 'InsertEnter'
+hook_add = '''
+'''
+
+[[plugins]]
+repo = 'hrsh7th/vim-vsnip-integ'
+depends = 'vim-vsnip'

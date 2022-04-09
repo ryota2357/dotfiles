@@ -1,0 +1,15 @@
+{
+    "name": "MyTheme-vscode",
+    "version": "0.1.0",
+    "publisher": "R2357",
+    "engines": { "vscode": "*" },
+    "contributes": {
+        "themes": [
+            {
+                "label": "MyTheme-vscode",
+                "uiTheme": "vs-dark",
+                "path": "./themes/my-theme.json"
+            }
+        ]
+    }
+}

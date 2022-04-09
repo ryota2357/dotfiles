@@ -1,0 +1,83 @@
+* ---------------------------------------------- 基本設定 -------------------------------------------- */
+    "editor.fontSize": 16,
+    "terminal.integrated.fontSize": 14,
+    "debug.console.fontSize": 14,
+    "editor.fontFamily": "Cica-Regular",
+    "editor.inlineHints.fontFamily": "Cica-Regular",
+    "debug.console.fontFamily": "Cica-Regular",
+    "editor.codeLensFontFamily": "Cica-Regular",
+    "terminal.integrated.fontFamily": "monospace",
+    "workbench.tree.indent": 4,
+    "files.trimTrailingWhitespace": true,
+    "editor.codeLens": false,
+    "editor.suggestSelection": "first",
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.colorTheme": "MyTheme-vscode",
+
+    /* --------------------------------- ファイルとフォルダーを除外設定 ----------------------------------- */
+    "files.exclude": {
+        "**/.git": true,
+        "**/.DS_Store": true,
+        "**/*.meta": true,
+        "**/*.*.meta": true,
+        "**/*.unity": true,
+        "**/*.unityproj": true,
+        "**/*.mat": true,
+        "**/*.fbx": true,
+        "**/*.FBX": true,
+        "**/*.tga": true,
+        "**/*.cubemap": true,
+        "**/*.prefab": true,
+        "**/Library": true,
+        "**/ProjectSettings": true,
+        "**/Temp": true
+    },
+
+    /* ------------------------------- 現在選択している配色テーマの上書き --------------------------------- */
+    "workbench.colorCustomizations": {
+    },
+
+    /* ----------------------------------------------- Vim ------------------------------------------------ */
+    "vim.vimrc.enable": true,
+    "vim.vimrc.path": "~/.vsvimrc",
+
+    /* ------------------------------------------- Unity,  C# --------------------------------------------- */
+    "unity-tools.localDocumentationViewer": "chrome",
+    "unity-tools.documentationVersion": "2020.2",
+    // "omnisharp.monoPath": "/usr/local/Cellar/mono/6.12.0.107/bin",
+    "omnisharp.useGlobalMono": "always",
+
+    /* ----------------------------------------------- HTML ----------------------------------------------- */
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"    // 優先フォーマッタ
+    },
+
+    /* ------------------------------------------ Flutter,  Dart ------------------------------------------ */
+    "[dart]": {
+        "editor.formatOnSave": true,
+        "editor.formatOnType": true,
+        "editor.rulers": [
+            80
+        ],
+        "editor.selectionHighlight": false,
+        "editor.suggest.snippetsPreventQuickSuggestions": false,
+        "editor.suggestSelection": "first",
+        "editor.tabCompletion": "onlySnippets",
+        "editor.wordBasedSuggestions": false
+    },
+
+    /* ------------------------ 辞書に追加するユーザーの単語(Code Spell Checker) -------------------------- */
+    "cSpell.userWords": [
+        "Behaviour",
+        "Mathf",
+        "Struct"
+    ],
+
+    /* --------------------------------------------- その他 ----------------------------------------------- */
+    "tabnine.experimentalAutoImports": true,
+    "csv-edit.fontSizeInPx": 15,
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+
+
+    /* ---------------------------------------------------------------------------------------------------- */
+}
