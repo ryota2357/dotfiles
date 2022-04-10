@@ -1,3 +1,6 @@
+alias c='clang++ -std=c++17 -stdlib=libc++ -Wall -O2'
+alias a='./a.out'
+alias clip='pbcopy'
 alias vi='nvim'
 alias ta='tmux a -t'
 alias tn='tmux new -s'

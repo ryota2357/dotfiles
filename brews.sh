@@ -27,11 +27,11 @@ brew install cloc
 # 現在エラー出る。brew install --build-from-source mono しろと言われるがひとまず入れずに様子見
 # brew install mono
 
-# dartはtapでのみ
+# dart は tap でのみ
 brew tap dart-lang/dart
 brew install dart
 
-# fzf.vimのプレビューに syntax highlight をつける
+# fzf.vim のプレビューに syntax highlight をつける
 brew install bat
 
 # vim-prettier
@@ -51,6 +51,7 @@ brew install --cask iterm2
 brew install --cask notion
 brew install --cask deepl
 brew install --cask discord
+brew install --cask slack
 brew install --cask numi
 brew install --cask toggl-track
 brew install --cask zoom
