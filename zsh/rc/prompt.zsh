@@ -1,15 +1,24 @@
-left-prompt() {
+__left-prompt() {
   local dir="%F{11}%~%f"
   local next="%F{47}❯%f "
-  echo -e "\n${user}${dir}\n${next}"
+
+  if [ `git rev-parse --is-inside-work-tree 2> /dev/null` ]; then
+    local branch_name=`git rev-parse --abbrev-ref HEAD 2> /dev/null`
+    local branch="%F{250} ${branch_name}%f"
+    echo -e "\n${user}${dir} ${branch}\n${next}"
+  else
+    echo -e "\n${user}${dir}\n${next}"
+  fi
 }
-right-prompt() {
+__right-prompt() {
   local time="%F{242}%T%f"
   echo "${time}"
 }
 
-PROMPT=`left-prompt`
-RPROMPT=`right-prompt`
+precmd() {
+  PROMPT=`__left-prompt`
+}
+RPROMPT=`__right-prompt`
 
-unset -f left-prompt
-unset -f right-prompt
+# unset -f __left-prompt
+# unset -f __right-prompt
