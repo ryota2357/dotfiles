@@ -5,9 +5,9 @@ __left-prompt() {
   if [ `git rev-parse --is-inside-work-tree 2> /dev/null` ]; then
     local branch_name=`git rev-parse --abbrev-ref HEAD 2> /dev/null`
     local branch="%F{250} ${branch_name}%f"
-    echo -e "\n${user}${dir} ${branch}\n${next}"
+    echo -e "\n${dir} ${branch}\n${next}"
   else
-    echo -e "\n${user}${dir}\n${next}"
+    echo -e "\n${dir}\n${next}"
   fi
 }
 __right-prompt() {
