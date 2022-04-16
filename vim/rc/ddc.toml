@@ -6,11 +6,15 @@ hook_source = '''
   call ddc#custom#patch_global('sources', ['nvim-lsp', 'around'])
   call ddc#custom#patch_global('sourceOptions', {
     \   '_': {
+    \     'ignoreCase': v:true,
     \     'matchers': ['matcher_head'],
     \     'sorters': ['sorter_rank'],
     \     'converters': ['converter_remove_overlap'],
     \   },
-    \   'around': {'mark': 'A'},
+    \   'around': {
+    \     'mark': 'A',
+    \     'matchers': ['matcher_head', 'matcher_length']
+    \   },
     \   'nvim-lsp': {
     \     'mark': 'LSP',
     \     'forceCompletionPattern': '\.\w*|:\w*|->\w*',
@@ -38,6 +42,10 @@ on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'Shougo/ddc-matcher_head'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-matcher_length'
 on_source = 'ddc.vim'
 
 [[plugins]]
