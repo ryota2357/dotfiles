@@ -58,7 +58,10 @@ set mouse=a
 set virtualedit=onemore
 
 " カーソル移動の行等行末の扱い
-set whichwrap=b,s,<,>,~
+set whichwrap=b,s,<,>,~,[,]
+
+" 行の折り返しを無効に (warpは遅いらしい)
+set nowrap
 
 " インデント設定
 set expandtab     " tabキーを押すとスペースが入力される
