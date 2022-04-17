@@ -40,6 +40,8 @@ brew install bat
 # vim-prettier
 brew install prettier
 
+# brew cu
+brew tap buo/cask-upgrade
 
 brew install --cask alfred
 brew install --cask android-studio
