@@ -19,6 +19,7 @@ hook_source = '''
     \     'mark': 'LSP',
     \     'forceCompletionPattern': '\.\w*|:\w*|->\w*',
     \   },
+    \   'cmdline-history': { 'mark': 'H' }
     \ })
   call ddc#custom#patch_global('sourceParams', {
     \   'around': {'maxSize': 500},
@@ -26,11 +27,40 @@ hook_source = '''
 
   " pum settings
   call ddc#custom#patch_global('completionMenu', 'pum.vim')
+  call ddc#custom#patch_global('autoCompleteEvents', [
+    \   'InsertEnter', 'TextChangedI', 'TextChangedP', 'CmdlineEnter', 'CmdlineChanged',
+    \ ])
   inoremap <expr><C-n>   pum#visible() ? '<Cmd>call pum#map#select_relative(+1)<CR>' : '<Down>'
   inoremap <expr><C-p>   pum#visible() ? '<Cmd>call pum#map#select_relative(-1)<CR>' : '<Up>'
   inoremap <expr><Enter> pum#visible() ? '<Cmd>call pum#map#confirm()<CR>' : '<Enter>'
 
   call ddc#enable()
+'''
+hook_add = '''
+  nnoremap : <Cmd>call CommandlinePre()<CR>:
+
+  function! CommandlinePre() abort
+    " Note: It disables default command line completion!
+    cnoremap <expr><Tab>   pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' : ddc#manual_complete()
+    cnoremap <expr><C-n>   pum#visible() ? '<Cmd>call pum#map#select_relative(+1)<CR>' : '<Down>'
+    cnoremap <expr><C-p>   pum#visible() ? '<Cmd>call pum#map#select_relative(-1)<CR>' : '<Up>'
+    cnoremap <expr><Enter> pum#visible() ? '<Cmd>call pum#map#confirm()<CR>' : '<Enter>'
+
+    " Overwrite sources
+    let s:prev_buffer_config = ddc#custom#get_buffer()
+    call ddc#custom#patch_buffer('sources', ['cmdline', 'cmdline-history', 'around'])
+
+    autocmd User DDCCmdlineLeave ++once call CommandlinePost()
+
+    call ddc#enable_cmdline_completion()
+    call ddc#enable()
+  endfunction
+
+  function! CommandlinePost() abort
+    " Restore sources
+    call ddc#custom#set_buffer(s:prev_buffer_config)
+    cunmap <Tab>
+  endfunction
 '''
 
 [[plugins]]
@@ -56,6 +86,13 @@ on_source = 'ddc.vim'
 repo = 'Shougo/ddc-converter_remove_overlap'
 on_source = 'ddc.vim'
 
+[[plugins]]
+repo = 'Shougo/ddc-cmdline'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-cmdline-history'
+on_source = 'ddc.vim'
 
 # LSP
 # 参考: https://riq0h.jp/2021/09/15/084023/
