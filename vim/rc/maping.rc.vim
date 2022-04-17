@@ -9,6 +9,7 @@ nnoremap x "_x
 nnoremap Q ^
 nnoremap P $l
 
+" ノーマルモードでも改行
 nnoremap <CR> i<CR><ESC>
 
 " emacsキーバインド
