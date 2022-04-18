@@ -55,4 +55,7 @@ on_ft = ['markdown']
 hook_source = '''
   autocmd BufWritePre *.md PrettierAsync
 '''
+hook_add = '''
+  let g:prettier#config#tab_width = 2
+'''
 
