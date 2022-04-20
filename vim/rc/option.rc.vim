@@ -63,6 +63,16 @@ set whichwrap=b,s,<,>,~,[,]
 " 行の折り返しを無効に (warpは遅いらしい)
 set nowrap
 
+" 画面の左右の端でスクロールが発生した場合、何文字ずつスクロールするか
+set sidescroll=1
+
+" 行が画面よりも伸びているときに最終列、最初の列に表示する文字
+set listchars=extends:>,precedes:<
+
+" スクロールの余裕
+set scrolloff=3
+set sidescrolloff=5
+
 " インデント設定
 set expandtab     " tabキーを押すとスペースが入力される
 set tabstop=4     " 画面上で表示する1つのタブの幅
@@ -79,9 +89,6 @@ augroup END
 
 " 検索パターンにおいて大文字と小文字を区別しない
 set ignorecase
-
-" スクロールの余裕
-set scrolloff=3
 
 " マーカー位置で折りたたむ
 set foldmethod=marker
