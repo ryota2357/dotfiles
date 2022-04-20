@@ -1,5 +1,17 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
+hook_add = '''
+  let g:dein#enable_notification = v:true
+'''
+
+[[plugins]]
+repo = 'rcarriga/nvim-notify'
+on_if = 'has("nvim")'
+
+[[plugins]]
+repo = 'mattn/vim-notification'
+on_if = '!has("nvim")'
+
 
 [[plugins]]
 repo = 'vim-denops/denops.vim'
