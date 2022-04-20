@@ -7,12 +7,11 @@ set fileformats=unix,dos,mac
 
 " 曖昧文字幅の幅を指定するもの
 " doubleにすると、文字崩れ、文字残りが起こる
-" iTerm2の設定でも Ambiguous characters width are double-width
-" という項目があるけど有効にすると表示される文字が消えたりする
+" iTerm2の設定でも `Ambiguous characters width are double-width` という項目があるけど有効にすると表示される文字が消えたりする
 set ambiwidth=single
 
-" よくわからないけどBOMを消すものらしい
-" BOMは特に何かなければ無い方が良いみたい
+" BOMを消す
+" BOM(byte order mark): Unicodeの符号化形式で符号化したテキストの先頭につける数バイトのデータのことで、このデータを元にUnicodeで符号化されていることと符号化の種類を判別する
 set nobomb
 
 " shellをzshに
@@ -60,7 +59,7 @@ set virtualedit=onemore
 " カーソル移動の行等行末の扱い
 set whichwrap=b,s,<,>,~,[,]
 
-" 行の折り返しを無効に (warpは遅いらしい)
+" 行の折り返しを無効に (warpは遅い)
 set nowrap
 
 " 画面の左右の端でスクロールが発生した場合、何文字ずつスクロールするか
