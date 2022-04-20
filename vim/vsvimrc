@@ -1,2 +1,1 @@
 execute 'source ~/dotfiles/vim/rc/maping.rc.vim'
-execute 'source ~/dotfiles/vim/rc/option.rc.vim'
