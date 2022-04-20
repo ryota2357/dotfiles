@@ -40,8 +40,15 @@ brew install bat
 # vim-prettier
 brew install prettier
 
+# NeoVim の builtin lsp で not found になるから。(別になくてもlspインストールできるし使えるけど一応)
+brew install wget
+
 # brew cu
 brew tap buo/cask-upgrade
+
+# icon font
+brew tap homebrew/cask-fonts
+brew install --cask font-hack-nerd-font
 
 brew install --cask alfred
 brew install --cask android-studio
