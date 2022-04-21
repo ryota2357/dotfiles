@@ -1,1 +1,5 @@
-execute 'source ~/dotfiles/vim/rc/vim.rc.vim'
+if has("nvim")
+  execute 'source ~/dotfiles/vim/rc/vim.rc.vim'
+elseif has("ida")
+  execute 'source ~/dotfiles/vim/rc/ideavim.rc.vim'
+endif

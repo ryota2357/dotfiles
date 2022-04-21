@@ -31,7 +31,9 @@ if dein#min#load_state(s:dein_dir)
 
   call dein#load_toml(s:toml)
   call dein#load_toml(s:lazy, {'lazy': 1})
-  call dein#load_toml(s:ddc, {'lazy': 1})
+  if has("nvim")
+    call dein#load_toml(s:ddc, {'lazy': 1})
+  endif
 
   call dein#end()
   call dein#save_state()
