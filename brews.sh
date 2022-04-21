@@ -18,8 +18,11 @@ brew install php
 # denops.vim
 brew install deno
 
-# fzf.vim
+# bat: fzf.vim のプレビューに syntax highlight をつける
+# ripgrep: (rg) 高速なgrep検索
 brew install fzf
+brew install bat
+brew install ripgrep
 
 # tmux でヤンクとクリップボードを繋げる
 brew install reattach-to-user-namespace
@@ -33,9 +36,6 @@ brew install cloc
 # dart は tap でのみ
 brew tap dart-lang/dart
 brew install dart
-
-# fzf.vim のプレビューに syntax highlight をつける
-brew install bat
 
 # vim-prettier
 brew install prettier
