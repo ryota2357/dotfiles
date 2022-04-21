@@ -3,7 +3,7 @@ let $VIMRC = expand('<sfile>:p')
 
 let s:rc_dir = expand('~/dotfiles/vim/rc')
 
-" define <Leader>"
+" define <Leader>
 let mapleader = "\<Space>"
 
 " Load rc files.
@@ -31,9 +31,7 @@ if dein#min#load_state(s:dein_dir)
 
   call dein#load_toml(s:toml)
   call dein#load_toml(s:lazy, {'lazy': 1})
-  if has("nvim")
-    call dein#load_toml(s:ddc, {'lazy': 1})
-  endif
+  call dein#load_toml(s:ddc, {'lazy': 1})
 
   call dein#end()
   call dein#save_state()

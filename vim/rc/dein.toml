@@ -6,12 +6,6 @@ hook_add = '''
 
 [[plugins]]
 repo = 'rcarriga/nvim-notify'
-on_if = 'has("nvim")'
-
-[[plugins]]
-repo = 'mattn/vim-notification'
-on_if = '!has("nvim")'
-
 
 [[plugins]]
 repo = 'vim-denops/denops.vim'

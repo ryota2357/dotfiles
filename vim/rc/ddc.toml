@@ -119,7 +119,7 @@ hook_source = '''
     buf_set_keymap('n', '<Leader>i', '<Cmd>lua vim.lsp.buf.implementation()<CR>', opts)
     buf_set_keymap('n', '<Leader>r', '<Cmd>lua vim.lsp.buf.rename()<CR>', opts)
     buf_set_keymap('n', '<Leader>x', '<Cmd>lua vim.diagnostic.open_float()<CR>', opts)
-    buf_set_keymap('n', '<Leader>j' ,'<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+    buf_set_keymap('n', '<Leader>j', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
   end
 
   local lsp_installer = require("nvim-lsp-installer")
