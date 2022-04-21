@@ -48,9 +48,9 @@ nnoremap < :tabN<CR>
 
 " 補完
 inoremap { {}<Left>
-inoremap {<Enter> {<CR>}<ESC><S-o>
+inoremap {<CR> {<CR>}<ESC><S-o>
 inoremap ( ()<ESC>i
-inoremap (<Enter> ()<Left><CR><ESC><S-o>
+inoremap (<CR> ()<Left><CR><ESC><S-o>
 inoremap () ()
 inoremap {} {}
 inoremap " ""<Left>

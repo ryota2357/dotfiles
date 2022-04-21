@@ -30,9 +30,11 @@ hook_source = '''
   call ddc#custom#patch_global('autoCompleteEvents', [
     \   'InsertEnter', 'TextChangedI', 'TextChangedP', 'CmdlineEnter', 'CmdlineChanged',
     \ ])
-  inoremap <expr><C-n>   pum#visible() ? '<Cmd>call pum#map#select_relative(+1)<CR>' : '<Down>'
-  inoremap <expr><C-p>   pum#visible() ? '<Cmd>call pum#map#select_relative(-1)<CR>' : '<Up>'
-  inoremap <expr><Enter> pum#visible() ? '<Cmd>call pum#map#confirm()<CR>' : '<Enter>'
+  inoremap <expr><C-n> pum#visible() ? '<Cmd>call pum#map#select_relative(+1)<CR>' : '<Down>'
+  inoremap <expr><C-p> pum#visible() ? '<Cmd>call pum#map#select_relative(-1)<CR>' : '<Up>'
+  inoremap <Down>      pum#visible() ? '<Cmd>call pum#map#select_relative(+1)<CR>' : '<Down>'
+  inoremap <Up>        pum#visible() ? '<Cmd>call pum#map#select_relative(-1)<CR>' : '<Up>'
+  inoremap <expr><CR>  pum#visible() ? '<Cmd>call pum#map#confirm()<CR>'           : '<CR>'
 
   call ddc#enable()
 '''
@@ -41,12 +43,12 @@ hook_add = '''
 
   function! CommandlinePre() abort
     " Note: It disables default command line completion!
-    cnoremap <expr><Tab>   pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' : ddc#manual_complete()
-    cnoremap <expr><C-n>   pum#visible() ? '<Cmd>call pum#map#select_relative(+1)<CR>' : '<Down>'
-    cnoremap <expr><C-p>   pum#visible() ? '<Cmd>call pum#map#select_relative(-1)<CR>' : '<Up>'
-    cnoremap <Down>        pum#visible() ? '<Cmd>call pum#map#select_relative(+1)<CR>' : '<Down>'
-    cnoremap <Up>          pum#visible() ? '<Cmd>call pum#map#select_relative(-1)<CR>' : '<Up>'
-    cnoremap <expr><Enter> pum#visible() ? '<Cmd>call pum#map#confirm()<CR>' : '<Enter>'
+    cnoremap <expr><Tab> pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' : ddc#manual_complete()
+    cnoremap <expr><C-n> pum#visible() ? '<Cmd>call pum#map#select_relative(+1)<CR>' : '<Down>'
+    cnoremap <expr><C-p> pum#visible() ? '<Cmd>call pum#map#select_relative(-1)<CR>' : '<Up>'
+    cnoremap <Down>      pum#visible() ? '<Cmd>call pum#map#select_relative(+1)<CR>' : '<Down>'
+    cnoremap <Up>        pum#visible() ? '<Cmd>call pum#map#select_relative(-1)<CR>' : '<Up>'
+    cnoremap <expr><CR>  pum#visible() ? '<Cmd>call pum#map#confirm()<CR>'           : '<CR>'
 
     " Overwrite sources
     let s:prev_buffer_config = ddc#custom#get_buffer()
