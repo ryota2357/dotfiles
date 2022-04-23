@@ -59,6 +59,9 @@ set virtualedit=onemore
 " カーソル移動の行等行末の扱い
 set whichwrap=b,s,<,>,~,[,]
 
+" どこでも短形ビジュアルモード
+set virtualedit=block
+
 " menuone: 補完候補が1つしかない時でもメニューを表示する
 " noinsert: メニュー表示時にすでに1つ目が選択状態にする
 set completeopt=menuone,noinsert
