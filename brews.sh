@@ -50,6 +50,11 @@ brew tap buo/cask-upgrade
 brew tap homebrew/cask-fonts
 brew install --cask font-hack-nerd-font
 
+# latex
+brew install texlive
+brew install --cask skim
+
+# other casks
 brew install --cask alfred
 brew install --cask android-studio
 brew install --cask blender
