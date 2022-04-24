@@ -42,7 +42,6 @@ hook_add = '''
   nnoremap : <Cmd>call CommandlinePre()<CR>:
 
   function! CommandlinePre() abort
-    " Note: It disables default command line completion!
     cnoremap <expr><Tab>  pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' : ddc#manual_complete()
     cnoremap <expr><C-n>  pum#visible() ? '<Cmd>call pum#map#select_relative(+1)<CR>' : '<Down>'
     cnoremap <expr><C-p>  pum#visible() ? '<Cmd>call pum#map#select_relative(-1)<CR>' : '<Up>'
@@ -61,9 +60,7 @@ hook_add = '''
   endfunction
 
   function! CommandlinePost() abort
-    " Restore sources
     call ddc#custom#set_buffer(s:prev_buffer_config)
-    cunmap <Tab>
   endfunction
 '''
 
