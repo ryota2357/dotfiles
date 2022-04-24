@@ -1,6 +1,7 @@
-" vim help を垂直分割で開く
-command! -nargs=1 -complete=help Vh :vertical belowright help <args>
-
+if has("nvim")
+ " vim help を垂直分割で開く
+ command! -nargs=1 -complete=help Vh :vertical belowright help <args>
+endif
 
 " xで削除した時はヤンクしない
 vnoremap x "_x
@@ -14,17 +15,13 @@ nnoremap P $l
 nnoremap <CR> i<CR><ESC>
 
 " emacsキーバインド
-" C-p, C-n は ddc(pum) で設定
-" inoremap <C-p> <Up>
-" inoremap <C-n> <Down>
+" C-p, C-n は ddc(pum) で設定、IdeaVimではなぜかこれだけそのまま使えた
 inoremap <C-b> <Left>
 inoremap <C-f> <Right>
-inoremap <C-a> <ESC>^i
-inoremap <C-e> <ESC>$li
+inoremap <C-a> <Home>
+inoremap <C-e> <End>
 inoremap <C-d> <Del>
 inoremap <C-h> <BS>
-cnoremap <C-p> <Up>
-cnoremap <C-n> <Down>
 cnoremap <C-b> <Left>
 cnoremap <C-f> <Right>
 cnoremap <C-a> <Home>
@@ -47,13 +44,23 @@ nnoremap <C-w>h <C-w><
 nnoremap > :tabn<CR>
 nnoremap < :tabN<CR>
 
-" 補完
-inoremap { {}<Left>
-inoremap {<CR> {<CR>}<ESC><S-o>
-inoremap ( ()<ESC>i
-inoremap (<CR> ()<Left><CR><ESC><S-o>
-inoremap () ()
-inoremap {} {}
-inoremap " ""<Left>
-inoremap ' ''<Left>
-inoremap , ,<Space>
+if has("nvim")
+  " 補完
+  inoremap { {}<Left>
+  inoremap {<CR> {<CR>}<ESC><S-o>
+  inoremap ( ()<ESC>i
+  inoremap (<CR> ()<Left><CR><ESC><S-o>
+  inoremap () ()
+  inoremap {} {}
+  inoremap " ""<Left>
+  inoremap ' ''<Left>
+  inoremap , ,<Space>
+endif
+
+if has('ide')
+  " <Action>(action-name) のマッピングには map しか使えない
+  " :action action-name<CR> で呼び出せば自由にマッピングできる
+
+  nnoremap <Leader>d :action GotoDeclaration<CR>
+  nnoremap <Leader>r :action RenameElement<CR>
+endif
