@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 
 # texファイルをコンパイルするコマンドの設定
-# -synctex=1：SyncTeX を有効に (SyncTeX対応のビューア(Skim等)からエディタにジャンプできる機能)
+# -synctex=1：SyncTeX を有効に (SyncTeX対応のビューア(Skim等)からエディタにジャンプできる機能n
 $latex            = 'platex -synctex=1 -halt-on-error';
 
 

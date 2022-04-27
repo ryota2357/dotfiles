@@ -61,6 +61,7 @@ if has('ide')
   " <Action>(action-name) のマッピングには map しか使えない
   " :action action-name<CR> で呼び出せば自由にマッピングできる
 
-  nnoremap <Leader>d :action GotoDeclaration<CR>
-  nnoremap <Leader>r :action RenameElement<CR>
+  map <Leader>d <Action>(GotoDeclaration)
+  map <Leader>r <Action>(RenameElement)
+  map <Leader>j <Action>(ShowIntentionActions)
 endif

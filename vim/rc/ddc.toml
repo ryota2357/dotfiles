@@ -19,11 +19,13 @@ hook_source = '''
     \     'mark': 'LSP',
     \     'forceCompletionPattern': '\.\w*|:\w*|->\w*',
     \   },
+    \   'vsnip': { 'mark': 'S' }
     \   'cmdline-history': { 'mark': 'H' }
     \ })
   call ddc#custom#patch_global('sourceParams', {
     \   'around': {'maxSize': 500},
     \ })
+
 
   " pum settings
   call ddc#custom#patch_global('completionMenu', 'pum.vim')
@@ -69,6 +71,10 @@ repo = 'Shougo/pum.vim'
 
 [[plugins]]
 repo = 'Shougo/ddc-around'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'tani/ddc-fuzzy'
 on_source = 'ddc.vim'
 
 [[plugins]]
@@ -158,3 +164,8 @@ hook_add = '''
 [[plugins]]
 repo = 'hrsh7th/vim-vsnip-integ'
 depends = 'vim-vsnip'
+hook_add = '''
+  " textEditを適用する(pum.vim使用時) (https://zenn.dev/matsui54/articles/2021-09-03-ddc-lsp#textedit)
+  " 未知の関数と言われるのでひとまずコメントアウト(textEditはできない)
+  " autocmd User PumCompleteDone call vsnip_integ#on_complete_done(g:pum#completed_item)
+'''
