@@ -91,6 +91,7 @@ set smartindent   " {があると次の行は自動で1段深く自動インデ�
 augroup fileTypeIndent
     autocmd!
     autocmd BufNewFile,BufRead *.dart setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.tex setlocal tabstop=2 softtabstop=2 shiftwidth=2
 augroup END
 
 " 検索パターンにおいて大文字と小文字を区別しない
