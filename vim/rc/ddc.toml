@@ -1,7 +1,7 @@
 [[plugins]]
 repo = 'Shougo/ddc.vim'
 depends = ['denops.vim', 'pum.vim']
-on_event = 'InsertEnter'
+on_event = ['InsertEnter', 'CursorHold']
 hook_source = '''
   call ddc#custom#patch_global('sources', ['nvim-lsp', 'around'])
   call ddc#custom#patch_global('sourceOptions', {
@@ -19,8 +19,8 @@ hook_source = '''
     \     'mark': 'LSP',
     \     'forceCompletionPattern': '\.\w*|:\w*|->\w*',
     \   },
-    \   'vsnip': { 'mark': 'S' }
-    \   'cmdline-history': { 'mark': 'H' }
+    \   'vsnip': { 'mark': 'S' },
+    \   'cmdline-history': { 'mark': 'H' },
     \ })
   call ddc#custom#patch_global('sourceParams', {
     \   'around': {'maxSize': 500},
@@ -52,17 +52,30 @@ hook_add = '''
     cnoremap <expr><CR>   pum#visible() ? '<Cmd>call pum#map#confirm()<CR>'           : '<CR>'
 
     " Overwrite sources
-    let s:prev_buffer_config = ddc#custom#get_buffer()
+    if !exists('b:prev_buffer_config')
+      let b:prev_buffer_config = ddc#custom#get_buffer()
+    endif
     call ddc#custom#patch_buffer('sources', ['cmdline', 'cmdline-history', 'around'])
 
     autocmd User DDCCmdlineLeave ++once call CommandlinePost()
+    autocmd InsertEnter <buffer> ++once call CommandlinePost()
 
     call ddc#enable_cmdline_completion()
-    call ddc#enable()
   endfunction
 
   function! CommandlinePost() abort
-    call ddc#custom#set_buffer(s:prev_buffer_config)
+    if exists('b:prev_buffer_config')
+      call ddc#custom#set_buffer(b:prev_buffer_config)
+      unlet b:prev_buffer_config
+    else
+      call ddc#custom#set_buffer({})
+    endif
+    silent! cunmap <Tab>
+    silent! cunmap <C-n>
+    silent! cunmap <C-p>
+    silent! cunmap <Down>
+    silent! cunmap <Up>
+    silent! cunmap <CR>
   endfunction
 '''
 
@@ -73,9 +86,9 @@ repo = 'Shougo/pum.vim'
 repo = 'Shougo/ddc-around'
 on_source = 'ddc.vim'
 
-[[plugins]]
-repo = 'tani/ddc-fuzzy'
-on_source = 'ddc.vim'
+# [[plugins]]
+# repo = 'tani/ddc-fuzzy'
+# on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'Shougo/ddc-matcher_head'
