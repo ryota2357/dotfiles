@@ -36,3 +36,5 @@ if dein#min#load_state(s:dein_dir)
   call dein#end()
   call dein#save_state()
 endif
+
+set secure

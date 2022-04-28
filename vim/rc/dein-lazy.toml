@@ -58,4 +58,3 @@ hook_source = '''
 hook_add = '''
   let g:prettier#config#tab_width = 2
 '''
-

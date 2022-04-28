@@ -27,6 +27,7 @@ cnoremap <C-f> <Right>
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 cnoremap <C-d> <Del>
+cnoremap <C-h> <BS>
 
 " 画面分割/移動
 nnoremap sj <C-w>j
