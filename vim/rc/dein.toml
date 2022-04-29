@@ -63,20 +63,10 @@ repo = 'cocopon/inspecthi.vim'
 [[plugins]]
 repo = 'kat0h/bufpreview.vim'
 
-
-# fzf
-[[plugins]]
-repo = 'junegunn/fzf'
-hook_post_update = 'fzf#install()'
-merged = 0
-hook_add = '''
-  set rtp+=/usr/local/opt/fzf
-'''
-
 [[plugins]]
 repo = 'junegunn/fzf.vim'
-depends = 'fzf'
 hook_add = '''
+  set rtp+=/usr/local/opt/fzf
   command! -bang -nargs=* Rg
     \ call fzf#vim#grep(
     \   'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
