@@ -3,7 +3,7 @@ repo = 'Shougo/ddc.vim'
 depends = ['denops.vim', 'pum.vim']
 on_event = ['InsertEnter', 'CursorHold']
 hook_source = '''
-  call ddc#custom#patch_global('sources', ['nvim-lsp', 'around'])
+  call ddc#custom#patch_global('sources', ['nvim-lsp', 'vsnip', 'around'])
   call ddc#custom#patch_global('sourceOptions', {
     \   '_': {
     \     'ignoreCase': v:true,
@@ -19,7 +19,10 @@ hook_source = '''
     \     'mark': 'LSP',
     \     'forceCompletionPattern': '\.\w*|:\w*|->\w*',
     \   },
-    \   'vsnip': { 'mark': 'S' },
+    \   'vsnip': {
+    \      'mark': 'S',
+    \      'dup': v:true
+    \   },
     \   'cmdline-history': { 'mark': 'H' },
     \ })
   call ddc#custom#patch_global('sourceParams', {
@@ -78,6 +81,7 @@ hook_add = '''
     silent! cunmap <CR>
   endfunction
 '''
+
 
 [[plugins]]
 repo = 'Shougo/pum.vim'
@@ -170,15 +174,16 @@ hook_source = '''
 
 [[plugins]]
 repo = 'hrsh7th/vim-vsnip'
-on_event = 'InsertEnter'
+on_source = 'ddc.vim'
 hook_add = '''
+  let g:vsnip_snippet_dir = expand('~/dotfiles/vim/snip')
 '''
 
 [[plugins]]
 repo = 'hrsh7th/vim-vsnip-integ'
+on_source = 'ddc.vim'
 depends = 'vim-vsnip'
 hook_add = '''
-  " textEditを適用する(pum.vim使用時) (https://zenn.dev/matsui54/articles/2021-09-03-ddc-lsp#textedit)
-  " 未知の関数と言われるのでひとまずコメントアウト(textEditはできない)
-  " autocmd User PumCompleteDone call vsnip_integ#on_complete_done(g:pum#completed_item)
+  " pum, ddc との連携
+  autocmd User PumCompleteDone call vsnip_integ#on_complete_done(g:pum#completed_item)
 '''
