@@ -4,7 +4,6 @@ hook_add = '''
   let g:dein#enable_notification = v:true
   let g:dein#auto_recache = v:false " intel-macだと遅いのでfalse、m1-macで要検証
   let g:dein#install_progress_type = 'floating'
-  let g:dein#lazy_rplugins = v:true
 '''
 
 [[plugins]]
@@ -68,7 +67,7 @@ repo = 'kat0h/bufpreview.vim'
 # fzf
 [[plugins]]
 repo = 'junegunn/fzf'
-hook_post_update = './install --all'
+hook_post_update = 'fzf#install()'
 merged = 0
 hook_add = '''
   set rtp+=/usr/local/opt/fzf
