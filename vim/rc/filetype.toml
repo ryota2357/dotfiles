@@ -5,5 +5,9 @@ hook_add = '''
 tex = '''
   inoremap <buffer> $ $$<Left>
 
+  " 日本語は2文字分だから通常の2倍に
   setlocal sidescrolloff=10
+
+  " 規定だと\frac{abs{sin{x}}}{2}とかに引っかかる
+  setlocal foldmarker=!!!>,<!!!
 '''
