@@ -1,7 +1,7 @@
 {
   "abs": {
     "prefix": "abs",
-    "body": "\\abs{#0}"
+    "body": "\\abs{$0}"
   },
   "begin": {
     "prefix": "begin",
@@ -30,7 +30,7 @@
   "figure": {
     "prefix": "figure",
     "body": [
-      "\\begin{figure}[h]",
+      "\\begin{figure}[H]",
       "  \\centering",
       "  \\includegraphics[width=10truecm]{./fig/$1}",
       "  \\caption{$2}",
@@ -45,6 +45,18 @@
   "italic": {
     "prefix": "italic",
     "body": "\\italic{$0}"
+  },
+  "item": {
+    "prefix": "item",
+    "body": "\\item "
+  },
+  "itemize": {
+    "prefix": ["itemize", "list"],
+    "body": [
+      "\\begin{itemize}",
+      "  \\item $0",
+      "\\end{itemize}"
+    ]
   },
   "label": {
     "prefix": "label",
@@ -76,9 +88,40 @@
       "%}}}"
     ]
   },
+  "SI": {
+    "prefix": "SI",
+    "body": "\\SI{$1}{$0}"
+  },
+  "si": {
+    "prefix": "si",
+    "body": "\\si{$0}"
+  },
   "sin": {
     "prefix": "sin",
     "body": "\\sin{$0}"
+  },
+  "spacer": {
+    "prefix": "spacer",
+    "body": [
+      "\\spacer",
+      "$0"
+    ]
+  },
+  "table": {
+    "pre": "table",
+    "body": [
+      "\\begin{table}[H]",
+      "  \\begin{center}",
+      "    \\caption{$1}",
+      "    \\label{表:$1}",
+      "    \\begin{tabular}{$2:lcr...}",
+      "      \\hline",
+      "        $0",
+      "      \\hline",
+      "    \\end{tabular}",
+      "  \\end{center}",
+      "\\end{table}"
+    ]
   },
   "α": {
     "prefix": "alpha",
