@@ -1,0 +1,9 @@
+hook_add = '''
+'''
+
+[ftplugin]
+tex = '''
+  inoremap <buffer> $ $$<Left>
+
+  setlocal sidescrolloff=10
+'''

@@ -6,10 +6,11 @@ ln_dots() {
 
 mkdir -p ~/.config/nvim/
 
-ln_dots zsh/zshrc.zsh    ~/.zshrc
-ln_dots zsh/zprofile.zsh ~/.zprofile
-ln_dots tmux/tmux.conf   ~/.tmux.conf
-ln_dots vim/vimrc        ~/.config/nvim/init.vim
-ln_dots vim/vimrc        ~/.ideavimrc
+ln_dots zsh/zshrc.zsh      ~/.zshrc
+ln_dots zsh/zprofile.zsh   ~/.zprofile
+ln_dots tmux/tmux.conf     ~/.tmux.conf
+ln_dots vim/vimrc          ~/.config/nvim/init.vim
+ln_dots vim/vimrc          ~/.ideavimrc
+ln_dots tex/latexmkrc.perl ~/.latexmkrc
 
 unset -f ln_dots

@@ -1,0 +1,163 @@
+{
+  "abs": {
+    "prefix": "abs",
+    "body": "\\abs{#0}"
+  },
+  "begin": {
+    "prefix": "begin",
+    "body": [
+      "\\begin{$1}",
+      "  $0",
+      "\\end{$1}"
+    ]
+  },
+  "bold": {
+    "prefix": "bold",
+    "body": "\\bold{$0}"
+  },
+  "cos": {
+    "prefix": "cos",
+    "body": "\\cos{$0}"
+  },
+  "equation": {
+    "prefix": "equation",
+    "body": [
+      "\\begin{equation}",
+      "  $0",
+      "\\end{equation}"
+    ]
+  },
+  "figure": {
+    "prefix": "figure",
+    "body": [
+      "\\begin{figure}[h]",
+      "  \\centering",
+      "  \\includegraphics[width=10truecm]{./fig/$1}",
+      "  \\caption{$2}",
+      "\\end{figure}",
+      "$0"
+    ]
+  },
+  "frac": {
+    "prefix": "frac",
+    "body": "\\frac{$1}{$0}"
+  },
+  "italic": {
+    "prefix": "italic",
+    "body": "\\italic{$0}"
+  },
+  "label": {
+    "prefix": "label",
+    "body": "\\label{$0}"
+  },
+  "newpage": {
+    "prefix": "newpage",
+    "body": "\\newpage"
+  },
+  "overline": {
+    "prefix": "overline",
+    "body": "\\overline{$0}"
+  },
+  "ref": {
+    "prefix": "ref",
+    "body": "\\ref{$0}"
+  },
+  "refeqj": {
+    "prefix": "refeqj",
+    "body": "\\refeqj{$0}"
+  },
+  "section": {
+    "prefix": "section",
+    "body": [
+      "%{{{  ## $1",
+      "\\section{$1}",
+      "",
+      "$0",
+      "%}}}"
+    ]
+  },
+  "sin": {
+    "prefix": "sin",
+    "body": "\\sin{$0}"
+  },
+  "α": {
+    "prefix": "alpha",
+    "body": "\\alpha"
+  },
+  "β": {
+    "prefix": "bata",
+    "body": "\\bata"
+  },
+  "γ": {
+    "prefix": "gamma",
+    "body": "\\gamma"
+  },
+  "δ": {
+    "prefix": "delta",
+    "body": "\\delta"
+  },
+  "Δ": {
+    "prefix": "Delta",
+    "body": "\\Delta"
+  },
+  "ε": {
+    "prefix": "epsilon",
+    "body": "\\epsilon"
+  },
+  "ζ": {
+    "prefix": "zeta",
+    "body": "\\zeta"
+  },
+  "η": {
+    "prefix": "eta",
+    "body": "\\eta"
+  },
+  "θ": {
+    "prefix": "theta",
+    "body": "\\theta"
+  },
+  "κ": {
+    "prefix": "kappa",
+    "body": "\\kappa"
+  },
+  "λ": {
+    "prefix": "lambda",
+    "body": "\\lambda"
+  },
+  "μ": {
+    "prefix": "mu",
+    "body": "\\mu"
+  },
+  "ν": {
+    "prefix": "nu",
+    "body": "\\nu"
+  },
+  "π": {
+    "prefix": "pi",
+    "body": "\\pi"
+  },
+  "ρ": {
+    "prefix": "rho",
+    "body": "\\rho"
+  },
+  "σ": {
+    "prefix": "sigma",
+    "body": "\\sigma"
+  },
+  "φ": {
+    "prefix": "phi",
+    "body": "\\phi"
+  },
+  "ω": {
+    "prefix": "omega",
+    "body": "\\omega"
+  },
+  "±": {
+    "prefix": "pm",
+    "body": "\\pm"
+  },
+  "∓": {
+    "prefix": "mp",
+    "body": "\\mp"
+  }
+}

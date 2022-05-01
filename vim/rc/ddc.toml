@@ -3,7 +3,7 @@ repo = 'Shougo/ddc.vim'
 depends = ['denops.vim', 'pum.vim']
 on_event = ['InsertEnter', 'CursorHold']
 hook_source = '''
-  call ddc#custom#patch_global('sources', ['nvim-lsp', 'vsnip', 'around'])
+  call ddc#custom#patch_global('sources', ['around'])
   call ddc#custom#patch_global('sourceOptions', {
     \   '_': {
     \     'ignoreCase': v:true,
@@ -27,6 +27,13 @@ hook_source = '''
     \ })
   call ddc#custom#patch_global('sourceParams', {
     \   'around': {'maxSize': 500},
+    \ })
+
+  call ddc#custom#patch_filetype(['cpp', 'dart', 'vim'], {
+    \   'sources': ['nvim-lsp', 'vsnip', 'around']
+    \ })
+  call ddc#custom#patch_filetype(['tex'], {
+    \   'sources': ['vsnip', 'around']
     \ })
 
 
@@ -176,7 +183,9 @@ hook_source = '''
 repo = 'hrsh7th/vim-vsnip'
 on_source = 'ddc.vim'
 hook_add = '''
-  let g:vsnip_snippet_dir = expand('~/dotfiles/vim/snip')
+  let g:vsnip_snippet_dir = expand('~/dotfiles/vim/snippet')
+  imap <expr><Tab>   vsnip#jumpable(1)  ? '<Plug>(vsnip-jump-next)' : '<Tab>'
+  imap <expr><S-Tab> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
 '''
 
 [[plugins]]

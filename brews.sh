@@ -52,6 +52,7 @@ brew install --cask font-hack-nerd-font
 
 # latex
 brew install texlive
+brew install texlab
 brew install --cask skim
 
 # other casks
