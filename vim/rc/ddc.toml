@@ -20,14 +20,19 @@ hook_source = '''
     \     'forceCompletionPattern': '\.\w*|:\w*|->\w*',
     \   },
     \   'vsnip': {
-    \      'mark': 'S',
-    \      'dup': v:true
+    \     'mark': 'S',
+    \     'dup': v:true
     \   },
     \   'cmdline-history': { 'mark': 'H' },
     \ })
   call ddc#custom#patch_global('sourceParams', {
-    \   'around': {'maxSize': 500},
+    \   'around': { 'maxSize': 500 },
     \ })
+  call ddc#custom#patch_global('autoCompleteEvents', [
+    \   'InsertEnter', 'TextChangedI', 'TextChangedP', 'CmdlineEnter', 'CmdlineChanged',
+    \ ])
+  call ddc#custom#patch_global('backspaceCompletion', v:true)
+  call ddc#custom#patch_global('completionMenu', 'pum.vim')
 
   call ddc#custom#patch_filetype(['cpp', 'dart', 'vim'], {
     \   'sources': ['nvim-lsp', 'vsnip', 'around']
@@ -35,18 +40,6 @@ hook_source = '''
   call ddc#custom#patch_filetype(['tex'], {
     \   'sources': ['vsnip', 'around']
     \ })
-
-
-  " pum settings
-  call ddc#custom#patch_global('completionMenu', 'pum.vim')
-  call ddc#custom#patch_global('autoCompleteEvents', [
-    \   'InsertEnter', 'TextChangedI', 'TextChangedP', 'CmdlineEnter', 'CmdlineChanged',
-    \ ])
-  inoremap <expr><C-n>  pum#visible() ? '<Cmd>call pum#map#select_relative(+1)<CR>' : '<Down>'
-  inoremap <expr><C-p>  pum#visible() ? '<Cmd>call pum#map#select_relative(-1)<CR>' : '<Up>'
-  inoremap <expr><Down> pum#visible() ? '<Cmd>call pum#map#select_relative(+1)<CR>' : '<Down>'
-  inoremap <expr><Up>   pum#visible() ? '<Cmd>call pum#map#select_relative(-1)<CR>' : '<Up>'
-  inoremap <expr><CR>   pum#visible() ? '<Cmd>call pum#map#confirm()<CR>'           : '<CR>'
 
   call ddc#enable()
 '''
@@ -89,9 +82,15 @@ hook_add = '''
   endfunction
 '''
 
-
 [[plugins]]
 repo = 'Shougo/pum.vim'
+hook_add = '''
+  inoremap <expr><C-n>  pum#visible() ? '<Cmd>call pum#map#select_relative(+1)<CR>' : '<Down>'
+  inoremap <expr><C-p>  pum#visible() ? '<Cmd>call pum#map#select_relative(-1)<CR>' : '<Up>'
+  inoremap <expr><Down> pum#visible() ? '<Cmd>call pum#map#select_relative(+1)<CR>' : '<Down>'
+  inoremap <expr><Up>   pum#visible() ? '<Cmd>call pum#map#select_relative(-1)<CR>' : '<Up>'
+  inoremap <expr><CR>   pum#visible() ? '<Cmd>call pum#map#confirm()<CR>'           : '<CR>'
+'''
 
 [[plugins]]
 repo = 'Shougo/ddc-around'
@@ -181,7 +180,7 @@ hook_source = '''
 
 [[plugins]]
 repo = 'hrsh7th/vim-vsnip'
-on_source = 'ddc.vim'
+on_event = 'InsertEnter'
 hook_add = '''
   let g:vsnip_snippet_dir = expand('~/dotfiles/vim/snippet')
   imap <expr><Tab>   vsnip#jumpable(1)  ? '<Plug>(vsnip-jump-next)' : '<Tab>'
