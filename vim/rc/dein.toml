@@ -39,8 +39,9 @@ hook_add = '''
 [[plugins]]
 repo = 'tomtom/tcomment_vim'
 hook_add = '''
-  vnoremap ? :'<,'>TComment<CR>
-  nnoremap ? V:'<,'>TComment<CR>
+  let g:tcomment_maps = 0
+  vnoremap ? :TComment<CR>
+  nnoremap ? <Cmd>TComment<CR>
 '''
 
 # 末尾の空白が赤で強調表示する
