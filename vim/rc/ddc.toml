@@ -41,7 +41,7 @@ hook_source = '''
   call ddc#custom#patch_filetype(['tex'], {
     \   'sources': ['vsnip', 'around'],
     \   'sourceOptions': {
-    \     '_': { 'minAutoCompleteLength': 1 }
+    \     'vsnip': { 'minAutoCompleteLength': 1 }
     \   }
     \ })
 
