@@ -7,9 +7,10 @@ hook_source = '''
   call ddc#custom#patch_global('sourceOptions', {
     \   '_': {
     \     'ignoreCase': v:true,
+    \     'minAutoCompleteLength': 2,
     \     'matchers': ['matcher_head'],
     \     'sorters': ['sorter_rank'],
-    \     'converters': ['converter_remove_overlap'],
+    \     'converters': ['converter_remove_overlap']
     \   },
     \   'around': {
     \     'mark': 'A',
@@ -17,16 +18,16 @@ hook_source = '''
     \   },
     \   'nvim-lsp': {
     \     'mark': 'LSP',
-    \     'forceCompletionPattern': '\.\w*|:\w*|->\w*',
+    \     'forceCompletionPattern': '\.\w*|:\w*|->\w*'
     \   },
     \   'vsnip': {
     \     'mark': 'S',
     \     'dup': v:true
     \   },
-    \   'cmdline-history': { 'mark': 'H' },
+    \   'cmdline-history': { 'mark': 'H' }
     \ })
   call ddc#custom#patch_global('sourceParams', {
-    \   'around': { 'maxSize': 500 },
+    \   'around': { 'maxSize': 500 }
     \ })
   call ddc#custom#patch_global('autoCompleteEvents', [
     \   'InsertEnter', 'TextChangedI', 'TextChangedP', 'CmdlineEnter', 'CmdlineChanged',
@@ -38,7 +39,10 @@ hook_source = '''
     \   'sources': ['nvim-lsp', 'vsnip', 'around']
     \ })
   call ddc#custom#patch_filetype(['tex'], {
-    \   'sources': ['vsnip', 'around']
+    \   'sources': ['vsnip', 'around'],
+    \   'sourceOptions': {
+    \     '_': { 'minAutoCompleteLength': 1 }
+    \   }
     \ })
 
   call ddc#enable()
