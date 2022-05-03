@@ -7,7 +7,6 @@ hook_source = '''
   call ddc#custom#patch_global('sourceOptions', {
     \   '_': {
     \     'ignoreCase': v:true,
-    \     'minAutoCompleteLength': 2,
     \     'matchers': ['matcher_head'],
     \     'sorters': ['sorter_rank'],
     \     'converters': ['converter_remove_overlap']
