@@ -1,7 +1,7 @@
 [[plugins]]
 repo = 'Shougo/ddc.vim'
 depends = ['denops.vim', 'pum.vim']
-on_event = ['InsertEnter', 'CursorHold']
+on_event = ['InsertEnter', 'CursorHold', 'CmdlineEnter']
 hook_source = '''
   call ddc#custom#patch_global('sources', ['around'])
   call ddc#custom#patch_global('cmdlineSources', ['cmdline', 'cmdline-history', 'around'])
