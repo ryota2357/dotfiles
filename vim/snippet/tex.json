@@ -107,6 +107,10 @@
       "$0"
     ]
   },
+  "sqrt": {
+    "prefix": "sqrt",
+    "body": "\\sqrt{$0}"
+  },
   "subsection": {
     "prefix": "subsection",
     "body": [
