@@ -5,5 +5,10 @@
 let mapleader = "\<Space>"
 
 execute 'source ~/dotfiles/vim/rc/maping.rc.vim'
-execute 'source ~/dotfiles/vim/rc/idea-plugs.rc.vim'
-execute 'source ~/dotfiles/vim/rc/idea-option.rc.vim'
+
+set incsearch
+set scrolloff=3
+set ignorecase
+
+set NERDTree
+nnoremap <Leader>o :<C-u>NERDTreeToggle<CR>

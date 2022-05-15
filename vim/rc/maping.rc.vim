@@ -45,18 +45,18 @@ nnoremap <C-w>h <C-w><
 nnoremap > :tabn<CR>
 nnoremap < :tabN<CR>
 
+" 補完
 if has("nvim")
-  " 補完
   inoremap { {}<Left>
   inoremap {<CR> {<CR>}<ESC><S-o>
   inoremap ( ()<ESC>i
   inoremap (<CR> ()<Left><CR><ESC><S-o>
   inoremap () ()
   inoremap {} {}
-  inoremap " ""<Left>
-  inoremap ' ''<Left>
-  inoremap , ,<Space>
 endif
+inoremap " ""<Left>
+inoremap ' ''<Left>
+inoremap , ,<Space>
 
 if has('ide')
   " <Action>(action-name) のマッピングには map しか使えない
@@ -65,4 +65,7 @@ if has('ide')
   map <Leader>d <Action>(GotoDeclaration)
   map <Leader>r <Action>(RenameElement)
   map <Leader>j <Action>(ShowIntentionActions)
+
+  nnoremap ? :<C-u>action CommentByLineComment<CR>
+  vnoremap ? :<C-u>action CommentByLineComment<CR>
 endif
