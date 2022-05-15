@@ -90,7 +90,7 @@
   },
   "SI": {
     "prefix": "SI",
-    "body": "\\SI{$1}{$0}"
+    "body": "\\SI{$1}{$2}$0"
   },
   "si": {
     "prefix": "si",
@@ -107,8 +107,16 @@
       "$0"
     ]
   },
+  "subsection": {
+    "prefix": "subsection",
+    "body": [
+      "\\subsection{$1}",
+      "",
+      "$0"
+    ]
+  },
   "table": {
-    "pre": "table",
+    "prefix": "table",
     "body": [
       "\\begin{table}[H]",
       "  \\begin{center}",
@@ -128,8 +136,8 @@
     "body": "\\alpha"
   },
   "β": {
-    "prefix": "bata",
-    "body": "\\bata"
+    "prefix": "beta",
+    "body": "\\beta"
   },
   "γ": {
     "prefix": "gamma",
