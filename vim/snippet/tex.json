@@ -15,6 +15,10 @@
     "prefix": "bold",
     "body": "\\bold{$0}"
   },
+  "ce" :{
+    "prefix": "ce",
+    "body": "\\ce{$0}"
+  },
   "cos": {
     "prefix": "cos",
     "body": "\\cos{$0}"
