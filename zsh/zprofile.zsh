@@ -19,3 +19,6 @@ esac
 # pyenv
 export PATH="${PATH//$(pyenv root)\/shims:/}"
 eval "$(pyenv init --path)"
+
+# nodebrew
+export PATH=$HOME/.nodebrew/current/bin:$PATH

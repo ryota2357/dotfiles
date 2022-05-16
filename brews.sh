@@ -3,7 +3,8 @@ brew install gh
 brew install vim
 brew install neovim
 brew install tmux
-brew install node
+brew install nodebrew
+brew install deno
 brew install zplug
 
 # 最新バージョン以外の取得を可能にする
@@ -14,9 +15,6 @@ brew install pyenv
 brew install rbenv ruby-build
 brew install rust
 brew install php
-
-# denops.vim
-brew install deno
 
 # bat: fzf.vim のプレビューに syntax highlight をつける
 # ripgrep: (rg) 高速なgrep検索
