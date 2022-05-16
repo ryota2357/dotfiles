@@ -55,8 +55,13 @@ lua <<EOF
 require'nvim-treesitter.configs'.setup {
     ensure_installed = 'all',
     additional_vim_regex_highlighting = false,
+
+    -- m1でエラー出るから
+    ignore_install = { "phpdoc" },
+
     highlight = {
         enable = true,
+        disable = { "tex", "latex" },
     },
 }
 EOF
