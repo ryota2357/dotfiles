@@ -1,6 +1,6 @@
 if has("nvim")
- " vim help を垂直分割で開く
- command! -nargs=1 -complete=help Vh :vertical belowright help <args>
+  " vim help を垂直分割で開く
+  command! -nargs=1 -complete=help Vh :vertical belowright help <args>
 endif
 
 " xで削除した時はヤンクしない
