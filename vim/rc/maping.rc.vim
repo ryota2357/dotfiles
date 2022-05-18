@@ -7,6 +7,12 @@ endif
 vnoremap x "_x
 nnoremap x "_x
 
+" 表示行で移動する
+if has("nvim")
+  nnoremap j gj
+  nnoremap k gk
+endif
+
 " Qで行頭, Pで行末に移動
 nnoremap Q ^
 nnoremap P $l

@@ -56,10 +56,12 @@ hook_add = '''
     cnoremap <expr><C-p>  pum#visible() ? '<Cmd>call pum#map#select_relative(-1)<CR>' : '<Up>'
     cnoremap <expr><Down> pum#visible() ? '<Cmd>call pum#map#select_relative(+1)<CR>' : '<Down>'
     cnoremap <expr><Up>   pum#visible() ? '<Cmd>call pum#map#select_relative(-1)<CR>' : '<Up>'
-    cnoremap <expr><CR>   pum#visible() ? '<Cmd>call pum#map#confirm()<CR>'           : '<CR>'
+    cnoremap <expr><CR>  pum#visible() && pum#complete_info(['selected']) != {'selected': -1} ? '<Cmd>call pum#map#confirm()<CR>' : '<CR>'
 
     autocmd User DDCCmdlineLeave ++once call CommandlinePost()
     autocmd InsertEnter <buffer> ++once call CommandlinePost()
+
+    set completeopt=menu,noselect
 
     call ddc#enable_cmdline_completion()
   endfunction
@@ -71,18 +73,19 @@ hook_add = '''
     silent! cunmap <Down>
     silent! cunmap <Up>
     silent! cunmap <CR>
+    set completeopt=menuone,noinsert
   endfunction
 '''
 
 [[plugins]]
 repo = 'Shougo/pum.vim'
 hook_add = '''
-  inoremap <expr><C-n>  pum#visible() ? '<Cmd>call pum#map#select_relative(+1)<CR>' : '<Down>'
-  inoremap <expr><C-p>  pum#visible() ? '<Cmd>call pum#map#select_relative(-1)<CR>' : '<Up>'
-  inoremap <expr><Down> pum#visible() ? '<Cmd>call pum#map#select_relative(+1)<CR>' : '<Down>'
-  inoremap <expr><Up>   pum#visible() ? '<Cmd>call pum#map#select_relative(-1)<CR>' : '<Up>'
+  inoremap <expr><C-n>  pum#visible() ? '<Cmd>call pum#map#select_relative(+1)<CR>' : '<Cmd>normal! gj<CR>'
+  inoremap <expr><C-p>  pum#visible() ? '<Cmd>call pum#map#select_relative(-1)<CR>' : '<Cmd>normal! gk<CR>'
+  inoremap <expr><Down> pum#visible() ? '<Cmd>call pum#map#select_relative(+1)<CR>' : '<Cmd>normal! gj<CR>'
+  inoremap <expr><Up>   pum#visible() ? '<Cmd>call pum#map#select_relative(-1)<CR>' : '<Cmd>normal! gk<CR>'
   inoremap <expr><CR>   pum#visible() ? '<Cmd>call pum#map#confirm()<CR>'           : '<CR>'
-
+  set completeopt=menuone,noinsert
 '''
 
 [[plugins]]
