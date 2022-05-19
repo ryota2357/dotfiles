@@ -56,6 +56,10 @@ hook_add = '''
 [[plugins]]
 repo = 'cocopon/inspecthi.vim'
 
+# コマンド :TSHighlightCapturesUnderCursor
+[[plugins]]
+repo = 'nvim-treesitter/playground'
+
 # markdown preview
 # コマンド :PreviewMarkdown       # Start the preview
 #          :PreviewMarkdownStop   # Stop the preview
@@ -64,9 +68,13 @@ repo = 'cocopon/inspecthi.vim'
 repo = 'kat0h/bufpreview.vim'
 
 [[plugins]]
+repo = 'junegunn/fzf'
+
+[[plugins]]
 repo = 'junegunn/fzf.vim'
 hook_add = '''
-  set rtp+=/usr/local/opt/fzf
+  set rtp+=/usr/local/opt/fzf    " intel
+  set rtp+=/opt/homebrew/bin/fzf " m1
   command! -bang -nargs=* Rg
     \ call fzf#vim#grep(
     \   'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
