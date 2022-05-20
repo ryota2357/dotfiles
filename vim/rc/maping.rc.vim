@@ -1,6 +1,15 @@
 if has("nvim")
   " vim help を垂直分割で開く
   command! -nargs=1 -complete=help Vh :vertical belowright help <args>
+
+  command! Wrap :call ToggleWrap()
+  function! ToggleWrap() abort
+      if &wrap
+        :set nowrap
+      else
+        :set wrap
+      endif
+  endfunction
 endif
 
 " xで削除した時はヤンクしない
