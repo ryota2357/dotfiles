@@ -123,6 +123,10 @@
       "$0"
     ]
   },
+  "sum": {
+    "prefix": "sum",
+    "body": "\\sum"
+  },
   "table": {
     "prefix": "table",
     "body": [

@@ -52,14 +52,6 @@ hook_add = '''
   let g:extra_whitespace_ignored_filetypes = ['markdown', 'defx']
 '''
 
-# コマンド :Inspecthi
-[[plugins]]
-repo = 'cocopon/inspecthi.vim'
-
-# コマンド :TSHighlightCapturesUnderCursor
-[[plugins]]
-repo = 'nvim-treesitter/playground'
-
 # markdown preview
 # コマンド :PreviewMarkdown       # Start the preview
 #          :PreviewMarkdownStop   # Stop the preview

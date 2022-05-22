@@ -35,8 +35,11 @@ hook_source = '''
   call ddc#custom#patch_global('backspaceCompletion', v:true)
   call ddc#custom#patch_global('completionMenu', 'pum.vim')
 
-  call ddc#custom#patch_filetype(['cpp', 'dart', 'vim'], {
-    \   'sources': ['nvim-lsp', 'vsnip', 'around']
+  call ddc#custom#patch_filetype(['vim'], {
+    \   'sources': ['vsnip', 'nvim-lsp', 'around']
+    \ })
+  call ddc#custom#patch_filetype(['cpp', 'dart'], {
+    \   'sources': ['nvim-lsp', 'around']
     \ })
   call ddc#custom#patch_filetype(['tex'], {
     \   'sources': ['vsnip', 'around'],

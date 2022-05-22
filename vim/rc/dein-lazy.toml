@@ -67,6 +67,16 @@ require'nvim-treesitter.configs'.setup {
 EOF
 '''
 
+# コマンド :TSHighlightCapturesUnderCursor
+[[plugins]]
+repo = 'nvim-treesitter/playground'
+on_source = 'nvim-treesitter'
+
+# コマンド :Inspecthi
+[[plugins]]
+repo = 'cocopon/inspecthi.vim'
+on_event = 'CmdlineEnter'
+
 # formatter
 [[plugins]]
 repo = 'prettier/vim-prettier'
