@@ -24,6 +24,7 @@ let s:dein_dir = $CACHE . '/dein'
 let s:toml = s:rc_dir . '/dein.toml'
 let s:lazy = s:rc_dir . '/dein-lazy.toml'
 let s:ddc = s:rc_dir . '/ddc.toml'
+let s:ddu = s:rc_dir . '/ddu.toml'
 let s:ft = s:rc_dir . '/filetype.toml'
 
 " Load plugin by dein.
@@ -33,6 +34,7 @@ if dein#min#load_state(s:dein_dir)
   call dein#load_toml(s:toml)
   call dein#load_toml(s:lazy, {'lazy': 1})
   call dein#load_toml(s:ddc, {'lazy': 1})
+  call dein#load_toml(s:ddu, {'lazy': 1})
   call dein#load_toml(s:ft)
 
   call dein#end()

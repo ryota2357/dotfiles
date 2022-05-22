@@ -1,0 +1,84 @@
+[[plugins]]
+repo = 'Shougo/ddu.vim'
+depends = 'denops.vim'
+on_source = 'denops.vim'
+hook_add = '''
+ nnoremap <silent><Leader>f <Cmd>call ddu#start({ 'sources': [{'name': 'file_rec'}] })<CR>
+ nnoremap <silent><Leader>g <Cmd>call ddu#start({ 'sources': [{'name': 'rg' }], 'volatile': v:true })<CR>
+'''
+hook_source = '''
+  call ddu#custom#patch_global({
+    \   'ui': 'ff',
+    \   'uiParams': {
+    \     'ff': {
+    \       'split': 'floating',
+    \       'winRow': round(&lines * 0.2),
+    \       'winCol': round(&columns * 0.1),
+    \       'winHeight': round(&lines * 0.5),
+    \       'winWidth': round(&columns * 0.8),
+    \       'floatingBorder': 'rounded',
+    \       'previewFloating': v:true,
+    \       'previewRow': round(&lines * 0.6),
+    \       'previewCol': round(&columns * 0.5),
+    \       'previewHeight': round(&lines * 0.4),
+    \       'previewWidth': round(&columns * 0.45),
+    \       'previewFloatingBorder': 'double',
+    \       'startFilter': v:true,
+    \     },
+    \   },
+    \   'sourceOptions': {
+    \     '_': {
+    \       'ignoreCase': v:true,
+    \       'matchers': ['matcher_fzf'],
+    \     },
+    \     'rg': {
+    \       'matchers': [],
+    \     }
+    \   },
+    \   'filterParams': {
+    \     'matcher_fzf': { 'highlightMatched': 'Search' }
+    \   },
+    \   'kindOptions': {
+    \     'file': {
+    \       'defaultAction': 'open',
+    \     },
+    \   }
+    \ })
+'''
+
+[[plugins]]
+repo = 'Shougo/ddu-ui-ff'
+on_source = 'ddu.vim'
+[plugins.ftplugin]
+ddu-ff = '''
+  nnoremap <buffer><ESC> <Cmd>call ddu#ui#ff#do_action('quit')<CR>
+'''
+ddu-ff-filter = '''
+  inoremap <buffer><CR>  <Cmd>call ddu#ui#ff#do_action('itemAction')<CR>
+  inoremap <buffer><C-n> <Cmd>call ddu#ui#ff#execute("call cursor(line('.')+1,0)")<CR>
+  inoremap <buffer><C-p> <Cmd>call ddu#ui#ff#execute("call cursor(line('.')-1,0)")<CR>
+  inoremap <buffer><C-t> <Cmd>call ddu#ui#ff#do_action('itemAction', {'params' : {'command': 'tabnew'}})<CR>
+  inoremap <buffer><C-q> <Cmd>call ddu#ui#ff#do_action('preview')<CR>
+  inoremap <buffer><ESC> <Cmd>call ddu#ui#ff#do_action('quit')<CR>
+'''
+
+[[plugins]]
+repo = 'Shougo/ddu-source-file_rec'
+depends = 'ddu-kind-file'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'shun/ddu-source-rg'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'Shougo/ddu-filter-matcher_substring'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'yuki-yano/ddu-filter-fzf'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'Shougo/ddu-kind-file'
+on_source = 'ddu.vim'

@@ -3,6 +3,7 @@ repo = 'Shougo/dein.vim'
 hook_add = '''
   let g:dein#enable_notification = v:true
   let g:dein#install_progress_type = 'floating'
+  let g:dein#auto_recache = v:true
 '''
 
 [[plugins]]
@@ -67,16 +68,6 @@ repo = 'junegunn/fzf.vim'
 hook_add = '''
   set rtp+=/usr/local/opt/fzf    " intel
   set rtp+=/opt/homebrew/bin/fzf " m1
-  command! -bang -nargs=* Rg
-    \ call fzf#vim#grep(
-    \   'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
-    \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
-    \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
-    \   <bang>0)
-  command! -bang -nargs=? -complete=dir Files
-    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-  nnoremap <Leader>g :Rg<CR>
-  nnoremap <Leader>f :Files<CR>
   nnoremap <Leader>F :GFiles<CR>
   nnoremap <Leader>h :History<CR>
 '''
