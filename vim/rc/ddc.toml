@@ -157,11 +157,6 @@ hook_source = '''
       lint = true,
       unstable = true,
     },
-    filetypes = {
-      "javascript", "javascriptreact", "javascript.jsx", -- 既定 js
-      "typescript", "typescriptreact", "typescript.tsx", -- 既定 ts
-      "ts"                                               -- 追加
-    },
     root_dir = require("lspconfig.util").root_pattern("deno.json", "deno.jsonc", "tsconfig.json", ".git", "denops")
   }
   nvim_lsp.omnisharp.setup{}
