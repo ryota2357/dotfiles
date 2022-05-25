@@ -60,17 +60,5 @@ hook_add = '''
 [[plugins]]
 repo = 'kat0h/bufpreview.vim'
 
-[[plugins]]
-repo = 'junegunn/fzf'
-
-[[plugins]]
-repo = 'junegunn/fzf.vim'
-hook_add = '''
-  set rtp+=/usr/local/opt/fzf    " intel
-  set rtp+=/opt/homebrew/bin/fzf " m1
-  nnoremap <Leader>F :GFiles<CR>
-  nnoremap <Leader>h :History<CR>
-'''
-
 # [[plugins]]
 # repo = '~/CompetitiveProgramming/Library/cpl'

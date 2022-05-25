@@ -59,9 +59,11 @@ require'nvim-treesitter.configs'.setup {
     -- m1でエラー出るから
     ignore_install = { "phpdoc" },
 
+    -- helpはハイライト変になる
+    -- latexはなんかsnipet挿入後とかでエラーが出る
     highlight = {
         enable = true,
-        disable = { "help" },
+        disable = { 'help', 'latex', 'tex' },
     },
 }
 EOF
