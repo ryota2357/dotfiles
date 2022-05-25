@@ -61,7 +61,7 @@ require'nvim-treesitter.configs'.setup {
 
     highlight = {
         enable = true,
-        disable = { "tex", "latex", "help" },
+        disable = { "help" },
     },
 }
 EOF
@@ -80,7 +80,7 @@ on_event = 'CmdlineEnter'
 # formatter
 [[plugins]]
 repo = 'prettier/vim-prettier'
-hook_post_update = 'npm install'
+build = 'npm install'
 on_ft = ['markdown']
 hook_source = '''
   autocmd BufWritePre *.md PrettierAsync

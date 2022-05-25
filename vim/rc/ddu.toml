@@ -4,7 +4,8 @@ depends = 'denops.vim'
 on_source = 'denops.vim'
 hook_add = '''
  nnoremap <silent><Leader>f <Cmd>call ddu#start({ 'sources': [{'name': 'file_rec'}] })<CR>
- nnoremap <silent><Leader>g <Cmd>call ddu#start({ 'sources': [{'name': 'rg' }], 'volatile': v:true })<CR>
+ nnoremap <silent><Leader>g <Cmd>call ddu#start({ 'sources': [{'name': 'rg'}], 'volatile': v:true })<CR>
+ command! UpdatePlugin          :call ddu#start({ 'sources': [{'name': 'dein_update'}], 'uiParams': {'ff':{'startFilter': v:false}} })
 '''
 hook_source = '''
   call ddu#custom#patch_global({
@@ -23,25 +24,39 @@ hook_source = '''
     \       'previewHeight': round(&lines * 0.4),
     \       'previewWidth': round(&columns * 0.45),
     \       'previewFloatingBorder': 'double',
-    \       'startFilter': v:true,
-    \     },
-    \   },
-    \   'sourceOptions': {
-    \     '_': {
-    \       'ignoreCase': v:true,
-    \       'matchers': ['matcher_fzf'],
-    \     },
-    \     'rg': {
-    \       'matchers': [],
+    \       'startFilter': v:true
     \     }
     \   },
     \   'filterParams': {
     \     'matcher_fzf': { 'highlightMatched': 'Search' }
     \   },
+    \   'sourceOptions': {
+    \     '_': {
+    \       'ignoreCase': v:true,
+    \       'matchers': ['matcher_fzf']
+    \     },
+    \     'rg': {
+    \       'matchers': []
+    \     },
+    \     'dein_update': {
+    \       'matchers': ['matcher_dein_update']
+    \     },
+    \   },
     \   'kindOptions': {
     \     'file': {
-    \       'defaultAction': 'open',
+    \       'defaultAction': 'open'
     \     },
+    \    'dein_update': {
+    \       'defaultAction': 'viewDiff'
+    \     }
+    \   },
+    \   'actionOptions': {
+    \     'echo': {
+    \       'quit': v:false,
+    \     },
+    \     'echoDiff': {
+    \       'quit': v:false,
+    \     }
     \   }
     \ })
 '''
@@ -69,6 +84,10 @@ on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'shun/ddu-source-rg'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'matsui54/ddu-source-dein_update'
 on_source = 'ddu.vim'
 
 [[plugins]]
