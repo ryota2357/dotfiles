@@ -10,4 +10,18 @@ tex = '''
 
   " 規定だと\frac{abs{sin{x}}}{2}とかに引っかかる
   setlocal foldmarker=!!!>,<!!!
+
+  autocmd BufWritePre *.tex :call FixPunctuation()
+
+  function! FixPunctuation() abort
+    try
+      :%s/。/. /g
+    catch
+    endtry
+    try
+      :%s/、/, /g
+    catch
+    endtry
+    :FixWhitespace  " bronson/vim-trailing-whitespace
+  endfunction
 '''
