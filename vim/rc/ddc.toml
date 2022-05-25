@@ -38,7 +38,7 @@ hook_source = '''
   call ddc#custom#patch_filetype(['vim'], {
     \   'sources': ['vsnip', 'nvim-lsp', 'around']
     \ })
-  call ddc#custom#patch_filetype(['cpp', 'dart'], {
+  call ddc#custom#patch_filetype(['cpp', 'dart', 'typescript'], {
     \   'sources': ['nvim-lsp', 'around']
     \ })
   call ddc#custom#patch_filetype(['tex'], {
@@ -131,31 +131,41 @@ on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
-on_event = 'BufEnter'
+on_event = ['InsertEnter', 'CursorHold']
 hook_source = '''
   lua << EOF
-  local nvim_lsp = require('lspconfig')
   local on_attach = function (client, bufnr)
-    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-
+    local function set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
     local opts = { noremap=true, silent=true }
-    buf_set_keymap('n', '<Leader>d', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    buf_set_keymap('n', '<Leader>i', '<Cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    buf_set_keymap('n', '<Leader>r', '<Cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    buf_set_keymap('n', '<Leader>x', '<Cmd>lua vim.diagnostic.open_float()<CR>', opts)
-    buf_set_keymap('n', '<Leader>j', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+    set_keymap('n', '<Leader>d', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+    set_keymap('n', '<Leader>i', '<Cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+    set_keymap('n', '<Leader>r', '<Cmd>lua vim.lsp.buf.rename()<CR>', opts)
+    set_keymap('n', '<Leader>x', '<Cmd>lua vim.diagnostic.open_float()<CR>', opts)
+    set_keymap('n', '<Leader>j', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
   end
 
-  local lsp_installer = require("nvim-lsp-installer")
-  lsp_installer.on_server_ready(
-    function(server)
-      local opts = {}
-      opts.on_attach = on_attach
-      server:setup(opts)
-      vim.cmd [[ do User LspAttachBuffers ]]
-    end
-  )
+  require("nvim-lsp-installer").setup({
+    automatic_installation = true
+  })
+  local nvim_lsp = require('lspconfig')
+  nvim_lsp.clangd.setup{on_attach = on_attach}
+  nvim_lsp.dartls.setup{on_attach = on_attach}
+  nvim_lsp.vimls.setup{on_attach = on_attach}
+  nvim_lsp.denols.setup{
+    on_attach = on_attach,
+    init_options = {
+      lint = true,
+      unstable = true,
+    },
+    filetypes = {
+      "javascript", "javascriptreact", "javascript.jsx", -- 既定 js
+      "typescript", "typescriptreact", "typescript.tsx", -- 既定 ts
+      "ts"                                               -- 追加
+    }
+  }
+  nvim_lsp.omnisharp.setup{}
+  nvim_lsp.texlab.setup{}
+  nvim_lsp.taplo.setup{}
 EOF
 '''
 

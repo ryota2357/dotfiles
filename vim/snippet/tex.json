@@ -3,6 +3,10 @@
     "prefix": "abs",
     "body": "\\abs{$0}"
   },
+  "approx": {
+    "prefix": "approx",
+    "body": "\\approx"
+  },
   "begin": {
     "prefix": "begin",
     "body": [
@@ -66,6 +70,10 @@
     "prefix": "label",
     "body": "\\label{$0}"
   },
+  "left": {
+    "prefix": "left",
+    "body": "\\left"
+  },
   "newpage": {
     "prefix": "newpage",
     "body": "\\newpage"
@@ -81,6 +89,10 @@
   "refeqj": {
     "prefix": "refeqj",
     "body": "\\refeqj{$0}"
+  },
+  "right": {
+    "prefix": "right",
+    "body": "\\right"
   },
   "section": {
     "prefix": "section",
@@ -206,6 +218,10 @@
   "σ": {
     "prefix": "sigma",
     "body": "\\sigma"
+  },
+  "τ": {
+    "prefix": "tau",
+    "body": "\\tau"
   },
   "φ": {
     "prefix": "phi",
