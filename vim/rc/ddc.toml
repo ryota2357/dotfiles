@@ -144,7 +144,7 @@ hook_source = '''
     set_keymap('n', '<Leader>j', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
   end
 
-  require("nvim-lsp-installer").setup({
+  require('nvim-lsp-installer').setup({
     automatic_installation = true
   })
   local nvim_lsp = require('lspconfig')
@@ -157,7 +157,7 @@ hook_source = '''
       lint = true,
       unstable = true,
     },
-    root_dir = require("lspconfig.util").root_pattern("deno.json", "deno.jsonc", "tsconfig.json", ".git", "denops")
+    root_dir = require('lspconfig.util').root_pattern("deno.json", "deno.jsonc", "tsconfig.json", ".git", "denops")
   }
   nvim_lsp.omnisharp.setup{}
   nvim_lsp.texlab.setup{}

@@ -1,8 +1,8 @@
 " not impliment yet :(
 " let $VIMRC = expand('<sfile>:p')
 
-" define <Leader>"
-let mapleader = "\<Space>"
+" define <Leader>
+let mapleader = '\<Space>'
 
 execute 'source ~/dotfiles/vim/rc/maping.rc.vim'
 

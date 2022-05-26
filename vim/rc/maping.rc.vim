@@ -1,4 +1,4 @@
-if has("nvim")
+if has('nvim')
   " vim help を垂直分割で開く
   command! -nargs=1 -complete=help Vh :vertical belowright help <args>
 
@@ -12,12 +12,13 @@ if has("nvim")
   endfunction
 endif
 
+
 " xで削除した時はヤンクしない
 vnoremap x "_x
 nnoremap x "_x
 
 " 表示行で移動する
-if has("nvim")
+if has('nvim')
   nnoremap j gj
   nnoremap k gk
 endif
@@ -49,19 +50,19 @@ nnoremap sj <C-w>j
 nnoremap sk <C-w>k
 nnoremap sl <C-w>l
 nnoremap sh <C-w>h
-nnoremap ss :<C-u>sp<CR><C-w>j"
-nnoremap sv :<C-u>vs<CR><C-w>l
+nnoremap ss <Cmd>sp<CR><C-w>j"
+nnoremap sv <Cmd>vs<CR><C-w>l
 nnoremap <C-w>j <C-w>-
 nnoremap <C-W>k <C-w>+
 nnoremap <C-w>l <C-w>>
 nnoremap <C-w>h <C-w><
 
 " タブ移動
-nnoremap > :tabn<CR>
-nnoremap < :tabN<CR>
+nnoremap > <Cmd>tabn<CR>
+nnoremap < <Cmd>tabN<CR>
 
 " 補完
-if has("nvim")
+if has('nvim')
   inoremap { {}<Left>
   inoremap {<CR> {<CR>}<ESC><S-o>
   inoremap ( ()<ESC>i
