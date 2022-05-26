@@ -15,15 +15,9 @@ tex = '''
 
   function! FixPunctuation() abort
     let l:pos = getpos(".")
-    try
-      :%s/。/. /g
-    catch
-    endtry
-    try
-      :%s/、/, /g
-    catch
-    endtry
-    :FixWhitespace  " bronson/vim-trailing-whitespace
+    silent! execute ':%s/。/. /g'
+    silent! execute ':%s/、/, /g'
+    silent! execute ':%s/\\\@<!\s\+$//'
     call setpos(".", l:pos)
   endfunction
 '''
