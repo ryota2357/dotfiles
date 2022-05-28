@@ -1,7 +1,7 @@
 shell = 'zsh'
 
 [plugins.zsh-defer]
-github = "romkatv/zsh-defer"
+github = 'romkatv/zsh-defer'
 apply = ["source"]
 
 [templates]
@@ -12,11 +12,11 @@ inline = 'autoload -Uz compinit && zsh-defer compinit'
 
 [plugins.zsh-autosuggestions]
 github = 'zsh-users/zsh-autosuggestions'
-apply = ["source"]
+apply = ['source']
 
 [plugins.zsh-syntax-highlighting]
 github = 'zsh-users/zsh-syntax-highlighting'
-apply = ["defer"]
+apply = ['defer']
 
 [plugins.dotfiles-sync]
 local = '~/dotfiles/zsh/sync'
