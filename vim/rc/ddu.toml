@@ -13,16 +13,8 @@ hook_source = '''
     \   'uiParams': {
     \     'ff': {
     \       'split': 'floating',
-    \       'winRow': round(&lines * 0.2),
-    \       'winCol': round(&columns * 0.1),
-    \       'winHeight': round(&lines * 0.5),
-    \       'winWidth': round(&columns * 0.8),
     \       'floatingBorder': 'rounded',
     \       'previewFloating': v:true,
-    \       'previewRow': round(&lines * 0.6),
-    \       'previewCol': round(&columns * 0.5),
-    \       'previewHeight': round(&lines * 0.4),
-    \       'previewWidth': round(&columns * 0.45),
     \       'previewFloatingBorder': 'double',
     \       'startFilter': v:true
     \     }
@@ -59,6 +51,23 @@ hook_source = '''
     \     }
     \   }
     \ })
+
+  autocmd VimResized * call s:DduUiFfWindosSizeParams()
+  function! s:DduUiFfWindosSizeParams() abort
+    call ddu#custom#patch_global('uiParams', {
+      \   'ff': {
+      \     'winRow': round(&lines * 0.2),
+      \     'winCol': round(&columns * 0.1),
+      \     'winHeight': round(&lines * 0.5),
+      \     'winWidth': round(&columns * 0.8),
+      \     'previewRow': round(&lines * 0.6),
+      \     'previewCol': round(&columns * 0.5),
+      \     'previewHeight': round(&lines * 0.4),
+      \     'previewWidth': round(&columns * 0.45),
+      \   }
+      \ })
+  endfunction
+  call s:DduUiFfWindosSizeParams()
 '''
 
 [[plugins]]

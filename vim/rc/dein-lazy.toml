@@ -93,9 +93,9 @@ repo = 'prettier/vim-prettier'
 build = 'npm install'
 on_ft = ['markdown', 'typescript']
 hook_source = '''
-  autocmd BufWritePre *.md PrettierAsyn
+  autocmd BufWritePre *.md PrettierAsync
   " lsp落ちる、要調査
-  " autocmd BufWritePre *.ts PrettierAsync
+  " autocmd BufWritePre *md,*.ts PrettierAsync
 '''
 hook_add = '''
   let g:prettier#config#tab_width = 2
