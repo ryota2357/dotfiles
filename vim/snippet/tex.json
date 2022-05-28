@@ -19,6 +19,10 @@
     "prefix": "bold",
     "body": "\\bold{$0}"
   },
+  "cdot": {
+    "prefix": ["cdot", "dot"],
+    "body": "\\cdot "
+  },
   "ce" :{
     "prefix": "ce",
     "body": "\\ce{$0}"
@@ -73,6 +77,10 @@
   "left": {
     "prefix": "left",
     "body": "\\left"
+  },
+  "mathrm": {
+    "prefix": "mathrm",
+    "body": "\\mathrm{$0}"
   },
   "newpage": {
     "prefix": "newpage",
@@ -241,10 +249,10 @@
   },
   "±": {
     "prefix": "pm",
-    "body": "\\pm"
+    "body": "\\pm "
   },
   "∓": {
     "prefix": "mp",
-    "body": "\\mp"
+    "body": "\\mp "
   }
 }

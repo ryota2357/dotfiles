@@ -3,7 +3,8 @@ hook_add = '''
 
 [ftplugin]
 tex = '''
-  inoremap <buffer> $ $$<Left>
+  inoremap <buffer>$ $$<Left>
+  inoremap <buffer>' '
 
   " 日本語は2文字分だから通常の2倍に
   setlocal sidescrolloff=10
