@@ -5,9 +5,9 @@ if has('nvim')
   command! Wrap :call ToggleWrap()
   function! ToggleWrap() abort
       if &wrap
-        :set nowrap
+        set nowrap
       else
-        :set wrap
+        set wrap
       endif
   endfunction
 endif

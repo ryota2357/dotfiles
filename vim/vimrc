@@ -1,4 +1,4 @@
-"execute 'source ~/dotfiles/vim/vimrc-div'
+"execute 'source ~/dotfiles/vim/vimrc-dev'
 "finish
 
 if has('nvim')
