@@ -1,3 +1,6 @@
+"execute 'source ~/dotfiles/vim/vimrc-div'
+"finish
+
 if has('nvim')
   execute 'source ~/dotfiles/vim/rc/vim.rc.vim'
 elseif has('ide')
