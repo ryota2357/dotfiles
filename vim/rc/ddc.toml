@@ -2,38 +2,48 @@
 repo = 'Shougo/ddc.vim'
 depends = ['denops.vim', 'pum.vim']
 on_event = ['InsertEnter', 'CursorHold', 'CmdlineEnter']
-hook_source = '''
-  call ddc#custom#patch_global('sources', ['around'])
-  call ddc#custom#patch_global('cmdlineSources', ['cmdline', 'cmdline-history', 'around'])
-  call ddc#custom#patch_global('sourceOptions', {
+hook_add = '''
+  let g:ddc_source_options = {
     \   '_': {
     \     'ignoreCase': v:true,
     \     'matchers': ['matcher_fuzzy'],
     \     'sorters': ['sorter_fuzzy'],
     \     'converters': ['converter_remove_overlap']
-    \   },
-    \   'around': {
-    \     'mark': 'A',
-    \     'matchers': ['matcher_head', 'matcher_length']
-    \   },
-    \   'nvim-lsp': {
-    \     'mark': 'LSP',
-    \     'dup': v:true,
-    \     'forceCompletionPattern': '\.\w*|:\w*|->\w*'
-    \   },
-    \   'vsnip': {
-    \     'mark': 'S',
-    \     'dup': v:true
-    \   },
-    \   'cmdline': {
-    \     'mark': 'cmd',
-    \     'minAutoCompleteLength': 1
-    \   },
-    \   'cmdline-history': {
-    \     'mark': 'H',
-    \     'matchers': ['matcher_head', 'matcher_length'],
     \   }
-    \ })
+    \ }
+
+  nnoremap : <Cmd>call <SID>CommandlinePre()<CR>:
+
+  function! s:CommandlinePre() abort
+    cnoremap <expr><Tab>  pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' : ddc#manual_complete()
+    cnoremap <expr><C-n>  pum#visible() ? '<Cmd>call pum#map#select_relative(+1)<CR>' : '<Down>'
+    cnoremap <expr><C-p>  pum#visible() ? '<Cmd>call pum#map#select_relative(-1)<CR>' : '<Up>'
+    cnoremap <expr><Down> pum#visible() ? '<Cmd>call pum#map#select_relative(+1)<CR>' : '<Down>'
+    cnoremap <expr><Up>   pum#visible() ? '<Cmd>call pum#map#select_relative(-1)<CR>' : '<Up>'
+    cnoremap <expr><CR>   pum#visible() && pum#complete_info(['selected']) != {'selected': -1} ? '<Cmd>call pum#map#confirm()<CR>' : '<CR>'
+
+    autocmd User DDCCmdlineLeave ++once call s:CommandlinePost()
+    autocmd InsertEnter <buffer> ++once call s:CommandlinePost()
+
+    set completeopt=menu,noselect
+
+    call ddc#enable_cmdline_completion()
+  endfunction
+
+  function! s:CommandlinePost() abort
+    silent! cunmap <Tab>
+    silent! cunmap <C-n>
+    silent! cunmap <C-p>
+    silent! cunmap <Down>
+    silent! cunmap <Up>
+    silent! cunmap <CR>
+    set completeopt=menuone,noinsert
+  endfunction
+'''
+hook_source = '''
+  call ddc#custom#patch_global('sources', ['around'])
+  call ddc#custom#patch_global('cmdlineSources', ['cmdline', 'cmdline-history', 'around'])
+  call ddc#custom#patch_global('sourceOptions', g:ddc_source_options)
   call ddc#custom#patch_global('sourceParams', {
     \   'around': { 'maxSize': 500 }
     \ })
@@ -61,35 +71,6 @@ hook_source = '''
 
   call ddc#enable()
 '''
-hook_add = '''
-  nnoremap : <Cmd>call CommandlinePre()<CR>:
-
-  function! CommandlinePre() abort
-    cnoremap <expr><Tab>  pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' : ddc#manual_complete()
-    cnoremap <expr><C-n>  pum#visible() ? '<Cmd>call pum#map#select_relative(+1)<CR>' : '<Down>'
-    cnoremap <expr><C-p>  pum#visible() ? '<Cmd>call pum#map#select_relative(-1)<CR>' : '<Up>'
-    cnoremap <expr><Down> pum#visible() ? '<Cmd>call pum#map#select_relative(+1)<CR>' : '<Down>'
-    cnoremap <expr><Up>   pum#visible() ? '<Cmd>call pum#map#select_relative(-1)<CR>' : '<Up>'
-    cnoremap <expr><CR>   pum#visible() && pum#complete_info(['selected']) != {'selected': -1} ? '<Cmd>call pum#map#confirm()<CR>' : '<CR>'
-
-    autocmd User DDCCmdlineLeave ++once call CommandlinePost()
-    autocmd InsertEnter <buffer> ++once call CommandlinePost()
-
-    set completeopt=menu,noselect
-
-    call ddc#enable_cmdline_completion()
-  endfunction
-
-  function! CommandlinePost() abort
-    silent! cunmap <Tab>
-    silent! cunmap <C-n>
-    silent! cunmap <C-p>
-    silent! cunmap <Down>
-    silent! cunmap <Up>
-    silent! cunmap <CR>
-    set completeopt=menuone,noinsert
-  endfunction
-'''
 
 [[plugins]]
 repo = 'Shougo/pum.vim'
@@ -105,6 +86,66 @@ hook_add = '''
 [[plugins]]
 repo = 'Shougo/ddc-around'
 on_source = 'ddc.vim'
+hook_source = '''
+  let g:ddc_source_options['around'] = {
+    \   'mark': 'A',
+    \   'matchers': ['matcher_head', 'matcher_length']
+    \ }
+'''
+
+[[plugins]]
+repo = 'Shougo/ddc-nvim-lsp'
+on_source = 'ddc.vim'
+hook_source = '''
+  let g:ddc_source_options['nvim-lsp'] = {
+    \   'mark': 'LSP',
+    \   'dup': v:true,
+    \   'forceCompletionPattern': '\.\w*|:\w*|->\w*'
+    \ }
+'''
+
+[[plugins]]
+repo = 'Shougo/ddc-cmdline'
+on_source = 'ddc.vim'
+hook_source = '''
+  let g:ddc_source_options['cmdline'] = {
+    \   'mark': 'cmd',
+    \   'minAutoCompleteLength': 1
+    \ }
+'''
+
+[[plugins]]
+repo = 'Shougo/ddc-cmdline-history'
+on_source = 'ddc.vim'
+hook_source = '''
+  let g:ddc_source_options['cmdline-history'] = {
+    \   'mark': 'H',
+    \   'matchers': ['matcher_head', 'matcher_length'],
+    \ }
+'''
+
+[[plugins]]
+repo = 'hrsh7th/vim-vsnip'
+on_source = 'ddc.vim'
+hook_add = '''
+  let g:vsnip_snippet_dir = expand('~/dotfiles/vim/snippet')
+  imap <expr><Tab>   vsnip#jumpable(1)  ? '<Plug>(vsnip-jump-next)' : '<Tab>'
+  imap <expr><S-Tab> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
+'''
+
+[[plugins]]
+repo = 'hrsh7th/vim-vsnip-integ'
+on_source = 'ddc.vim'
+depends = 'vim-vsnip'
+hook_source = '''
+  let g:ddc_source_options['vsnip'] = {
+    \   'mark': 'S',
+    \   'dup': v:true
+    \ }
+
+  " pum, ddc との連携
+  autocmd User PumCompleteDone call vsnip_integ#on_complete_done(g:pum#completed_item)
+'''
 
 [[plugins]]
 repo = 'tani/ddc-fuzzy'
@@ -126,23 +167,13 @@ on_source = 'ddc.vim'
 repo = 'Shougo/ddc-converter_remove_overlap'
 on_source = 'ddc.vim'
 
-[[plugins]]
-repo = 'Shougo/ddc-cmdline'
-on_source = 'ddc.vim'
-
-[[plugins]]
-repo = 'Shougo/ddc-cmdline-history'
-on_source = 'ddc.vim'
-
-# LSP
-# 参考: https://riq0h.jp/2021/09/15/084023/
-[[plugins]]
-repo = 'Shougo/ddc-nvim-lsp'
-on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
-on_event = ['InsertEnter', 'CursorHold']
+on_event = 'BufReadPost'
+hook_add = '''
+  autocmd BufWritePre *.ts lua vim.lsp.buf.formatting_sync()
+'''
 hook_source = '''
   lua << EOF
   local on_attach = function (client, bufnr)
@@ -184,31 +215,9 @@ on_source = 'nvim-lspconfig'
 [[plugins]]
 repo = 'matsui54/denops-signature_help'
 on_source = 'ddc.vim'
-hook_source = '''
-  call signature_help#enable()
-'''
+hook_source = 'call signature_help#enable()'
 
 [[plugins]]
 repo = 'matsui54/denops-popup-preview.vim'
 on_source = 'ddc.vim'
-hook_source = '''
-  call popup_preview#enable()
-'''
-
-[[plugins]]
-repo = 'hrsh7th/vim-vsnip'
-on_source = 'ddc.vim'
-hook_add = '''
-  let g:vsnip_snippet_dir = expand('~/dotfiles/vim/snippet')
-  imap <expr><Tab>   vsnip#jumpable(1)  ? '<Plug>(vsnip-jump-next)' : '<Tab>'
-  imap <expr><S-Tab> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
-'''
-
-[[plugins]]
-repo = 'hrsh7th/vim-vsnip-integ'
-on_source = 'ddc.vim'
-depends = 'vim-vsnip'
-hook_add = '''
-  " pum, ddc との連携
-  autocmd User PumCompleteDone call vsnip_integ#on_complete_done(g:pum#completed_item)
-'''
+hook_source = 'call popup_preview#enable()'
