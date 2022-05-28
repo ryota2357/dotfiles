@@ -90,6 +90,14 @@
     "prefix": "refeqj",
     "body": "\\refeqj{$0}"
   },
+  "reffg": {
+    "prefix": ["reffg", "reffig"],
+    "body": "\\reffg{$0}"
+  },
+  "reftb": {
+    "prefix": ["reftb", "reftable"],
+    "body": "\\reftb{$0}"
+  },
   "right": {
     "prefix": "right",
     "body": "\\right"

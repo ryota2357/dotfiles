@@ -53,12 +53,5 @@ hook_add = '''
   let g:extra_whitespace_ignored_filetypes = ['markdown', 'defx']
 '''
 
-# markdown preview
-# コマンド :PreviewMarkdown       # Start the preview
-#          :PreviewMarkdownStop   # Stop the preview
-#          :PreviewMarkdownToggle # Toggle the window
-[[plugins]]
-repo = 'kat0h/bufpreview.vim'
-
 # [[plugins]]
 # repo = '~/CompetitiveProgramming/Library/cpl'

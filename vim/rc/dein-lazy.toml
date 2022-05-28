@@ -79,13 +79,23 @@ on_source = 'nvim-treesitter'
 repo = 'cocopon/inspecthi.vim'
 on_event = 'CmdlineEnter'
 
+# markdown preview
+# コマンド :PreviewMarkdown       # Start the preview
+#          :PreviewMarkdownStop   # Stop the preview
+#          :PreviewMarkdownToggle # Toggle the window
+[[plugins]]
+repo = 'kat0h/bufpreview.vim'
+on_ft = 'markdown'
+
 # formatter
 [[plugins]]
 repo = 'prettier/vim-prettier'
 build = 'npm install'
-on_ft = ['markdown']
+on_ft = ['markdown', 'typescript']
 hook_source = '''
-  autocmd BufWritePre *.md PrettierAsync
+  autocmd BufWritePre *.md PrettierAsyn
+  " lsp落ちる、要調査
+  " autocmd BufWritePre *.ts PrettierAsync
 '''
 hook_add = '''
   let g:prettier#config#tab_width = 2

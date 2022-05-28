@@ -8,8 +8,8 @@ hook_source = '''
   call ddc#custom#patch_global('sourceOptions', {
     \   '_': {
     \     'ignoreCase': v:true,
-    \     'matchers': ['matcher_head'],
-    \     'sorters': ['sorter_rank'],
+    \     'matchers': ['matcher_fuzzy'],
+    \     'sorters': ['sorter_fuzzy'],
     \     'converters': ['converter_remove_overlap']
     \   },
     \   'around': {
@@ -18,13 +18,21 @@ hook_source = '''
     \   },
     \   'nvim-lsp': {
     \     'mark': 'LSP',
+    \     'dup': v:true,
     \     'forceCompletionPattern': '\.\w*|:\w*|->\w*'
     \   },
     \   'vsnip': {
     \     'mark': 'S',
     \     'dup': v:true
     \   },
-    \   'cmdline-history': { 'mark': 'H' }
+    \   'cmdline': {
+    \     'mark': 'cmd',
+    \     'minAutoCompleteLength': 1
+    \   },
+    \   'cmdline-history': {
+    \     'mark': 'H',
+    \     'matchers': ['matcher_head', 'matcher_length'],
+    \   }
     \ })
   call ddc#custom#patch_global('sourceParams', {
     \   'around': { 'maxSize': 500 }
@@ -47,6 +55,9 @@ hook_source = '''
     \     'vsnip': { 'minAutoCompleteLength': 1 }
     \   }
     \ })
+  call ddc#custom#patch_filetype(['ddu-ff-filter'],
+    \   'specialBufferCompletion', v:false
+    \ )
 
   call ddc#enable()
 '''
@@ -95,9 +106,9 @@ hook_add = '''
 repo = 'Shougo/ddc-around'
 on_source = 'ddc.vim'
 
-# [[plugins]]
-# repo = 'tani/ddc-fuzzy'
-# on_source = 'ddc.vim'
+[[plugins]]
+repo = 'tani/ddc-fuzzy'
+on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'Shougo/ddc-matcher_head'
@@ -159,6 +170,7 @@ hook_source = '''
     },
     root_dir = require('lspconfig.util').root_pattern("deno.json", "deno.jsonc", "tsconfig.json", ".git", "denops")
   }
+  nvim_lsp.jsonls.setup{}
   nvim_lsp.omnisharp.setup{}
   nvim_lsp.texlab.setup{}
   nvim_lsp.taplo.setup{}
@@ -185,7 +197,7 @@ hook_source = '''
 
 [[plugins]]
 repo = 'hrsh7th/vim-vsnip'
-on_event = 'InsertEnter'
+on_source = 'ddc.vim'
 hook_add = '''
   let g:vsnip_snippet_dir = expand('~/dotfiles/vim/snippet')
   imap <expr><Tab>   vsnip#jumpable(1)  ? '<Plug>(vsnip-jump-next)' : '<Tab>'
