@@ -47,6 +47,13 @@ repo = 'kristijanhusak/defx-git'
 on_source = 'defx.nvim'
 
 [[plugins]]
+repo = 'rcarriga/nvim-notify'
+on_lua = 'notify'
+on_source = '''
+  lua vim.notify = require('notify')
+'''
+
+[[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter'
 on_event = 'BufRead'
 hook_post_update = 'TSUpdate'
@@ -69,15 +76,13 @@ require'nvim-treesitter.configs'.setup {
 EOF
 '''
 
-# コマンド :TSHighlightCapturesUnderCursor
 [[plugins]]
 repo = 'nvim-treesitter/playground'
-on_source = 'nvim-treesitter'
+on_cmd = 'TSHighlightCapturesUnderCursor'
 
-# コマンド :Inspecthi
 [[plugins]]
 repo = 'cocopon/inspecthi.vim'
-on_event = 'CmdlineEnter'
+on_cmd = 'Inspecthi'
 
 # markdown preview
 # コマンド :PreviewMarkdown       # Start the preview
@@ -87,15 +92,22 @@ on_event = 'CmdlineEnter'
 repo = 'kat0h/bufpreview.vim'
 on_ft = 'markdown'
 
+[[plugins]]
+repo = 'tomtom/tcomment_vim'
+on_cmd = 'TComment'
+hook_add = '''
+  let g:tcomment_maps = 0
+  vnoremap ? :TComment<CR>
+  nnoremap ? <Cmd>TComment<CR>
+'''
+
 # formatter
 [[plugins]]
 repo = 'prettier/vim-prettier'
 build = 'npm install'
-on_ft = ['markdown', 'typescript']
+on_ft = ['markdown']
 hook_source = '''
   autocmd BufWritePre *.md PrettierAsync
-  " lsp落ちる、要調査
-  " autocmd BufWritePre *md,*.ts PrettierAsync
 '''
 hook_add = '''
   let g:prettier#config#tab_width = 2

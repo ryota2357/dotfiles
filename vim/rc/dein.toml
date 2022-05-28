@@ -7,9 +7,6 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'rcarriga/nvim-notify'
-
-[[plugins]]
 repo = 'vim-denops/denops.vim'
 
 [[plugins]]
@@ -27,9 +24,6 @@ hook_add = '''
 [[plugins]]
 repo = 'sheerun/vim-polyglot'
 
-# [[plugins]]
-# repo = 'ryota2357/vim-mycolors'
-
 [[plugins]]
 repo = 'joshdick/onedark.vim'
 hook_add = '''
@@ -37,21 +31,13 @@ hook_add = '''
   colorscheme onedark
 '''
 
-[[plugins]]
-repo = 'tomtom/tcomment_vim'
-hook_add = '''
-  let g:tcomment_maps = 0
-  vnoremap ? :TComment<CR>
-  nnoremap ? <Cmd>TComment<CR>
-'''
-
 # 末尾の空白が赤で強調表示する
-# 空白を削除する → FixWhitespac
+# 空白を削除する → FixWhitespace
 [[plugins]]
 repo = 'bronson/vim-trailing-whitespace'
 hook_add = '''
   let g:extra_whitespace_ignored_filetypes = ['markdown', 'defx']
 '''
 
-# [[plugins]]
-# repo = '~/CompetitiveProgramming/Library/cpl'
+[[plugins]]
+repo = '~/Projects/VimPlugin/hello-denops'
