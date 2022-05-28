@@ -5,7 +5,7 @@ brew install neovim
 brew install tmux
 brew install nodebrew
 brew install deno
-brew install zplug
+brew install sheldon
 
 # 最新バージョン以外の取得を可能にする
 brew tap homebrew/cask-versions
