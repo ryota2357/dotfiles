@@ -2,7 +2,7 @@ shell = 'zsh'
 
 [plugins.zsh-defer]
 github = 'romkatv/zsh-defer'
-apply = ["source"]
+apply = ['source']
 
 [templates]
 defer = { value = 'zsh-defer source "{{ file }}"', each = true }
