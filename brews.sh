@@ -61,6 +61,7 @@ brew install --cask deepl
 brew install --cask discord
 brew install --cask docker
 brew install --cask dotnet-sdk
+brew install --cask figma
 brew install --cask firefox
 brew install --cask github
 brew install --cask google-chrome
