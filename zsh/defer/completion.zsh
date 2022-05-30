@@ -1,5 +1,5 @@
 # zsh補完を有効に
-#autoload -Uz compinit && compinit
+# autoload -Uz compinit && compinit
 
 # 大文字、小文字を区別せず補完する
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'

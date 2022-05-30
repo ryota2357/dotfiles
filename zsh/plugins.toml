@@ -10,9 +10,12 @@ defer = { value = 'zsh-defer source "{{ file }}"', each = true }
 [plugins.compinit]
 inline = 'autoload -Uz compinit && zsh-defer compinit'
 
+[plugins.colors]
+inline = 'autoload -Uz colors && zsh-defer colors'
+
 [plugins.zsh-autosuggestions]
 github = 'zsh-users/zsh-autosuggestions'
-apply = ['source']
+apply = ['defer']
 
 [plugins.zsh-syntax-highlighting]
 github = 'zsh-users/zsh-syntax-highlighting'
