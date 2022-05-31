@@ -15,10 +15,6 @@
       "\\end{$1}"
     ]
   },
-  "bold": {
-    "prefix": "bold",
-    "body": "\\bold{$0}"
-  },
   "cdot": {
     "prefix": ["cdot", "dot"],
     "body": "\\cdot "
@@ -26,6 +22,10 @@
   "ce" :{
     "prefix": "ce",
     "body": "\\ce{$0}"
+  },
+  "cite": {
+    "prefix": "cite",
+    "body": "\\cite{$0}"
   },
   "cos": {
     "prefix": "cos",
@@ -53,10 +53,6 @@
   "frac": {
     "prefix": "frac",
     "body": "\\frac{$1}{$0}"
-  },
-  "italic": {
-    "prefix": "italic",
-    "body": "\\italic{$0}"
   },
   "item": {
     "prefix": "item",
@@ -94,12 +90,12 @@
     "prefix": "ref",
     "body": "\\ref{$0}"
   },
-  "refeqj": {
-    "prefix": "refeqj",
-    "body": "\\refeqj{$0}"
+  "refeq": {
+    "prefix": "refeq",
+    "body": "\\refeq{$0}"
   },
-  "reffg": {
-    "prefix": ["reffg", "reffig"],
+  "refig": {
+    "prefix": ["refig", "reffg", "reffig"],
     "body": "\\reffg{$0}"
   },
   "reftb": {
@@ -169,6 +165,15 @@
       "    \\end{tabular}",
       "  \\end{center}",
       "\\end{table}"
+    ]
+  },
+  "thebibliography": {
+    "prefix": "thebibliography",
+    "body": [
+      "%!!!> ## 参考文献",
+      "\\begin{thebibliography}{9}",
+      "  \\bibitem{$1} $0",
+      "\\end{thebibliography}"
     ]
   },
   "α": {
