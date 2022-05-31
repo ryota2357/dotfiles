@@ -2,7 +2,7 @@
 
 # texファイルをコンパイルするコマンドの設定
 # -synctex=1：SyncTeX を有効に (SyncTeX対応のビューア(Skim等)からエディタにジャンプできる機能n
-$latex            = 'platex -synctex=1 -halt-on-error';
+$latex            = 'uplatex -synctex=1 -halt-on-error';
 
 
 $latex_silent     = 'platex -synctex=1 -halt-on-error -interaction=batchmode';
