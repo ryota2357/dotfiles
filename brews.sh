@@ -6,6 +6,8 @@ brew install tmux
 brew install nodebrew
 brew install deno
 brew install sheldon
+brew install ghq
+brew install peco
 
 # 最新バージョン以外の取得を可能にする
 brew tap homebrew/cask-versions
@@ -27,6 +29,9 @@ brew install reattach-to-user-namespace
 
 # コードの行数カウント
 brew install cloc
+
+# プロセスを階層構造で出力
+brew install pstree
 
 # 現在エラー出る。brew install --build-from-source mono しろと言われるがひとまず入れずに様子見
 # brew install mono
