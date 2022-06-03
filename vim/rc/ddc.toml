@@ -167,10 +167,9 @@ on_source = 'ddc.vim'
 repo = 'Shougo/ddc-converter_remove_overlap'
 on_source = 'ddc.vim'
 
-
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
-on_event = 'BufReadPost'
+on_event = ['BufReadPost', 'InsertLeavePre']
 hook_add = '''
   autocmd BufWritePre *.ts,*.dart lua vim.lsp.buf.formatting_sync()
 '''
@@ -190,12 +189,13 @@ hook_source = '''
     automatic_installation = true
   })
   local nvim_lsp = require('lspconfig')
+  local util = require('lspconfig.util')
   nvim_lsp.clangd.setup{on_attach = on_attach}
   nvim_lsp.vimls.setup{on_attach = on_attach}
   nvim_lsp.dartls.setup{
     on_attach = on_attach,
     -- single_file_support = true
-    root_dir = require('lspconfig.util').root_pattern("pubspec.yaml", ".dart")
+    root_dir = util.root_pattern("pubspec.yaml", ".dart")
   }
   nvim_lsp.denols.setup{
     on_attach = on_attach,
@@ -203,12 +203,13 @@ hook_source = '''
       lint = true,
       unstable = true,
     },
-    root_dir = require('lspconfig.util').root_pattern("deno.json", "deno.jsonc", "tsconfig.json", ".git", "denops")
+    root_dir = util.root_pattern("deno.json", "deno.jsonc", "tsconfig.json", ".git", "denops")
   }
   nvim_lsp.jsonls.setup{}
   nvim_lsp.omnisharp.setup{}
   nvim_lsp.texlab.setup{}
   nvim_lsp.taplo.setup{}
+  nvim_lsp.yamlls.setup{}
 EOF
 '''
 

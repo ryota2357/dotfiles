@@ -1,0 +1,5 @@
+ジェネレータ
+https://pystyle.info/apps/clang-format-editor/
+
+テーマ
+基本的に競プロ用。自分が読みやすいように。
