@@ -28,7 +28,6 @@ setopt hist_reduce_blanks
 # 実行時に履歴をファイルにに追加していく
 setopt inc_append_history
 
-
 # コマンドラインでも # 以降をコメントと見なす
 setopt interactive_comments
 
@@ -37,3 +36,6 @@ setopt auto_cd
 
 # コマンドのうち間違え防止
 setopt correct
+
+# ビープ音を消す
+setopt no_beep
