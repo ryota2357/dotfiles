@@ -3,17 +3,14 @@ hook_add = '''
 
 [ftplugin]
 tex = '''
+  setlocal tabstop=2 softtabstop=2 shiftwidth=2
+  setlocal sidescrolloff=10
+  setlocal foldmarker=!!!>,<!!!
+
   inoremap <buffer>$ $$<Left>
   inoremap <buffer>' '
 
-  " 日本語は2文字分だから通常の2倍に
-  setlocal sidescrolloff=10
-
-  " 規定だと\frac{abs{sin{x}}}{2}とかに引っかかる
-  setlocal foldmarker=!!!>,<!!!
-
   autocmd BufWritePre *.tex :call FixPunctuation()
-
   function! FixPunctuation() abort
     let l:pos = getpos('.')
     silent! execute ':%s/。/. /g'
@@ -21,4 +18,11 @@ tex = '''
     silent! execute ':%s/\\\@<!\s\+$//'
     call setpos('.', l:pos)
   endfunction
+'''
+typescript = '''
+  setlocal tabstop=2 softtabstop=2 shiftwidth=2
+  inoremap <buffer>` ``<Left>
+'''
+dart = '''
+  setlocal tabstop=2 softtabstop=2 shiftwidth=2
 '''
