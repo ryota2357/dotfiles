@@ -6,7 +6,7 @@
 $latex = 'uplatex -synctex=1 -halt-on-error';
 
 #  -interaction=batchmode : コンパイル中にエラーが起きても、ユーザーにどう処理するかの指示を求めずにコンパイルを続行する
-$latex_silent = 'platex -synctex=1 -halt-on-error -interaction=batchmode';
+$latex_silent = 'uplatex -synctex=1 -halt-on-error -interaction=batchmode';
 
 # BiblatexのバックエンドにBibTeXを使用するときのコマンドを指定する
 $bibtex = 'upbibtex %O %B';
