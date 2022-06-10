@@ -220,9 +220,13 @@ on_source = 'nvim-lspconfig'
 [[plugins]]
 repo = 'matsui54/denops-signature_help'
 on_source = 'ddc.vim'
-hook_source = 'call signature_help#enable()'
+hook_source = '''
+  call signature_help#enable()
+'''
 
 [[plugins]]
 repo = 'matsui54/denops-popup-preview.vim'
 on_source = 'ddc.vim'
-hook_source = 'call popup_preview#enable()'
+hook_source = '''
+  call popup_preview#enable()
+'''
