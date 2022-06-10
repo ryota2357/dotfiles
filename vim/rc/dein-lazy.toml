@@ -25,7 +25,7 @@ defx = '''
   nnoremap <silent><buffer><expr> <CR>
     \ defx#is_directory() ?
     \ defx#do_action('open_or_close_tree') :
-    \ defx#do_action('multi', ['drop', 'quit'])
+    \ defx#do_action('multi', ['quit', 'drop'])
   nnoremap <silent><buffer><expr> n defx#do_action('new_file')
   nnoremap <silent><buffer><expr> r defx#do_action('rename', 'append')
   nnoremap <silent><buffer><expr> R defx#do_action('redraw')
