@@ -3,9 +3,17 @@ repo = 'Shougo/ddu.vim'
 depends = 'denops.vim'
 on_event = 'CursorHold'
 hook_add = '''
- nnoremap <silent><Leader>f <Cmd>call ddu#start({ 'sources': [{'name': 'file_rec'}] })<CR>
- nnoremap <silent><Leader>g <Cmd>call ddu#start({ 'sources': [{'name': 'rg'}], 'volatile': v:true })<CR>
- command! UpdatePlugin          :call ddu#start({ 'sources': [{'name': 'dein_update'}], 'uiParams': {'ff':{'startFilter': v:false}} })
+  nnoremap <silent><Leader>f <Cmd>call ddu#start({ 'sources': [{'name': 'file_rec'}] })<CR>
+  nnoremap <silent><Leader>g <Cmd>call ddu#start({ 'sources': [{'name': 'rg'}], 'volatile': v:true })<CR>
+  command! UpdatePlugin          :call ddu#start({ 'sources': [{'name': 'dein_update'}], 'uiParams': {'ff':{'startFilter': v:false}} })
+
+  let g:ddu_source_option = {
+    \   '_': {
+    \     'ignoreCase': v:true,
+    \     'matchers': ['matcher_fzf']
+    \   }
+    \ }
+  let g:ddu_kind_option = {}
 '''
 hook_source = '''
   call ddu#custom#patch_global({
@@ -22,26 +30,6 @@ hook_source = '''
     \   'filterParams': {
     \     'matcher_fzf': { 'highlightMatched': 'Search' }
     \   },
-    \   'sourceOptions': {
-    \     '_': {
-    \       'ignoreCase': v:true,
-    \       'matchers': ['matcher_fzf']
-    \     },
-    \     'rg': {
-    \       'matchers': []
-    \     },
-    \     'dein_update': {
-    \       'matchers': ['matcher_dein_update']
-    \     },
-    \   },
-    \   'kindOptions': {
-    \     'file': {
-    \       'defaultAction': 'open'
-    \     },
-    \    'dein_update': {
-    \       'defaultAction': 'viewDiff'
-    \     }
-    \   },
     \   'actionOptions': {
     \     'echo': {
     \       'quit': v:false,
@@ -51,6 +39,8 @@ hook_source = '''
     \     }
     \   }
     \ })
+  call ddu#custom#patch_global('sourceOptions', g:ddu_source_option)
+  call ddu#custom#patch_global('kindOptions', g:ddu_kind_option)
 
   autocmd VimResized * call s:DduUiFfWindosSizeParams()
   function! s:DduUiFfWindosSizeParams() abort
@@ -75,13 +65,14 @@ repo = 'Shougo/ddu-ui-ff'
 on_source = 'ddu.vim'
 [plugins.ftplugin]
 ddu-ff = '''
+  inoremap <buffer><CR>  <Cmd>call ddu#ui#ff#do_action('itemAction')<CR>
   nnoremap <buffer><ESC> <Cmd>call ddu#ui#ff#do_action('quit')<CR>
 '''
 ddu-ff-filter = '''
   inoremap <buffer><CR>  <Cmd>call ddu#ui#ff#do_action('itemAction')<CR>
   inoremap <buffer><C-n> <Cmd>call ddu#ui#ff#execute("call cursor(line('.')+1,0)")<CR>
   inoremap <buffer><C-p> <Cmd>call ddu#ui#ff#execute("call cursor(line('.')-1,0)")<CR>
-  inoremap <buffer><C-t> <Cmd>call ddu#ui#ff#do_action('itemAction', {'params' : {'command': 'tabnew'}})<CR>
+  inoremap <buffer><C-o> <Cmd>call ddu#ui#ff#do_action('itemAction', {'params' : {'command': 'tabnew'}})<CR>
   inoremap <buffer><C-q> <Cmd>call ddu#ui#ff#do_action('preview')<CR>
   inoremap <buffer><ESC> <Cmd>call ddu#ui#ff#do_action('quit')<CR>
 '''
@@ -94,14 +85,17 @@ on_source = 'ddu.vim'
 [[plugins]]
 repo = 'shun/ddu-source-rg'
 on_source = 'ddu.vim'
+hook_source = '''
+  let g:ddu_source_option['rg'] = { 'matchers': [] }
+'''
 
 [[plugins]]
 repo = 'matsui54/ddu-source-dein_update'
 on_source = 'ddu.vim'
-
-[[plugins]]
-repo = 'Shougo/ddu-filter-matcher_substring'
-on_source = 'ddu.vim'
+hook_source = '''
+  let g:ddu_source_option['dein_update'] = { 'matchers': ['matcher_dein_update'] }
+  let g:ddu_kind_option['dein_update'] = { 'defaultAction': 'viewDiff' }
+'''
 
 [[plugins]]
 repo = 'yuki-yano/ddu-filter-fzf'
@@ -110,3 +104,6 @@ on_source = 'ddu.vim'
 [[plugins]]
 repo = 'Shougo/ddu-kind-file'
 on_source = 'ddu.vim'
+hook_source = '''
+  let g:ddu_kind_option['file'] = { 'defaultAction': 'open' }
+'''
