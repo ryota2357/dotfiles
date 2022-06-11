@@ -13,3 +13,6 @@ if [[ ! -n $TMUX ]]; then
   fi
   tmux attach-session -t "$ID"
 fi'
+
+alias ta='tmux a -t'
+alias tn='tmux new -s'

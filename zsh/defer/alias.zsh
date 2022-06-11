@@ -7,6 +7,3 @@ alias clip='pbcopy'
 
 alias vi='nvim'
 alias vii='nvim .'
-
-alias ta='tmux a -t'
-alias tn='tmux new -s'
