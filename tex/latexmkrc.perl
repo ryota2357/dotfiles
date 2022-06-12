@@ -16,7 +16,7 @@ $bibtex = 'upbibtex %O %B';
 #  -u                : 入力ファイルの文字コードをUTF-8に
 #  -U                : 出力ファイルの文字コードをUTF-8に
 #  –output_safechars : ユニコード文字をLaTeXの命令を使ってエンコードした形で出力させる
-$biber = 'biber --bblencoding=utf8 -u -U --output_safechars';
+$biber = 'biber --bblencoding=utf8 -u -U --output_safechars %O %S';
 
 # LaTeXにより出力されたDVIファイルをPDFファイルに変換するコマンドの設定
 $dvipdf = 'dvipdfmx %O -o %D %S';

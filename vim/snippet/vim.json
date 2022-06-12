@@ -3,7 +3,7 @@
     "prefix": "function",
     "body": [
       "function! $1 abort",
-      "    $0",
+      "  $0",
       "endfunction"
     ]
   }
