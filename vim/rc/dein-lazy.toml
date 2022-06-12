@@ -29,7 +29,7 @@ defx = '''
   nnoremap <silent><buffer><expr> n defx#do_action('new_file')
   nnoremap <silent><buffer><expr> r defx#do_action('rename', 'append')
   nnoremap <silent><buffer><expr> R defx#do_action('redraw')
-  nnoremap <silent><buffer><expr> t
+  nnoremap <silent><buffer><expr> o
     \ defx#is_directory() ?
     \ defx#do_action('open_or_close_tree') :
     \ defx#do_action('multi', ['quit', ['open', 'tab drop']])
@@ -111,4 +111,16 @@ hook_source = '''
 '''
 hook_add = '''
   let g:prettier#config#tab_width = 2
+'''
+
+[[plugins]]
+repo = 'ryota2357/vim-skim-synctex'
+depends = 'denops.vim'
+on_ft = ['latex', 'tex']
+hook_add = '''
+  nnoremap <Leader>s <Cmd>call synctex#forwardSerch()<CR>
+'''
+hook_source = '''
+  call synctex#option('readingBar', v:true)
+  call synctex#option('autoActive', v:false)
 '''
