@@ -51,7 +51,7 @@ set number
 set cursorline
 
 " マウスを有効に
-set mouse=a
+set mouse=nvh
 
 " 行末の1文字先までカーソルを移動可能に
 set virtualedit=onemore
