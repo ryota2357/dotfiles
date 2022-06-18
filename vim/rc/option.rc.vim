@@ -51,7 +51,29 @@ set number
 set cursorline
 
 " マウスを有効に
-set mouse=nvh
+set mouse=a
+
+augroup Mouse
+  autocmd!
+  autocmd FocusGained * call s:OnFocusGained()
+  autocmd FocusLost * call s:OnFocusLost()
+augroup END
+
+function! s:OnFocusGained() abort
+  autocmd CursorMoved,CursorMovedI,ModeChanged,WinScrolled * ++once call s:EnebleLeftMouse()
+  noremap  <LeftMouse> <Cmd>call <SID>EnebleLeftMouse()<CR>
+  inoremap <LeftMouse> <Cmd>call <SID>EnebleLeftMouse()<CR>
+endfunction
+
+function! s:EnebleLeftMouse() abort
+  noremap  <LeftMouse> <LeftMouse>
+  inoremap <LeftMouse> <LeftMouse>
+endfunction
+
+function! s:OnFocusLost() abort
+  noremap  <LeftMouse> <nop>
+  inoremap <LeftMouse> <nop>
+endfunction
 
 " 行末の1文字先までカーソルを移動可能に
 set virtualedit=onemore
