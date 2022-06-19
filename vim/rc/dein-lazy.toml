@@ -115,12 +115,14 @@ hook_add = '''
 
 [[plugins]]
 repo = 'ryota2357/vim-skim-synctex'
+# repo = '~/Projects/VimPlugin/vim-skim-synctex'
 depends = 'denops.vim'
-on_ft = ['latex', 'tex']
-hook_add = '''
-  nnoremap <Leader>s <Cmd>call synctex#forwardSerch()<CR>
-'''
+on_ft = 'tex'
 hook_source = '''
   call synctex#option('readingBar', v:true)
-  call synctex#option('autoActive', v:false)
+  call synctex#option('autoQuit', v:true)
+'''
+[plugins.ftplugin]
+tex = '''
+  nnoremap <buffer> <Leader>s <Cmd>call synctex#forwardSerch()<CR>
 '''
