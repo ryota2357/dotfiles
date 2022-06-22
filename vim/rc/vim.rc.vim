@@ -1,14 +1,16 @@
 let $CACHE = expand('~/.cache')
-let $VIMRC = expand('<sfile>:p')
-
-let s:rc_dir = expand('~/dotfiles/vim/rc')
+if !isdirectory($CACHE)
+  call mkdir($CACHE, 'p')
+endif
 
 " define <Leader>
 let mapleader = "\<Space>"
 
-" Load rc files.
-execute 'source' . s:rc_dir . '/maping.rc.vim'
-execute 'source' . s:rc_dir . '/option.rc.vim'
+if has('nvim')
+  " Use filetype.lua instead.
+  let g:do_filetype_lua = 1
+  let g:did_load_filetypes = 0
+endif
 
 " Load dein.
 if &runtimepath !~# '/dein.vim'
@@ -19,23 +21,29 @@ if &runtimepath !~# '/dein.vim'
   execute 'set runtimepath^=' . fnamemodify(s:dein_dir, ':p')
 endif
 
-" Get toml file path.
-let s:dein_dir = $CACHE . '/dein'
-let s:toml = s:rc_dir . '/dein.toml'
-let s:lazy = s:rc_dir . '/dein-lazy.toml'
-let s:ddc = s:rc_dir . '/ddc.toml'
-let s:ddu = s:rc_dir . '/ddu.toml'
-let s:ft = s:rc_dir . '/filetype.toml'
+" dein configurations.
+let g:dein#enable_notification = v:true
+let g:dein#install_progress_type = 'floating'
+
+" plugin's downloaded path.
+let s:path = $CACHE . '/dein'
 
 " Load plugin by dein.
-if dein#min#load_state(s:dein_dir)
-  call dein#begin(s:dein_dir)
+if dein#min#load_state(s:path)
+  let s:rc_dir = expand('~/dotfiles/vim/rc') . '/'
 
-  call dein#load_toml(s:toml)
-  call dein#load_toml(s:lazy, {'lazy': 1})
-  call dein#load_toml(s:ddc, {'lazy': 1})
-  call dein#load_toml(s:ddu, {'lazy': 1})
-  call dein#load_toml(s:ft)
+  let g:dein#inline_vimrcs = [
+        \ s:rc_dir . 'option.rc.vim',
+        \ s:rc_dir . 'maping.rc.vim'
+        \]
+
+  call dein#begin(s:path)
+
+  call dein#load_toml(s:rc_dir . 'dein.toml')
+  call dein#load_toml(s:rc_dir . 'dein-lazy.toml', {'lazy': 1})
+  call dein#load_toml(s:rc_dir . 'ddc.toml', {'lazy': 1})
+  call dein#load_toml(s:rc_dir . 'ddu.toml', {'lazy': 1})
+  call dein#load_toml(s:rc_dir . 'filetype.toml')
 
   call dein#end()
   call dein#save_state()

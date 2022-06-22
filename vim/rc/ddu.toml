@@ -5,7 +5,6 @@ on_event = 'CursorHold'
 hook_add = '''
   nnoremap <silent><Leader>f <Cmd>call ddu#start({ 'sources': [{'name': 'file_rec'}] })<CR>
   nnoremap <silent><Leader>g <Cmd>call ddu#start({ 'sources': [{'name': 'rg'}], 'volatile': v:true })<CR>
-  command! UpdatePlugin          :call ddu#start({ 'sources': [{'name': 'dein_update'}], 'uiParams': {'ff':{'startFilter': v:false}} })
 
   let g:ddu_source_option = {
     \   '_': {
@@ -88,14 +87,6 @@ depends = 'ddu-kind-file'
 on_source = 'ddu.vim'
 hook_source = '''
   let g:ddu_source_option['rg'] = { 'matchers': [] }
-'''
-
-[[plugins]]
-repo = 'matsui54/ddu-source-dein_update'
-on_source = 'ddu.vim'
-hook_source = '''
-  let g:ddu_source_option['dein_update'] = { 'matchers': ['matcher_dein_update'] }
-  let g:ddu_kind_option['dein_update'] = { 'defaultAction': 'viewDiff' }
 '''
 
 [[plugins]]

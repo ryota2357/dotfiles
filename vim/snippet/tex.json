@@ -50,9 +50,17 @@
       "$0"
     ]
   },
+  "footnote": {
+    "prefix": "footnote",
+    "body": "\\footnote{$0}"
+  },
   "frac": {
     "prefix": "frac",
     "body": "\\frac{$1}{$0}"
+  },
+  "int": {
+    "prefix": ["int", "integral"],
+    "body": "\\int"
   },
   "item": {
     "prefix": "item",
@@ -166,6 +174,10 @@
       "  \\end{center}",
       "\\end{table}"
     ]
+  },
+  "textbackslash": {
+    "prefix": "textbackslash",
+    "body": "\\textbackslash"
   },
   "thebibliography": {
     "prefix": "thebibliography",

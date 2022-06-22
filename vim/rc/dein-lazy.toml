@@ -121,6 +121,7 @@ on_ft = 'tex'
 hook_source = '''
   call synctex#option('readingBar', v:true)
   call synctex#option('autoQuit', v:true)
+  call synctex#start()
 '''
 [plugins.ftplugin]
 tex = '''
