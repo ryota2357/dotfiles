@@ -72,6 +72,7 @@ brew install --cask github
 brew install --cask google-chrome
 brew install --cask grammarly
 brew install --cask iterm2
+brew install --cask karabiner-elements
 brew install --cask microsoft-office
 brew install --cask notion
 brew install --cask numi

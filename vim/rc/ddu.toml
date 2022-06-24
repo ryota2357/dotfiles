@@ -6,43 +6,29 @@ hook_add = '''
   nnoremap <silent><Leader>f <Cmd>call ddu#start({ 'sources': [{'name': 'file_rec'}] })<CR>
   nnoremap <silent><Leader>g <Cmd>call ddu#start({ 'sources': [{'name': 'rg'}], 'volatile': v:true })<CR>
 
-  let g:ddu_source_option = {
+  let g:ddu_ui_params = {}
+  let g:ddu_source_options = {
     \   '_': {
     \     'ignoreCase': v:true,
     \     'matchers': ['matcher_fzf']
     \   }
     \ }
-  let g:ddu_kind_option = {}
+  let g:ddu_source_params = {}
+  let g:ddu_filter_params = {}
+  let g:ddu_kind_options = {}
 '''
 hook_source = '''
   call ddu#custom#patch_global({
     \   'ui': 'ff',
-    \   'uiParams': {
-    \     'ff': {
-    \       'split': 'floating',
-    \       'floatingBorder': 'rounded',
-    \       'previewFloating': v:true,
-    \       'previewFloatingBorder': 'double',
-    \       'startFilter': v:true
-    \     }
-    \   },
-    \   'filterParams': {
-    \     'matcher_fzf': { 'highlightMatched': 'Search' }
-    \   },
-    \   'actionOptions': {
-    \     'echo': {
-    \       'quit': v:false,
-    \     },
-    \     'echoDiff': {
-    \       'quit': v:false,
-    \     }
-    \   }
+    \   'uiParams': g:ddu_ui_params,
+    \   'sourceOptions': g:ddu_source_options,
+    \   'sourceParams': g:ddu_source_params,
+    \   'filterParams': g:ddu_filter_params,
+    \   'kindOptions': g:ddu_kind_options,
     \ })
-  call ddu#custom#patch_global('sourceOptions', g:ddu_source_option)
-  call ddu#custom#patch_global('kindOptions', g:ddu_kind_option)
 
-  autocmd VimResized * call s:DduUiFfWindosSizeParams()
-  function! s:DduUiFfWindosSizeParams() abort
+  autocmd VimResized * call s:UI_FF_Size()
+  function! s:UI_FF_Size() abort
     call ddu#custom#patch_global('uiParams', {
       \   'ff': {
       \     'winRow': round(&lines * 0.2),
@@ -56,12 +42,21 @@ hook_source = '''
       \   }
       \ })
   endfunction
-  call s:DduUiFfWindosSizeParams()
+  call s:UI_FF_Size()
 '''
 
 [[plugins]]
 repo = 'Shougo/ddu-ui-ff'
 on_source = 'ddu.vim'
+hook_source = '''
+  let g:ddu_ui_params['ff'] = {
+    \   'split': 'floating',
+    \   'floatingBorder': 'rounded',
+    \   'previewFloating': v:true,
+    \   'previewFloatingBorder': 'double',
+    \   'startFilter': v:true
+    \ }
+'''
 [plugins.ftplugin]
 ddu-ff = '''
   inoremap <buffer><CR>  <Cmd>call ddu#ui#ff#do_action('itemAction')<CR>
@@ -80,22 +75,36 @@ ddu-ff-filter = '''
 repo = 'Shougo/ddu-source-file_rec'
 depends = 'ddu-kind-file'
 on_source = 'ddu.vim'
+hook_source = '''
+  let g:ddu_source_params['file_rec'] = {
+    \   'ignoredDirectories': ['.git', 'node_modules', '.cache']
+    \ }
+'''
 
 [[plugins]]
 repo = 'shun/ddu-source-rg'
 depends = 'ddu-kind-file'
 on_source = 'ddu.vim'
 hook_source = '''
-  let g:ddu_source_option['rg'] = { 'matchers': [] }
+  let g:ddu_source_options['rg'] = {
+    \   'matchers': []
+    \ }
 '''
 
 [[plugins]]
 repo = 'yuki-yano/ddu-filter-fzf'
 on_source = 'ddu.vim'
+hook_source = '''
+  let g:ddu_filter_params['matcher_fzf'] = {
+    \   'highlightMatched': 'Search'
+    \ }
+'''
 
 [[plugins]]
 repo = 'Shougo/ddu-kind-file'
 on_source = 'ddu.vim'
 hook_source = '''
-  let g:ddu_kind_option['file'] = { 'defaultAction': 'open' }
+  let g:ddu_kind_options['file'] = {
+    \   'defaultAction': 'open'
+    \ }
 '''
