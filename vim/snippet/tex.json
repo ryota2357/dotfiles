@@ -5,7 +5,7 @@
   },
   "approx": {
     "prefix": "approx",
-    "body": "\\approx"
+    "body": "\\approx "
   },
   "begin": {
     "prefix": "begin",
@@ -30,6 +30,14 @@
   "cos": {
     "prefix": "cos",
     "body": "\\cos{$0}"
+  },
+  "enumerate": {
+    "prefix": ["enumerate", "oderedlist"],
+    "body": [
+      "\\begin{enumerate}",
+      "  \\item $0",
+      "\\end{enumerate}"
+    ]
   },
   "equation": {
     "prefix": "equation",
@@ -188,81 +196,85 @@
       "\\end{thebibliography}"
     ]
   },
+  "times": {
+    "prefix": "times",
+    "body": "\\times "
+  },
   "α": {
     "prefix": "alpha",
-    "body": "\\alpha"
+    "body": "\\alpha "
   },
   "β": {
     "prefix": "beta",
-    "body": "\\beta"
+    "body": "\\beta "
   },
   "γ": {
     "prefix": "gamma",
-    "body": "\\gamma"
+    "body": "\\gamma "
   },
   "δ": {
     "prefix": "delta",
-    "body": "\\delta"
+    "body": "\\delta "
   },
   "Δ": {
     "prefix": "Delta",
-    "body": "\\Delta"
+    "body": "\\Delta "
   },
   "ε": {
     "prefix": "epsilon",
-    "body": "\\epsilon"
+    "body": "\\epsilon "
   },
   "ζ": {
     "prefix": "zeta",
-    "body": "\\zeta"
+    "body": "\\zeta "
   },
   "η": {
     "prefix": "eta",
-    "body": "\\eta"
+    "body": "\\eta "
   },
   "θ": {
     "prefix": "theta",
-    "body": "\\theta"
+    "body": "\\theta "
   },
   "κ": {
     "prefix": "kappa",
-    "body": "\\kappa"
+    "body": "\\kappa "
   },
   "λ": {
     "prefix": "lambda",
-    "body": "\\lambda"
+    "body": "\\lambda "
   },
   "μ": {
     "prefix": "mu",
-    "body": "\\mu"
+    "body": "\\mu "
   },
   "ν": {
     "prefix": "nu",
-    "body": "\\nu"
+    "body": "\\nu "
   },
   "π": {
     "prefix": "pi",
-    "body": "\\pi"
+    "body": "\\pi "
   },
   "ρ": {
     "prefix": "rho",
-    "body": "\\rho"
+    "body": "\\rho "
   },
   "σ": {
     "prefix": "sigma",
-    "body": "\\sigma"
+    "body": "\\sigma "
   },
   "τ": {
     "prefix": "tau",
-    "body": "\\tau"
+    "body": "\\tau "
   },
   "φ": {
     "prefix": "phi",
-    "body": "\\phi"
+    "body": "\\phi "
   },
   "ω": {
     "prefix": "omega",
-    "body": "\\omega"
+    "body": "\\omega "
   },
   "±": {
     "prefix": "pm",

@@ -105,9 +105,9 @@ hook_add = '''
 [[plugins]]
 repo = 'prettier/vim-prettier'
 build = 'npm install'
-on_ft = ['markdown']
+on_ft = ['markdown', 'typescriptreact']
 hook_source = '''
-  autocmd BufWritePre *.md PrettierAsync
+  autocmd BufWritePre *.tsx,*.md PrettierAsync
 '''
 hook_add = '''
   let g:prettier#config#tab_width = 2

@@ -17,6 +17,8 @@ endif
 " Qで行頭, Pで行末に移動
 nnoremap Q ^
 nnoremap P $l
+vnoremap Q ^
+vnoremap P $l
 
 " ノーマルモードでも改行
 nnoremap <CR> i<CR><ESC>

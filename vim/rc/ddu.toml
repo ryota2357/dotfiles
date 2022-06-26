@@ -3,8 +3,15 @@ repo = 'Shougo/ddu.vim'
 depends = 'denops.vim'
 on_event = 'CursorHold'
 hook_add = '''
-  nnoremap <silent><Leader>f <Cmd>call ddu#start({ 'sources': [{'name': 'file_rec'}] })<CR>
-  nnoremap <silent><Leader>g <Cmd>call ddu#start({ 'sources': [{'name': 'rg'}], 'volatile': v:true })<CR>
+  nnoremap <silent><Leader>f <Cmd>call ddu#start({
+    \   'sources': [{'name': 'file_rec'}],
+    \   'uiParams': { 'ff': { 'startFilter': v:true } }
+    \ })<CR>
+  nnoremap <silent><Leader>g <Cmd>call ddu#start({
+    \   'sources': [{'name': 'rg'}],
+    \   'volatile': v:true,
+    \   'uiParams': { 'ff': { 'startFilter': v:true } }
+    \ })<CR>
 
   let g:ddu_ui_params = {}
   let g:ddu_source_options = {
@@ -54,12 +61,11 @@ hook_source = '''
     \   'floatingBorder': 'rounded',
     \   'previewFloating': v:true,
     \   'previewFloatingBorder': 'double',
-    \   'startFilter': v:true
     \ }
 '''
 [plugins.ftplugin]
 ddu-ff = '''
-  inoremap <buffer><CR>  <Cmd>call ddu#ui#ff#do_action('itemAction')<CR>
+  nnoremap <buffer><CR>  <Cmd>call ddu#ui#ff#do_action('itemAction')<CR>
   nnoremap <buffer><ESC> <Cmd>call ddu#ui#ff#do_action('quit')<CR>
 '''
 ddu-ff-filter = '''
@@ -97,6 +103,15 @@ on_source = 'ddu.vim'
 hook_source = '''
   let g:ddu_filter_params['matcher_fzf'] = {
     \   'highlightMatched': 'Search'
+    \ }
+'''
+
+[[plugins]]
+repo = 'matsui54/ddu-vim-ui-select'
+on_source = 'ddu.vim'
+hook_source = '''
+  let g:ddu_kind_options['ui_select'] = {
+    \   'defaultAction': 'select'
     \ }
 '''
 

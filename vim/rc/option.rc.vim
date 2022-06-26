@@ -81,10 +81,14 @@ set virtualedit=onemore
 " カーソル移動の行等行末の扱い
 set whichwrap=b,s,<,>,~,[,]
 
+" インサートモードでの<BS>, <Del>の扱い
+set backspace=indent,eol,start
+"set backspace=indent,start
+
 " どこでも短形ビジュアルモード
 set virtualedit=block
 
-" 行の折り返しを無効に (warpは遅い)
+" 行の折り返しを無効に
 set nowrap
 
 " 画面の左右の端でスクロールが発生した場合、何文字ずつスクロールするか

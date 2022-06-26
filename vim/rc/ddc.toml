@@ -56,8 +56,11 @@ hook_source = '''
   call ddc#custom#patch_filetype(['vim'], {
     \   'sources': ['vsnip', 'nvim-lsp', 'around']
     \ })
-  call ddc#custom#patch_filetype(['cpp', 'dart', 'typescript'], {
+  call ddc#custom#patch_filetype(['cpp', 'dart', 'typescript', 'typescriptreact'], {
     \   'sources': ['nvim-lsp', 'around']
+    \ })
+  call ddc#custom#patch_filetype(['css', 'scss'], {
+    \   'sources': ['nvim-lsp']
     \ })
   call ddc#custom#patch_filetype(['tex'], {
     \   'sources': ['vsnip', 'around'],
@@ -171,18 +174,22 @@ on_source = 'ddc.vim'
 repo = 'neovim/nvim-lspconfig'
 on_event = ['BufReadPost', 'InsertLeavePre']
 hook_add = '''
-  autocmd BufWritePre *.ts,*.dart lua vim.lsp.buf.formatting_sync()
+  autocmd BufWritePre *.ts,*.dart lua vim.lsp.buf.formatting()
+  command! Format lua vim.lsp.buf.formatting_sync()
 '''
 hook_source = '''
   lua << EOF
   local on_attach = function (client, bufnr)
     local function set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
     local opts = { noremap=true, silent=true }
-    set_keymap('n', '<Leader>d', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    set_keymap('n', '<Leader>i', '<Cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    set_keymap('n', '<Leader>r', '<Cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    set_keymap('n', '<Leader>x', '<Cmd>lua vim.diagnostic.open_float()<CR>', opts)
-    set_keymap('n', '<Leader>j', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+    set_keymap('n', ';d', '<Cmd>lua vim.lsp.buf.definition()    <CR>', opts)
+    set_keymap('n', ';i', '<Cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+    set_keymap('n', ';r', '<Cmd>lua vim.lsp.buf.rename()        <CR>', opts)
+    set_keymap('n', ';x', '<Cmd>lua vim.diagnostic.open_float() <CR>', opts)
+    set_keymap('n', ';l', '<Cmd>lua vim.lsp.buf.hover()         <CR>', opts)
+    set_keymap('n', ';s', '<Cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+    set_keymap('n', ';a', '<Cmd>lua vim.lsp.buf.code_action()   <CR>', opts)
+    set_keymap('n', ';f', '<Cmd>lua vim.lsp.buf.references()    <CR>', opts)
   end
 
   require('nvim-lsp-installer').setup({
@@ -203,7 +210,16 @@ hook_source = '''
       lint = true,
       unstable = true,
     },
-    root_dir = util.root_pattern("deno.json", "deno.jsonc", "tsconfig.json", ".git", "denops")
+    root_dir = util.root_pattern("deno.json", "deno.jsonc", "denops")
+  }
+  nvim_lsp.tsserver.setup{
+    on_attach = on_attach,
+    root_dir = util.root_pattern("package.json", "node_modules")
+  }
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  capabilities.textDocument.completion.completionItem.snippetSupport = true
+  nvim_lsp.cssls.setup {
+    capabilities = capabilities,
   }
   nvim_lsp.jsonls.setup{}
   nvim_lsp.omnisharp.setup{}
