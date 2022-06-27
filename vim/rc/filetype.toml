@@ -7,8 +7,7 @@ tex = '''
   setlocal sidescrolloff=10
   setlocal foldmarker=!!!>,<!!!
 
-  inoremap <buffer>$ $$<Left>
-  inoremap <buffer>' '
+  "inoremap <buffer>$ $$<Left>
 
   autocmd BufWritePre *.tex :call FixPunctuation()
   function! FixPunctuation() abort
@@ -21,7 +20,6 @@ tex = '''
 '''
 typescript = '''
   setlocal tabstop=2 softtabstop=2 shiftwidth=2
-  inoremap <buffer>` ``<Left>
 '''
 dart = '''
   setlocal tabstop=2 softtabstop=2 shiftwidth=2

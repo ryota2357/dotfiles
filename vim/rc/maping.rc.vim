@@ -3,7 +3,6 @@ if has('nvim')
   command! Wrap setlocal wrap!
 endif
 
-
 " xで削除した時はヤンクしない
 vnoremap x "_x
 nnoremap x "_x
@@ -56,15 +55,9 @@ nnoremap < <Cmd>tabN<CR>
 
 " 補完
 if has('nvim')
-  inoremap { {}<Left>
   inoremap {<CR> {<CR>}<ESC><S-o>
-  inoremap ( ()<ESC>i
   inoremap (<CR> ()<Left><CR><ESC><S-o>
-  inoremap () ()
-  inoremap {} {}
 endif
-inoremap " ""<Left>
-inoremap ' ''<Left>
 inoremap , ,<Space>
 
 if has('ide')
