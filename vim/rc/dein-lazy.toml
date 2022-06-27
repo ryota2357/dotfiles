@@ -1,4 +1,3 @@
-# defx
 [[plugins]]
 repo = 'Shougo/defx.nvim'
 hook_add = '''

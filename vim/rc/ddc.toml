@@ -172,7 +172,7 @@ on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
-on_event = ['BufReadPost', 'InsertLeavePre']
+on_event = 'BufReadPost'
 hook_add = '''
   autocmd BufWritePre *.ts,*.dart lua vim.lsp.buf.formatting()
   command! Format lua vim.lsp.buf.formatting_sync()
