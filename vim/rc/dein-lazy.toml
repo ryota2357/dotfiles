@@ -54,6 +54,7 @@ on_source = '''
 
 [[plugins]]
 repo = 'cohama/lexima.vim'
+# repo = '~/Projects/VimPlugin/lexima.vim'
 on_event = 'InsertEnter'
 hook_add = '''
   let g:lexima_no_default_rules = 1
@@ -61,21 +62,16 @@ hook_add = '''
   let g:lexima_enable_endwise_rules = 0
   let g:lexima_enable_space_rules = 0
   let g:lexima_map_escape = ''
-  let g:lexima_accept_pum_with_enter = 1 " don't work with pum.vim
+  let g:lexima_accept_pum_with_enter = 0
+  let g:lexima_accept_pumvim_with_enter = 1
   autocmd FileType defx,ddu-ui-filer let b:lexima_disabled = 1
   let g:lexima_custom = [
-    \   { 'char': '(', 'input_after': ')' },
-    \   { 'char': '[', 'input_after': ']' },
-    \   { 'char': '{', 'input_after': '}' },
-    \   { 'char': '"', 'input_after': '"' },
-    \   { 'char': "'", 'input_after': "'" },
-    \   { 'char': "`", 'input_after': "`" },
-    \   { 'char': '(', 'at': '\\\%#' },
-    \   { 'char': '[', 'at': '\\\%#' },
-    \   { 'char': '{', 'at': '\\\%#' },
-    \   { 'char': '"', 'at': '\\\%#' },
-    \   { 'char': "'", 'at': '\\\%#' },
-    \   { 'char': "`", 'at': '\\\%#' },
+    \   { 'char': '(', 'input_after': ')', 'except': '\\\%#' },
+    \   { 'char': '[', 'input_after': ']', 'except': '\\\%#' },
+    \   { 'char': '{', 'input_after': '}', 'except': '\\\%#' },
+    \   { 'char': '"', 'input_after': '"', 'except': '\\\%#' },
+    \   { 'char': "'", 'input_after': "'", 'except': '\\\%#' },
+    \   { 'char': "`", 'input_after': "`", 'except': '\\\%#' },
     \   { 'char': '<BS>', 'at': '(\%#)',   'delete': 1 },
     \   { 'char': '<BS>', 'at': '\[\%#\]', 'delete': 1 },
     \   { 'char': '<BS>', 'at': '{\%#}',   'delete': 1 },
@@ -83,10 +79,11 @@ hook_add = '''
     \   { 'char': '<BS>', 'at': "'\%#'",   'delete': 1 },
     \   { 'char': '<BS>', 'at': '"\%#`',   'delete': 1 },
     \ ]
-    "\   { 'char': '<CR>', 'at': '{\%#}', 'input_after': '<CR>' },
-    "\   { 'char': '<CR>', 'at': '(\%#)', 'input_after': '<CR>' },
-  let g:lexi_custom_ft = []
+    "\   { 'char': '<CR>', 'at': '{\%#}',   'input_after': '<CR>' },
+    "\   { 'char': '<CR>', 'at': '(\%#)',   'input_after': '<CR>' },
+  let g:lexima_custom_ft = []
 '''
+
 hook_source = '''
   call lexima#clear_rules()
   for rule in g:lexima_custom

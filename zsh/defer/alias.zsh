@@ -7,3 +7,5 @@ alias clip='pbcopy'
 
 alias vi='nvim'
 alias vii='nvim .'
+
+alias denops='deno run -A --no-check ~/.cache/dein/repos/github.com/vim-denops/denops.vim/denops/@denops-private/cli.ts'
