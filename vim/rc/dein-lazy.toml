@@ -53,8 +53,8 @@ on_source = '''
 '''
 
 [[plugins]]
-repo = 'cohama/lexima.vim'
-# repo = '~/Projects/VimPlugin/lexima.vim'
+# repo = 'cohama/lexima.vim'
+repo = '~/Projects/VimPlugin/lexima.vim'
 on_event = 'InsertEnter'
 hook_add = '''
   let g:lexima_no_default_rules = 1
@@ -71,19 +71,19 @@ hook_add = '''
     \   { 'char': '{', 'input_after': '}', 'except': '\\\%#' },
     \   { 'char': '"', 'input_after': '"', 'except': '\\\%#' },
     \   { 'char': "'", 'input_after': "'", 'except': '\\\%#' },
-    \   { 'char': "`", 'input_after': "`", 'except': '\\\%#' },
+    \   { 'char': '`', 'input_after': '`', 'except': '\\\%#' },
+    \   { 'char': ')',    'at': '(\%#)',   'leave': 1 },
     \   { 'char': '<BS>', 'at': '(\%#)',   'delete': 1 },
     \   { 'char': '<BS>', 'at': '\[\%#\]', 'delete': 1 },
     \   { 'char': '<BS>', 'at': '{\%#}',   'delete': 1 },
     \   { 'char': '<BS>', 'at': '"\%#"',   'delete': 1 },
     \   { 'char': '<BS>', 'at': "'\%#'",   'delete': 1 },
     \   { 'char': '<BS>', 'at': '"\%#`',   'delete': 1 },
+    \   { 'char': '<CR>', 'at': '{\%#}',   'input_after': '<CR>' },
+    \   { 'char': '<CR>', 'at': '(\%#)',   'input_after': '<CR>' },
     \ ]
-    "\   { 'char': '<CR>', 'at': '{\%#}',   'input_after': '<CR>' },
-    "\   { 'char': '<CR>', 'at': '(\%#)',   'input_after': '<CR>' },
   let g:lexima_custom_ft = []
 '''
-
 hook_source = '''
   call lexima#clear_rules()
   for rule in g:lexima_custom
