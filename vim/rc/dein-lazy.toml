@@ -53,18 +53,15 @@ on_source = '''
 '''
 
 [[plugins]]
-# repo = 'cohama/lexima.vim'
-repo = '~/Projects/VimPlugin/lexima.vim'
+repo = 'cohama/lexima.vim'
+depends = 'pum.vim'
 on_event = 'InsertEnter'
 hook_add = '''
-  let g:lexima_no_default_rules = 1
-  let g:lexima_enable_basic_rules = 0
-  let g:lexima_enable_endwise_rules = 0
-  let g:lexima_enable_space_rules = 0
+  let g:lexima_no_default_rules = v:true
   let g:lexima_map_escape = ''
-  let g:lexima_accept_pum_with_enter = 0
-  let g:lexima_accept_pumvim_with_enter = 1
-  autocmd FileType defx,ddu-ui-filer let b:lexima_disabled = 1
+  let g:lexima_accept_pum_with_enter = v:false
+  autocmd FileType defx,ddu-ui-filer let b:lexima_disabled = v:true
+  inoremap <expr><silent><CR> pum#visible() ? pum#map#confirm() : lexima#expand('<CR>', 'i')
   let g:lexima_custom = [
     \   { 'char': '(', 'input_after': ')', 'except': '\\\%#' },
     \   { 'char': '[', 'input_after': ']', 'except': '\\\%#' },
@@ -72,28 +69,43 @@ hook_add = '''
     \   { 'char': '"', 'input_after': '"', 'except': '\\\%#' },
     \   { 'char': "'", 'input_after': "'", 'except': '\\\%#' },
     \   { 'char': '`', 'input_after': '`', 'except': '\\\%#' },
-    \   { 'char': ')',    'at': '(\%#)',   'leave': 1 },
+    \   { 'char': ')', 'at': '(\%#)', 'leave': 1 },
     \   { 'char': '<BS>', 'at': '(\%#)',   'delete': 1 },
     \   { 'char': '<BS>', 'at': '\[\%#\]', 'delete': 1 },
     \   { 'char': '<BS>', 'at': '{\%#}',   'delete': 1 },
     \   { 'char': '<BS>', 'at': '"\%#"',   'delete': 1 },
     \   { 'char': '<BS>', 'at': "'\%#'",   'delete': 1 },
-    \   { 'char': '<BS>', 'at': '"\%#`',   'delete': 1 },
+    \   { 'char': '<BS>', 'at': '`\%#`',   'delete': 1 },
     \   { 'char': '<CR>', 'at': '{\%#}',   'input_after': '<CR>' },
     \   { 'char': '<CR>', 'at': '(\%#)',   'input_after': '<CR>' },
     \ ]
-  let g:lexima_custom_ft = []
+  let g:lexima_custom_tex = [
+    \   { 'char': '$',    'input_after': '$' },
+    \   { 'char': '<BS>', 'at': '\$\%#\$', 'delete': 1 },
+    \ ]
+  " バグ: 次のところで >
+  " <div>
+  "  <p|
+  " </div>
+  let g:lexima_custom_tag = [
+    \   { 'char': '>',    'at': '<\(\w\+\)\%#',  'leave': 1, 'input_after': '</\1>', 'with_submatch': v:true },
+    \   { 'char': '<CR>', 'at': '<\w\+>\%#</\w\+>', 'input_after': '<CR>' },
+    \ ]
 '''
 hook_source = '''
   call lexima#clear_rules()
   for rule in g:lexima_custom
-      call lexima#add_rule(rule)
+    call lexima#add_rule(rule)
   endfor
-  for rule in g:lexima_custom_ft
-      call lexima#add_rule(rule)
+  for rule in g:lexima_custom_tex
+    let rule['filetype'] = 'tex'
+    call lexima#add_rule(rule)
+  endfor
+  for rule in g:lexima_custom_tag
+    let rule['filetype'] = ['html', 'typescriptreact']
+    call lexima#add_rule(rule)
   endfor
 '''
-
 
 [[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter'

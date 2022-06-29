@@ -15,6 +15,18 @@ hook_add = '''
 '''
 
 [[plugins]]
+repo = 'Shougo/pum.vim'
+hook_add = '''
+  inoremap <expr><C-n>  pum#visible() ? pum#map#select_relative(+1) : '<Cmd>normal! gj<CR>'
+  inoremap <expr><C-p>  pum#visible() ? pum#map#select_relative(-1) : '<Cmd>normal! gk<CR>'
+  inoremap <expr><Down> pum#visible() ? pum#map#select_relative(+1) : '<Cmd>normal! gj<CR>'
+  inoremap <expr><Up>   pum#visible() ? pum#map#select_relative(-1) : '<Cmd>normal! gk<CR>'
+  " lexima.vimで定義
+  "inoremap <expr><CR>   pum#visible() ? pum#map#confirm()           : '<CR>'
+  set completeopt=menuone,noinsert
+'''
+
+[[plugins]]
 repo = 'ryanoasis/vim-devicons'
 
 [[plugins]]

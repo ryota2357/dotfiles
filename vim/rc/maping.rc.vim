@@ -58,6 +58,7 @@ if has('nvim')
   inoremap {<CR> {<CR>}<ESC><S-o>
   inoremap (<CR> ()<Left><CR><ESC><S-o>
 endif
+
 inoremap , ,<Space>
 
 if has('ide')

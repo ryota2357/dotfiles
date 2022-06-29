@@ -24,6 +24,8 @@ endif
 " dein configurations.
 let g:dein#enable_notification = v:true
 let g:dein#install_progress_type = 'floating'
+let g:dein#auto_recache = v:true
+let g:dein#install_max_processes = 1 " 時間かかるけど、エラーは出なくなる
 
 " plugin's downloaded path.
 let s:path = $CACHE . '/dein'
