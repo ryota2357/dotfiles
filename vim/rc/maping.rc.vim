@@ -55,11 +55,11 @@ nnoremap < <Cmd>tabN<CR>
 
 " 補完
 if has('nvim')
-  inoremap {<CR> {<CR>}<ESC><S-o>
-  inoremap (<CR> ()<Left><CR><ESC><S-o>
+  " inoremap {<CR> {<CR>}<ESC><S-o>
+  " inoremap (<CR> ()<Left><CR><ESC><S-o>
 endif
 
-inoremap , ,<Space>
+" inoremap , ,<Space>
 
 if has('ide')
   " <Action>(action-name) のマッピングには map しか使えない

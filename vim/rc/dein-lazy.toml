@@ -53,6 +53,22 @@ on_source = '''
 '''
 
 [[plugins]]
+repo = 'Shougo/pum.vim'
+on_event = ['InsertEnter', 'CmdlineEnter']
+hook_add = '''
+  inoremap <expr><C-n>  pum#visible() ? pum#map#select_relative(+1) : '<Cmd>normal! gj<CR>'
+  inoremap <expr><C-p>  pum#visible() ? pum#map#select_relative(-1) : '<Cmd>normal! gk<CR>'
+  inoremap <expr><Down> pum#visible() ? pum#map#select_relative(+1) : '<Cmd>normal! gj<CR>'
+  inoremap <expr><Up>   pum#visible() ? pum#map#select_relative(-1) : '<Cmd>normal! gk<CR>'
+  " lexima.vimで定義
+  "inoremap <expr><CR>   pum#visible() ? pum#map#confirm()           : '<CR>'
+  set completeopt=menuone,noinsert
+'''
+hook_source = '''
+  call pum#set_option('padding', v:true)
+'''
+
+[[plugins]]
 repo = 'cohama/lexima.vim'
 depends = 'pum.vim'
 on_event = 'InsertEnter'
@@ -60,8 +76,7 @@ hook_add = '''
   let g:lexima_no_default_rules = v:true
   let g:lexima_map_escape = ''
   let g:lexima_accept_pum_with_enter = v:false
-  autocmd FileType defx,ddu-ui-filer let b:lexima_disabled = v:true
-  inoremap <expr><silent><CR> pum#visible() ? pum#map#confirm() : lexima#expand('<CR>', 'i')
+  autocmd FileType ddu-ui-filer let b:lexima_disabled = v:true
   let g:lexima_custom = [
     \   { 'char': '(', 'input_after': ')', 'except': '\\\%#' },
     \   { 'char': '[', 'input_after': ']', 'except': '\\\%#' },
@@ -70,6 +85,7 @@ hook_add = '''
     \   { 'char': "'", 'input_after': "'", 'except': '\\\%#' },
     \   { 'char': '`', 'input_after': '`', 'except': '\\\%#' },
     \   { 'char': ')', 'at': '(\%#)', 'leave': 1 },
+    \   { 'char': ',', 'at': '\w\%#', 'input': ', ' },
     \   { 'char': '<BS>', 'at': '(\%#)',   'delete': 1 },
     \   { 'char': '<BS>', 'at': '\[\%#\]', 'delete': 1 },
     \   { 'char': '<BS>', 'at': '{\%#}',   'delete': 1 },
@@ -83,13 +99,9 @@ hook_add = '''
     \   { 'char': '$',    'input_after': '$' },
     \   { 'char': '<BS>', 'at': '\$\%#\$', 'delete': 1 },
     \ ]
-  " バグ: 次のところで >
-  " <div>
-  "  <p|
-  " </div>
   let g:lexima_custom_tag = [
-    \   { 'char': '>',    'at': '<\(\w\+\)\%#',  'leave': 1, 'input_after': '</\1>', 'with_submatch': v:true },
-    \   { 'char': '<CR>', 'at': '<\w\+>\%#</\w\+>', 'input_after': '<CR>' },
+    \   { 'char': '>', 'at': '<\(\w\+\)\%#', 'input_after': '</\1>', 'with_submatch': v:true },
+    \   { 'char': '<CR>', 'at': '<\w\+>\%#<\/\w\+>', 'input_after': '<CR>' },
     \ ]
 '''
 hook_source = '''
@@ -105,6 +117,9 @@ hook_source = '''
     let rule['filetype'] = ['html', 'typescriptreact']
     call lexima#add_rule(rule)
   endfor
+  execute printf("inoremap <expr><silent> <CR> pum#visible() ? pum#map#confirm() : lexima#expand(%s, 'i')",
+                \ string(lexima#string#to_mappable('<CR>'))
+                \ )
 '''
 
 [[plugins]]
