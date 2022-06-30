@@ -20,7 +20,7 @@ hook_add = '''
     cnoremap <expr><C-p>  pum#visible() ? pum#map#select_relative(-1) : '<Up>'
     cnoremap <expr><Down> pum#visible() ? pum#map#select_relative(+1) : '<Down>'
     cnoremap <expr><Up>   pum#visible() ? pum#map#select_relative(-1) : '<Up>'
-    cnoremap <expr><CR>   pum#visible() && pum#complete_info(['selected']) != {'selected': -1} ? pum#map#confirm() : '<CR>'
+    cnoremap <expr><CR>   pum#visible() && pum#complete_info()['selected'] != -1 ? pum#map#confirm() : '<CR>'
 
     autocmd User DDCCmdlineLeave ++once call s:CommandlinePost()
     autocmd InsertEnter <buffer> ++once call s:CommandlinePost()
