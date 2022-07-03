@@ -54,20 +54,15 @@ nnoremap > <Cmd>tabn<CR>
 nnoremap < <Cmd>tabN<CR>
 
 " 補完
-if has('nvim')
-  " inoremap {<CR> {<CR>}<ESC><S-o>
-  " inoremap (<CR> ()<Left><CR><ESC><S-o>
-endif
-
 " inoremap , ,<Space>
 
 if has('ide')
   " <Action>(action-name) のマッピングには map しか使えない
   " :action action-name<CR> で呼び出せば自由にマッピングできる
 
-  map <Leader>d <Action>(GotoDeclaration)
-  map <Leader>r <Action>(RenameElement)
-  map <Leader>j <Action>(ShowIntentionActions)
+  map ;d <Action>(GotoDeclaration)
+  map ;r <Action>(RenameElement)
+  map ;a <Action>(ShowIntentionActions)
 
   nnoremap ? :<C-u>action CommentByLineComment<CR>
   vnoremap ? :<C-u>action CommentByLineComment<CR>
