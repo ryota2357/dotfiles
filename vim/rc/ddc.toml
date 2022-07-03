@@ -190,7 +190,6 @@ hook_source = '''
   nvim_lsp.vimls.setup{on_attach = on_attach}
   nvim_lsp.dartls.setup{
     on_attach = on_attach,
-    -- single_file_support = true
     root_dir = util.root_pattern("pubspec.yaml", ".dart")
   }
   nvim_lsp.denols.setup{
