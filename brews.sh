@@ -8,6 +8,7 @@ brew install deno
 brew install sheldon
 brew install ghq
 brew install peco
+brew install rustup-init
 
 # 最新バージョン以外の取得を可能にする
 brew tap homebrew/cask-versions
@@ -15,7 +16,6 @@ brew tap homebrew/cask-versions
 # プラグイン周りの依存解消
 brew install pyenv
 brew install rbenv ruby-build
-brew install rust
 brew install php
 
 # bat: fzf.vim のプレビューに syntax highlight をつける

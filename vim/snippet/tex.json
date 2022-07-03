@@ -102,6 +102,14 @@
     "prefix": "overline",
     "body": "\\overline{$0}"
   },
+  "quotation": {
+    "prefix": "quotation",
+    "body": [
+      "\\begin{quotation}",
+      "  $0",
+      "\\end{quotation}"
+    ]
+  },
   "ref": {
     "prefix": "ref",
     "body": "\\ref{$0}"
