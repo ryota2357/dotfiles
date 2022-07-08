@@ -27,6 +27,9 @@ hook_add = '''
 '''
 
 [[plugins]]
+repo = 'RRethy/vim-illuminate'
+
+[[plugins]]
 repo = 'sheerun/vim-polyglot'
 
 [[plugins]]

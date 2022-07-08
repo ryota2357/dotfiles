@@ -140,7 +140,7 @@ require'nvim-treesitter.configs'.setup {
     -- dart : 特定の文字入力で nvim クラッシュする
     highlight = {
         enable = true,
-        disable = { 'help', 'latex', 'tex', 'dart' },
+        disable = { 'help', 'latex', 'tex' },
     },
 }
 EOF

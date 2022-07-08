@@ -50,8 +50,13 @@ nnoremap <C-w>l <C-w>>
 nnoremap <C-w>h <C-w><
 
 " タブ移動
-nnoremap > <Cmd>tabn<CR>
-nnoremap < <Cmd>tabN<CR>
+if has('nvim')
+  nnoremap > <Cmd>tabn<CR>
+  nnoremap < <Cmd>tabN<CR>
+elseif has('ide')
+  nnoremap > :<C-u>tabn<CR>
+  nnoremap < :<C-u>tabN<CR>
+endif
 
 " 補完
 " inoremap , ,<Space>
@@ -60,10 +65,15 @@ if has('ide')
   " <Action>(action-name) のマッピングには map しか使えない
   " :action action-name<CR> で呼び出せば自由にマッピングできる
 
-  map ;d <Action>(GotoDeclaration)
-  map ;r <Action>(RenameElement)
-  map ;a <Action>(ShowIntentionActions)
+  nmap ;d <Action>(GotoDeclaration)
+  nmap ;r <Action>(RenameElement)
+  nmap ;a <Action>(ShowIntentionActions)
+  nmap ;x <Action>(ShowErrorDescription)
+  nnoremap ;l K
 
-  nnoremap ? :<C-u>action CommentByLineComment<CR>
-  vnoremap ? :<C-u>action CommentByLineComment<CR>
+  nmap <Leader>f <Action>(GotoFile)
+  nmap <Leader>g <Action>(SearchEverywhere)
+
+  nmap ? <Action>(CommentByLineComment)
+  vmap ? <Action>(CommentByLineComment)
 endif

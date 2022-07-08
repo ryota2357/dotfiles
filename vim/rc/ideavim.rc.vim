@@ -2,7 +2,7 @@
 " let $VIMRC = expand('<sfile>:p')
 
 " define <Leader>
-let mapleader = '\<Space>'
+let mapleader = "\<Space>"
 
 execute 'source ~/dotfiles/vim/rc/maping.rc.vim'
 
