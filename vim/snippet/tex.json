@@ -208,6 +208,14 @@
     "prefix": "times",
     "body": "\\times "
   },
+  "verbatim": {
+    "prefix": ["verbatim", "pre"],
+    "body": [
+      "\\begin{verbatim}",
+      "  $0",
+      "\\end{verbatim}"
+    ]
+  },
   "α": {
     "prefix": "alpha",
     "body": "\\alpha "

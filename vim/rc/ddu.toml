@@ -13,13 +13,13 @@ hook_add = '''
     \   'uiParams': { 'ff': { 'startFilter': v:true } }
     \ })<CR>
 
+  command! Filer call ddu#start({
+    \   'ui': 'filer',
+    \   'sources': [{'name': 'file'}]
+    \ })
+
   let g:ddu_ui_params = {}
-  let g:ddu_source_options = {
-    \   '_': {
-    \     'ignoreCase': v:true,
-    \     'matchers': ['matcher_fzf']
-    \   }
-    \ }
+  let g:ddu_source_options = {}
   let g:ddu_source_params = {}
   let g:ddu_filter_params = {}
   let g:ddu_kind_options = {}
@@ -78,12 +78,49 @@ ddu-ff-filter = '''
 '''
 
 [[plugins]]
+repo = 'Shougo/ddu-ui-filer'
+# repo = '~/Projects/VimPlugin/ddu-ui-filer'
+on_source = 'ddu.vim'
+hook_source = '''
+  let g:ddu_ui_params['filer'] = {
+    \   'split': 'vertical',
+    \   'splitDirection': 'topleft',
+    \   'winWidth': 30,
+    \   'sort': 'filename'
+    \ }
+'''
+[plugins.ftplugin]
+ddu-filer = '''
+  nnoremap <buffer><expr><silent><CR> ddu#ui#filer#is_directory()
+    \ ? "<Cmd>call ddu#ui#filer#do_action('expandItem', {'mode': 'toggle'})<CR>"
+    \ : "<Cmd>call ddu#ui#filer#do_action('itemAction')<CR>"
+  nnoremap <buffer><silent> <Space>
+        \ <Cmd>call ddu#ui#filer#do_action('toggleSelectItem')<CR>
+  nnoremap <buffer><silent> q
+        \ <Cmd>call ddu#ui#filer#do_action('quit')<CR>
+'''
+
+[[plugins]]
 repo = 'Shougo/ddu-source-file_rec'
 depends = 'ddu-kind-file'
 on_source = 'ddu.vim'
 hook_source = '''
+  let g:ddu_source_options['file_rec'] = {
+    \   'ignoreCase': v:true,
+    \   'matchers': ['matcher_fzf']
+    \ }
   let g:ddu_source_params['file_rec'] = {
     \   'ignoredDirectories': ['.git', 'node_modules', '.cache']
+    \ }
+'''
+
+[[plugins]]
+repo = 'Shougo/ddu-source-file'
+depends = 'ddu-kind-file'
+on_source = 'ddu.vim'
+hook_source = '''
+  let g:ddu_source_options['file'] = {
+    \   'columns': ['filename']
     \ }
 '''
 
@@ -93,6 +130,7 @@ depends = 'ddu-kind-file'
 on_source = 'ddu.vim'
 hook_source = '''
   let g:ddu_source_options['rg'] = {
+    \   'ignoreCase': v:true,
     \   'matchers': []
     \ }
 '''
@@ -107,13 +145,8 @@ hook_source = '''
 '''
 
 [[plugins]]
-repo = 'matsui54/ddu-vim-ui-select'
+repo = 'Shougo/ddu-column-filename'
 on_source = 'ddu.vim'
-hook_source = '''
-  let g:ddu_kind_options['ui_select'] = {
-    \   'defaultAction': 'select'
-    \ }
-'''
 
 [[plugins]]
 repo = 'Shougo/ddu-kind-file'
@@ -121,5 +154,14 @@ on_source = 'ddu.vim'
 hook_source = '''
   let g:ddu_kind_options['file'] = {
     \   'defaultAction': 'open'
+    \ }
+'''
+
+[[plugins]]
+repo = 'matsui54/ddu-vim-ui-select'
+on_source = 'ddu.vim'
+hook_source = '''
+  let g:ddu_kind_options['ui_select'] = {
+    \   'defaultAction': 'select'
     \ }
 '''
