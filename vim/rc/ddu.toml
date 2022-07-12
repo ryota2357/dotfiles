@@ -13,12 +13,14 @@ hook_add = '''
     \   'uiParams': { 'ff': { 'startFilter': v:true } }
     \ })<CR>
 
-  command! Filer call ddu#start({
+  nnoremap <silent><Leader>t <Cmd>call ddu#start({
     \   'ui': 'filer',
+    \   'resume': v:true,
     \   'sources': [{'name': 'file'}]
-    \ })
+    \ })<CR>
 
   let g:ddu_ui_params = {}
+  let g:ddu_ui_options = {}
   let g:ddu_source_options = {}
   let g:ddu_source_params = {}
   let g:ddu_filter_params = {}
@@ -28,6 +30,7 @@ hook_source = '''
   call ddu#custom#patch_global({
     \   'ui': 'ff',
     \   'uiParams': g:ddu_ui_params,
+    \   'uiOptions': g:ddu_ui_options,
     \   'sourceOptions': g:ddu_source_options,
     \   'sourceParams': g:ddu_source_params,
     \   'filterParams': g:ddu_filter_params,
@@ -79,9 +82,11 @@ ddu-ff-filter = '''
 
 [[plugins]]
 repo = 'Shougo/ddu-ui-filer'
-# repo = '~/Projects/VimPlugin/ddu-ui-filer'
 on_source = 'ddu.vim'
 hook_source = '''
+  let g:ddu_ui_options['filer'] = {
+    \   'toggle': v:false
+    \ }
   let g:ddu_ui_params['filer'] = {
     \   'split': 'vertical',
     \   'splitDirection': 'topleft',
@@ -91,13 +96,15 @@ hook_source = '''
 '''
 [plugins.ftplugin]
 ddu-filer = '''
-  nnoremap <buffer><expr><silent><CR> ddu#ui#filer#is_directory()
+  nnoremap <buffer><expr><silent> <CR> ddu#ui#filer#is_directory()
     \ ? "<Cmd>call ddu#ui#filer#do_action('expandItem', {'mode': 'toggle'})<CR>"
-    \ : "<Cmd>call ddu#ui#filer#do_action('itemAction')<CR>"
-  nnoremap <buffer><silent> <Space>
-        \ <Cmd>call ddu#ui#filer#do_action('toggleSelectItem')<CR>
-  nnoremap <buffer><silent> q
-        \ <Cmd>call ddu#ui#filer#do_action('quit')<CR>
+    \ : "<Cmd>call ddu#ui#filer#do_action('itemAction', { 'params': {'command': 'drop'} })<CR>"
+  nnoremap <buffer><silent> o <Cmd>call ddu#ui#filer#do_action('itemAction', { 'params': {'command': 'tab drop'} })<CR>
+  nnoremap <buffer><silent> n <Cmd>call ddu#ui#filer#do_action('itemAction', { 'name': 'newFile' })<CR>
+  nnoremap <buffer><silent> r <Cmd>call ddu#ui#filer#do_action('itemAction', { 'name': 'rename' })<CR>
+  nnoremap <buffer><silent> R <Cmd>call ddu#ui#filer#do_action('checkItems')<CR>
+  nnoremap <buffer><silent> dd <Cmd>call ddu#ui#filer#do_action('itemAction', { 'name': 'trash' })<CR>
+  nnoremap <buffer><silent> q <Cmd>call ddu#ui#filer#do_action('quit')<CR>
 '''
 
 [[plugins]]
@@ -120,7 +127,7 @@ depends = 'ddu-kind-file'
 on_source = 'ddu.vim'
 hook_source = '''
   let g:ddu_source_options['file'] = {
-    \   'columns': ['filename']
+    \   'columns': ['icons']
     \ }
 '''
 
@@ -146,6 +153,11 @@ hook_source = '''
 
 [[plugins]]
 repo = 'Shougo/ddu-column-filename'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'ryota2357/ddu-column-icons'
+# repo = '~/Projects/VimPlugin/ddu-column-icons'
 on_source = 'ddu.vim'
 
 [[plugins]]

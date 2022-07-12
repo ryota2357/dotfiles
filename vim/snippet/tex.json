@@ -288,6 +288,10 @@
     "prefix": "phi",
     "body": "\\phi "
   },
+  "Ψ": {
+    "prefix": "psi",
+    "body": "\\psi"
+  },
   "ω": {
     "prefix": "omega",
     "body": "\\omega "
