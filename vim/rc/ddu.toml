@@ -3,38 +3,63 @@ repo = 'Shougo/ddu.vim'
 depends = 'denops.vim'
 on_event = 'CursorHold'
 hook_add = '''
-  nnoremap <silent><Leader>f <Cmd>call ddu#start({
+  nnoremap <Leader>f <Cmd>call ddu#start({
     \   'sources': [{'name': 'file_rec'}],
     \   'uiParams': { 'ff': { 'startFilter': v:true } }
     \ })<CR>
-  nnoremap <silent><Leader>g <Cmd>call ddu#start({
+  nnoremap <Leader>g <Cmd>call ddu#start({
     \   'sources': [{'name': 'rg'}],
     \   'volatile': v:true,
     \   'uiParams': { 'ff': { 'startFilter': v:true } }
     \ })<CR>
 
-  nnoremap <silent><Leader>t <Cmd>call ddu#start({
+  nnoremap <Leader>t <Cmd>call ddu#start({
+    \   'name': 'filer',
     \   'ui': 'filer',
     \   'resume': v:true,
     \   'sources': [{'name': 'file'}]
     \ })<CR>
-
-  let g:ddu_ui_params = {}
-  let g:ddu_ui_options = {}
-  let g:ddu_source_options = {}
-  let g:ddu_source_params = {}
-  let g:ddu_filter_params = {}
-  let g:ddu_kind_options = {}
 '''
 hook_source = '''
   call ddu#custom#patch_global({
     \   'ui': 'ff',
-    \   'uiParams': g:ddu_ui_params,
-    \   'uiOptions': g:ddu_ui_options,
-    \   'sourceOptions': g:ddu_source_options,
-    \   'sourceParams': g:ddu_source_params,
-    \   'filterParams': g:ddu_filter_params,
-    \   'kindOptions': g:ddu_kind_options,
+    \   'uiOptions': {
+    \     'filer': { 'toggle': v:true }
+    \    },
+    \   'uiParams': {
+    \     'ff': {
+    \       'split': 'floating',
+    \       'floatingBorder': 'rounded',
+    \       'previewFloating': v:true,
+    \       'previewFloatingBorder': 'double'
+    \     },
+    \     'filer': {
+    \       'split': 'vertical',
+    \       'splitDirection': 'topleft',
+    \       'winWidth': 30
+    \     }
+    \   },
+    \   'sourceOptions': {
+    \     'file_rec': {
+    \       'ignoreCase': v:true,
+    \       'matchers': ['matcher_fzf']
+    \     },
+    \     'rg': {
+    \       'ignoreCase': v:true,
+    \       'matchers': []
+    \     },
+    \     'file': { 'columns': ['icons'] }
+    \   },
+    \   'sourceParams': {
+    \     'file_rec': { 'ignoredDirectories': ['.git', 'node_modules', '.cache'] }
+    \   },
+    \   'filterParams': {
+    \     'matcher_fzf': { 'highlightMatched': 'Search' }
+    \   },
+    \   'kindOptions': {
+    \     'file': { 'defaultAction': 'open' },
+    \     'ui_select': { 'defaultAction': 'select' }
+    \   }
     \ })
 
   autocmd VimResized * call s:UI_FF_Size()
@@ -48,7 +73,7 @@ hook_source = '''
       \     'previewRow': round(&lines * 0.6),
       \     'previewCol': round(&columns * 0.5),
       \     'previewHeight': round(&lines * 0.4),
-      \     'previewWidth': round(&columns * 0.45),
+      \     'previewWidth': round(&columns * 0.45)
       \   }
       \ })
   endfunction
@@ -58,98 +83,54 @@ hook_source = '''
 [[plugins]]
 repo = 'Shougo/ddu-ui-ff'
 on_source = 'ddu.vim'
-hook_source = '''
-  let g:ddu_ui_params['ff'] = {
-    \   'split': 'floating',
-    \   'floatingBorder': 'rounded',
-    \   'previewFloating': v:true,
-    \   'previewFloatingBorder': 'double',
-    \ }
-'''
 [plugins.ftplugin]
 ddu-ff = '''
-  nnoremap <buffer><CR>  <Cmd>call ddu#ui#ff#do_action('itemAction')<CR>
-  nnoremap <buffer><ESC> <Cmd>call ddu#ui#ff#do_action('quit')<CR>
+  nnoremap <buffer> <CR>  <Cmd>call ddu#ui#ff#do_action('itemAction')<CR>
+  nnoremap <buffer> <ESC> <Cmd>call ddu#ui#ff#do_action('quit')<CR>
 '''
 ddu-ff-filter = '''
-  inoremap <buffer><CR>  <Cmd>call ddu#ui#ff#do_action('itemAction', { 'params': {'command': 'drop'} })<CR>
-  inoremap <buffer><C-o> <Cmd>call ddu#ui#ff#do_action('itemAction', { 'params': {'command': 'tab drop'} })<CR>
-  inoremap <buffer><C-n> <Cmd>call ddu#ui#ff#execute("call cursor(line('.')+1,0)")<CR>
-  inoremap <buffer><C-p> <Cmd>call ddu#ui#ff#execute("call cursor(line('.')-1,0)")<CR>
-  inoremap <buffer><C-q> <Cmd>call ddu#ui#ff#do_action('preview')<CR>
-  inoremap <buffer><ESC> <Cmd>call ddu#ui#ff#do_action('quit')<CR>
+  inoremap <buffer> <CR>  <Cmd>call ddu#ui#ff#do_action('itemAction', { 'params': {'command': 'drop'} })<CR>
+  inoremap <buffer> <C-o> <Cmd>call ddu#ui#ff#do_action('itemAction', { 'params': {'command': 'tab drop'} })<CR>
+  inoremap <buffer> <C-n> <Cmd>call ddu#ui#ff#execute("call cursor(line('.')+1,0)")<CR>
+  inoremap <buffer> <C-p> <Cmd>call ddu#ui#ff#execute("call cursor(line('.')-1,0)")<CR>
+  inoremap <buffer> <C-q> <Cmd>call ddu#ui#ff#do_action('preview')<CR>
+  inoremap <buffer> <ESC> <Cmd>call ddu#ui#ff#do_action('quit')<CR>
 '''
 
 [[plugins]]
 repo = 'Shougo/ddu-ui-filer'
 on_source = 'ddu.vim'
-hook_source = '''
-  let g:ddu_ui_options['filer'] = {
-    \   'toggle': v:false
-    \ }
-  let g:ddu_ui_params['filer'] = {
-    \   'split': 'vertical',
-    \   'splitDirection': 'topleft',
-    \   'winWidth': 30,
-    \   'sort': 'filename'
-    \ }
-'''
 [plugins.ftplugin]
 ddu-filer = '''
-  nnoremap <buffer><expr><silent> <CR> ddu#ui#filer#is_directory()
+  nnoremap <buffer><expr> <CR> ddu#ui#filer#is_directory()
     \ ? "<Cmd>call ddu#ui#filer#do_action('expandItem', {'mode': 'toggle'})<CR>"
     \ : "<Cmd>call ddu#ui#filer#do_action('itemAction', { 'params': {'command': 'drop'} })<CR>"
-  nnoremap <buffer><silent> o <Cmd>call ddu#ui#filer#do_action('itemAction', { 'params': {'command': 'tab drop'} })<CR>
-  nnoremap <buffer><silent> n <Cmd>call ddu#ui#filer#do_action('itemAction', { 'name': 'newFile' })<CR>
-  nnoremap <buffer><silent> r <Cmd>call ddu#ui#filer#do_action('itemAction', { 'name': 'rename' })<CR>
-  nnoremap <buffer><silent> R <Cmd>call ddu#ui#filer#do_action('checkItems')<CR>
-  nnoremap <buffer><silent> dd <Cmd>call ddu#ui#filer#do_action('itemAction', { 'name': 'trash' })<CR>
-  nnoremap <buffer><silent> q <Cmd>call ddu#ui#filer#do_action('quit')<CR>
+  nnoremap <buffer> o <Cmd>call ddu#ui#filer#do_action('itemAction', { 'params': {'command': 'tab drop'} })<CR>
+  nnoremap <buffer> n <Cmd>call ddu#ui#filer#do_action('itemAction', { 'name': 'newFile' })<CR>
+  nnoremap <buffer> r <Cmd>call ddu#ui#filer#do_action('itemAction', { 'name': 'rename' })<CR>
+  nnoremap <buffer> R <Cmd>call ddu#ui#filer#do_action('checkItems')<CR>
+  nnoremap <buffer> dd <Cmd>call ddu#ui#filer#do_action('itemAction', { 'name': 'trash' })<CR>
+  nnoremap <buffer> q <Cmd>call ddu#ui#filer#do_action('quit')<CR>
 '''
 
 [[plugins]]
 repo = 'Shougo/ddu-source-file_rec'
 depends = 'ddu-kind-file'
 on_source = 'ddu.vim'
-hook_source = '''
-  let g:ddu_source_options['file_rec'] = {
-    \   'ignoreCase': v:true,
-    \   'matchers': ['matcher_fzf']
-    \ }
-  let g:ddu_source_params['file_rec'] = {
-    \   'ignoredDirectories': ['.git', 'node_modules', '.cache']
-    \ }
-'''
 
 [[plugins]]
 repo = 'Shougo/ddu-source-file'
 depends = 'ddu-kind-file'
 on_source = 'ddu.vim'
-hook_source = '''
-  let g:ddu_source_options['file'] = {
-    \   'columns': ['icons']
-    \ }
-'''
 
 [[plugins]]
 repo = 'shun/ddu-source-rg'
 depends = 'ddu-kind-file'
 on_source = 'ddu.vim'
-hook_source = '''
-  let g:ddu_source_options['rg'] = {
-    \   'ignoreCase': v:true,
-    \   'matchers': []
-    \ }
-'''
 
 [[plugins]]
 repo = 'yuki-yano/ddu-filter-fzf'
 on_source = 'ddu.vim'
-hook_source = '''
-  let g:ddu_filter_params['matcher_fzf'] = {
-    \   'highlightMatched': 'Search'
-    \ }
-'''
 
 [[plugins]]
 repo = 'Shougo/ddu-column-filename'
@@ -163,17 +144,7 @@ on_source = 'ddu.vim'
 [[plugins]]
 repo = 'Shougo/ddu-kind-file'
 on_source = 'ddu.vim'
-hook_source = '''
-  let g:ddu_kind_options['file'] = {
-    \   'defaultAction': 'open'
-    \ }
-'''
 
 [[plugins]]
 repo = 'matsui54/ddu-vim-ui-select'
 on_source = 'ddu.vim'
-hook_source = '''
-  let g:ddu_kind_options['ui_select'] = {
-    \   'defaultAction': 'select'
-    \ }
-'''
