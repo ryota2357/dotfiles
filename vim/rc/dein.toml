@@ -15,9 +15,6 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'ryanoasis/vim-devicons'
-
-[[plugins]]
 repo = 'itchyny/lightline.vim'
 
 [[plugins]]
@@ -44,5 +41,5 @@ hook_add = '''
 [[plugins]]
 repo = 'bronson/vim-trailing-whitespace'
 hook_add = '''
-  let g:extra_whitespace_ignored_filetypes = ['markdown', 'defx', 'ddu-filer']
+  let g:extra_whitespace_ignored_filetypes = ['markdown', 'ddu-filer']
 '''

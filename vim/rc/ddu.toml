@@ -138,8 +138,8 @@ repo = 'yuki-yano/ddu-filter-fzf'
 on_source = 'ddu.vim'
 
 [[plugins]]
-# repo = 'ryota2357/ddu-column-icon_filename'
-repo = '~/Projects/VimPlugin/ddu-column-icon_filename'
+repo = 'ryota2357/ddu-column-icon_filename'
+# repo = '~/Projects/VimPlugin/ddu-column-icon_filename'
 on_source = 'ddu.vim'
 
 [[plugins]]
