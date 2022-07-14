@@ -49,9 +49,11 @@ brew install wget
 # brew cu
 brew tap buo/cask-upgrade
 
-# icon font
+# font
 brew tap homebrew/cask-fonts
 brew install --cask font-hack-nerd-font
+brew install --cask font-cica
+brew install --cask font-hackgen-nerd
 
 # latex
 brew install texlive
