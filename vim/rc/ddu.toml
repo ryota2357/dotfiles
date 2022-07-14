@@ -13,7 +13,7 @@ hook_add = '''
     \   'uiParams': { 'ff': { 'startFilter': v:true } }
     \ })<CR>
 
-  nnoremap <Leader>t <Cmd>call ddu#start({
+  nnoremap <Leader>o <Cmd>call ddu#start({
     \   'name': 'filer',
     \   'ui': 'filer',
     \   'resume': v:true,
@@ -48,10 +48,15 @@ hook_source = '''
     \       'ignoreCase': v:true,
     \       'matchers': []
     \     },
-    \     'file': { 'columns': ['icons'] }
+    \     'file': { 'columns': ['icon_filename'] }
     \   },
     \   'sourceParams': {
     \     'file_rec': { 'ignoredDirectories': ['.git', 'node_modules', '.cache'] }
+    \   },
+    \   'columnParams': {
+    \     'icon_filename': {
+    \       'defaultIcon': { 'icon': '' }
+    \     }
     \   },
     \   'filterParams': {
     \     'matcher_fzf': { 'highlightMatched': 'Search' }
@@ -133,12 +138,8 @@ repo = 'yuki-yano/ddu-filter-fzf'
 on_source = 'ddu.vim'
 
 [[plugins]]
-repo = 'Shougo/ddu-column-filename'
-on_source = 'ddu.vim'
-
-[[plugins]]
-repo = 'ryota2357/ddu-column-icons'
-# repo = '~/Projects/VimPlugin/ddu-column-icons'
+# repo = 'ryota2357/ddu-column-icon_filename'
+repo = '~/Projects/VimPlugin/ddu-column-icon_filename'
 on_source = 'ddu.vim'
 
 [[plugins]]

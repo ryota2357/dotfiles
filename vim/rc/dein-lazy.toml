@@ -1,7 +1,7 @@
 [[plugins]]
 repo = 'Shougo/defx.nvim'
 hook_add = '''
-  nnoremap <silent><Leader>o <Cmd>Defx<CR>
+ " nnoremap <silent><Leader>o <Cmd>Defx<CR>
 '''
 hook_source = '''
   call defx#custom#option('_', {
