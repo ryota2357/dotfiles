@@ -38,6 +38,7 @@ hook_add = '''
     \   { 'char': "'", 'input_after': "'", 'except': '\\\%#' },
     \   { 'char': '`', 'input_after': '`', 'except': '\\\%#' },
     \   { 'char': ')', 'at': '(\%#)', 'leave': 1 },
+    \   { 'char': ']', 'at': '\%#\]', 'leave': 1 },
     \   { 'char': ',', 'at': '\w\%#', 'input': ', ' },
     \   { 'char': ';', 'at': '\%#)',  'leave': ')', 'input': ';' },
     \   { 'char': '<BS>', 'at': '(\%#)',   'delete': 1 },

@@ -19,7 +19,7 @@ $bibtex = 'upbibtex %O %B';
 $biber = 'biber --bblencoding=utf8 -u -U --output_safechars %O %S';
 
 # LaTeXにより出力されたDVIファイルをPDFファイルに変換するコマンドの設定
-$dvipdf = 'dvipdfmx %O -o %D %S';
+$dvipdf = 'dvipdfmx -V 4 %O -o %D %S';
 
 # 索引を作成するときのコマンドを指定 (\usepackage{makeidx}を使うときに必要になる)
 $makeindex = 'upmendex %O -o %D %S';

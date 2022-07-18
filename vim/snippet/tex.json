@@ -211,9 +211,11 @@
   "verbatim": {
     "prefix": ["verbatim", "pre"],
     "body": [
+      "\\scriptsize",
       "\\begin{verbatim}",
       "  $0",
-      "\\end{verbatim}"
+      "\\end{verbatim}",
+      "\\normalsize"
     ]
   },
   "α": {

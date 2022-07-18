@@ -64,6 +64,11 @@ hook_source = '''
     \   'kindOptions': {
     \     'file': { 'defaultAction': 'open' },
     \     'ui_select': { 'defaultAction': 'select' }
+    \   },
+    \   'actionOptions': {
+    \     'narrow': {
+    \       'quit': v:false,
+    \     },
     \   }
     \ })
 
