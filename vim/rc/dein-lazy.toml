@@ -92,13 +92,19 @@ require'nvim-treesitter.configs'.setup {
 
     -- help : ハイライト変になる
     -- tex  : snipet挿入後とかでエラーが出る
-    -- dart : 特定の文字入力で nvim クラッシュする
     highlight = {
         enable = true,
         disable = { 'help', 'latex', 'tex' },
     },
 }
 EOF
+'''
+
+[[plugins]]
+repo = 'yuki-yano/fuzzy-motion.vim'
+on_cmd = 'FuzzyMotion'
+hook_add = '''
+ nnoremap <Leader><Space> <Cmd>FuzzyMotion<CR>
 '''
 
 [[plugins]]
