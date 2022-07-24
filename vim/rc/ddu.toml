@@ -19,6 +19,11 @@ hook_add = '''
     \   'resume': v:true,
     \   'sources': [{'name': 'file'}]
     \ })<CR>
+
+  command! Library call ddu#start({
+    \   'sources': [{'name': 'cpl'}],
+    \   'uiParams': { 'ff': { 'startFilter': v:true } }
+    \ })
 '''
 hook_source = '''
   call ddu#custom#patch_global({
@@ -48,6 +53,10 @@ hook_source = '''
     \       'ignoreCase': v:true,
     \       'matchers': []
     \     },
+    \     'cpl': {
+    \       'ignoreCase': v:true,
+    \       'matchers': ['matcher_fzf']
+    \     },
     \     'file': { 'columns': ['icon_filename'] }
     \   },
     \   'sourceParams': {
@@ -63,7 +72,8 @@ hook_source = '''
     \   },
     \   'kindOptions': {
     \     'file': { 'defaultAction': 'open' },
-    \     'ui_select': { 'defaultAction': 'select' }
+    \     'ui_select': { 'defaultAction': 'select' },
+    \     'cpl': { 'defaultAction': 'paste' }
     \   },
     \   'actionOptions': {
     \     'narrow': {
@@ -136,6 +146,11 @@ on_source = 'ddu.vim'
 [[plugins]]
 repo = 'shun/ddu-source-rg'
 depends = 'ddu-kind-file'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'ryota2357/cpl'
+# repo = '~/CompetitiveProgramming/Library/cpl'
 on_source = 'ddu.vim'
 
 [[plugins]]
