@@ -83,7 +83,6 @@ set whichwrap=b,s,<,>,~,[,]
 
 " インサートモードでの<BS>, <Del>の扱い
 set backspace=indent,eol,start
-"set backspace=indent,start
 
 " どこでも短形ビジュアルモード
 set virtualedit=block
@@ -94,8 +93,12 @@ set nowrap
 " 画面の左右の端でスクロールが発生した場合、何文字ずつスクロールするか
 set sidescroll=1
 
-" 行が画面よりも伸びているときに最終列、最初の列に表示する文字
-set listchars=extends:>,precedes:<
+" 表示文字設定
+"   extends:  行が画面よりも伸びているときの最終列に表示
+"   precedes: 行が画面よりも伸びているときの最初の列に表示
+"   space:    空白の表示
+set list
+set listchars=extends:>,precedes:<,space:⋅
 
 " スクロールの余裕
 set scrolloff=3
