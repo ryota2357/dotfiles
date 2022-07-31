@@ -32,7 +32,7 @@
     "body": "\\cos{$0}"
   },
   "enumerate": {
-    "prefix": ["enumerate", "oderedlist"],
+    "prefix": ["enumerate", "orderedlist"],
     "body": [
       "\\begin{enumerate}",
       "  \\item $0",

@@ -18,7 +18,10 @@ hook_add = '''
   set completeopt=menuone,noinsert
 '''
 hook_source = '''
-  call pum#set_option('padding', v:true)
+  call pum#set_option({
+    \   'padding': v:true,
+    \   'scrollbar_char': ''
+    \ })
 '''
 
 [[plugins]]
@@ -80,6 +83,7 @@ hook_source = '''
 
 [[plugins]]
 repo = 'yuki-yano/fuzzy-motion.vim'
+depends = 'denops.vim'
 on_cmd = 'FuzzyMotion'
 hook_add = '''
  nnoremap <Leader><Space> <Cmd>FuzzyMotion<CR>
@@ -90,8 +94,8 @@ repo = 'nvim-treesitter/nvim-treesitter'
 on_event = 'BufEnter'
 hook_post_update = 'TSUpdate'
 hook_source = '''
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
+lua << EOF
+require('nvim-treesitter.configs').setup {
   ensure_installed = 'all',
   additional_vim_regex_highlighting = false,
 
@@ -112,7 +116,7 @@ EOF
 repo = 'lewis6991/gitsigns.nvim'
 on_event = 'BufEnter'
 hook_source = '''
-  lua require'gitsigns'.setup()
+  lua require('gitsigns').setup()
 '''
 
 [[plugins]]
@@ -120,7 +124,7 @@ repo = 'lukas-reineke/indent-blankline.nvim'
 on_event = 'BufEnter'
 hook_source = '''
   highlight IndentBlanklineContextChar guifg=#6E6E6E gui=nocombine
-  lua require'indent_blankline'.setup {
+  lua require('indent_blankline').setup {
   \  show_current_context = true,
   \ }
 '''
@@ -129,12 +133,23 @@ hook_source = '''
 repo = 'norcalli/nvim-colorizer.lua'
 on_event = 'BufEnter'
 hook_source = '''
-  lua require'colorizer'.setup()
+  lua require('colorizer').setup()
+'''
+
+[[plugins]]
+repo = 'petertriho/nvim-scrollbar'
+on_event = 'BufEnter'
+hook_source = '''
+lua << EOF
+  require('scrollbar').setup {
+    handle = { color = '#4B4B4B' }
+  }
+EOF
 '''
 
 [[plugins]]
 repo = 'nvim-treesitter/playground'
-on_cmd = 'TSHighlightCapturesUnderCursor'
+on_cmd = ['TSHighlightCapturesUnderCursor', 'TSPlaygroundToggle']
 
 [[plugins]]
 repo = 'cocopon/inspecthi.vim'
