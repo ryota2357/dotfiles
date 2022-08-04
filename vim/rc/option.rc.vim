@@ -117,6 +117,3 @@ set ignorecase
 
 " マーカー位置で折りたたむ
 set foldmethod=marker
-
-" .texのからファイルはplanetexになってしまうので
-let g:tex_flavor = 'latex'

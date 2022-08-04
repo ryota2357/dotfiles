@@ -32,20 +32,27 @@ let s:path = $CACHE . '/dein'
 
 " Load plugin by dein.
 if dein#min#load_state(s:path)
+
   let s:rc_dir = expand('~/dotfiles/vim/rc') . '/'
+
+  let s:dein_toml = s:rc_dir . 'dein.toml'
+  let s:dein_lazy_toml = s:rc_dir . 'dein-lazy.toml'
+  let s:ddc_toml = s:rc_dir . 'ddc.toml'
+  let s:ddu_toml = s:rc_dir . 'ddu.toml'
+  let s:filetype_toml = s:rc_dir . 'filetype.toml'
 
   let g:dein#inline_vimrcs = [
         \ s:rc_dir . 'option.rc.vim',
         \ s:rc_dir . 'maping.rc.vim'
         \]
 
-  call dein#begin(s:path)
+  call dein#begin(s:path, [expand('<sfile>'), s:dein_toml, s:dein_lazy_toml, s:ddc_toml, s:ddu_toml, s:filetype_toml])
 
-  call dein#load_toml(s:rc_dir . 'dein.toml')
-  call dein#load_toml(s:rc_dir . 'dein-lazy.toml', {'lazy': 1})
-  call dein#load_toml(s:rc_dir . 'ddc.toml', {'lazy': 1})
-  call dein#load_toml(s:rc_dir . 'ddu.toml', {'lazy': 1})
-  call dein#load_toml(s:rc_dir . 'filetype.toml')
+  call dein#load_toml(s:dein_toml, {'lazy' : 0})
+  call dein#load_toml(s:dein_lazy_toml, {'lazy' : 1})
+  call dein#load_toml(s:ddc_toml, {'lazy' : 1})
+  call dein#load_toml(s:ddu_toml, {'lazy' : 1})
+  call dein#load_toml(s:filetype_toml, {'lazy' : 0})
 
   call dein#end()
   call dein#save_state()

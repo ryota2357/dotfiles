@@ -56,7 +56,7 @@ hook_source = '''
   call ddc#custom#patch_filetype(['vim'], {
     \   'sources': ['vsnip', 'nvim-lsp', 'around']
     \ })
-  call ddc#custom#patch_filetype(['cpp', 'dart', 'typescript', 'typescriptreact', 'rust'], {
+  call ddc#custom#patch_filetype(['cpp', 'dart', 'typescript', 'typescriptreact', 'rust', 'lua'], {
     \   'sources': ['nvim-lsp', 'around']
     \ })
   call ddc#custom#patch_filetype(['css', 'scss'], {
@@ -210,6 +210,14 @@ lua << EOF
       opts.root_dir = util.root_pattern('deno.json', 'deno.jsonc', 'denops')
     elseif server_name == 'html' then
       opts.capabilities = capabilities
+    elseif server_name == 'sumneko_lua' then
+      opts.settings = {
+        Lua = {
+          diagnostics = {
+            globals = { 'vim' }
+          }
+        }
+      }
     elseif server_name == 'tsserver' then
       opts.root_dir = util.root_pattern('package.json', 'node_modules')
     end
