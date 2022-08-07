@@ -13,11 +13,12 @@ if has('nvim')
   nnoremap k gk
 endif
 
-" Qで行頭, Pで行末に移動
+" 移動系
 nnoremap Q ^
 nnoremap P $l
 vnoremap Q ^
 vnoremap P $l
+nnoremap ;; ;
 
 " ノーマルモードでも改行
 nnoremap <CR> i<CR><ESC>
@@ -57,9 +58,6 @@ elseif has('ide')
   nnoremap > :<C-u>tabn<CR>
   nnoremap < :<C-u>tabN<CR>
 endif
-
-" 補完
-" inoremap , ,<Space>
 
 if has('ide')
   " <Action>(action-name) のマッピングには map しか使えない

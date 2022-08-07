@@ -42,8 +42,8 @@ hook_add = '''
     \   { 'char': '`', 'input_after': '`', 'except': '\\\%#' },
     \   { 'char': ')', 'at': '(\%#)', 'leave': 1 },
     \   { 'char': ']', 'at': '\%#\]', 'leave': 1 },
-    \   { 'char': ',', 'at': '\w\%#', 'input': ', ' },
     \   { 'char': ';', 'at': '\%#)',  'leave': ')', 'input': ';' },
+    \   { 'char': ',', 'input': ', ', 'except': '\%#\n', },
     \   { 'char': '<BS>', 'at': '(\%#)',   'delete': 1 },
     \   { 'char': '<BS>', 'at': '\[\%#\]', 'delete': 1 },
     \   { 'char': '<BS>', 'at': '{\%#}',   'delete': 1 },
@@ -86,7 +86,12 @@ repo = 'yuki-yano/fuzzy-motion.vim'
 depends = 'denops.vim'
 on_cmd = 'FuzzyMotion'
 hook_add = '''
- nnoremap <Leader><Space> <Cmd>FuzzyMotion<CR>
+  let g:fuzzy_motion_labels = [
+    \ 'L', 'K', 'J', 'P', 'O', 'I', 'H', 'U', 'F',
+    \ 'D', 'S', 'R', 'E', 'W', 'A', 'G', 'T', 'Y',
+    \ 'N', 'B', 'M', 'V', 'C', 'Q', 'X', 'Z'
+    \ ]
+  nnoremap <Leader><Space> <Cmd>FuzzyMotion<CR>
 '''
 
 [[plugins]]

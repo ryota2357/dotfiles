@@ -1,10 +1,8 @@
 vim.opt.runtimepath:prepend(vim.fn.fnamemodify('~/Projects/VimPlugin/dein-snip.lua', ':p'))
 
-vim.cmd([[
-    let mapleader = "\<Space>"
-    let g:do_filetype_lua = 1
-    let g:did_load_filetypes = 0
-]])
+vim.g.mapleader = ' ' -- <Space>
+vim.g.do_filetype_lua = true
+vim.g.did_load_filetypes = false
 
 require('dein-snip').setup {
     load = {
@@ -31,4 +29,4 @@ require('dein-snip').setup {
     auto_recache = true
 }
 
-vim.o.secure = true
+vim.opt.secure = true

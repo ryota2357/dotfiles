@@ -208,6 +208,7 @@ lua << EOF
     elseif server_name == 'denols' then
       opts.init_options = { lint = true, unstable = true }
       opts.root_dir = util.root_pattern('deno.json', 'deno.jsonc', 'denops')
+      opts.single_file_support = false
     elseif server_name == 'html' then
       opts.capabilities = capabilities
     elseif server_name == 'sumneko_lua' then
