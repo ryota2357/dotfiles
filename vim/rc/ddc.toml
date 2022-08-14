@@ -191,14 +191,14 @@ lua << EOF
     local opts = {}
     opts.on_attach = function(_, bufnr)
       local function nnoremap(key, cmd) vim.api.nvim_buf_set_keymap(bufnr, 'n', key, cmd, { noremap = true, silent = true }) end
-      nnoremap(';d', '<Cmd>lua vim.lsp.buf.definition()<CR>')
-      nnoremap(';i', '<Cmd>lua vim.lsp.buf.implementation()<CR>')
-      nnoremap(';r', '<Cmd>lua vim.lsp.buf.rename()<CR>')
-      nnoremap(';x', '<Cmd>lua vim.diagnostic.open_float()<CR>')
-      nnoremap(';l', '<Cmd>lua vim.lsp.buf.hover()<CR>')
-      nnoremap(';s', '<Cmd>lua vim.lsp.buf.signature_help()<CR>')
-      nnoremap(';a', '<Cmd>lua vim.lsp.buf.code_action()<CR>')
-      nnoremap(';f', '<Cmd>lua vim.lsp.buf.references()<CR>')
+      nnoremap(',d', '<Cmd>lua vim.lsp.buf.definition()<CR>')
+      nnoremap(',i', '<Cmd>lua vim.lsp.buf.implementation()<CR>')
+      nnoremap(',r', '<Cmd>lua vim.lsp.buf.rename()<CR>')
+      nnoremap(',x', '<Cmd>lua vim.diagnostic.open_float()<CR>')
+      nnoremap(',l', '<Cmd>lua vim.lsp.buf.hover()<CR>')
+      nnoremap(',s', '<Cmd>lua vim.lsp.buf.signature_help()<CR>')
+      nnoremap(',a', '<Cmd>lua vim.lsp.buf.code_action()<CR>')
+      nnoremap(',f', '<Cmd>lua vim.lsp.buf.references()<CR>')
     end
     if server_name == 'cssls' then
       opts.capabilities = capabilities
@@ -214,9 +214,10 @@ lua << EOF
     elseif server_name == 'sumneko_lua' then
       opts.settings = {
         Lua = {
-          diagnostics = {
-            globals = { 'vim' }
-          }
+          runtime = { version = 'LuaJIT' },
+          diagnostics = { globals = {'vim'} },
+          workspace = { library = vim.api.nvim_get_runtime_file("", true) },
+          telemetry = { enable = false },
         }
       }
     elseif server_name == 'tsserver' then

@@ -17,6 +17,7 @@ brew tap homebrew/cask-versions
 brew install pyenv
 brew install rbenv ruby-build
 brew install php
+brew install lua-language-server
 
 # bat: fzf.vim のプレビューに syntax highlight をつける
 # ripgrep: (rg) 高速なgrep検索

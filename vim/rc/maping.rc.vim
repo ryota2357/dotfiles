@@ -18,7 +18,6 @@ nnoremap Q ^
 nnoremap P $l
 vnoremap Q ^
 vnoremap P $l
-nnoremap ;; ;
 
 " ノーマルモードでも改行
 nnoremap <CR> i<CR><ESC>
@@ -63,15 +62,18 @@ if has('ide')
   " <Action>(action-name) のマッピングには map しか使えない
   " :action action-name<CR> で呼び出せば自由にマッピングできる
 
-  nmap ;d <Action>(GotoDeclaration)
-  nmap ;r <Action>(RenameElement)
-  nmap ;a <Action>(ShowIntentionActions)
-  nmap ;x <Action>(ShowErrorDescription)
-  nnoremap ;l K
+  nmap ,d <Action>(GotoDeclaration)
+  nmap ,r <Action>(RenameElement)
+  nmap ,a <Action>(ShowIntentionActions)
+  nmap ,x <Action>(ShowErrorDescription)
+  nnoremap ,l K
 
   nmap <Leader>f <Action>(GotoFile)
   nmap <Leader>g <Action>(SearchEverywhere)
 
   nmap ? <Action>(CommentByLineComment)
   vmap ? <Action>(CommentByLineComment)
+  
+  command! Format action ReformatCode
+  command! Run action Run
 endif
