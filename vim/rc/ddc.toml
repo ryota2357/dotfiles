@@ -16,10 +16,10 @@ hook_add = '''
 
   function! s:CommandlinePre() abort
     cnoremap <expr><Tab>  pum#visible() ? pum#map#insert_relative(+1) : ddc#manual_complete()
-    cnoremap <expr><C-n>  pum#visible() ? pum#map#select_relative(+1) : '<Down>'
-    cnoremap <expr><C-p>  pum#visible() ? pum#map#select_relative(-1) : '<Up>'
-    cnoremap <expr><Down> pum#visible() ? pum#map#select_relative(+1) : '<Down>'
-    cnoremap <expr><Up>   pum#visible() ? pum#map#select_relative(-1) : '<Up>'
+    cnoremap <expr><C-n>  pum#visible() ? pum#map#insert_relative(+1) : '<Down>'
+    cnoremap <expr><C-p>  pum#visible() ? pum#map#insert_relative(-1) : '<Up>'
+    cnoremap <expr><Down> pum#visible() ? pum#map#insert_relative(+1) : '<Down>'
+    cnoremap <expr><Up>   pum#visible() ? pum#map#insert_relative(-1) : '<Up>'
     cnoremap <expr><CR>   pum#visible() && pum#complete_info()['selected'] != -1 ? pum#map#confirm() : '<CR>'
 
     autocmd User DDCCmdlineLeave ++once call s:CommandlinePost()
@@ -161,6 +161,7 @@ on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
+depends = ['mason.nvim', 'mason-lspconfig.nvim']
 on_event = 'BufReadPost'
 hook_add = '''
   autocmd BufWritePre *.ts,*.dart,*.rs lua vim.lsp.buf.formatting()
@@ -169,16 +170,17 @@ hook_add = '''
 hook_source = '''
 lua << EOF
   local nvim_lsp = require('lspconfig')
-  local lsp_installer = require('nvim-lsp-installer')
+  local mason = require('mason')
+  local mason_lspconfig = require('mason-lspconfig')
   local util = require('lspconfig.util')
 
-  lsp_installer.setup({
+  mason.setup({
     automatic_installation = true,
     ui = {
       icons = {
-        server_installed = "",
-        server_pending = "",
-        server_uninstalled = ""
+        package_installed = "",
+        package_pending = "",
+        package_uninstalled = ""
       }
     }
   })
@@ -186,8 +188,7 @@ lua << EOF
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-  for _, server in ipairs(lsp_installer.get_installed_servers()) do
-    local server_name = server.name
+  mason_lspconfig.setup_handlers({ function(server_name)
     local opts = {}
     opts.on_attach = function(_, bufnr)
       local function nnoremap(key, cmd) vim.api.nvim_buf_set_keymap(bufnr, 'n', key, cmd, { noremap = true, silent = true }) end
@@ -200,17 +201,13 @@ lua << EOF
       nnoremap(',a', '<Cmd>lua vim.lsp.buf.code_action()<CR>')
       nnoremap(',f', '<Cmd>lua vim.lsp.buf.references()<CR>')
     end
-    if server_name == 'cssls' then
-      opts.capabilities = capabilities
-    elseif server_name == 'dartls' then
+    opts.capabilities = capabilities
+    if server_name == 'dartls' then
       opts.root_dir = util.root_pattern('pubspec.yaml', '.dart')
-      opts.capabilities = capabilities
     elseif server_name == 'denols' then
       opts.init_options = { lint = true, unstable = true }
       opts.root_dir = util.root_pattern('deno.json', 'deno.jsonc', 'denops')
       opts.single_file_support = false
-    elseif server_name == 'html' then
-      opts.capabilities = capabilities
     elseif server_name == 'sumneko_lua' then
       opts.settings = {
         Lua = {
@@ -224,12 +221,28 @@ lua << EOF
       opts.root_dir = util.root_pattern('package.json', 'node_modules')
     end
     nvim_lsp[server_name].setup(opts)
+  end })
+EOF
+'''
+[plugins.ftplugin]
+cpp = '''
+lua << EOF
+  local notify = vim.notify
+  vim.notify = function(msg, ...)
+      if msg:match("warning: multiple different client offset_encodings") then
+          return
+      end
+      notify(msg, ...)
   end
 EOF
 '''
 
 [[plugins]]
-repo = 'williamboman/nvim-lsp-installer'
+repo = 'williamboman/mason.nvim'
+on_source = 'nvim-lspconfig'
+
+[[plugins]]
+repo = 'williamboman/mason-lspconfig.nvim'
 on_source = 'nvim-lspconfig'
 
 [[plugins]]

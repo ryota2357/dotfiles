@@ -1,6 +1,20 @@
 hook_add = '''
   " .texのからファイルはplanetexになってしまうので
   let g:tex_flavor = 'latex'
+
+  " 必要ない標準プラグインの読み込みを停止
+  " vimでmanをみる
+  let g#loaded_man = v:true
+  " %でカッコ対応ペアの移動強化
+  let g#loaded_matchit = v:true
+  " 標準ファイラ
+  let g#loaded_netrwPlugin = v:true
+  let g#loaded_netrwFileHandlers = v:true
+  let g#loaded_netrwSettings = v:true
+  " :Tutor
+  let g#loaded_tutor_mode_plugin = v:true
+  " :h vimball、プラグインを使いやすくするプラグイン?
+  let g:loaded_vimballPlugin     = v:true
 '''
 
 [ftplugin]

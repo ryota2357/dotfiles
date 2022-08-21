@@ -1,7 +1,7 @@
 [[plugins]]
 repo = 'rcarriga/nvim-notify'
 on_lua = 'notify'
-on_source = '''
+hook_source = '''
   lua vim.notify = require('notify')
 '''
 

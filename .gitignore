@@ -1,3 +1,4 @@
 .DS_Store
 vimrc-dev
+init-dev.lua
 github_parsonal_access_token.txt
