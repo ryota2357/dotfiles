@@ -15,6 +15,7 @@ require('dein-snip').setup {
             { '~/dotfiles/vim/rc/dein-lazy.toml', { lazy = true } },
             { '~/dotfiles/vim/rc/ddc.toml', { lazy = true } },
             { '~/dotfiles/vim/rc/ddu.toml', { lazy = true } },
+            { '~/dotfiles/vim/rc/dap.toml', { lazy = true } },
             { '~/dotfiles/vim/rc/filetype.toml' }
         }
     },
@@ -24,7 +25,7 @@ require('dein-snip').setup {
     },
     install = {
         progress_type = 'floating',
-        max_processes = 1 -- 時間かかるけど、エラーは出なくなる
+        max_processes = 2
     },
     auto_recache = true
 }

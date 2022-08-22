@@ -73,7 +73,7 @@ if has('ide')
 
   nmap ? <Action>(CommentByLineComment)
   vmap ? <Action>(CommentByLineComment)
-  
+
   command! Format action ReformatCode
   command! Run action Run
 endif

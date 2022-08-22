@@ -1,4 +1,5 @@
 alias c='clang++ -std=c++17 -stdlib=libc++ -Wall -O2'
+alias cg='clang++ -std=c++17 -stdlib=libc++ -g3'
 alias a='./a.out'
 
 alias ...='cd ../../'

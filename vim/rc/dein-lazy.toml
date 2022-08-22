@@ -25,6 +25,10 @@ hook_source = '''
 '''
 
 [[plugins]]
+repo = 'github/copilot.vim'
+on_cmd = 'Copilot'
+
+[[plugins]]
 repo = 'cohama/lexima.vim'
 depends = 'pum.vim'
 on_event = 'InsertEnter'

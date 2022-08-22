@@ -1,0 +1,58 @@
+[[plugins]]
+repo = 'mfussenegger/nvim-dap'
+depends = 'nvim-dap-ui'
+hook_source = '''
+lua << EOF
+  local dap = require('dap')
+  dap.adapters = {
+    codelldb = {
+      type = 'server',
+      port = '${port}',
+      executable = {
+        command = vim.fn.stdpath('data') .. '/mason/packages/codelldb/extension/adapter/codelldb',
+        args = {'--port', '${port}'},
+      }
+    }
+  }
+  dap.configurations = {
+    cpp = {
+      {
+        name = 'Launch file',
+        type = 'codelldb',
+        request = 'launch',
+        program = function()
+          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/a.out', 'file')
+        end,
+        cwd = '${workspaceFolder}',
+        stopOnEntry = false, -- trueだとバイナリのデバッグになっちゃう(なんで?)
+      }
+    }
+  }
+  require('dapui').setup()
+EOF
+'''
+hook_add = '''
+  command! DapBegin call <SID>DapBegin()
+  command! DapEnd call <SID>DapEnd()
+  function! s:DapBegin() abort
+    call dein#source(['nvim-dap']) " 複数回sourceされることはない
+    nnoremap <silent><buffer><F4>  <Cmd>lua require'dap'.toggle_breakpoint()<CR>
+    nnoremap <silent><buffer><F5>  <Cmd>lua require'dap'.continue()<CR>
+    nnoremap <silent><buffer><F10> <Cmd>lua require'dap'.step_over()<CR>
+    nnoremap <silent><buffer><F11> <Cmd>lua require'dap'.step_into()<CR>
+    nnoremap <silent><buffer><F12> <Cmd>lua require'dap'.step_out()<CR>
+    lua require'dapui'.open()
+   endfunction
+   function! s:DapEnd() abort
+     silent! nunmap <F4>
+     silent! nunmap <F5>
+     silent! nunmap <F10>
+     silent! nunmap <F11>
+     silent! nunmap <F12>
+     lua require'dapui'.close()
+   endfunction
+'''
+
+[[plugins]]
+repo = 'rcarriga/nvim-dap-ui'
+on_source = 'nvim-dap'
