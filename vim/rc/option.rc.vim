@@ -50,6 +50,9 @@ set number
 " 現在行のハイライトを有効
 set cursorline
 
+" ステータスラインは常に1つ
+set laststatus=3
+
 " マウスを有効に
 set mouse=a
 

@@ -7,10 +7,24 @@ hook_add = '''
     \   'sources': [{'name': 'file_rec'}],
     \   'uiParams': { 'ff': { 'startFilter': v:true } }
     \ })<CR>
+
   nnoremap <Leader>g <Cmd>call ddu#start({
     \   'sources': [{'name': 'rg'}],
     \   'volatile': v:true,
-    \   'uiParams': { 'ff': { 'startFilter': v:true } }
+    \   'uiParams': {
+    \     'ff': {
+    \       'startFilter': v:true,
+    \       'autoAction': { 'name': 'preview' },
+    \       'winRow': round(&lines * 0.05),
+    \       'winCol': round(&columns * 0.05),
+    \       'winHeight': round(&lines * 0.8),
+    \       'winWidth': round(&columns * 0.45),
+    \       'previewVertical': v:true,
+    \       'previewCol': round(&columns * 0.51),
+    \       'previewHeight': round(&lines * 0.81),
+    \       'previewWidth': round(&columns * 0.45),
+    \     }
+    \   }
     \ })<CR>
 
   nnoremap <Leader>o <Cmd>call ddu#start({
@@ -36,7 +50,7 @@ hook_source = '''
     \       'split': 'floating',
     \       'floatingBorder': 'rounded',
     \       'previewFloating': v:true,
-    \       'previewFloatingBorder': 'double'
+    \       'previewFloatingBorder': 'rounded'
     \     },
     \     'filer': {
     \       'split': 'vertical',
@@ -60,7 +74,12 @@ hook_source = '''
     \     'file': { 'columns': ['icon_filename'] }
     \   },
     \   'sourceParams': {
-    \     'file_rec': { 'ignoredDirectories': ['.git', 'node_modules', '.cache'] }
+    \     'file_rec': {
+    \       'ignoredDirectories': ['.git', 'node_modules', '.cache']
+    \     },
+    \     'rg': {
+    \       'args': ['--json', '--ignore-case']
+    \     }
     \   },
     \   'columnParams': {
     \     'icon_filename': {
@@ -87,13 +106,11 @@ hook_source = '''
     call ddu#custom#patch_global('uiParams', {
       \   'ff': {
       \     'winRow': round(&lines * 0.2),
-      \     'winCol': round(&columns * 0.1),
+      \     'winCol': round(&columns * 0.15),
       \     'winHeight': round(&lines * 0.5),
-      \     'winWidth': round(&columns * 0.8),
-      \     'previewRow': round(&lines * 0.6),
-      \     'previewCol': round(&columns * 0.5),
-      \     'previewHeight': round(&lines * 0.4),
-      \     'previewWidth': round(&columns * 0.45)
+      \     'winWidth': round(&columns * 0.7),
+      \     'previewHeight': round(&lines * 0.15),
+      \     'previewWidth': round(&columns * 0.7)
       \   }
       \ })
   endfunction
