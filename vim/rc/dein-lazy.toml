@@ -13,9 +13,7 @@ hook_add = '''
   inoremap <expr><C-p>  pum#visible() ? pum#map#select_relative(-1) : '<Cmd>normal! gk<CR>'
   inoremap <expr><Down> pum#visible() ? pum#map#select_relative(+1) : '<Cmd>normal! gj<CR>'
   inoremap <expr><Up>   pum#visible() ? pum#map#select_relative(-1) : '<Cmd>normal! gk<CR>'
-  " lexima.vimで定義
-  "inoremap <expr><CR>   pum#visible() ? pum#map#confirm()           : '<CR>'
-  set completeopt=menuone,noinsert
+  " <CR> は lexima.vim で定義
 '''
 hook_source = '''
   call pum#set_option({
@@ -27,6 +25,9 @@ hook_source = '''
 [[plugins]]
 repo = 'github/copilot.vim'
 on_cmd = 'Copilot'
+hook_add = '''
+  let g:copilot_node_command = '~/.nodebrew/node/v16.17.0/bin/node'
+'''
 
 [[plugins]]
 repo = 'cohama/lexima.vim'
@@ -36,7 +37,7 @@ hook_add = '''
   let g:lexima_no_default_rules = v:true
   let g:lexima_map_escape = ''
   let g:lexima_accept_pum_with_enter = v:false
-  autocmd FileType ddu-ui-filer let b:lexima_disabled = v:true
+  autocmd FileType ddu-ff-filter let b:lexima_disabled = v:true
   let g:lexima_custom = [
     \   { 'char': '(', 'input_after': ')', 'except': '\\\%#' },
     \   { 'char': '[', 'input_after': ']', 'except': '\\\%#' },
@@ -125,7 +126,7 @@ EOF
 repo = 'lewis6991/gitsigns.nvim'
 on_event = 'BufEnter'
 hook_source = '''
-  lua require('gitsigns').setup()
+  lua require'gitsigns'.setup()
 '''
 
 [[plugins]]
@@ -133,7 +134,7 @@ repo = 'lukas-reineke/indent-blankline.nvim'
 on_event = 'BufEnter'
 hook_source = '''
   highlight IndentBlanklineContextChar guifg=#6E6E6E gui=nocombine
-  lua require('indent_blankline').setup {
+  lua require'indent_blankline'.setup {
   \  show_current_context = true,
   \ }
 '''
@@ -142,7 +143,7 @@ hook_source = '''
 repo = 'norcalli/nvim-colorizer.lua'
 on_event = 'BufEnter'
 hook_source = '''
-  lua require('colorizer').setup()
+  lua require'colorizer'.setup()
 '''
 
 [[plugins]]

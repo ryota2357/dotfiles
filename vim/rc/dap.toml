@@ -2,8 +2,12 @@
 repo = 'mfussenegger/nvim-dap'
 depends = 'nvim-dap-ui'
 hook_source = '''
+hi DapBreakpointTextHl guifg=#AA0000
+hi DapStoppedTextHl guifg=#00c853
 lua << EOF
   local dap = require('dap')
+  vim.fn.sign_define('DapBreakpoint', { text='', texthl='DapBreakpointTextHl' })
+  vim.fn.sign_define('DapStopped', { text='', texthl='DapStoppedTextHl' })
   dap.adapters = {
     codelldb = {
       type = 'server',
@@ -47,6 +51,7 @@ EOF
 hook_add = '''
   command! DapBegin call <SID>DapBegin()
   command! DapEnd call <SID>DapEnd()
+
   function! s:DapBegin() abort
     call dein#source('nvim-dap') " 複数回sourceされることはない
     let b:save_laststatus = &laststatus
@@ -59,18 +64,21 @@ hook_add = '''
     lua require'dapui'.open()
     nnoremap <buffer><buffer><2-LeftMouse> <Cmd>lua require'dapui'.eval()<CR>
   endfunction
+
   function! s:DapEnd() abort
     silent! nunmap <buffer><F4>
     silent! nunmap <buffer><F5>
     silent! nunmap <buffer><F10>
     silent! nunmap <buffer><F11>
     silent! nunmap <buffer><F12>
-    silent! nunmap <buffer><LeftMouse>
+    silent! nunmap <buffer><2-LeftMouse>
     if exists('b:save_laststatus')
       let &laststatus = b:save_laststatus
       unlet b:save_laststatus
     endif
     lua require'dapui'.close()
+    lua require'dap'.clear_breakpoints()
+    lua require'dap'.disconnect()
   endfunction
 '''
 
@@ -80,6 +88,7 @@ on_source = 'nvim-dap'
 hook_source = '''
 lua << EOF
   require('dapui').setup {
+    icons = { expanded = '', collapsed = '' },
     layouts = {
       {
         elements = {

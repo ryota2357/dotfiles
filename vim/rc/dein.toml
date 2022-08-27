@@ -1,11 +1,11 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
 hook_add = '''
-let s:github_pat = expand('~/dotfiles/vim/github_parsonal_access_token.txt')
-if filereadable(s:github_pat)
-  let g:dein#install_github_api_token = readfile(s:github_pat)[0]
-  command! UpdatePlugin call dein#check_update(v:true)
-endif
+  let s:github_pat = expand('~/dotfiles/vim/github_parsonal_access_token.txt')
+  if filereadable(s:github_pat)
+    let g:dein#install_github_api_token = readfile(s:github_pat)[0]
+    command! UpdatePlugin call dein#check_update(v:true)
+  endif
 '''
 
 [[plugins]]
@@ -35,6 +35,9 @@ hook_add = '''
   syntax on
   colorscheme onedark
 '''
+
+[[plugins]]
+repo = '~/TMP/mycolor'
 
 # 末尾の空白が赤で強調表示する
 # 空白を削除する → FixWhitespace

@@ -21,12 +21,10 @@ hook_add = '''
     cnoremap <expr><Down> pum#visible() ? pum#map#insert_relative(+1) : '<Down>'
     cnoremap <expr><Up>   pum#visible() ? pum#map#insert_relative(-1) : '<Up>'
     cnoremap <expr><CR>   pum#visible() && pum#complete_info()['selected'] != -1 ? pum#map#confirm() : '<CR>'
-
     autocmd User DDCCmdlineLeave ++once call s:CommandlinePost()
     autocmd InsertEnter <buffer> ++once call s:CommandlinePost()
-
+    let s:ddc_save_completeopt = &completeopt
     set completeopt=menu,noselect
-
     call ddc#enable_cmdline_completion()
   endfunction
 
@@ -37,7 +35,10 @@ hook_add = '''
     silent! cunmap <Down>
     silent! cunmap <Up>
     silent! cunmap <CR>
-    set completeopt=menuone,noinsert
+    if exists('s:ddc_save_completeopt')
+      let &completeopt = s:ddc_save_completeopt
+      unlet s:ddc_save_completeopt
+    endif
   endfunction
 '''
 hook_source = '''

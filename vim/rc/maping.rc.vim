@@ -7,13 +7,19 @@ endif
 vnoremap x "_x
 nnoremap x "_x
 
+" インデントを考慮したインサート
+nnoremap <expr> i len(getline('.')) !=# 0 ? 'i' : '"_cc'
+nnoremap <expr> a len(getline('.')) !=# 0 ? 'a' : '"_cc'
+nnoremap <expr> A len(getline('.')) !=# 0 ? 'A' : '"_cc'
+nnoremap <expr> I len(getline('.')) !=# 0 ? 'I' : '"_cc'
+
 " 表示行で移動する
 if has('nvim')
   nnoremap j gj
   nnoremap k gk
 endif
 
-" 移動系
+" 行頭行末移動
 nnoremap Q ^
 nnoremap P $l
 vnoremap Q ^
@@ -21,6 +27,18 @@ vnoremap P $l
 
 " ノーマルモードでも改行
 nnoremap <CR> i<CR><ESC>
+
+" 行選択モードで左右に動いたらビジュアルモードを抜ける
+vnoremap <expr> h mode() ==# 'V' ? '<Esc>h' : 'h'
+vnoremap <expr> l mode() ==# 'V' ? '<Esc>l' : 'l'
+
+" 行選択モードでShift押したままjk押すことあるので
+vnoremap J j
+vnoremap K k
+
+" 選択行のインデントをTabでもできるように
+vnoremap <Tab> >
+vnoremap <S-Tab> <
 
 " emacsキーバインド
 " C-p, C-n は ddc(pum) で設定、IdeaVimではなぜかこれだけそのまま使えた

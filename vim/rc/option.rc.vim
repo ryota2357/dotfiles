@@ -56,6 +56,7 @@ set laststatus=3
 " マウスを有効に
 set mouse=a
 
+" Vimにフォーカスを戻した時だけマウスを無効に
 augroup Mouse
   autocmd!
   autocmd FocusGained * call s:OnFocusGained()
@@ -69,8 +70,8 @@ function! s:OnFocusGained() abort
 endfunction
 
 function! s:EnebleLeftMouse() abort
-  noremap  <LeftMouse> <LeftMouse>
-  inoremap <LeftMouse> <LeftMouse>
+  silent! unmap <LeftMouse>
+  silent! iunmap <LeftMouse>
 endfunction
 
 function! s:OnFocusLost() abort
@@ -90,6 +91,10 @@ set backspace=indent,eol,start
 " どこでも短形ビジュアルモード
 set virtualedit=block
 
+" menuone: 候補が1つしかない時もポップアップメニューを出す
+" noinsert: 候補の1つ目を選択してある状態になる(理由わかってない)
+set completeopt=menuone,noinsert
+
 " 行の折り返しを無効に
 set nowrap
 
@@ -102,6 +107,9 @@ set sidescroll=1
 "   space:    空白の表示
 set list
 set listchars=extends:>,precedes:<,space:⋅
+
+" 全角カッコペアの追加
+set matchpairs+=（:）,「:」,『:』,【:】,［:］,＜:＞
 
 " スクロールの余裕
 set scrolloff=3
