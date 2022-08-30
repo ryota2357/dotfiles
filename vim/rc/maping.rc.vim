@@ -7,11 +7,17 @@ endif
 vnoremap x "_x
 nnoremap x "_x
 
-" インデントを考慮したインサート
-nnoremap <expr> i len(getline('.')) !=# 0 ? 'i' : '"_cc'
-nnoremap <expr> a len(getline('.')) !=# 0 ? 'a' : '"_cc'
-nnoremap <expr> A len(getline('.')) !=# 0 ? 'A' : '"_cc'
-nnoremap <expr> I len(getline('.')) !=# 0 ? 'I' : '"_cc'
+" ビジュアルで選択したテキストにペースト上書きするときにヤンクしない
+" `P`だとカーソル移動しないからダメ
+xnoremap p pgvy
+
+" インデントを考慮したインサート (ideaにgetline()ない)
+if has('nvim')
+  nnoremap <expr> i len(getline('.')) !=# 0 ? 'i' : '"_cc'
+  nnoremap <expr> a len(getline('.')) !=# 0 ? 'a' : '"_cc'
+  nnoremap <expr> A len(getline('.')) !=# 0 ? 'A' : '"_cc'
+  nnoremap <expr> I len(getline('.')) !=# 0 ? 'I' : '"_cc'
+endif
 
 " 表示行で移動する
 if has('nvim')
@@ -28,9 +34,11 @@ vnoremap P $l
 " ノーマルモードでも改行
 nnoremap <CR> i<CR><ESC>
 
-" 行選択モードで左右に動いたらビジュアルモードを抜ける
-vnoremap <expr> h mode() ==# 'V' ? '<Esc>h' : 'h'
-vnoremap <expr> l mode() ==# 'V' ? '<Esc>l' : 'l'
+" 行選択モードで左右に動いたらビジュアルモードを抜ける (ideaにmode()ない)
+if has('nvim')
+  vnoremap <expr> h mode() ==# 'V' ? '<Esc>h' : 'h'
+  vnoremap <expr> l mode() ==# 'V' ? '<Esc>l' : 'l'
+endif
 
 " 行選択モードでShift押したままjk押すことあるので
 vnoremap J j
