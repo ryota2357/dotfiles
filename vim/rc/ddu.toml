@@ -4,40 +4,68 @@ depends = 'denops.vim'
 on_event = 'CursorHold'
 hook_add = '''
   nnoremap <Leader>f <Cmd>call ddu#start({
+    \   'name': 'file-find',
     \   'sources': [{'name': 'file_rec'}],
-    \   'uiParams': { 'ff': { 'startFilter': v:true } }
+    \   'uiParams': {
+    \     'ff': <SID>create_ddu_uiParams('full')
+    \   }
     \ })<CR>
 
   nnoremap <Leader>g <Cmd>call ddu#start({
+    \   'name': 'grep-search',
     \   'sources': [{'name': 'rg'}],
     \   'volatile': v:true,
     \   'uiParams': {
-    \     'ff': {
-    \       'startFilter': v:true,
-    \       'autoAction': { 'name': 'preview' },
-    \       'winRow': round(&lines * 0.05),
-    \       'winCol': round(&columns * 0.05),
-    \       'winHeight': round(&lines * 0.8),
-    \       'winWidth': round(&columns * 0.45),
-    \       'previewVertical': v:true,
-    \       'previewCol': round(&columns * 0.51),
-    \       'previewHeight': round(&lines * 0.81),
-    \       'previewWidth': round(&columns * 0.45),
-    \     }
+    \     'ff': <SID>create_ddu_uiParams('left', {
+    \       'autoAction': { 'name': 'preview' }
+    \     })
     \   }
     \ })<CR>
 
   nnoremap <Leader>o <Cmd>call ddu#start({
     \   'name': 'filer',
+    \   'sources': [{'name': 'file'}],
     \   'ui': 'filer',
     \   'resume': v:true,
-    \   'sources': [{'name': 'file'}]
     \ })<CR>
 
   command! Library call ddu#start({
+    \   'name': 'library',
     \   'sources': [{'name': 'cpl'}],
-    \   'uiParams': { 'ff': { 'startFilter': v:true } }
+    \   'uiParams': {
+    \     'ff': <SID>create_ddu_uiParams('full')
+    \    }
     \ })
+
+  function! s:create_ddu_uiParams(type, ...) abort
+    if a:type ==# 'full'
+      let l:ret = {
+        \   'winRow': round(&lines * 0.2),
+        \   'winCol': round(&columns * 0.15),
+        \   'winHeight': round(&lines * 0.5),
+        \   'winWidth': round(&columns * 0.7),
+        \   'previewHeight': round(&lines * 0.15),
+        \   'previewWidth': round(&columns * 0.7)
+        \ }
+    elseif a:type ==# 'left'
+      let l:ret = {
+        \  'winRow': round(&lines * 0.05),
+        \  'winCol': round(&columns * 0.05),
+        \  'winHeight': round(&lines * 0.8),
+        \  'winWidth': round(&columns * 0.45),
+        \  'previewVertical': v:true,
+        \  'previewCol': round(&columns * 0.51),
+        \  'previewHeight': round(&lines * 0.81),
+        \  'previewWidth': round(&columns * 0.45),
+        \ }
+    endif
+    if a:0 > 0
+      for [key, value] in items(a:1)
+        let l:ret[key] = value
+      endfor
+    endif
+    return l:ret
+  endfunction
 '''
 hook_source = '''
   call ddu#custom#patch_global({
@@ -50,7 +78,8 @@ hook_source = '''
     \       'split': 'floating',
     \       'floatingBorder': 'rounded',
     \       'previewFloating': v:true,
-    \       'previewFloatingBorder': 'rounded'
+    \       'previewFloatingBorder': 'rounded',
+    \       'startFilter': v:true
     \     },
     \     'filer': {
     \       'split': 'vertical',
@@ -59,19 +88,19 @@ hook_source = '''
     \     }
     \   },
     \   'sourceOptions': {
+    \     '_' : { 'ignoreCase': v:true },
     \     'file_rec': {
-    \       'ignoreCase': v:true,
     \       'matchers': ['matcher_fzf']
     \     },
     \     'rg': {
-    \       'ignoreCase': v:true,
     \       'matchers': []
     \     },
     \     'cpl': {
-    \       'ignoreCase': v:true,
     \       'matchers': ['matcher_fzf']
     \     },
-    \     'file': { 'columns': ['icon_filename'] }
+    \     'file': {
+    \       'columns': ['icon_filename']
+    \     }
     \   },
     \   'sourceParams': {
     \     'file_rec': {
@@ -91,7 +120,7 @@ hook_source = '''
     \   },
     \   'kindOptions': {
     \     'file': { 'defaultAction': 'open' },
-    \     'ui_select': { 'defaultAction': 'select' },
+    \     'vim_ui_select': { 'defaultAction': 'select' },
     \     'cpl': { 'defaultAction': 'paste' }
     \   },
     \   'actionOptions': {
@@ -100,21 +129,6 @@ hook_source = '''
     \     },
     \   }
     \ })
-
-  autocmd VimResized * call s:UI_FF_Size()
-  function! s:UI_FF_Size() abort
-    call ddu#custom#patch_global('uiParams', {
-      \   'ff': {
-      \     'winRow': round(&lines * 0.2),
-      \     'winCol': round(&columns * 0.15),
-      \     'winHeight': round(&lines * 0.5),
-      \     'winWidth': round(&columns * 0.7),
-      \     'previewHeight': round(&lines * 0.15),
-      \     'previewWidth': round(&columns * 0.7)
-      \   }
-      \ })
-  endfunction
-  call s:UI_FF_Size()
 '''
 
 [[plugins]]
@@ -151,6 +165,26 @@ ddu-filer = '''
 '''
 
 [[plugins]]
+repo = 'ryota2357/ddu-vim_ui_select'
+# repo = '~/Projects/VimPlugin/ddu-vim_ui_select'
+on_source = 'ddu.vim'
+hook_source = '''
+lua << EOF
+  require('ddu-vim_ui_select').setup {
+    ddu_options = {
+      ui = 'ff',
+      uiParams = {
+        ff = {
+          startFilter = false,
+          autoResize = true,
+        }
+      }
+    },
+  }
+EOF
+'''
+
+[[plugins]]
 repo = 'Shougo/ddu-source-file_rec'
 depends = 'ddu-kind-file'
 on_source = 'ddu.vim'
@@ -181,8 +215,4 @@ on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-kind-file'
-on_source = 'ddu.vim'
-
-[[plugins]]
-repo = 'matsui54/ddu-vim-ui-select'
 on_source = 'ddu.vim'

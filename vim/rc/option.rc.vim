@@ -53,6 +53,17 @@ set cursorline
 " ステータスラインは常に1つ
 set laststatus=3
 
+" コマンドライン非表示
+if has('nvim-0.8')
+  set cmdheight=0
+endif
+
+" モードのメッセージをコマンドラインに表示しない
+set noshowmode
+
+" 左の余白(目印桁)を常に表示
+set signcolumn=yes:1
+
 " マウスを有効に
 set mouse=a
 

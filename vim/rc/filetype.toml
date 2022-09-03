@@ -14,7 +14,7 @@ hook_add = '''
   " :Tutor
   let g:loaded_tutor_mode_plugin = v:true
   " :h vimball、プラグインを使いやすくするプラグイン?
-  let g:loaded_vimballPlugin     = v:true
+  let g:loaded_vimballPlugin = v:true
 '''
 
 [ftplugin]

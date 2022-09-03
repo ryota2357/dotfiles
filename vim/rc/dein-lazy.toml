@@ -31,6 +31,7 @@ hook_add = '''
 
 [[plugins]]
 repo = 'cohama/lexima.vim'
+rev = 'feature/feedkeys'
 depends = 'pum.vim'
 on_event = 'InsertEnter'
 hook_add = '''
@@ -121,6 +122,11 @@ require('nvim-treesitter.configs').setup {
 }
 EOF
 '''
+
+[[plugins]]
+repo = 'nvim-treesitter/nvim-treesitter-context'
+depends = 'nvim-treesitter'
+on_event = 'BufEnter'
 
 [[plugins]]
 repo = 'lewis6991/gitsigns.nvim'
