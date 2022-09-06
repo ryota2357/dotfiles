@@ -3,8 +3,8 @@ repo = 'neovim/nvim-lspconfig'
 depends = ['mason.nvim', 'mason-lspconfig.nvim']
 on_event = 'BufReadPost'
 hook_add = '''
-  autocmd BufWritePre *.ts,*.dart,*.rs lua vim.lsp.buf.formatting()
-  command! Format lua vim.lsp.buf.formatting_sync()
+  autocmd BufWritePre *.ts,*.dart,*.rs lua vim.lsp.buf.format()
+  command! Format lua vim.lsp.buf.format()
 '''
 hook_source = '''
 lua << EOF
@@ -33,24 +33,29 @@ lua << EOF
       }
     }
   })
+  -- はddcの方で2幅に設定済み
+  Config.fn.setcellwidths2({0xf05d, 0xf18e})
 
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
 
+  local on_attach = function(_, bufnr)
+    local nnoremap =  function(key, cmd) vim.keymap.set('n', key, cmd, { buffer = bufnr, silent = true }) end
+    nnoremap(',d', vim.lsp.buf.definition)
+    nnoremap(',i', vim.lsp.buf.implementation)
+    nnoremap(',r', vim.lsp.buf.rename)
+    nnoremap(',x', vim.diagnostic.open_float)
+    nnoremap(',l', vim.lsp.buf.hover)
+    nnoremap(',s', vim.lsp.buf.signature_help)
+    nnoremap(',a', vim.lsp.buf.code_action)
+    nnoremap(',f', vim.lsp.buf.references)
+  end
+
   mason_lspconfig.setup_handlers({ function(server_name)
-    local opts = {}
-    opts.on_attach = function(_, bufnr)
-      local function nnoremap(key, cmd) vim.api.nvim_buf_set_keymap(bufnr, 'n', key, cmd, { noremap = true, silent = true }) end
-      nnoremap(',d', '<Cmd>lua vim.lsp.buf.definition()<CR>')
-      nnoremap(',i', '<Cmd>lua vim.lsp.buf.implementation()<CR>')
-      nnoremap(',r', '<Cmd>lua vim.lsp.buf.rename()<CR>')
-      nnoremap(',x', '<Cmd>lua vim.diagnostic.open_float()<CR>')
-      nnoremap(',l', '<Cmd>lua vim.lsp.buf.hover()<CR>')
-      nnoremap(',s', '<Cmd>lua vim.lsp.buf.signature_help()<CR>')
-      nnoremap(',a', '<Cmd>lua vim.lsp.buf.code_action()<CR>')
-      nnoremap(',f', '<Cmd>lua vim.lsp.buf.references()<CR>')
-    end
-    opts.capabilities = capabilities
+    local opts = {
+      on_attach = on_attach,
+      capabilities = capabilities
+    }
     if server_name == 'dartls' then
       opts.root_dir = util.root_pattern('pubspec.yaml', '.dart')
     elseif server_name == 'denols' then

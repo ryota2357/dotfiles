@@ -56,22 +56,22 @@ hook_add = '''
     call dein#source('nvim-dap') " 複数回sourceされることはない
     let b:save_laststatus = &laststatus
     setlocal laststatus=2
-    nnoremap <silent><buffer><F4>  <Cmd>lua require'dap'.toggle_breakpoint()<CR>
-    nnoremap <silent><buffer><F5>  <Cmd>lua require'dap'.continue()<CR>
-    nnoremap <silent><buffer><F10> <Cmd>lua require'dap'.step_over()<CR>
-    nnoremap <silent><buffer><F11> <Cmd>lua require'dap'.step_into()<CR>
-    nnoremap <silent><buffer><F12> <Cmd>lua require'dap'.step_out()<CR>
+    nnoremap <silent><F4>  <Cmd>lua require'dap'.toggle_breakpoint()<CR>
+    nnoremap <silent><F5>  <Cmd>lua require'dap'.continue()<CR>
+    nnoremap <silent><F10> <Cmd>lua require'dap'.step_over()<CR>
+    nnoremap <silent><F11> <Cmd>lua require'dap'.step_into()<CR>
+    nnoremap <silent><F12> <Cmd>lua require'dap'.step_out()<CR>
     lua require'dapui'.open()
     nnoremap <buffer><buffer><2-LeftMouse> <Cmd>lua require'dapui'.eval()<CR>
   endfunction
 
   function! s:DapEnd() abort
-    silent! nunmap <buffer><F4>
-    silent! nunmap <buffer><F5>
-    silent! nunmap <buffer><F10>
-    silent! nunmap <buffer><F11>
-    silent! nunmap <buffer><F12>
-    silent! nunmap <buffer><2-LeftMouse>
+    silent! nunmap <F4>
+    silent! nunmap <F5>
+    silent! nunmap <F10>
+    silent! nunmap <F11>
+    silent! nunmap <F12>
+    silent! nunmap <2-LeftMouse>
     if exists('b:save_laststatus')
       let &laststatus = b:save_laststatus
       unlet b:save_laststatus

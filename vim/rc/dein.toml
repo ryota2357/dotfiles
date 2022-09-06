@@ -40,7 +40,10 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = '~/TMP/mycolor'
+repo = 'rcarriga/nvim-notify'
+
+# [[plugins]]
+# repo = '~/TMP/mycolor'
 
 # 末尾の空白が赤で強調表示する
 # 空白を削除する → FixWhitespace

@@ -73,6 +73,7 @@ hook_source = '''
     \   'specialBufferCompletion', v:false
     \ )
 
+  lua Config.fn.setcellwidths2({}, true)
   call ddc#enable()
 '''
 
@@ -84,6 +85,7 @@ hook_source = '''
     \   'mark': '',
     \   'matchers': ['matcher_head', 'matcher_length']
     \ }
+  lua Config.fn.setcellwidths2(0xf10c, false)
 '''
 
 [[plugins]]
@@ -91,10 +93,11 @@ repo = 'Shougo/ddc-nvim-lsp'
 on_source = 'ddc.vim'
 hook_source = '''
   let g:ddc_source_options['nvim-lsp'] = {
-    \   'mark': ' ',
+    \   'mark': '',
     \   'dup': v:true,
     \   'forceCompletionPattern': '\.\w*|:\w*|->\w*'
     \ }
+  lua Config.fn.setcellwidths2(0xf233, false)
 '''
 
 [[plugins]]
@@ -102,9 +105,10 @@ repo = 'Shougo/ddc-cmdline'
 on_source = 'ddc.vim'
 hook_source = '''
   let g:ddc_source_options['cmdline'] = {
-    \   'mark': ' ',
+    \   'mark': '',
     \   'minAutoCompleteLength': 1
     \ }
+  lua Config.fn.setcellwidths2(0xf120, false)
 '''
 
 [[plugins]]
@@ -112,9 +116,10 @@ repo = 'Shougo/ddc-cmdline-history'
 on_source = 'ddc.vim'
 hook_source = '''
   let g:ddc_source_options['cmdline-history'] = {
-    \   'mark': ' ',
+    \   'mark': '',
     \   'matchers': ['matcher_head', 'matcher_length'],
     \ }
+  lua Config.fn.setcellwidths2(0xf1da, false)
 '''
 
 [[plugins]]
@@ -132,9 +137,10 @@ on_source = 'ddc.vim'
 depends = 'vim-vsnip'
 hook_source = '''
   let g:ddc_source_options['vsnip'] = {
-    \   'mark': ' ',
+    \   'mark': '',
     \   'dup': v:true
     \ }
+  lua Config.fn.setcellwidths2(0xf135, false)
 
   " pum, ddc との連携
   autocmd User PumCompleteDone call vsnip_integ#on_complete_done(g:pum#completed_item)

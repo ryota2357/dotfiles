@@ -10,6 +10,29 @@ vim.g.mapleader = ' ' -- <Space>
 vim.g.do_filetype_lua = true
 vim.g.did_load_filetypes = false
 
+Config = {
+    val = {},
+    fn = {}
+}
+
+Config.val.two_cell_char = {}
+Config.fn.setcellwidths2 = function(char, apply)
+    char = char or {}
+    apply = apply or true
+    if char ~= {} then
+        if type(char) == "number" then
+            table.insert(Config.val.two_cell_char, { char, char, 2 });
+        elseif type(char) == "table" then
+            for _, c in ipairs(char) do
+                table.insert(Config.val.two_cell_char, { c, c, 2 });
+            end
+        end
+    end
+    if apply then
+        vim.fn.setcellwidths(Config.val.two_cell_char)
+    end
+end
+
 require('dein-snip').setup {
     load = {
         vim = {
@@ -36,5 +59,7 @@ require('dein-snip').setup {
     },
     auto_recache = true
 }
+
+vim.notify = require('notify')
 
 vim.opt.secure = true

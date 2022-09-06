@@ -1,11 +1,4 @@
 [[plugins]]
-repo = 'rcarriga/nvim-notify'
-on_lua = 'notify'
-hook_source = '''
-  lua vim.notify = require('notify')
-'''
-
-[[plugins]]
 repo = 'Shougo/pum.vim'
 on_event = ['InsertEnter', 'CmdlineEnter']
 hook_add = '''
