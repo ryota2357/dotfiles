@@ -10,3 +10,6 @@ eval "$(pyenv init --path)"
 
 # nodebrew
 export PATH=$HOME/.nodebrew/current/bin:$PATH
+
+# use
+export PATH=$HOME/Projects/use/bin:$PATH

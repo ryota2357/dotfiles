@@ -94,7 +94,7 @@ on_source = 'ddc.vim'
 hook_source = '''
   let g:ddc_source_options['nvim-lsp'] = {
     \   'mark': '',
-    \   'dup': v:true,
+    \   'dup': 'keep',
     \   'forceCompletionPattern': '\.\w*|:\w*|->\w*'
     \ }
   lua Config.fn.setcellwidths2(0xf233, false)
@@ -138,7 +138,7 @@ depends = 'vim-vsnip'
 hook_source = '''
   let g:ddc_source_options['vsnip'] = {
     \   'mark': '',
-    \   'dup': v:true
+    \   'dup': 'keep'
     \ }
   lua Config.fn.setcellwidths2(0xf135, false)
 

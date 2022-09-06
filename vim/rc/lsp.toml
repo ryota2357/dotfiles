@@ -56,9 +56,7 @@ lua << EOF
       on_attach = on_attach,
       capabilities = capabilities
     }
-    if server_name == 'dartls' then
-      opts.root_dir = util.root_pattern('pubspec.yaml', '.dart')
-    elseif server_name == 'denols' then
+    if server_name == 'denols' then
       opts.init_options = { lint = true, unstable = true }
       opts.root_dir = util.root_pattern('deno.json', 'deno.jsonc', 'denops')
       opts.single_file_support = false
@@ -76,6 +74,11 @@ lua << EOF
     end
     nvim_lsp[server_name].setup(opts)
   end })
+  nvim_lsp['dartls'].setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    root_dir = util.root_pattern('pubspec.yaml', '.dart')
+  }
 EOF
 '''
 [plugins.ftplugin]
