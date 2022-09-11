@@ -33,6 +33,93 @@ Config.fn.setcellwidths2 = function(char, apply)
     end
 end
 
+Config.fn.modified_bg_bufs = function()
+    local ret = {}
+    for i = 1, vim.fn.bufnr('$') do
+        if vim.fn.bufexists(i) == 1 and vim.fn.buflisted(i) == 1 and vim.fn.getbufvar(i, 'buftype') == '' and
+            vim.fn.filereadable(vim.fn.expand('#' .. i .. ':p')) and i ~= vim.fn.bufnr('%') and
+            vim.fn.getbufvar(i, '&modified') == 1 then
+            table.insert(ret, i)
+        end
+    end
+    return ret
+end
+
+Config.fn.statusline = function()
+    local mode = (function()
+        local match = {
+            ['n'] = 'normal',
+            ['no'] = 'normal',
+            ['v'] = 'visual',
+            ['V'] = 'visual',
+            [''] = 'visual',
+            ['s'] = 'visual',
+            ['S'] = 'visual',
+            ['i'] = 'insert',
+            ['ic'] = 'insert',
+            ['R'] = 'replace',
+            ['Rv'] = 'replace',
+            ['c'] = 'command'
+        }
+        return match[vim.fn.mode()] or 'other'
+    end)()
+    local bar = function(count)
+        local hl = (function()
+            local match = {
+                normal = '%#StatusLineNormal#',
+                visual = '%#StatusLineVisual#',
+                insert = '%#StatusLineInsert#',
+                replace = '%#StatusLineReplace#',
+                command = '%#StatusLineCommand#'
+            }
+            return match[mode] or '%#StatusLine#'
+        end)()
+        return hl .. string.rep('━', count)
+    end
+    local component = {
+        filePath = function()
+            local path = vim.fn.fnamemodify(vim.fn.expand "%", ":~:.")
+            if path == '' then
+                return '', 0
+            end
+            path = ' ' .. path .. ' '
+            return '%#StatusLine#' .. path, vim.fn.strdisplaywidth(path)
+        end,
+        modified = function()
+            local mark = ''
+            if vim.o.modified then
+                mark = ' '
+            else
+                mark = ' '
+            end
+            local bg_modifed_cnt = #Config.fn.modified_bg_bufs()
+            if bg_modifed_cnt ~= 0 then
+                mark = mark .. '( ' .. tostring(bg_modifed_cnt) .. ')'
+            end
+            mark = ' ' .. mark .. ' '
+            return '%#StatusLine#' .. mark, vim.fn.strdisplaywidth(mark)
+        end,
+        position = function()
+            local l = tostring(vim.fn.line('.'))
+            local c = tostring(vim.fn.col('.'))
+            local pos = ' ' .. l .. ':' .. c .. ' '
+            return '%#StatusLine#' .. pos, vim.fn.strdisplaywidth(pos)
+        end
+    }
+
+    local column = vim.o.columns
+    local file, fileWidth = component.filePath()
+    local modify, modifyWidth = component.modified()
+    local pos, posWidth = component.position()
+    return bar(1)
+        .. modify
+        .. bar(math.floor((column - modifyWidth - fileWidth - posWidth - 2) / 2))
+        .. file
+        .. bar(math.ceil((column - modifyWidth - fileWidth - posWidth - 2) / 2))
+        .. pos
+        .. bar(1)
+end
+
 require('dein-snip').setup {
     load = {
         vim = {
@@ -59,6 +146,13 @@ require('dein-snip').setup {
     },
     auto_recache = true
 }
+
+vim.api.nvim_set_hl(0, "StatusLine", { link = 'Normal' })
+vim.api.nvim_set_hl(0, "StatusLineNormal", { fg = '#4caf50', bg = 'NONE' })
+vim.api.nvim_set_hl(0, "StatusLineInsert", { fg = '#03a9f4', bg = 'NONE' })
+vim.api.nvim_set_hl(0, "StatusLineVisual", { fg = '#ff9800', bg = 'NONE' })
+vim.api.nvim_set_hl(0, "StatusLineReplace", { fg = '#ff5722', bg = 'NONE' })
+vim.api.nvim_set_hl(0, "StatusLineCommand", { fg = '#8eacbb', bg = 'NONE' })
 
 vim.notify = require('notify')
 

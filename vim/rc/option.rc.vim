@@ -42,7 +42,7 @@ set noswapfile
 set termguicolors
 
 " 保存するコマンド履歴の数
-set history=100
+set history=1000
 
 " 行番号表示
 set number
@@ -52,6 +52,8 @@ set cursorline
 
 " ステータスラインは常に1つ
 set laststatus=3
+
+set statusline=%!v:lua.Config.fn.statusline()
 
 " コマンドライン非表示
 if has('nvim-0.8')
