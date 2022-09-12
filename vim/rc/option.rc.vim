@@ -53,6 +53,7 @@ set cursorline
 " ステータスラインは常に1つ
 set laststatus=3
 
+" 自作ステータスラインの適用
 set statusline=%!v:lua.Config.fn.statusline()
 
 " コマンドライン非表示
@@ -65,6 +66,9 @@ set noshowmode
 
 " 左の余白(目印桁)を常に表示
 set signcolumn=yes:1
+
+" 自作タブラインの適用
+set tabline=%!v:lua.Config.fn.tabline()
 
 " マウスを有効に
 set mouse=a

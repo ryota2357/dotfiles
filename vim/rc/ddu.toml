@@ -4,7 +4,7 @@ depends = 'denops.vim'
 on_event = 'CursorHold'
 hook_add = '''
   nnoremap <Leader>f <Cmd>call ddu#start({
-    \   'name': 'file-find',
+    \   'name': 'file',
     \   'sources': [{'name': 'file_rec'}],
     \   'uiParams': {
     \     'ff': <SID>create_ddu_uiParams('full')
@@ -12,12 +12,29 @@ hook_add = '''
     \ })<CR>
 
   nnoremap <Leader>g <Cmd>call ddu#start({
-    \   'name': 'grep-search',
+    \   'name': 'grep',
     \   'sources': [{'name': 'rg'}],
     \   'volatile': v:true,
     \   'uiParams': {
+    \     'ff': <SID>create_ddu_uiParams('left')
+    \   }
+    \ })<CR>
+
+  nnoremap <Leader>b <Cmd>call ddu#start({
+    \   'name': 'buffer',
+    \   'sources': [{'name': 'buffer'}],
+    \   'uiParams': {
+    \     'ff': <SID>create_ddu_uiParams('full')
+    \   }
+    \ })<CR>
+
+  nnoremap <Leader>h <Cmd>call ddu#start({
+    \   'name': 'help',
+    \   'sources': [{'name': 'help'}],
+    \   'uiParams': {
     \     'ff': <SID>create_ddu_uiParams('left', {
-    \       'autoAction': { 'name': 'preview' }
+    \       'winWidth': round(&columns * 0.40),
+    \       'previewWidth': round(&columns * 0.60),
     \     })
     \   }
     \ })<CR>
@@ -57,6 +74,7 @@ hook_add = '''
         \  'previewCol': round(&columns * 0.51),
         \  'previewHeight': round(&lines * 0.81),
         \  'previewWidth': round(&columns * 0.45),
+        \  'autoAction': { 'name': 'preview' }
         \ }
     endif
     if a:0 > 0
@@ -88,17 +106,15 @@ hook_source = '''
     \     }
     \   },
     \   'sourceOptions': {
-    \     '_' : { 'ignoreCase': v:true },
-    \     'file_rec': {
+    \     '_' : {
+    \       'ignoreCase': v:true,
     \       'matchers': ['matcher_fzf']
     \     },
     \     'rg': {
     \       'matchers': []
     \     },
-    \     'cpl': {
-    \       'matchers': ['matcher_fzf']
-    \     },
     \     'file': {
+    \       'matchers': ['matcher_hidden'],
     \       'columns': ['icon_filename']
     \     }
     \   },
@@ -108,6 +124,9 @@ hook_source = '''
     \     },
     \     'rg': {
     \       'args': ['--json', '--ignore-case']
+    \     },
+    \     'help': {
+    \       'style': 'allLang'
     \     }
     \   },
     \   'columnParams': {
@@ -120,6 +139,7 @@ hook_source = '''
     \   },
     \   'kindOptions': {
     \     'file': { 'defaultAction': 'open' },
+    \     'help': { 'defaultAction': 'open' },
     \     'vim_ui_select': { 'defaultAction': 'select' },
     \     'cpl': { 'defaultAction': 'paste' }
     \   },
@@ -140,8 +160,12 @@ ddu-ff = '''
   nnoremap <buffer> <ESC> <Cmd>call ddu#ui#ff#do_action('quit')<CR>
 '''
 ddu-ff-filter = '''
-  inoremap <buffer> <CR>  <Cmd>call ddu#ui#ff#do_action('itemAction', { 'params': {'command': 'drop'} })<CR>
-  inoremap <buffer> <C-o> <Cmd>call ddu#ui#ff#do_action('itemAction', { 'params': {'command': 'tab drop'} })<CR>
+  if b:ddu_ui_name ==# 'buffer'
+    inoremap <buffer> <CR> <Cmd>call ddu#ui#ff#do_action('itemAction', { 'params': {'command': 'tab sb'} })<CR>
+  else
+    inoremap <buffer> <CR>  <Cmd>call ddu#ui#ff#do_action('itemAction', { 'params': {'command': 'drop'} })<CR>
+    inoremap <buffer> <C-o> <Cmd>call ddu#ui#ff#do_action('itemAction', { 'params': {'command': 'tab drop'} })<CR>
+  endif
   inoremap <buffer> <C-n> <Cmd>call ddu#ui#ff#execute("call cursor(line('.')+1, 0)")<CR><Cmd>redraw!<CR>
   inoremap <buffer> <C-p> <Cmd>call ddu#ui#ff#execute("call cursor(line('.')-1, 0)")<CR><Cmd>redraw!<CR>
   inoremap <buffer> <C-q> <Cmd>call ddu#ui#ff#do_action('preview')<CR>
@@ -162,6 +186,14 @@ ddu-filer = '''
   nnoremap <buffer> R <Cmd>call ddu#ui#filer#do_action('checkItems')<CR>
   nnoremap <buffer> dd <Cmd>call ddu#ui#filer#do_action('itemAction', { 'name': 'trash' })<CR>
   nnoremap <buffer> q <Cmd>call ddu#ui#filer#do_action('quit')<CR>
+
+  nnoremap <buffer> . <Cmd>call ddu#ui#filer#do_action('updateOptions', {
+    \   'sourceOptions': {
+    \     'file': {
+    \       'matchers': ddu#custom#get_current(b:ddu_ui_name)->get('sourceOptions', {})->get('file', {})->get('matchers', [])->empty() ? ['matcher_hidden'] : [],
+    \     },
+    \   },
+    \ })<CR>
 '''
 
 [[plugins]]
@@ -195,8 +227,17 @@ depends = 'ddu-kind-file'
 on_source = 'ddu.vim'
 
 [[plugins]]
+repo = 'shun/ddu-source-buffer'
+depends = 'ddu-kind-file'
+on_source = 'ddu.vim'
+
+[[plugins]]
 repo = 'shun/ddu-source-rg'
 depends = 'ddu-kind-file'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'matsui54/ddu-source-help'
 on_source = 'ddu.vim'
 
 [[plugins]]
@@ -206,6 +247,10 @@ on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'yuki-yano/ddu-filter-fzf'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'Shougo/ddu-filter-matcher_hidden'
 on_source = 'ddu.vim'
 
 [[plugins]]

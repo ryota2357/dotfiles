@@ -1,4 +1,5 @@
 local dein_snip = vim.fn.fnamemodify('~/.cache/dein/repos/github.com/ryota2357/dein-snip.lua', ':p')
+-- local dein_snip = vim.fn.fnamemodify('~/Projects/VimPlugin/dein-snip.lua', ':p')
 if not string.match(vim.o.runtimepath, '/dein-snip.lua') then
     if vim.fn.isdirectory(dein_snip) == 0 then
         os.execute('git clone https://github.com/ryota2357/dein-snip.lua.git ' .. dein_snip)
@@ -11,12 +12,14 @@ vim.g.do_filetype_lua = true
 vim.g.did_load_filetypes = false
 
 Config = {
-    val = {},
+    val = {
+        two_cell_char = {},
+        custom_hls = {}
+    },
     fn = {}
 }
 
-Config.val.two_cell_char = {}
-Config.fn.setcellwidths2 = function(char, apply)
+function Config.fn.setcellwidths2(char, apply)
     char = char or {}
     apply = apply or true
     if char ~= {} then
@@ -33,7 +36,7 @@ Config.fn.setcellwidths2 = function(char, apply)
     end
 end
 
-Config.fn.modified_bg_bufs = function()
+function Config.fn.modified_bg_bufs()
     local ret = {}
     for i = 1, vim.fn.bufnr('$') do
         if vim.fn.bufexists(i) == 1 and vim.fn.buflisted(i) == 1 and vim.fn.getbufvar(i, 'buftype') == '' and
@@ -45,7 +48,16 @@ Config.fn.modified_bg_bufs = function()
     return ret
 end
 
-Config.fn.statusline = function()
+function Config.fn.table_insert_pairs(dict, source)
+    for key, value in pairs(source) do
+        if dict[key] ~= nil then
+            error('Invalid key: `' .. tostring(key) .. '`, already defined.', 2)
+        end
+        dict[key] = value
+    end
+end
+
+function Config.fn.statusline()
     local mode = (function()
         local match = {
             ['n'] = 'normal',
@@ -86,12 +98,7 @@ Config.fn.statusline = function()
             return '%#StatusLine#' .. path, vim.fn.strdisplaywidth(path)
         end,
         modified = function()
-            local mark = ''
-            if vim.o.modified then
-                mark = ' '
-            else
-                mark = ' '
-            end
+            local mark = vim.o.modified and ' ' or ' '
             local bg_modifed_cnt = #Config.fn.modified_bg_bufs()
             if bg_modifed_cnt ~= 0 then
                 mark = mark .. '( ' .. tostring(bg_modifed_cnt) .. ')'
@@ -120,6 +127,44 @@ Config.fn.statusline = function()
         .. bar(1)
 end
 
+Config.fn.table_insert_pairs(
+    Config.val.custom_hls,
+    {
+        StatusLine = { link = 'Normal' },
+        StatusLineNormal = { fg = '#4caf50', bg = 'NONE' },
+        StatusLineInsert = { fg = '#03a9f4', bg = 'NONE' },
+        StatusLineVisual = { fg = '#ff9800', bg = 'NONE' },
+        StatusLineReplace = { fg = '#ff5722', bg = 'NONE' },
+        StatusLineCommand = { fg = '#8eacbb', bg = 'NONE' },
+    }
+)
+
+function Config.fn.tabline()
+    local s = ''
+    local label = function(number)
+        local buflist = vim.fn.tabpagebuflist(number)
+        local winnr = vim.fn.tabpagewinnr(number)
+        local name = vim.fn.bufname(buflist[winnr])
+        local count = #buflist == 1 and '' or ' (' .. #buflist .. ')'
+        return ' ' .. vim.fn.fnamemodify(name, ':t') .. count .. ' '
+    end
+    for i = 1, vim.fn.tabpagenr('$') do
+        local hl = i == vim.fn.tabpagenr() and '%#TabLineSel#' or '%#TabLine#'
+        local id = '%' .. tostring(i) .. 'T'
+        s = s .. hl .. id .. label(i)
+    end
+    return s .. '%#TabLineFill#%T'
+end
+
+Config.fn.table_insert_pairs(
+    Config.val.custom_hls,
+    {
+        TabLine = { fg = '#707070', bg = '#202020' },
+        TabLineSel = { link = 'Normal' },
+        TabLineFill = { fg = 'NONE', bg = '#000000' }
+    }
+)
+
 require('dein-snip').setup {
     load = {
         vim = {
@@ -147,13 +192,10 @@ require('dein-snip').setup {
     auto_recache = true
 }
 
-vim.api.nvim_set_hl(0, "StatusLine", { link = 'Normal' })
-vim.api.nvim_set_hl(0, "StatusLineNormal", { fg = '#4caf50', bg = 'NONE' })
-vim.api.nvim_set_hl(0, "StatusLineInsert", { fg = '#03a9f4', bg = 'NONE' })
-vim.api.nvim_set_hl(0, "StatusLineVisual", { fg = '#ff9800', bg = 'NONE' })
-vim.api.nvim_set_hl(0, "StatusLineReplace", { fg = '#ff5722', bg = 'NONE' })
-vim.api.nvim_set_hl(0, "StatusLineCommand", { fg = '#8eacbb', bg = 'NONE' })
+for hl, value in pairs(Config.val.custom_hls) do
+    vim.api.nvim_set_hl(0, hl, value)
+end
 
 vim.notify = require('notify')
 
-vim.opt.secure = true
+vim.o.secure = true
