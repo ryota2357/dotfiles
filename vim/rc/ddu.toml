@@ -161,7 +161,7 @@ ddu-ff = '''
 '''
 ddu-ff-filter = '''
   if b:ddu_ui_name ==# 'buffer'
-    inoremap <buffer> <CR> <Cmd>call ddu#ui#ff#do_action('itemAction', { 'params': {'command': 'tab sb'} })<CR>
+    inoremap <buffer> <CR> <Cmd>call ddu#ui#ff#do_action('itemAction', { 'params': {'command': 'tab drop'} })<CR>
   else
     inoremap <buffer> <CR>  <Cmd>call ddu#ui#ff#do_action('itemAction', { 'params': {'command': 'drop'} })<CR>
     inoremap <buffer> <C-o> <Cmd>call ddu#ui#ff#do_action('itemAction', { 'params': {'command': 'tab drop'} })<CR>

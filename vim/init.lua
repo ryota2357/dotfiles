@@ -141,17 +141,21 @@ Config.fn.table_insert_pairs(
 
 function Config.fn.tabline()
     local s = ''
-    local label = function(number)
-        local buflist = vim.fn.tabpagebuflist(number)
-        local winnr = vim.fn.tabpagewinnr(number)
-        local name = vim.fn.bufname(buflist[winnr])
-        local count = #buflist == 1 and '' or ' (' .. #buflist .. ')'
-        return ' ' .. vim.fn.fnamemodify(name, ':t') .. count .. ' '
-    end
     for i = 1, vim.fn.tabpagenr('$') do
-        local hl = i == vim.fn.tabpagenr() and '%#TabLineSel#' or '%#TabLine#'
+        local current = i == vim.fn.tabpagenr()
+        local hl = current and '%#TabLineSel#' or '%#TabLine#'
         local id = '%' .. tostring(i) .. 'T'
-        s = s .. hl .. id .. label(i)
+        local label = (function()
+            local buflist = vim.fn.tabpagebuflist(i)
+            local winnr = vim.fn.tabpagewinnr(i)
+            local name = vim.fn.bufname(buflist[winnr])
+            local count = ''
+            if not current then
+                count = #buflist == 1 and '' or ' (' .. #buflist .. ')'
+            end
+            return ' ' .. vim.fn.fnamemodify(name, ':t') .. count .. ' '
+        end)()
+        s = s .. hl .. id .. label
     end
     return s .. '%#TabLineFill#%T'
 end
@@ -172,7 +176,7 @@ require('dein-snip').setup {
             '~/dotfiles/vim/rc/option.rc.vim',
         },
         toml = {
-            { '~/dotfiles/vim/rc/dein.toml' },
+            '~/dotfiles/vim/rc/dein.toml',
             { '~/dotfiles/vim/rc/dein-lazy.toml', { lazy = true } },
             { '~/dotfiles/vim/rc/ddc.toml', { lazy = true } },
             { '~/dotfiles/vim/rc/ddu.toml', { lazy = true } },
