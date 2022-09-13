@@ -1,6 +1,6 @@
 [[plugins]]
 repo = 'Shougo/ddc.vim'
-depends = ['denops.vim', 'pum.vim']
+depends = ['denops.vim', 'pum.vim', 'context_filetype.vim']
 on_event = ['InsertEnter', 'CursorHold', 'CmdlineEnter']
 hook_add = '''
   let g:ddc_source_options = {
@@ -69,6 +69,12 @@ hook_source = '''
     \     'vsnip': { 'minAutoCompleteLength': 1 }
     \   }
     \ })
+
+  call ddc#custom#set_context(['cpp', 'dart', 'lua', 'rust', 'typescript'], { ->
+    \ ddc#syntax#in('TSComment') ? {
+    \   'sources': ['around', 'mocword'],
+    \ } : {} })
+
   call ddc#custom#patch_filetype(['ddu-ff-filter'],
     \   'specialBufferCompletion', v:false
     \ )
@@ -86,6 +92,19 @@ hook_source = '''
     \   'matchers': ['matcher_head', 'matcher_length']
     \ }
   lua Config.fn.setcellwidths2(0xf10c, false)
+'''
+
+[[plugins]]
+repo = 'Shougo/ddc-mocword'
+on_source = 'ddc.vim'
+hook_source = '''
+  let g:ddc_source_options['mocword'] = {
+    \   'mark': '',
+    \   'matchers': ['matcher_head', 'matcher_length'],
+    \   'isVolatile': v:true,
+    \   'minAutoCompleteLength': 1
+    \ }
+  lua Config.fn.setcellwidths2(0xf02d, false)
 '''
 
 [[plugins]]

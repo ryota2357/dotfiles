@@ -9,6 +9,7 @@ sheldon init --shell zsh
 
 ln_dots zsh/zshrc.zsh                ~/.zshrc
 ln_dots zsh/zprofile.zsh             ~/.zprofile
+ln_dots zsh/zshenv.zsh               ~/.zshenv
 ln_dots zsh/plugins.toml             ~/.sheldon/plugins.toml
 ln_dots tmux/tmux.conf               ~/.tmux.conf
 ln_dots vim/init.lua                 ~/.config/nvim/init.lua

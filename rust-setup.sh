@@ -12,3 +12,6 @@ rustup component add clippy
 
 # LSP関連、なんか入れなくてもnvim-lspでは問題ないけど一応
 rustup component add rls rust-src rust-analysis
+
+# macwordコマンド: https://github.com/high-moctane/mocword
+cargo install mocword

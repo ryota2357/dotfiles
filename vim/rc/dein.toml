@@ -37,6 +37,14 @@ hook_add = '''
 '''
 
 [[plugins]]
+repo = 'Shougo/context_filetype.vim'
+hook_add = '''
+  let g:context_filetype#ignore_patterns = {
+    \ 'toml': ['^\s*#\s*'],
+    \ }
+'''
+
+[[plugins]]
 repo = 'rcarriga/nvim-notify'
 
 # [[plugins]]

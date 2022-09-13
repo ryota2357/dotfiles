@@ -1,10 +1,16 @@
 [[plugins]]
 repo = 'mfussenegger/nvim-dap'
 depends = 'nvim-dap-ui'
-hook_source = '''
-hi DapBreakpointTextHl guifg=#ba000d
-hi DapStoppedTextHl guifg=#bef67a
-lua << EOF
+lua_add = '''
+  Config.fn.table_insert_pairs(
+      Config.val.custom_hls,
+      {
+        DapBreakpointTextHl = { fg = '#ba000d' },
+        DapStoppedTextHl = { fg = '#bef67a'}
+      }
+  )
+'''
+lua_source = '''
   local dap = require('dap')
   vim.fn.sign_define('DapBreakpoint', { text='', texthl='DapBreakpointTextHl' })
   vim.fn.sign_define('DapStopped', { text='', texthl='DapStoppedTextHl' })
@@ -46,7 +52,6 @@ lua << EOF
       }
     }
   }
-EOF
 '''
 hook_add = '''
   command! DapBegin call <SID>DapBegin()
@@ -85,8 +90,7 @@ hook_add = '''
 [[plugins]]
 repo = 'rcarriga/nvim-dap-ui'
 on_source = 'nvim-dap'
-hook_source = '''
-lua << EOF
+lua_source = '''
   require('dapui').setup {
     icons = { expanded = '', collapsed = '' },
     layouts = {
@@ -108,5 +112,4 @@ lua << EOF
       }
     }
   }
-EOF
 '''

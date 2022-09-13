@@ -6,8 +6,7 @@ hook_add = '''
   autocmd BufWritePre *.ts,*.dart,*.rs lua vim.lsp.buf.format()
   command! Format lua vim.lsp.buf.format()
 '''
-hook_source = '''
-lua << EOF
+lua_source = '''
   local nvim_lsp = require('lspconfig')
   local mason = require('mason')
   local mason_lspconfig = require('mason-lspconfig')
@@ -79,7 +78,6 @@ lua << EOF
     capabilities = capabilities,
     root_dir = util.root_pattern('pubspec.yaml', '.dart')
   }
-EOF
 '''
 [plugins.ftplugin]
 cpp = '''

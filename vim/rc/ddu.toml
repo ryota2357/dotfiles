@@ -200,8 +200,7 @@ ddu-filer = '''
 repo = 'ryota2357/ddu-vim_ui_select'
 # repo = '~/Projects/VimPlugin/ddu-vim_ui_select'
 on_source = 'ddu.vim'
-hook_source = '''
-lua << EOF
+lua_source = '''
   require('ddu-vim_ui_select').setup {
     ddu_options = {
       ui = 'ff',
@@ -213,7 +212,6 @@ lua << EOF
       }
     },
   }
-EOF
 '''
 
 [[plugins]]
