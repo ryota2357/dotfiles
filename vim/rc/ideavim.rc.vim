@@ -29,8 +29,8 @@ nmap ,x <Action>(ShowErrorDescription)
 nnoremap ,l K
 nmap <Leader>f <Action>(GotoFile)
 nmap <Leader>g <Action>(SearchEverywhere)
-nmap ? <Action>(CommentByLineComment)
-vmap ? <Action>(CommentByLineComment)
+nmap _ <Action>(CommentByLineComment)
+vmap _ <Action>(CommentByLineComment)
 
 set NERDTree
 nnoremap <Leader>o :<C-u>NERDTreeToggle<CR>

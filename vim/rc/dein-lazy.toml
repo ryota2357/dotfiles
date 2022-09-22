@@ -57,6 +57,10 @@ hook_add = '''
     \   { 'char': '<BS>', 'at': '\$\%#\$', 'delete': 1 },
     \   { 'char': '<CR>', 'at': '^ *\\item.*\%#', 'input': '<CR>\item ', 'except': '\\\\\%#' },
     \ ]
+  let g:lexima_custom_cs = [
+    \   { 'char': '<CR>', 'at': ' {\%#}', 'input': '<BS><BS><CR>{<CR>', 'input_after': '<CR>' },
+    \   { 'char': '<CR>', 'at': '[^ ]{\%#}', 'input': '<BS><CR>{<CR>', 'input_after': '<CR>' },
+    \ ]
   let g:lexima_custom_tag = [
     \   { 'char': '>', 'at': '<\(\w\+\)\%#', 'input_after': '</\1>', 'with_submatch': v:true },
     \   { 'char': '<CR>', 'at': '<\w\+>\%#<\/\w\+>', 'input_after': '<CR>' },
@@ -69,6 +73,10 @@ hook_source = '''
   endfor
   for rule in g:lexima_custom_tex
     let rule['filetype'] = 'tex'
+    call lexima#add_rule(rule)
+  endfor
+  for rule in g:lexima_custom_cs
+    let rule['filetype'] = 'cs'
     call lexima#add_rule(rule)
   endfor
   for rule in g:lexima_custom_tag
@@ -178,13 +186,14 @@ repo = 'tomtom/tcomment_vim'
 on_cmd = 'TComment'
 hook_add = '''
   let g:tcomment_maps = 0
-  vnoremap ? :TComment<CR>
-  nnoremap ? <Cmd>TComment<CR>
+  vnoremap _ :TComment<CR>
+  nnoremap _ <Cmd>TComment<CR>
 '''
 
 [[plugins]]
 repo = 'skanehira/denops-silicon.vim'
 depends = 'denops.vim'
+# on_event = 'CmdlineEnter'
 on_cmd = 'Silicon'
 hook_add = '''
   let g:silicon_options = {

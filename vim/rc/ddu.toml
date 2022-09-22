@@ -131,7 +131,8 @@ hook_source = '''
     \   },
     \   'columnParams': {
     \     'icon_filename': {
-    \       'defaultIcon': { 'icon': '' }
+    \       'defaultIcon': { 'icon': '' },
+    \       'useLinkIcon': 'default'
     \     }
     \   },
     \   'filterParams': {

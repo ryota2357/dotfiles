@@ -3,8 +3,13 @@ repo = 'neovim/nvim-lspconfig'
 depends = ['mason.nvim', 'mason-lspconfig.nvim']
 on_event = 'BufReadPost'
 hook_add = '''
-  autocmd BufWritePre *.ts,*.dart,*.rs lua vim.lsp.buf.format()
-  command! Format lua vim.lsp.buf.format()
+  if has('nvim-0.8')
+    autocmd BufWritePre *.ts,*.dart,*.rs lua vim.lsp.buf.format()
+    command! Format lua vim.lsp.buf.format()
+  else
+    autocmd BufWritePre *.ts,*.dart,*.rs lua vim.lsp.buf.formatting()
+    command! Format lua vim.lsp.buf.formatting()
+  endif
 '''
 lua_source = '''
   local nvim_lsp = require('lspconfig')
@@ -50,17 +55,24 @@ lua_source = '''
     nnoremap(',f', vim.lsp.buf.references)
   end
 
-  mason_lspconfig.setup_handlers({ function(server_name)
-    local opts = {
-      on_attach = on_attach,
-      capabilities = capabilities
-    }
-    if server_name == 'denols' then
-      opts.init_options = { lint = true, unstable = true }
-      opts.root_dir = util.root_pattern('deno.json', 'deno.jsonc', 'denops')
-      opts.single_file_support = false
-    elseif server_name == 'sumneko_lua' then
-      opts.settings = {
+  local add_opts = {
+    denols = {
+      init_options = { lint = true, unstable = true },
+      root_dir = util.root_pattern('deno.json', 'deno.jsonc', 'denops'),
+      single_file_support = false
+    },
+    omnisharp = {
+      cmd = { 'dotnet',  vim.fn.stdpath('data') .. '/mason/packages/omnisharp/OmniSharp.dll' },
+      enable_editorconfig_support = true,
+      enable_ms_build_load_projects_on_demand = false,
+      enable_roslyn_analyzers = true,
+      organize_imports_on_format = false,
+      enable_import_completion = false,
+      sdk_include_prereleases = true,
+      analyze_open_documents_only = false
+    },
+    sumneko_lua = {
+      settings = {
         Lua = {
           runtime = { version = 'LuaJIT' },
           diagnostics = { globals = {'vim'} },
@@ -68,11 +80,22 @@ lua_source = '''
           telemetry = { enable = false },
         }
       }
-    elseif server_name == 'tsserver' then
-      opts.root_dir = util.root_pattern('package.json', 'node_modules')
-    end
+    },
+    tsserver = {
+      root_dir = util.root_pattern('package.json', 'node_modules')
+    }
+  }
+
+  mason_lspconfig.setup_handlers({ function(server_name)
+    local opts = {
+      on_attach = on_attach,
+      capabilities = capabilities
+    }
+    Config.fn.table_insert_pairs(opts, add_opts[server_name])
     nvim_lsp[server_name].setup(opts)
   end })
+
+  -- Mason に dartls ないので個別に設定、dartls は dart に付属してる
   nvim_lsp['dartls'].setup {
     on_attach = on_attach,
     capabilities = capabilities,

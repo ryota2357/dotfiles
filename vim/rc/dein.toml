@@ -18,6 +18,12 @@ hook_add = '''
 '''
 
 [[plugins]]
+repo = 'lewis6991/impatient.nvim'
+
+[[plugins]]
+repo = 'nathom/filetype.nvim'
+
+[[plugins]]
 repo = 'vim-jp/vimdoc-ja'
 hook_add = '''
   set helplang=ja,en
@@ -55,5 +61,5 @@ repo = 'rcarriga/nvim-notify'
 [[plugins]]
 repo = 'bronson/vim-trailing-whitespace'
 hook_add = '''
-  let g:extra_whitespace_ignored_filetypes = ['markdown', 'ddu-filer']
+  let g:extra_whitespace_ignored_filetypes = ['markdown', 'ddu-filer', 'mason']
 '''

@@ -20,6 +20,7 @@ Config = {
 }
 
 function Config.fn.setcellwidths2(char, apply)
+    if vim.fn.has('nvim-0.8') == 0 then return end
     char = char or {}
     apply = apply or true
     if char ~= {} then
@@ -49,6 +50,7 @@ function Config.fn.modified_bg_bufs()
 end
 
 function Config.fn.table_insert_pairs(dict, source)
+    if source == nil then return end
     for key, value in pairs(source) do
         if dict[key] ~= nil then
             error('Invalid key: `' .. tostring(key) .. '`, already defined.', 2)
@@ -98,10 +100,10 @@ function Config.fn.statusline()
             return '%#StatusLine#' .. path, vim.fn.strdisplaywidth(path)
         end,
         modified = function()
-            local mark = vim.o.modified and ' ' or ' '
+            local mark = vim.o.modified and '' or ''
             local bg_modifed_cnt = #Config.fn.modified_bg_bufs()
             if bg_modifed_cnt ~= 0 then
-                mark = mark .. '( ' .. tostring(bg_modifed_cnt) .. ')'
+                mark = mark .. ' ( ' .. tostring(bg_modifed_cnt) .. ')'
             end
             mark = ' ' .. mark .. ' '
             return '%#StatusLine#' .. mark, vim.fn.strdisplaywidth(mark)
@@ -199,6 +201,9 @@ require('dein-snip').setup {
 for hl, value in pairs(Config.val.custom_hls) do
     vim.api.nvim_set_hl(0, hl, value)
 end
+
+-- LuaCacheClear / LuaCacheLog / LuaCacheProfile
+require('impatient')
 
 vim.notify = require('notify')
 

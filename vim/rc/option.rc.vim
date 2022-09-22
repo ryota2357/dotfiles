@@ -59,6 +59,8 @@ set statusline=%!v:lua.Config.fn.statusline()
 " コマンドライン非表示
 if has('nvim-0.8')
   set cmdheight=0
+else
+  set cmdheight=1
 endif
 
 " モードのメッセージをコマンドラインに表示しない

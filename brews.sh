@@ -17,7 +17,7 @@ brew tap homebrew/cask-versions
 brew install pyenv
 brew install rbenv ruby-build
 brew install php
-brew install lua-language-server
+brew install desktop-file-utils
 
 # bat: fzf.vim のプレビューに syntax highlight をつける
 # ripgrep: (rg) 高速なgrep検索
@@ -55,11 +55,16 @@ brew tap homebrew/cask-fonts
 brew install --cask font-hack-nerd-font
 brew install --cask font-cica
 brew install --cask font-hackgen-nerd
+brew install --cask font-plemol-jp-nf
 
 # latex
 brew install texlive
 brew install texlab
 brew install --cask skim
+
+# PlantUML
+# openjdkもくっついてくるけど、openjdkを使うにはsymlinkはる必要ある(homebew fomula参照)
+brew install plantuml
 
 # other casks
 brew install --cask alfred
