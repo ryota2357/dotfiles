@@ -69,6 +69,9 @@ hook_source = '''
     \     'vsnip': { 'minAutoCompleteLength': 1 }
     \   }
     \ })
+  call ddc#custom#patch_filetype(['markdown'], {
+    \   'sources': ['around', 'mocword']
+    \ })
 
   call ddc#custom#set_context(['cpp', 'dart', 'lua', 'rust', 'typescript'], { ->
     \ ddc#syntax#in('TSComment') ? {

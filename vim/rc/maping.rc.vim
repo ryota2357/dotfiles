@@ -75,6 +75,20 @@ nnoremap <C-W>k <C-w>+
 nnoremap <C-w>l <C-w>>
 nnoremap <C-w>h <C-w><
 
+" Shift 省略
+onoremap i2 i"
+onoremap i7 i'
+onoremap i8 i(
+onoremap a2 a"
+onoremap a7 a'
+onoremap a8 a(
+vnoremap i2 i"
+vnoremap i7 i'
+vnoremap i8 i(
+vnoremap a2 a"
+vnoremap a7 a'
+vnoremap a8 a(
+
 " タブ移動
 if has('nvim')
   nnoremap > <Cmd>tabn<CR>

@@ -20,7 +20,6 @@ Config = {
 }
 
 function Config.fn.setcellwidths2(char, apply)
-    if vim.fn.has('nvim-0.8') == 0 then return end
     char = char or {}
     apply = apply or true
     if char ~= {} then

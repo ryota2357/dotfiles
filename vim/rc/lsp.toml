@@ -1,6 +1,5 @@
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
-depends = ['mason.nvim', 'mason-lspconfig.nvim']
 on_event = 'BufReadPost'
 hook_add = '''
   if has('nvim-0.8')
@@ -13,12 +12,9 @@ hook_add = '''
 '''
 lua_source = '''
   local nvim_lsp = require('lspconfig')
-  local mason = require('mason')
-  local mason_lspconfig = require('mason-lspconfig')
   local util = require('lspconfig.util')
 
-  local signs = { Error = "", Warn = "", Hint = "", Info = "" }
-  for type, icon in pairs(signs) do
+  for type, icon in pairs({ Error = "", Warn = "", Hint = "", Info = "" }) do
     local hl = "DiagnosticSign" .. type
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
   end
@@ -26,19 +22,6 @@ lua_source = '''
   vim.diagnostic.config({
     update_in_insert = true,
   })
-
-  mason.setup({
-    automatic_installation = true,
-    ui = {
-      icons = {
-        package_installed = '',
-        package_pending = '',
-        package_uninstalled = ''
-      }
-    }
-  })
-  -- はddcの方で2幅に設定済み
-  Config.fn.setcellwidths2({0xf05d, 0xf18e})
 
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -86,14 +69,19 @@ lua_source = '''
     }
   }
 
-  mason_lspconfig.setup_handlers({ function(server_name)
-    local opts = {
-      on_attach = on_attach,
-      capabilities = capabilities
-    }
-    Config.fn.table_insert_pairs(opts, add_opts[server_name])
-    nvim_lsp[server_name].setup(opts)
-  end })
+  require('mason-lspconfig').setup_handlers {
+    function(server_name)
+      if server_name == "omnisharp" then
+        return
+      end
+      local opts = {
+        on_attach = on_attach,
+        capabilities = capabilities
+      }
+      Config.fn.table_insert_pairs(opts, add_opts[server_name])
+      nvim_lsp[server_name].setup(opts)
+    end
+  }
 
   -- Mason に dartls ないので個別に設定、dartls は dart に付属してる
   nvim_lsp['dartls'].setup {
@@ -118,6 +106,20 @@ EOF
 [[plugins]]
 repo = 'williamboman/mason.nvim'
 on_source = 'nvim-lspconfig'
+lua_source = '''
+  require('mason').setup {
+    automatic_installation = true,
+    ui = {
+      icons = {
+        package_installed = '',
+        package_pending = '',
+        package_uninstalled = ''
+      }
+    }
+  }
+  --  はddcの方で2幅に設定済み
+  Config.fn.setcellwidths2({0xf05d, 0xf18e})
+'''
 
 [[plugins]]
 repo = 'williamboman/mason-lspconfig.nvim'

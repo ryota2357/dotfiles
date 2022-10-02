@@ -24,7 +24,7 @@ hook_add = '''
 
 [[plugins]]
 repo = 'cohama/lexima.vim'
-rev = 'feature/feedkeys'
+# rev = 'feature/feedkeys'
 depends = 'pum.vim'
 on_event = 'InsertEnter'
 hook_add = '''
@@ -150,11 +150,8 @@ lua_source = '''
 '''
 
 [[plugins]]
-repo = 'norcalli/nvim-colorizer.lua'
+repo = 'uga-rosa/ccc.nvim'
 on_event = 'BufEnter'
-hook_source = '''
-  lua require'colorizer'.setup()
-'''
 
 [[plugins]]
 repo = 'petertriho/nvim-scrollbar'
