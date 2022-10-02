@@ -128,15 +128,39 @@ set scrolloff=3
 set sidescrolloff=5
 
 " インデント設定
-set expandtab     " tabキーを押すとスペースが入力される
-set tabstop=4     " 画面上で表示する1つのタブの幅
-set softtabstop=4 " いくつの連続した空白を1回で削除できるようにするか
-set shiftwidth=4  " 自動インデントでのインデントの長さ
-set autoindent    " 改行した時に自動でインデントします
-set smartindent   " {があると次の行は自動で1段深く自動インデントしてくれる
+" extends: tabキーを押すとスペースが入力される
+" tabstop: 画面上で表示する1つのタブの幅
+" softtabstop: いくつの連続した空白を1回で削除できるようにするか
+" shiftwidth; 自動インデントでのインデントの長さ
+" autoindent: 改行した時に自動でインデントします
+" smartindent: {があると次の行は自動で1段深く自動インデントしてくれる
+set expandtab
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set autoindent
+set smartindent
 
 " 検索パターンにおいて大文字と小文字を区別しない
 set ignorecase
 
 " マーカー位置で折りたたむ
 set foldmethod=marker
+
+" 必要ない標準プラグインの読み込みを停止
+" man: vimでmanをみる
+" matchit: %でカッコ対応ペアの移動強化
+" netrw*: 標準ファイラ
+" turot*: :Tutor
+" vimball: :h vimball、プラグインを使いやすくするプラグイン?
+" gzip: zipファイルを開いた時に展開せずにVimでアーカイブ内のファイルを閲覧・編集できる
+" zipPlugin: ↑と同じ?
+let g:loaded_man = v:true
+let g:loaded_matchit = v:true
+let g:loaded_netrwPlugin = v:true
+let g:loaded_netrwFileHandlers = v:true
+let g:loaded_netrwSettings = v:true
+let g:loaded_tutor_mode_plugin = v:true
+let g:loaded_vimballPlugin = v:true
+let g:loaded_gzip = v:true
+let g:loaded_zipPlugin = v:true

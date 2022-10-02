@@ -17,11 +17,12 @@ hook_add = '''
   let g:denops_server_addr = '127.0.0.1:32123'
 '''
 
+# LuaCacheClear / LuaCacheLog / LuaCacheProfile
 [[plugins]]
 repo = 'lewis6991/impatient.nvim'
-
-[[plugins]]
-repo = 'nathom/filetype.nvim'
+hook_add = '''
+  lua require('impatient')
+'''
 
 [[plugins]]
 repo = 'vim-jp/vimdoc-ja'
@@ -31,9 +32,6 @@ hook_add = '''
 
 [[plugins]]
 repo = 'RRethy/vim-illuminate'
-
-[[plugins]]
-repo = 'sheerun/vim-polyglot'
 
 [[plugins]]
 repo = 'joshdick/onedark.vim'

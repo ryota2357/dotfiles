@@ -129,7 +129,7 @@ on_event = 'BufEnter'
 
 [[plugins]]
 repo = 'lewis6991/gitsigns.nvim'
-on_event = 'BufEnter'
+on_event = 'BufReadPost'
 hook_source = '''
   lua require'gitsigns'.setup()
 '''
@@ -151,7 +151,7 @@ lua_source = '''
 
 [[plugins]]
 repo = 'uga-rosa/ccc.nvim'
-on_event = 'BufEnter'
+on_event = 'BufReadPost'
 lua_source = '''
   local ccc = require('ccc')
   local mapping = ccc.mapping

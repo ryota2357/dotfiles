@@ -201,9 +201,6 @@ for hl, value in pairs(Config.val.custom_hls) do
     vim.api.nvim_set_hl(0, hl, value)
 end
 
--- LuaCacheClear / LuaCacheLog / LuaCacheProfile
-require('impatient')
-
 vim.notify = require('notify')
 
 vim.o.secure = true
