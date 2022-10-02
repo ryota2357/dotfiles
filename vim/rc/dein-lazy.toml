@@ -152,6 +152,22 @@ lua_source = '''
 [[plugins]]
 repo = 'uga-rosa/ccc.nvim'
 on_event = 'BufEnter'
+lua_source = '''
+  local ccc = require('ccc')
+  local mapping = ccc.mapping
+  ccc.setup {
+    bar_len = 40,
+    point_char = ' ',
+    point_color = '#000000',
+    highlighter = { auto_enable = true },
+    mappings = {
+      ['q'] = mapping.none,
+      ['<ESC>'] = mapping.quit,
+      ['<Left>'] = mapping.decrease1,
+      ['<Right>'] = mapping.increase1
+    }
+  }
+'''
 
 [[plugins]]
 repo = 'petertriho/nvim-scrollbar'
