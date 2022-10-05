@@ -151,14 +151,14 @@ lua_source = '''
 
 [[plugins]]
 repo = 'uga-rosa/ccc.nvim'
-on_event = 'BufReadPost'
+on_event = 'VimEnter' # BufReadPostがいいけどエラー出る(BufEnterでも)
 lua_source = '''
   local ccc = require('ccc')
   local mapping = ccc.mapping
   ccc.setup {
     bar_len = 40,
-    point_char = ' ',
-    point_color = '#000000',
+    point_char = '■',
+    point_color = '#202020',
     highlighter = { auto_enable = true },
     mappings = {
       ['q'] = mapping.none,

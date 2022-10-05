@@ -66,6 +66,9 @@ lua_source = '''
     },
     tsserver = {
       root_dir = util.root_pattern('package.json', 'node_modules')
+    },
+    solargraph = {
+      single_file_support = true
     }
   }
 
