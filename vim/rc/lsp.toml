@@ -2,13 +2,8 @@
 repo = 'neovim/nvim-lspconfig'
 on_event = 'BufReadPost'
 hook_add = '''
-  if has('nvim-0.8')
-    autocmd BufWritePre *.ts,*.dart,*.rs lua vim.lsp.buf.format()
-    command! Format lua vim.lsp.buf.format()
-  else
-    autocmd BufWritePre *.ts,*.dart,*.rs lua vim.lsp.buf.formatting()
-    command! Format lua vim.lsp.buf.formatting()
-  endif
+  autocmd BufWritePre *.ts,*.dart,*.rs lua vim.lsp.buf.format()
+  command! Format lua vim.lsp.buf.format()
 '''
 lua_source = '''
   local nvim_lsp = require('lspconfig')
