@@ -138,13 +138,12 @@ hook_source = '''
 repo = 'lukas-reineke/indent-blankline.nvim'
 on_event = 'BufEnter'
 lua_add = '''
-  Config.fn.table_insert_pairs(
-      Config.val.custom_hls,
-      { IndentBlanklineContextChar = { fg = '#6e6e6e', nocombine = true } }
-  )
+  require('rc.util').highlight.set {
+    IndentBlanklineContextChar = { fg = '#6e6e6e', nocombine = true }
+  }
 '''
 lua_source = '''
-  require'indent_blankline'.setup {
+  require('indent_blankline').setup {
     show_current_context = true,
   }
 '''

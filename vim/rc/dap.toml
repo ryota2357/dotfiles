@@ -2,13 +2,10 @@
 repo = 'mfussenegger/nvim-dap'
 depends = 'nvim-dap-ui'
 lua_add = '''
-  Config.fn.table_insert_pairs(
-      Config.val.custom_hls,
-      {
-        DapBreakpointTextHl = { fg = '#ba000d' },
-        DapStoppedTextHl = { fg = '#bef67a'}
-      }
-  )
+require('rc.util').highlight.set {
+  DapBreakpointTextHl = { fg = '#ba000d' },
+  DapStoppedTextHl = { fg = '#bef67a'}
+}
 '''
 lua_source = '''
   local dap = require('dap')

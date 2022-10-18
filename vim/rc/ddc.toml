@@ -82,7 +82,7 @@ hook_source = '''
     \   'specialBufferCompletion', v:false
     \ )
 
-  lua Config.fn.setcellwidths2({}, true)
+  lua require'rc.util'.setcellwidths2({}, true)
   call ddc#enable()
 '''
 
@@ -94,7 +94,7 @@ hook_source = '''
     \   'mark': '',
     \   'matchers': ['matcher_head', 'matcher_length']
     \ }
-  lua Config.fn.setcellwidths2(0xf10c, false)
+  lua require'rc.util'.setcellwidths2(0xf10c, false)
 '''
 
 [[plugins]]
@@ -107,7 +107,7 @@ hook_source = '''
     \   'isVolatile': v:true,
     \   'minAutoCompleteLength': 1
     \ }
-  lua Config.fn.setcellwidths2(0xf02d, false)
+  lua require'rc.util'.setcellwidths2(0xf02d, false)
 '''
 
 [[plugins]]
@@ -119,7 +119,7 @@ hook_source = '''
     \   'dup': 'keep',
     \   'forceCompletionPattern': '\.\w*|:\w*|->\w*'
     \ }
-  lua Config.fn.setcellwidths2(0xf233, false)
+  lua require'rc.util'.setcellwidths2(0xf233, false)
 '''
 
 [[plugins]]
@@ -130,7 +130,7 @@ hook_source = '''
     \   'mark': '',
     \   'minAutoCompleteLength': 1
     \ }
-  lua Config.fn.setcellwidths2(0xf120, false)
+  lua require'rc.util'.setcellwidths2(0xf120, false)
 '''
 
 [[plugins]]
@@ -141,7 +141,7 @@ hook_source = '''
     \   'mark': '',
     \   'matchers': ['matcher_head', 'matcher_length'],
     \ }
-  lua Config.fn.setcellwidths2(0xf1da, false)
+  lua require'rc.util'.setcellwidths2(0xf1da, false)
 '''
 
 [[plugins]]
@@ -162,7 +162,7 @@ hook_source = '''
     \   'mark': '',
     \   'dup': 'keep'
     \ }
-  lua Config.fn.setcellwidths2(0xf135, false)
+  lua require'rc.util'.setcellwidths2(0xf135, false)
 
   " pum, ddc との連携
   autocmd User PumCompleteDone call vsnip_integ#on_complete_done(g:pum#completed_item)

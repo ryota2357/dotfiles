@@ -72,11 +72,10 @@ lua_source = '''
       if server_name == "omnisharp" then
         return
       end
-      local opts = {
+      local opts = vim.tbl_extend('force', {
         on_attach = on_attach,
         capabilities = capabilities
-      }
-      Config.fn.table_insert_pairs(opts, add_opts[server_name])
+      }, add_opts[server_name] or {})
       nvim_lsp[server_name].setup(opts)
     end
   }
@@ -116,7 +115,7 @@ lua_source = '''
     }
   }
   --  はddcの方で2幅に設定済み
-  Config.fn.setcellwidths2({0xf05d, 0xf18e})
+  require('rc.util').setcellwidths2({0xf05d, 0xf18e})
 '''
 
 [[plugins]]

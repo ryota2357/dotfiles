@@ -48,6 +48,10 @@ vnoremap K k
 vnoremap <Tab> >
 vnoremap <S-Tab> <
 
+" :q のタイポ修正
+nnoremap q: :q
+nnoremap <Leader>: q:
+
 " emacsキーバインド
 " C-p, C-n は ddc(pum) で設定、IdeaVimではなぜかこれだけそのまま使えた
 inoremap <C-b> <Left>

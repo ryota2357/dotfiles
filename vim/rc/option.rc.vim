@@ -1,4 +1,5 @@
 " エンコーディング
+
 set encoding=utf8
 scriptencoding utf8
 set fileencodings=utf-8,ucs-boms,euc-jp,ep932
@@ -19,12 +20,6 @@ set shell=/bin/zsh
 
 " 編集中のファイルが他で書き換えられたら自動で読み直す
 set autoread
-
-" ファイルの変更チェックの頻度を強化 (https://vim-jp.org/vim-users-jp/2011/03/12/Hack-206.html)
-augroup autoreadChecktime
-  autocmd!
-  autocmd WinEnter * checktime
-augroup END
 
 " ヤンクをクリップボードへ繋ぐ
 set clipboard+=unnamed
@@ -53,43 +48,14 @@ set cursorline
 " ステータスラインは常に1つ
 set laststatus=3
 
-" 自作ステータスラインの適用
-set statusline=%!v:lua.Config.fn.statusline()
-
 " モードのメッセージをコマンドラインに表示しない
 set noshowmode
 
 " 左の余白(目印桁)を常に表示
 set signcolumn=yes:1
 
-" 自作タブラインの適用
-set tabline=%!v:lua.Config.fn.tabline()
-
 " マウスを有効に
 set mouse=a
-
-" Vimにフォーカスを戻した時だけマウスを無効に
-augroup Mouse
-  autocmd!
-  autocmd FocusGained * call s:OnFocusGained()
-  autocmd FocusLost * call s:OnFocusLost()
-augroup END
-
-function! s:OnFocusGained() abort
-  autocmd CursorMoved,CursorMovedI,ModeChanged,WinScrolled * ++once call s:EnebleLeftMouse()
-  noremap  <LeftMouse> <Cmd>call <SID>EnebleLeftMouse()<CR>
-  inoremap <LeftMouse> <Cmd>call <SID>EnebleLeftMouse()<CR>
-endfunction
-
-function! s:EnebleLeftMouse() abort
-  silent! unmap <LeftMouse>
-  silent! iunmap <LeftMouse>
-endfunction
-
-function! s:OnFocusLost() abort
-  noremap  <LeftMouse> <nop>
-  inoremap <LeftMouse> <nop>
-endfunction
 
 " 行末の1文字先までカーソルを移動可能に
 set virtualedit=onemore
