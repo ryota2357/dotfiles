@@ -64,9 +64,13 @@ hook_source = '''
     \   'sources': ['nvim-lsp']
     \ })
   call ddc#custom#patch_filetype(['tex'], {
-    \   'sources': ['vsnip', 'around'],
+    \   'sources': ['nvim-lsp', 'vsnip', 'around'],
     \   'sourceOptions': {
-    \     'vsnip': { 'minAutoCompleteLength': 1 }
+    \     'vsnip': { 'minAutoCompleteLength': 1 },
+    \     'nvim-lsp': {
+    \       'minAutoCompleteLength': 3,
+    \       'matchers': ['matcher_head', 'matcher_length'],
+    \     }
     \   }
     \ })
   call ddc#custom#patch_filetype(['markdown'], {
