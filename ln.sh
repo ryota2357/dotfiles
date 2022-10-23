@@ -23,7 +23,10 @@ do
     ln -sfnv $lua_file ~/.config/nvim/lua/rc/$file_name
 done
 
+# tmux
 ln_dots tmux/tmux.conf     ~/.tmux.conf
+
+# latex
 ln_dots tex/latexmkrc.perl ~/.latexmkrc
 
 unset -f ln_dots

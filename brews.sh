@@ -68,6 +68,7 @@ brew install plantuml
 
 # other casks
 brew install --cask alfred
+brew install --cask alt-tab
 brew install --cask android-studio
 brew install --cask blender
 brew install --cask deepl

@@ -42,17 +42,15 @@ hook_add = '''
   endfunction
 '''
 hook_source = '''
-  call ddc#custom#patch_global('sources', ['around'])
-  call ddc#custom#patch_global('cmdlineSources', ['cmdline', 'cmdline-history', 'around'])
-  call ddc#custom#patch_global('sourceOptions', g:ddc_source_options)
-  call ddc#custom#patch_global('sourceParams', {
-    \   'around': { 'maxSize': 500 }
-    \ })
-  call ddc#custom#patch_global('autoCompleteEvents', [
-    \   'InsertEnter', 'TextChangedI', 'TextChangedP', 'CmdlineEnter', 'CmdlineChanged',
-    \ ])
-  call ddc#custom#patch_global('backspaceCompletion', v:true)
-  call ddc#custom#patch_global('completionMenu', 'pum.vim')
+  call ddc#custom#patch_global({
+   \   'sources': ['around'],
+   \   'cmdlineSources': ['cmdline', 'cmdline-history', 'around'],
+   \   'sourceOptions': g:ddc_source_options,
+   \   'sourceParams': { 'around': { 'maxSize': 500 } },
+   \   'autoCompleteEvents': ['InsertEnter', 'TextChangedI', 'TextChangedP', 'CmdlineEnter', 'CmdlineChanged'],
+   \   'backspaceCompletion': v:true,
+   \   'completionMenu': 'pum.vim',
+   \ })
 
   call ddc#custom#patch_filetype(['vim'], {
     \   'sources': ['vsnip', 'nvim-lsp', 'around']
@@ -69,7 +67,7 @@ hook_source = '''
     \     'vsnip': { 'minAutoCompleteLength': 1 },
     \     'nvim-lsp': {
     \       'minAutoCompleteLength': 3,
-    \       'matchers': ['matcher_head', 'matcher_length'],
+    \       'matchers': ['matcher_head'],
     \     }
     \   }
     \ })
