@@ -43,6 +43,7 @@ hook_add = '''
 '''
 hook_source = '''
   call ddc#custom#patch_global({
+   \   'ui': 'pum',
    \   'sources': ['around'],
    \   'cmdlineSources': ['cmdline', 'cmdline-history', 'around'],
    \   'sourceOptions': g:ddc_source_options,
@@ -89,7 +90,7 @@ hook_source = '''
 '''
 
 [[plugins]]
-repo = 'Shougo/ddc-around'
+repo = 'Shougo/ddc-source-around'
 on_source = 'ddc.vim'
 hook_source = '''
   let g:ddc_source_options['around'] = {
@@ -100,7 +101,7 @@ hook_source = '''
 '''
 
 [[plugins]]
-repo = 'Shougo/ddc-mocword'
+repo = 'Shougo/ddc-source-mocword'
 on_source = 'ddc.vim'
 hook_source = '''
   let g:ddc_source_options['mocword'] = {
@@ -113,7 +114,7 @@ hook_source = '''
 '''
 
 [[plugins]]
-repo = 'Shougo/ddc-nvim-lsp'
+repo = 'Shougo/ddc-source-nvim-lsp'
 on_source = 'ddc.vim'
 hook_source = '''
   let g:ddc_source_options['nvim-lsp'] = {
@@ -125,7 +126,7 @@ hook_source = '''
 '''
 
 [[plugins]]
-repo = 'Shougo/ddc-cmdline'
+repo = 'Shougo/ddc-source-cmdline'
 on_source = 'ddc.vim'
 hook_source = '''
   let g:ddc_source_options['cmdline'] = {
@@ -136,7 +137,7 @@ hook_source = '''
 '''
 
 [[plugins]]
-repo = 'Shougo/ddc-cmdline-history'
+repo = 'Shougo/ddc-source-cmdline-history'
 on_source = 'ddc.vim'
 hook_source = '''
   let g:ddc_source_options['cmdline-history'] = {
@@ -169,6 +170,10 @@ hook_source = '''
   " pum, ddc との連携
   autocmd User PumCompleteDone call vsnip_integ#on_complete_done(g:pum#completed_item)
 '''
+
+[[plugins]]
+repo = 'Shougo/ddc-ui-pum'
+on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'tani/ddc-fuzzy'

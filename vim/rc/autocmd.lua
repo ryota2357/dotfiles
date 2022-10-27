@@ -27,7 +27,7 @@ autocmd { 'FocusGained', 'FocusLost' } {
 
 autocmd 'CmdlineLeave' {
     desc = '検索コマンドからの離脱時にIMEをoffにする',
-    pattern = '/',
+    pattern = {'/', '?'},
     callback = function()
         -- 102: EISU
         vim.fn.system [[

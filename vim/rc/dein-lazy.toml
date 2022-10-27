@@ -102,27 +102,6 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'nvim-treesitter/nvim-treesitter'
-on_event = 'BufEnter'
-hook_post_update = 'TSUpdate'
-lua_source = '''
-  require('nvim-treesitter.configs').setup {
-    ensure_installed = 'all',
-    additional_vim_regex_highlighting = false,
-
-    -- m1でエラー出るから
-    ignore_install = { 'phpdoc' },
-
-    -- help : ハイライト変になる
-    -- tex  : snipet挿入後とかでエラーが出る
-    highlight = {
-      enable = true,
-      disable = { 'help', 'latex', 'tex' },
-    },
-  }
-'''
-
-[[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter-context'
 depends = 'nvim-treesitter'
 on_event = 'BufEnter'

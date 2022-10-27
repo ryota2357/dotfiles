@@ -19,6 +19,7 @@ require('dein-snip').setup {
         },
         toml = {
             '~/dotfiles/vim/rc/dein.toml',
+            '~/dotfiles/vim/rc/filetype.toml',
             { '~/dotfiles/vim/rc/dein-lazy.toml', { lazy = true } },
             { '~/dotfiles/vim/rc/ddc.toml', { lazy = true } },
             { '~/dotfiles/vim/rc/ddu.toml', { lazy = true } },
@@ -44,7 +45,6 @@ vim.api.nvim_set_option('statusline', '%!v:lua.Statusline()')
 vim.api.nvim_set_option('tabline', '%!v:lua.Tabline()')
 
 require('rc.autocmd')
-require('rc.filetype')
 
 vim.notify = require('notify')
 
