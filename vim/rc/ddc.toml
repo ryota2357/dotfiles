@@ -44,7 +44,7 @@ hook_add = '''
 hook_source = '''
   call ddc#custom#patch_global({
    \   'ui': 'pum',
-   \   'sources': ['around'],
+   \   'sources': ['around', 'skkeleton'],
    \   'cmdlineSources': ['cmdline', 'cmdline-history', 'around'],
    \   'sourceOptions': g:ddc_source_options,
    \   'sourceParams': { 'around': { 'maxSize': 500 } },
@@ -169,6 +169,22 @@ hook_source = '''
 
   " pum, ddc との連携
   autocmd User PumCompleteDone call vsnip_integ#on_complete_done(g:pum#completed_item)
+'''
+
+[[plugins]]
+repo = 'vim-skk/skkeleton'
+on_source = 'ddc.vim'
+hook_source = '''
+  call skkeleton#config({ 'globalJisyo': '~/.config/skk/dict/SKK-JISYO.L' })
+  imap <C-j> <Plug>(skkeleton-enable)
+  cmap <C-j> <Plug>(skkeleton-enable)
+  let g:ddc_source_options['skkeleton'] = {
+    \  'mark': '',
+    \  'matchers': ['skkeleton'],
+    \  'sorters': [],
+    \  'minAutoCompleteLength': 2
+    \ }
+  lua require'rc.util'.setcellwidths2(0xf044, false)
 '''
 
 [[plugins]]
