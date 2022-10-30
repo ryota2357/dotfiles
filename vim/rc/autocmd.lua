@@ -36,6 +36,24 @@ autocmd 'CmdlineLeave' {
     end,
 }
 
+autocmd 'CmdlineEnter' {
+    desc = '入力補完オプション変更',
+    pattern = ':',
+    callback = function()
+        local save = vim.o.completeopt
+        vim.o.completeopt = 'menu,noselect'
+        vim.fn['pum#set_option']('auto_select', false)
+        autocmd 'CmdlineLeave' {
+            callback = function ()
+                if string.match(save, 'noinsert') then
+                    vim.fn['pum#set_option']('auto_select', true)
+                end
+                vim.o.completeopt = save
+            end
+        }
+    end
+}
+
 autocmd 'CmdwinEnter' {
     desc = 'cmdwin の設定',
     callback = function(context)

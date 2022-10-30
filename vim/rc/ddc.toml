@@ -8,7 +8,7 @@ hook_add = '''
     \     'ignoreCase': v:true,
     \     'matchers': ['matcher_fuzzy'],
     \     'sorters': ['sorter_fuzzy'],
-    \     'converters': ['converter_remove_overlap']
+    \     'converters': ['converter_fuzzy']
     \   }
     \ }
 
@@ -23,8 +23,6 @@ hook_add = '''
     cnoremap <expr><CR>   pum#visible() && pum#complete_info()['selected'] != -1 ? pum#map#confirm() : '<CR>'
     autocmd User DDCCmdlineLeave ++once call s:CommandlinePost()
     autocmd InsertEnter <buffer> ++once call s:CommandlinePost()
-    let s:ddc_save_completeopt = &completeopt
-    set completeopt=menu,noselect
     call ddc#enable_cmdline_completion()
   endfunction
 
@@ -35,10 +33,6 @@ hook_add = '''
     silent! cunmap <Down>
     silent! cunmap <Up>
     silent! cunmap <CR>
-    if exists('s:ddc_save_completeopt')
-      let &completeopt = s:ddc_save_completeopt
-      unlet s:ddc_save_completeopt
-    endif
   endfunction
 '''
 hook_source = '''
@@ -50,7 +44,6 @@ hook_source = '''
    \   'sourceParams': { 'around': { 'maxSize': 500 } },
    \   'autoCompleteEvents': ['InsertEnter', 'TextChangedI', 'TextChangedP', 'CmdlineEnter', 'CmdlineChanged'],
    \   'backspaceCompletion': v:true,
-   \   'completionMenu': 'pum.vim',
    \ })
 
   call ddc#custom#patch_filetype(['vim'], {
@@ -63,7 +56,7 @@ hook_source = '''
     \   'sources': ['nvim-lsp']
     \ })
   call ddc#custom#patch_filetype(['tex'], {
-    \   'sources': ['nvim-lsp', 'vsnip', 'around'],
+    \   'sources': ['nvim-lsp', 'vsnip', 'around', 'skkeleton'],
     \   'sourceOptions': {
     \     'vsnip': { 'minAutoCompleteLength': 1 },
     \     'nvim-lsp': {
@@ -95,7 +88,8 @@ on_source = 'ddc.vim'
 hook_source = '''
   let g:ddc_source_options['around'] = {
     \   'mark': '',
-    \   'matchers': ['matcher_head', 'matcher_length']
+    \   'matchers': ['matcher_head', 'matcher_length'],
+    \   'converters': ['converter_remove_overlap']
     \ }
   lua require'rc.util'.setcellwidths2(0xf10c, false)
 '''
@@ -107,6 +101,7 @@ hook_source = '''
   let g:ddc_source_options['mocword'] = {
     \   'mark': '',
     \   'matchers': ['matcher_head', 'matcher_length'],
+    \   'converters': ['converter_remove_overlap'],
     \   'isVolatile': v:true,
     \   'minAutoCompleteLength': 1
     \ }
@@ -143,6 +138,7 @@ hook_source = '''
   let g:ddc_source_options['cmdline-history'] = {
     \   'mark': '',
     \   'matchers': ['matcher_head', 'matcher_length'],
+    \   'converters': ['converter_remove_overlap']
     \ }
   lua require'rc.util'.setcellwidths2(0xf1da, false)
 '''
@@ -175,14 +171,23 @@ hook_source = '''
 repo = 'vim-skk/skkeleton'
 on_source = 'ddc.vim'
 hook_source = '''
-  call skkeleton#config({ 'globalJisyo': '~/.config/skk/dict/SKK-JISYO.L' })
-  imap <C-j> <Plug>(skkeleton-enable)
-  cmap <C-j> <Plug>(skkeleton-enable)
+  call skkeleton#config({
+    \   'globalDictionaries': ['~/.local/share/SKK/dict/SKK-JISYO.L'],
+    \   'eggLikeNewline': v:true,
+    \   'registerConvertResult': v:true
+    \ })
+  " karabiner で割り当て。なんか副作用ないキーが欲しい
+  imap <F1> <Plug>(skkeleton-enable)
+  cmap <F1> <Plug>(skkeleton-enable)
+  imap <F2> <Plug>(skkeleton-disable)
+  cmap <F2> <Plug>(skkeleton-disable)
   let g:ddc_source_options['skkeleton'] = {
-    \  'mark': '',
-    \  'matchers': ['skkeleton'],
-    \  'sorters': [],
-    \  'minAutoCompleteLength': 2
+    \   'mark': '',
+    \   'matchers': ['skkeleton'],
+    \   'sorters': [],
+    \   'converters': [],
+    \   'isVolatile': v:true,
+    \   'minAutoCompleteLength': 2
     \ }
   lua require'rc.util'.setcellwidths2(0xf044, false)
 '''

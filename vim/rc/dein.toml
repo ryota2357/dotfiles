@@ -42,8 +42,8 @@ lua_source = '''
     ensure_installed = 'all',
     additional_vim_regex_highlighting = false,
 
-    -- phpdoc: m1でエラー出るから
-    -- git_rebase: intelでエラーでてる(m1は未検証)
+    -- phpdoc: m1でエラー出る
+    -- git_rebase: intelでエラーでる
     ignore_install = { 'phpdoc', 'git_rebase' },
 
     -- help : ハイライト変になる
