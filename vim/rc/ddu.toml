@@ -102,7 +102,9 @@ hook_source = '''
     \     'filer': {
     \       'split': 'vertical',
     \       'splitDirection': 'topleft',
-    \       'winWidth': 30
+    \       'winWidth': 30,
+    \       'sort': 'filename',
+    \       'sortTreesFirst': v:true
     \     }
     \   },
     \   'sourceOptions': {
@@ -178,7 +180,7 @@ repo = 'Shougo/ddu-ui-filer'
 on_source = 'ddu.vim'
 [plugins.ftplugin]
 ddu-filer = '''
-  nnoremap <buffer><expr> <CR> ddu#ui#filer#is_directory()
+  nnoremap <buffer><expr> <CR> ddu#ui#filer#is_tree()
     \ ? "<Cmd>call ddu#ui#filer#do_action('expandItem', {'mode': 'toggle'})<CR>"
     \ : "<Cmd>call ddu#ui#filer#do_action('itemAction', { 'params': {'command': 'drop'} })<CR>"
   nnoremap <buffer> o <Cmd>call ddu#ui#filer#do_action('itemAction', { 'params': {'command': 'tab drop'} })<CR>

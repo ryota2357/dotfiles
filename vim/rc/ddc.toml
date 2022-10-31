@@ -1,5 +1,6 @@
 [[plugins]]
 repo = 'Shougo/ddc.vim'
+rev = 'cfe07b3d3191769a88d06916366e3e54d6d614e7'
 depends = ['denops.vim', 'pum.vim', 'context_filetype.vim']
 on_event = ['InsertEnter', 'CursorHold', 'CmdlineEnter']
 hook_add = '''
@@ -176,11 +177,8 @@ hook_source = '''
     \   'eggLikeNewline': v:true,
     \   'registerConvertResult': v:true
     \ })
-  " karabiner で割り当て。なんか副作用ないキーが欲しい
-  imap <F1> <Plug>(skkeleton-enable)
-  cmap <F1> <Plug>(skkeleton-enable)
-  imap <F2> <Plug>(skkeleton-disable)
-  cmap <F2> <Plug>(skkeleton-disable)
+  imap <C-j> <Plug>(skkeleton-enable)
+  cmap <C-j> <Plug>(skkeleton-enable)
   let g:ddc_source_options['skkeleton'] = {
     \   'mark': '',
     \   'matchers': ['skkeleton'],
