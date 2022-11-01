@@ -16,6 +16,7 @@ mkdir -p ~/.config/nvim/lua/rc/
 ln_dots vim/init.lua                 ~/.config/nvim/init.lua
 ln_dots vim/vimrc                    ~/.ideavimrc
 ln_dots vim/after                    ~/.config/nvim/after
+ln_dots vim/denops                   ~/.config/nvim/denops
 ln_dots vim/format/clang-format.yaml ~/.clang-format
 for lua_file in $(find ~/dotfiles/vim/rc/*.lua)
 do

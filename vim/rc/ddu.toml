@@ -143,7 +143,6 @@ hook_source = '''
     \   'kindOptions': {
     \     'file': { 'defaultAction': 'open' },
     \     'help': { 'defaultAction': 'open' },
-    \     'vim_ui_select': { 'defaultAction': 'select' },
     \     'cpl': { 'defaultAction': 'paste' }
     \   },
     \   'actionOptions': {
@@ -197,24 +196,6 @@ ddu-filer = '''
     \     },
     \   },
     \ })<CR>
-'''
-
-[[plugins]]
-repo = 'ryota2357/ddu-vim_ui_select'
-# repo = '~/Projects/VimPlugin/ddu-vim_ui_select'
-on_source = 'ddu.vim'
-lua_source = '''
-  require('ddu-vim_ui_select').setup {
-    ddu_options = {
-      ui = 'ff',
-      uiParams = {
-        ff = {
-          startFilter = false,
-          autoResize = true,
-        }
-      }
-    },
-  }
 '''
 
 [[plugins]]

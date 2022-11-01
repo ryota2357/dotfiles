@@ -43,9 +43,8 @@ Statusline = ui.statusline()
 Tabline = ui.tabline()
 vim.api.nvim_set_option('statusline', '%!v:lua.Statusline()')
 vim.api.nvim_set_option('tabline', '%!v:lua.Tabline()')
+vim.ui.select = ui.select
 
 require('rc.autocmd')
-
-vim.notify = require('notify')
 
 vim.opt.secure = true

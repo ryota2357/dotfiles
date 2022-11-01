@@ -33,7 +33,6 @@ local function modified_bg_bufs_count()
     return cnt
 end
 
-
 --- Create custom statusline.
 ---@return function
 function M.statusline()
@@ -128,6 +127,49 @@ function M.tabline()
         end
         return s .. '%#TabLineFill#%T'
     end
+end
+
+local save_on_choice = nil
+
+function M.select(items, opts, on_choice)
+    opts = opts or {}
+    opts.format_item = opts.format_item or function(e) return tostring(e) end
+    save_on_choice = on_choice
+
+    local indexed_items = {}
+    for index, item in ipairs(items) do
+        local text = opts.format_item(item)
+        table.insert(indexed_items, { index = index, raw = item, text = text })
+    end
+
+    vim.fn['ddu#start'] {
+        ui = 'ff',
+        sources = {{
+            name = 'ui_select',
+            params = {
+                items = indexed_items,
+            }
+        }},
+        uiParams = {
+            ff = {
+                startFilter = false,
+                autoResize = true,
+            }
+        },
+        kindOptions = {
+            ui_select = {
+                defaultAction = 'select'
+            }
+        }
+    }
+end
+
+function M.on_choice(item, index)
+    if save_on_choice == nil then
+        return
+    end
+    save_on_choice(item, index)
+    save_on_choice = nil
 end
 
 return M

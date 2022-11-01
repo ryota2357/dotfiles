@@ -71,6 +71,9 @@ hook_add = '''
 
 [[plugins]]
 repo = 'rcarriga/nvim-notify'
+hook_add = '''
+  lua vim.notify = require('notify')
+'''
 
 # [[plugins]]
 # repo = '~/TMP/mycolor'

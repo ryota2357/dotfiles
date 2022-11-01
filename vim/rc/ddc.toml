@@ -1,6 +1,5 @@
 [[plugins]]
 repo = 'Shougo/ddc.vim'
-rev = 'cfe07b3d3191769a88d06916366e3e54d6d614e7'
 depends = ['denops.vim', 'pum.vim', 'context_filetype.vim']
 on_event = ['InsertEnter', 'CursorHold', 'CmdlineEnter']
 hook_add = '''
