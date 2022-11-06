@@ -134,7 +134,10 @@ hook_source = '''
     \   'columnParams': {
     \     'icon_filename': {
     \       'defaultIcon': { 'icon': '' },
-    \       'useLinkIcon': 'grayout'
+    \       'useLinkIcon': 'grayout',
+    \       'customFileIcons': {
+    \         'tex': { 'icon': 'ﭨ' }
+    \       }
     \     }
     \   },
     \   'filterParams': {
