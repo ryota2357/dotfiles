@@ -1,13 +1,17 @@
 BasedOnStyle: Google
 AlignAfterOpenBracket: Align
 AllowAllArgumentsOnNextLine: true
+AllowAllParametersOfDeclarationOnNextLine: true
 AllowShortBlocksOnASingleLine: Always
 AllowShortCaseLabelsOnASingleLine: true
 AllowShortFunctionsOnASingleLine: All
-AllowShortIfStatementsOnASingleLine: AllIfsAndElse
+AllowShortIfStatementsOnASingleLine: WithoutElse
 AllowShortLambdasOnASingleLine: All
 AllowShortLoopsOnASingleLine: true
+AlwaysBreakAfterReturnType: None
+AlwaysBreakTemplateDeclarations: Yes
 BreakBeforeConceptDeclarations: true
+BreakBeforeBinaryOperators: NonAssignment
 BreakBeforeTernaryOperators: true
 ColumnLimit: 0
 DeriveLineEnding: true
@@ -21,12 +25,17 @@ Standard: c++17
 UseCRLF: false
 BreakBeforeBraces: Custom
 BraceWrapping:
-  AfterCaseLabel: true
+  AfterCaseLabel: false
   AfterClass: true
   AfterControlStatement: Never
+  AfterEnum: true
   AfterFunction: false
   AfterNamespace: true
   AfterStruct: true
-  BeforeCatch: true
-  BeforeElse: true
+  AfterUnion: true
+  AfterExternBlock: true
+  BeforeCatch: false
+  BeforeElse: false
+  BeforeLambdaBody: false
   BeforeWhile: false
+  IndentBraces: false
