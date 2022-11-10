@@ -15,7 +15,7 @@ hook_add = '''
   nnoremap : <Cmd>call <SID>CommandlinePre()<CR>:
 
   function! s:CommandlinePre() abort
-    cnoremap <expr><Tab>  pum#visible() ? pum#map#insert_relative(+1) : ddc#manual_complete()
+    cnoremap <expr><Tab>  pum#visible() ? pum#map#insert_relative(+1) : ddc#map#manual_complete()
     cnoremap <expr><C-n>  pum#visible() ? pum#map#insert_relative(+1) : '<Down>'
     cnoremap <expr><C-p>  pum#visible() ? pum#map#insert_relative(-1) : '<Up>'
     cnoremap <expr><Down> pum#visible() ? pum#map#insert_relative(+1) : '<Down>'
