@@ -39,6 +39,10 @@
     "prefix": "cite",
     "body": "\\cite{$0}"
   },
+  "const": {
+    "prefix": "const",
+    "body": "\\const"
+  },
   "cos": {
     "prefix": "cos",
     "body": "\\cos{$0}"
@@ -101,6 +105,10 @@
   "left": {
     "prefix": "left",
     "body": "\\left"
+  },
+  "log": {
+    "prefix": "log",
+    "body": "\\log"
   },
   "mathrm": {
     "prefix": "mathrm",
@@ -174,10 +182,10 @@
   "split": {
     "prefix": "split",
     "body": [
-			"\\begin{split}",
-			"  $0",
-			"\\end{split}"
-		]
+      "\\begin{split}",
+      "  $0",
+      "\\end{split}"
+    ]
   },
   "sqrt": {
     "prefix": "sqrt",

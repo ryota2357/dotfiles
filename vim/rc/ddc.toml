@@ -69,8 +69,8 @@ hook_source = '''
     \   'sources': ['around', 'mocword']
     \ })
 
-  call ddc#custom#set_context(['cpp', 'dart', 'lua', 'rust', 'typescript'], { ->
-    \ ddc#syntax#in('TSComment') ? {
+  call ddc#custom#set_context_global({ ->
+    \ ddc#syntax#in('comment') ? {
     \   'sources': ['around', 'mocword'],
     \ } : {} })
 

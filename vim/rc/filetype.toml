@@ -23,6 +23,9 @@ typescript = '''
 dart = '''
   setlocal tabstop=2 softtabstop=2 shiftwidth=2
 '''
+json = '''
+  setlocal tabstop=2 softtabstop=2 shiftwidth=2
+'''
 help = '''
   setlocal nolist
   setlocal noexpandtab

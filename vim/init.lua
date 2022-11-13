@@ -33,7 +33,7 @@ require('dein-snip').setup {
     },
     install = {
         progress_type = 'floating',
-        max_processes = 2
+        max_processes = 1
     },
     auto_recache = true
 }
@@ -43,7 +43,7 @@ Statusline = ui.statusline()
 Tabline = ui.tabline()
 vim.api.nvim_set_option('statusline', '%!v:lua.Statusline()')
 vim.api.nvim_set_option('tabline', '%!v:lua.Tabline()')
-vim.ui.select = ui.select
+vim.ui.select = ui.select()
 
 require('rc.autocmd')
 
