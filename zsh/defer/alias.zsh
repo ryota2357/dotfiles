@@ -9,12 +9,10 @@ alias clip='pbcopy'
 alias vi='nvim'
 alias vii='nvim .'
 
-mkcd() {
-  mkdir -p $1 && cd $1
-}
+alias trash='use trash'
 
-trash() {
-  mv $1 ~/.Trash
+mkcd() {
+    mkdir -p $1 && cd $1
 }
 
 alias denops='deno run -A --no-check ~/.cache/dein/repos/github.com/vim-denops/denops.vim/denops/@denops-private/cli.ts'

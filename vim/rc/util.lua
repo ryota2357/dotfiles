@@ -1,4 +1,4 @@
-local val = {
+local save = {
     augroup = vim.api.nvim_create_augroup('vimrc', { clear = true }),
     two_cell_char = {}
 }
@@ -9,7 +9,7 @@ local function autocmd(events)
     ---@param opts table
     ---@return nil
     return function(opts)
-        opts.group = opts.group or val.augroup
+        opts.group = opts.group or save.augroup
         vim.api.nvim_create_autocmd(events, opts)
     end
 end
@@ -20,21 +20,21 @@ end
 ---@return nil
 local function setcellwidths2(char, apply)
     if char == nil then
-        val.two_cell_char = {}
+        save.two_cell_char = {}
         return
     end
     apply = apply or true
     if char ~= {} then
         if type(char) == "number" then
-            table.insert(val.two_cell_char, { char, char, 2 });
+            table.insert(save.two_cell_char, { char, char, 2 });
         elseif type(char) == "table" then
             for _, c in ipairs(char) do
-                table.insert(val.two_cell_char, { c, c, 2 });
+                table.insert(save.two_cell_char, { c, c, 2 });
             end
         end
     end
     if apply then
-        vim.fn.setcellwidths(val.two_cell_char)
+        vim.fn.setcellwidths(save.two_cell_char)
     end
 end
 

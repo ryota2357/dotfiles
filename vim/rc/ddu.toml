@@ -143,6 +143,9 @@ hook_source = '''
     \   'filterParams': {
     \     'matcher_fzf': { 'highlightMatched': 'Search' }
     \   },
+    \   'kindParams': {
+    \      'file': { 'trashCommand': ['use', 'trash'] }
+    \   },
     \   'kindOptions': {
     \     'file': { 'defaultAction': 'open' },
     \     'help': { 'defaultAction': 'open' },

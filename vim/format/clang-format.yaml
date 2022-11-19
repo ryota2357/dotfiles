@@ -1,4 +1,5 @@
 BasedOnStyle: Google
+AccessModifierOffset: -2
 AlignAfterOpenBracket: Align
 AllowAllArgumentsOnNextLine: true
 AllowAllParametersOfDeclarationOnNextLine: true

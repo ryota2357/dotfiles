@@ -165,10 +165,6 @@ on_cmd = ['TSHighlightCapturesUnderCursor', 'TSPlaygroundToggle']
 repo = 'cocopon/inspecthi.vim'
 on_cmd = 'Inspecthi'
 
-# markdown preview
-# コマンド :PreviewMarkdown       # Start the preview
-#          :PreviewMarkdownStop   # Stop the preview
-#          :PreviewMarkdownToggle # Toggle the window
 [[plugins]]
 repo = 'kat0h/bufpreview.vim'
 on_ft = 'markdown'

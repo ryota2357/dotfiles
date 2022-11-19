@@ -2,15 +2,15 @@
 repo = 'mfussenegger/nvim-dap'
 depends = 'nvim-dap-ui'
 lua_add = '''
-require('rc.util').highlight.set {
-  DapBreakpointTextHl = { fg = '#ba000d' },
-  DapStoppedTextHl = { fg = '#bef67a'}
-}
+  require('rc.util').highlight.set {
+    DapBreakpointTextHl = { fg = '#ba000d', nocombine = true },
+    DapStoppedTextHl= { fg = '#bef67a', nocombine = true}
+  }
 '''
 lua_source = '''
   local dap = require('dap')
-  vim.fn.sign_define('DapBreakpoint', { text='', texthl='DapBreakpointTextHl' })
-  vim.fn.sign_define('DapStopped', { text='', texthl='DapStoppedTextHl' })
+  vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'DapBreakpointTextHl' })
+  vim.fn.sign_define('DapStopped', { text = '', texthl = 'DapStoppedTextHl' })
   dap.adapters = {
     codelldb = {
       type = 'server',
@@ -56,15 +56,13 @@ hook_add = '''
 
   function! s:DapBegin() abort
     call dein#source('nvim-dap') " 複数回sourceされることはない
-    let b:save_laststatus = &laststatus
-    setlocal laststatus=2
     nnoremap <silent><F4>  <Cmd>lua require'dap'.toggle_breakpoint()<CR>
     nnoremap <silent><F5>  <Cmd>lua require'dap'.continue()<CR>
     nnoremap <silent><F10> <Cmd>lua require'dap'.step_over()<CR>
     nnoremap <silent><F11> <Cmd>lua require'dap'.step_into()<CR>
     nnoremap <silent><F12> <Cmd>lua require'dap'.step_out()<CR>
     lua require'dapui'.open()
-    nnoremap <buffer><buffer><2-LeftMouse> <Cmd>lua require'dapui'.eval()<CR>
+    nnoremap <buffer><2-LeftMouse> <Cmd>lua require'dapui'.eval()<CR>
   endfunction
 
   function! s:DapEnd() abort
@@ -74,10 +72,6 @@ hook_add = '''
     silent! nunmap <F11>
     silent! nunmap <F12>
     silent! nunmap <2-LeftMouse>
-    if exists('b:save_laststatus')
-      let &laststatus = b:save_laststatus
-      unlet b:save_laststatus
-    endif
     lua require'dapui'.close()
     lua require'dap'.clear_breakpoints()
     lua require'dap'.disconnect()
@@ -89,7 +83,7 @@ repo = 'rcarriga/nvim-dap-ui'
 on_source = 'nvim-dap'
 lua_source = '''
   require('dapui').setup {
-    icons = { expanded = '', collapsed = '' },
+    icons = { expanded = '', collapsed = '', current_frame = '' },
     layouts = {
       {
         elements = {
@@ -106,6 +100,20 @@ lua_source = '''
         elements = { 'console' },
         size = 0.25,
         position = 'bottom'
+      }
+    },
+    controls = {
+      enabled = true,
+      element = "breakpoints",
+      icons = {
+        pause = "",
+        play = "",
+        step_into = "",
+        step_over = "",
+        step_out = "",
+        step_back = "",
+        run_last = "↻",
+        terminate = "□",
       }
     }
   }
