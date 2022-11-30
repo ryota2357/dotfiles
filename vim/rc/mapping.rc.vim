@@ -60,12 +60,17 @@ inoremap <C-a> <Home>
 inoremap <C-e> <End>
 inoremap <C-d> <Del>
 inoremap <C-h> <BS>
+inoremap <C-k> <Cmd>normal! D<CR><End>
 cnoremap <C-b> <Left>
 cnoremap <C-f> <Right>
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 cnoremap <C-d> <Del>
 cnoremap <C-h> <BS>
+cnoremap <C-k> <Cmd>normal! D<CR><End>
+nnoremap <C-f> <Nop>
+nnoremap <C-b> <Nop>
+
 
 " 画面分割/移動
 nnoremap sj <C-w>j
@@ -79,19 +84,6 @@ nnoremap <C-W>k <C-w>+
 nnoremap <C-w>l <C-w>>
 nnoremap <C-w>h <C-w><
 
-" Shift 省略
-onoremap i2 i"
-onoremap i7 i'
-onoremap i8 i(
-onoremap a2 a"
-onoremap a7 a'
-onoremap a8 a(
-vnoremap i2 i"
-vnoremap i7 i'
-vnoremap i8 i(
-vnoremap a2 a"
-vnoremap a7 a'
-vnoremap a8 a(
 
 " タブ移動
 if has('nvim')

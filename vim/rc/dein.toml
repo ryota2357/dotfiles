@@ -75,9 +75,6 @@ hook_add = '''
   lua vim.notify = require('notify')
 '''
 
-# [[plugins]]
-# repo = '~/TMP/mycolor'
-
 # 末尾の空白が赤で強調表示する
 # 空白を削除する → FixWhitespace
 [[plugins]]

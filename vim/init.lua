@@ -14,7 +14,7 @@ vim.g.did_load_filetypes = false
 require('dein-snip').setup {
     load = {
         vim = {
-            '~/dotfiles/vim/rc/maping.rc.vim',
+            '~/dotfiles/vim/rc/mapping.rc.vim',
             '~/dotfiles/vim/rc/option.rc.vim',
         },
         toml = {

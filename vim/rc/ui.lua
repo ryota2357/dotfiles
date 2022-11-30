@@ -6,7 +6,7 @@ local save = {}
 
 ---@return string
 local function mode()
-    local m = string.lower(string.sub(vim.fn.mode(), 1, 1))
+    local m = string.lower(vim.fn.mode())
     if m == 'n' then
         return 'normal'
     elseif m == 'i' then
