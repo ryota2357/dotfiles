@@ -7,7 +7,6 @@ if not string.match(vim.o.runtimepath, '/dein-snip.lua') then
     vim.opt.runtimepath:prepend(dein_snip)
 end
 
-vim.g.mapleader = ' ' -- <Space>
 vim.g.do_filetype_lua = true
 vim.g.did_load_filetypes = false
 
@@ -44,6 +43,8 @@ Tabline = ui.tabline()
 vim.api.nvim_set_option('statusline', '%!v:lua.Statusline()')
 vim.api.nvim_set_option('tabline', '%!v:lua.Tabline()')
 vim.ui.select = ui.select()
+
+vim.notify = require('notify')
 
 require('rc.autocmd')
 

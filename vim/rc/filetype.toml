@@ -1,6 +1,7 @@
 hook_add = '''
   " .texのからファイルはplanetexになってしまうので
   let g:tex_flavor = 'latex'
+  autocmd BufRead CMakeLists.txt set filetype=cmake
 '''
 
 [ftplugin]

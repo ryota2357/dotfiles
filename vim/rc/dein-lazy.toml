@@ -103,6 +103,24 @@ hook_add = '''
 '''
 
 [[plugins]]
+repo = 'nvim-treesitter/nvim-treesitter'
+on_event = 'BufEnter'
+hook_post_update = 'TSUpdate'
+lua_source = '''
+  require('nvim-treesitter.configs').setup {
+    ensure_installed = 'all',
+    additional_vim_regex_highlighting = false,
+
+    -- help : ハイライト変になる
+    -- tex  : snipet挿入後とかでエラーが出る
+    highlight = {
+      enable = true,
+      disable = { 'help', 'latex', 'tex' },
+    },
+  }
+'''
+
+[[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter-context'
 depends = 'nvim-treesitter'
 on_event = 'BufEnter'
@@ -130,7 +148,7 @@ lua_source = '''
 
 [[plugins]]
 repo = 'uga-rosa/ccc.nvim'
-on_event = 'VimEnter' # BufReadPostがいいけどエラー出る(BufEnterでも)
+on_event = 'BufReadPost'
 lua_source = '''
   local ccc = require('ccc')
   local mapping = ccc.mapping
@@ -150,7 +168,7 @@ lua_source = '''
 
 [[plugins]]
 repo = 'petertriho/nvim-scrollbar'
-on_event = 'BufEnter'
+on_event = 'WinScrolled'
 lua_source = '''
   require('scrollbar').setup {
     handle = { color = '#4B4B4B' }
@@ -181,7 +199,6 @@ hook_add = '''
 [[plugins]]
 repo = 'skanehira/denops-silicon.vim'
 depends = 'denops.vim'
-# on_event = 'CmdlineEnter'
 on_cmd = 'Silicon'
 hook_add = '''
   let g:silicon_options = {

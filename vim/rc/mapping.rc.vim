@@ -3,6 +3,9 @@ if has('nvim')
   command! Wrap setlocal wrap!
 endif
 
+" <Leader>、`'`で囲うとダメみたい
+let mapleader = "\<Space>"
+
 " xで削除した時はヤンクしない
 vnoremap x "_x
 nnoremap x "_x

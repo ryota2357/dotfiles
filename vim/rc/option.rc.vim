@@ -1,5 +1,4 @@
 " エンコーディング
-
 set encoding=utf8
 scriptencoding utf8
 set fileencodings=utf-8,ucs-boms,euc-jp,ep932
