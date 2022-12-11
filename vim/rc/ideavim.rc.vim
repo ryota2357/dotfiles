@@ -1,7 +1,7 @@
 " not impliment yet :(
 " let $VIMRC = expand('<sfile>:p')
 
-execute 'source ~/dotfiles/vim/rc/maping.rc.vim'
+source ~/dotfiles/vim/rc/mapping.rc.vim
 
 set incsearch
 set scrolloff=3

@@ -46,6 +46,10 @@ vim.ui.select = ui.select()
 
 vim.notify = require('notify')
 
+Inspect = function(any)
+    print(vim.inspect(any))
+end
+
 require('rc.autocmd')
 
 vim.opt.secure = true

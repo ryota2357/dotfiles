@@ -6,7 +6,6 @@ hook_add = '''
   inoremap <expr><C-p>  pum#visible() ? pum#map#select_relative(-1) : '<Cmd>normal! gk<CR>'
   inoremap <expr><Down> pum#visible() ? pum#map#select_relative(+1) : '<Cmd>normal! gj<CR>'
   inoremap <expr><Up>   pum#visible() ? pum#map#select_relative(-1) : '<Cmd>normal! gk<CR>'
-  inoremap <expr><ESC>  pum#entered() ? pum#map#cancel() : '<ESC>'
   " <CR> は lexima.vim で定義
 '''
 hook_source = '''

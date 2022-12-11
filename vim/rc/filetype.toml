@@ -1,5 +1,4 @@
 hook_add = '''
-  " .texのからファイルはplanetexになってしまうので
   let g:tex_flavor = 'latex'
   autocmd BufRead CMakeLists.txt set filetype=cmake
 '''
@@ -25,6 +24,9 @@ dart = '''
   setlocal tabstop=2 softtabstop=2 shiftwidth=2
 '''
 json = '''
+  setlocal tabstop=2 softtabstop=2 shiftwidth=2
+'''
+vim = '''
   setlocal tabstop=2 softtabstop=2 shiftwidth=2
 '''
 help = '''

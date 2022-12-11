@@ -3,78 +3,86 @@ repo = 'Shougo/ddu.vim'
 depends = 'denops.vim'
 on_event = 'CursorHold'
 hook_add = '''
-  nnoremap <Leader>f <Cmd>call ddu#start({
-    \   'name': 'file',
-    \   'sources': [{'name': 'file_rec'}],
-    \   'uiParams': {
-    \     'ff': <SID>create_ddu_uiParams('full')
+  nnoremap <Leader>f <Cmd>call ddu#start(#{
+    \   name: 'file',
+    \   sources: [{'name': 'file_rec'}],
+    \   uiParams: #{
+    \     ff: <SID>create_ddu_uiParams('full')
     \   }
     \ })<CR>
 
-  nnoremap <Leader>g <Cmd>call ddu#start({
-    \   'name': 'grep',
-    \   'sources': [{'name': 'rg'}],
-    \   'volatile': v:true,
-    \   'uiParams': {
+  nnoremap <Leader>g <Cmd>call ddu#start(#{
+    \   name: 'grep',
+    \   sources: [{'name': 'rg'}],
+    \   volatile: v:true,
+    \   uiParams: {
     \     'ff': <SID>create_ddu_uiParams('left')
     \   }
     \ })<CR>
 
-  nnoremap <Leader>b <Cmd>call ddu#start({
-    \   'name': 'buffer',
-    \   'sources': [{'name': 'buffer'}],
-    \   'uiParams': {
-    \     'ff': <SID>create_ddu_uiParams('full')
+  nnoremap <Leader>b <Cmd>call ddu#start(#{
+    \   name: 'buffer',
+    \   sources: [{'name': 'buffer'}],
+    \   uiParams: #{
+    \     ff: <SID>create_ddu_uiParams('full')
     \   }
     \ })<CR>
 
-  nnoremap <Leader>h <Cmd>call ddu#start({
-    \   'name': 'help',
-    \   'sources': [{'name': 'help'}],
-    \   'uiParams': {
-    \     'ff': <SID>create_ddu_uiParams('left', {
-    \       'winWidth': round(&columns * 0.40),
-    \       'previewWidth': round(&columns * 0.60),
+  nnoremap <Leader>h <Cmd>call ddu#start(#{
+    \   name: 'help',
+    \   sources: [{'name': 'help'}],
+    \   uiParams: #{
+    \     ff: <SID>create_ddu_uiParams('left', #{
+    \       winWidth: round(&columns * 0.40),
+    \       previewWidth: round(&columns * 0.60),
     \     })
     \   }
     \ })<CR>
 
-  nnoremap <Leader>o <Cmd>call ddu#start({
-    \   'name': 'filer',
-    \   'sources': [{'name': 'file'}],
-    \   'ui': 'filer',
-    \   'resume': v:true,
+  nnoremap <Leader>o <Cmd>call ddu#start(#{
+    \   name: 'filer',
+    \   sources: [{'name': 'file'}],
+    \   ui: 'filer',
+    \   resume: v:true,
     \ })<CR>
 
-  command! Library call ddu#start({
-    \   'name': 'library',
-    \   'sources': [{'name': 'cpl'}],
-    \   'uiParams': {
-    \     'ff': <SID>create_ddu_uiParams('full')
-    \    }
+  command! Library call ddu#start(#{
+    \   name: 'library',
+    \   sources: [{'name': 'cpl'}],
+    \   uiParams: #{
+    \     ff: <SID>create_ddu_uiParams('full')
+    \   }
+    \ })
+
+  command! DeinPlugins call ddu#start(#{
+    \   name: 'dein',
+    \   sources: [{'name': 'dein'}],
+    \   uiParams: #{
+    \     ff: <SID>create_ddu_uiParams('full')
+    \   }
     \ })
 
   function! s:create_ddu_uiParams(type, ...) abort
     if a:type ==# 'full'
-      let l:ret = {
-        \   'winRow': round(&lines * 0.2),
-        \   'winCol': round(&columns * 0.15),
-        \   'winHeight': round(&lines * 0.5),
-        \   'winWidth': round(&columns * 0.7),
-        \   'previewHeight': round(&lines * 0.15),
-        \   'previewWidth': round(&columns * 0.7)
+      let l:ret = #{
+        \   winRow: round(&lines * 0.2),
+        \   winCol: round(&columns * 0.15),
+        \   winHeight: round(&lines * 0.5),
+        \   winWidth: round(&columns * 0.7),
+        \   previewHeight: round(&lines * 0.15),
+        \   previewWidth: round(&columns * 0.7)
         \ }
     elseif a:type ==# 'left'
-      let l:ret = {
-        \  'winRow': round(&lines * 0.05),
-        \  'winCol': round(&columns * 0.05),
-        \  'winHeight': round(&lines * 0.8),
-        \  'winWidth': round(&columns * 0.45),
-        \  'previewVertical': v:true,
-        \  'previewCol': round(&columns * 0.51),
-        \  'previewHeight': round(&lines * 0.81),
-        \  'previewWidth': round(&columns * 0.45),
-        \  'autoAction': { 'name': 'preview' }
+      let l:ret = #{
+        \  winRow: round(&lines * 0.05),
+        \  winCol: round(&columns * 0.05),
+        \  winHeight: round(&lines * 0.8),
+        \  winWidth: round(&columns * 0.45),
+        \  previewVertical: v:true,
+        \  previewCol: round(&columns * 0.51),
+        \  previewHeight: round(&lines * 0.81),
+        \  previewWidth: round(&columns * 0.45),
+        \  autoAction: { 'name': 'preview' }
         \ }
     endif
     if a:0 > 0
@@ -86,74 +94,77 @@ hook_add = '''
   endfunction
 '''
 hook_source = '''
-  call ddu#custom#patch_global({
-    \   'ui': 'ff',
-    \   'uiOptions': {
-    \     'filer': { 'toggle': v:true }
+  call ddu#custom#patch_global(#{
+    \   ui: 'ff',
+    \   uiOptions: #{
+    \     filer: { 'toggle': v:true }
     \    },
-    \   'uiParams': {
-    \     'ff': {
-    \       'split': 'floating',
-    \       'floatingBorder': 'rounded',
-    \       'previewFloating': v:true,
-    \       'previewFloatingBorder': 'rounded',
-    \       'startFilter': v:true
+    \   uiParams: #{
+    \     ff: #{
+    \       split: 'floating',
+    \       floatingBorder: 'rounded',
+    \       previewFloating: v:true,
+    \       previewFloatingBorder: 'rounded',
+    \       startFilter: v:true
     \     },
-    \     'filer': {
-    \       'split': 'vertical',
-    \       'splitDirection': 'topleft',
-    \       'winWidth': 30,
-    \       'sort': 'filename',
-    \       'sortTreesFirst': v:true
+    \     filer: #{
+    \       split: 'vertical',
+    \       splitDirection: 'topleft',
+    \       winWidth: 30,
+    \       sort: 'filename',
+    \       sortTreesFirst: v:true
     \     }
     \   },
-    \   'sourceOptions': {
-    \     '_' : {
-    \       'ignoreCase': v:true,
-    \       'matchers': ['matcher_fzf']
+    \   sourceOptions: #{
+    \     _ : #{
+    \       ignoreCase: v:true,
+    \       matchers: ['matcher_fzf']
     \     },
-    \     'rg': {
-    \       'matchers': []
+    \     rg: #{
+    \       matchers: []
     \     },
-    \     'file': {
-    \       'matchers': ['matcher_hidden'],
-    \       'columns': ['icon_filename']
+    \     file: #{
+    \       matchers: ['matcher_hidden'],
+    \       columns: ['icon_filename']
+    \     },
+    \     dein: #{
+    \       defaultAction: 'cd',
     \     }
     \   },
-    \   'sourceParams': {
-    \     'file_rec': {
-    \       'ignoredDirectories': ['.git', 'node_modules', '.cache']
+    \   sourceParams: #{
+    \     file_rec: #{
+    \       ignoredDirectories: ['.git', 'node_modules', '.cache']
     \     },
-    \     'rg': {
-    \       'args': ['--json', '--ignore-case']
+    \     rg: #{
+    \       args: ['--json', '--ignore-case']
     \     },
-    \     'help': {
-    \       'style': 'allLang'
+    \     help: #{
+    \       style: 'allLang'
     \     }
     \   },
-    \   'columnParams': {
-    \     'icon_filename': {
-    \       'defaultIcon': { 'icon': '' },
-    \       'useLinkIcon': 'grayout',
-    \       'customFileIcons': {
-    \         'tex': { 'icon': 'ﭨ' }
+    \   columnParams: #{
+    \     icon_filename: #{
+    \       defaultIcon: #{ icon: '' },
+    \       useLinkIcon: 'grayout',
+    \       customFileIcons: #{
+    \         tex: #{ icon: 'ﭨ' }
     \       }
     \     }
     \   },
-    \   'filterParams': {
-    \     'matcher_fzf': { 'highlightMatched': 'Search' }
+    \   filterParams: #{
+    \     matcher_fzf: #{ highlightMatched: 'Search' }
     \   },
-    \   'kindParams': {
-    \      'file': { 'trashCommand': ['use', 'trash'] }
+    \   kindParams: #{
+    \      file: { 'trashCommand': ['use', 'trash'] }
     \   },
-    \   'kindOptions': {
-    \     'file': { 'defaultAction': 'open' },
-    \     'help': { 'defaultAction': 'open' },
-    \     'cpl': { 'defaultAction': 'paste' }
+    \   kindOptions: #{
+    \     file: #{ defaultAction: 'open' },
+    \     help: #{ defaultAction: 'open' },
+    \     cpl: #{ defaultAction: 'paste' }
     \   },
-    \   'actionOptions': {
-    \     'narrow': {
-    \       'quit': v:false,
+    \   actionOptions: #{
+    \     narrow: #{
+    \       quit: v:false,
     \     },
     \   }
     \ })
@@ -195,10 +206,10 @@ ddu-filer = '''
   nnoremap <buffer> dd <Cmd>call ddu#ui#filer#do_action('itemAction', { 'name': 'trash' })<CR>
   nnoremap <buffer> q <Cmd>call ddu#ui#filer#do_action('quit')<CR>
 
-  nnoremap <buffer> . <Cmd>call ddu#ui#filer#do_action('updateOptions', {
-    \   'sourceOptions': {
-    \     'file': {
-    \       'matchers': ddu#custom#get_current(b:ddu_ui_name)->get('sourceOptions', {})->get('file', {})->get('matchers', [])->empty() ? ['matcher_hidden'] : [],
+  nnoremap <buffer> . <Cmd>call ddu#ui#filer#do_action('updateOptions', #{
+    \   sourceOptions: #{
+    \     file: #{
+    \       matchers: ddu#custom#get_current(b:ddu_ui_name)->get('sourceOptions', {})->get('file', {})->get('matchers', [])->empty() ? ['matcher_hidden'] : [],
     \     },
     \   },
     \ })<CR>
