@@ -34,3 +34,7 @@ help = '''
   setlocal noexpandtab
   setlocal tabstop=8 softtabstop=8 shiftwidth=8
 '''
+make = '''
+  setlocal noexpandtab
+  setlocal tabstop=6 softtabstop=6 shiftwidth=6
+'''

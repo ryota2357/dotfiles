@@ -2,9 +2,13 @@ __signal_code_string() {
     local ret=""
     for STATUS in $__save_pipestatus;
     do
-        # man signal
         case $STATUS in
             0  ) ;;
+            1  ) ret="${ret}|Error"        ;;
+            2  ) ret="${ret}|BuiltinError" ;;
+            126) ret="${ret}|NoPermission" ;;
+            127) ret="${ret}|NotFound"     ;;
+        # man signal
             129) ret="${ret}|SIGHUP"   ;;   # terminate process    terminal line hangup
             130) ret="${ret}|SIGINT"   ;;   # terminate process    interrupt program
             131) ret="${ret}|SIGQUIT"  ;;   # create core image    quit program

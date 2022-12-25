@@ -79,11 +79,12 @@ set nowrap
 set sidescroll=1
 
 " 表示文字設定
-"   extends:  行が画面よりも伸びているときの最終列に表示
-"   precedes: 行が画面よりも伸びているときの最初の列に表示
-"   space:    空白の表示
+"   extends  : 行が画面よりも伸びているときの最終列に表示
+"   precedes : 行が画面よりも伸びているときの最初の列に表示
+"   space    : 空白の表示
+"   tab:xyz  : zが常に使用、xが先頭、yが必要な回数分 (zy..yx)
 set list
-set listchars=extends:>,precedes:<,space:⋅
+set listchars=extends:,precedes:,space:⋅,tab:——>
 
 " 全角カッコペアの追加
 set matchpairs+=（:）,「:」,『:』,【:】,［:］,＜:＞

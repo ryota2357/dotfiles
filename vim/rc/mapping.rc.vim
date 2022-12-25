@@ -67,6 +67,12 @@ for key in [['b', '<Left>'],
     execute 'inoremap <C-' .. key[0] .. '> ' .. key[1]
     execute 'cnoremap <C-' .. key[0] .. '> ' .. key[1]
 endfor
+" <ESC>"_DA だと上手くいかない...どうしたらいい？
+" ひとまず無効化しておく
+if has("ide")
+  inoremap <C-k> <C-k>
+  cnoremap <C-k> <C-k>
+endif
 
 " 画面分割/移動
 nnoremap sj <C-w>j

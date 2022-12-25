@@ -1,19 +1,14 @@
+# ログインシェルの時だけに読み込まれる
+# PATH は zshrc でもいいけど、export してるから zprofile で十分だと思う
+
 # Homebrew
-# llvm
 case $(uname -m) in
-  "x86_64" )
-      eval $(/usr/local/bin/brew shellenv)
-      export PATH="/usr/local/opt/llvm/bin:$PATH"
-      ;;
-  "arm64" )
-      eval $(/opt/homebrew/bin/brew shellenv)
-      export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
-      ;;
+  "x86_64" ) eval $(/usr/local/bin/brew shellenv) ;;
+  "arm64" ) eval $(/opt/homebrew/bin/brew shellenv) ;;
 esac
 
-# pyenv
-export PATH="${PATH//$(pyenv root)\/shims:/}"
-eval "$(pyenv init --path)"
+# llvm
+export PATH="$HOMEBREW_PREFIX/opt/llvm/bin:$PATH"
 
 # nodebrew
 export PATH="$HOME/.nodebrew/current/bin:$PATH"

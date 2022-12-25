@@ -7,7 +7,6 @@ alias ...='cd ../../'
 alias clip='pbcopy'
 
 alias vi='nvim'
-alias vii='nvim .'
 
 alias trash='use trash'
 

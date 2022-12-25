@@ -1,8 +1,12 @@
 #!/bin/sh
 
 ln_dots() {
-  ln -sfnv ~/dotfiles/$1 $2
+  ln -sfnv "$HOME/dotfiles/$1" "$2"
 }
+
+# homebrew
+mkdir -p ~/.config/brew/
+ln_dots Brewfile ~/.config/brew/Brewfile
 
 # zsh
 sheldon init --shell zsh
@@ -18,14 +22,14 @@ ln_dots vim/vimrc                    ~/.ideavimrc
 ln_dots vim/after                    ~/.config/nvim/after
 ln_dots vim/denops                   ~/.config/nvim/denops
 ln_dots vim/format/clang-format.yaml ~/.clang-format
-for lua_file in $(find ~/dotfiles/vim/rc/*.lua)
+find "$HOME/dotfiles/vim/rc/*.lua" | while read -r lua_file
 do
     file_name=${lua_file##*/}
-    ln -sfnv $lua_file ~/.config/nvim/lua/rc/$file_name
+    ln -sfnv "$lua_file" "$HOME/.config/nvim/lua/rc/$file_name"
 done
 
 # tmux
-ln_dots tmux/tmux.conf     ~/.tmux.conf
+ln_dots tmux/tmux.conf ~/.tmux.conf
 
 # latex
 ln_dots tex/latexmkrc.perl ~/.latexmkrc

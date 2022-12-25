@@ -49,7 +49,7 @@ hook_source = '''
   call ddc#custom#patch_filetype(['vim'], #{
     \   sources: ['vsnip', 'nvim-lsp', 'around']
     \ })
-  call ddc#custom#patch_filetype(['cpp', 'cs', 'dart', 'typescript', 'typescriptreact', 'rust', 'ruby', 'lua'], #{
+  call ddc#custom#patch_filetype(['c', 'cpp', 'cs', 'dart', 'typescript', 'typescriptreact', 'rust', 'ruby', 'lua'], #{
     \   sources: ['nvim-lsp', 'around']
     \ })
   call ddc#custom#patch_filetype(['css', 'scss'], #{
