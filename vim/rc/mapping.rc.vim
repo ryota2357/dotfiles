@@ -74,6 +74,9 @@ if has("ide")
   cnoremap <C-k> <C-k>
 endif
 
+" めっちゃ誤爆させるので
+nnoremap <C-f> <Nop>
+
 " 画面分割/移動
 nnoremap sj <C-w>j
 nnoremap sk <C-w>k

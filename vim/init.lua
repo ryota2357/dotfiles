@@ -44,8 +44,6 @@ vim.api.nvim_set_option('statusline', '%!v:lua.Statusline()')
 vim.api.nvim_set_option('tabline', '%!v:lua.Tabline()')
 vim.ui.select = ui.select()
 
-vim.notify = require('notify')
-
 Inspect = function(any)
     print(vim.inspect(any))
 end

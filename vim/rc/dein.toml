@@ -26,29 +26,31 @@ hook_add = '''
 
 [[plugins]]
 repo = 'vim-jp/vimdoc-ja'
-hook_add = '''
-  set helplang=ja,en
-'''
+hook_add = 'set helplang=ja,en'
 
 [[plugins]]
 repo = 'RRethy/vim-illuminate'
 
 [[plugins]]
 repo = 'joshdick/onedark.vim'
-hook_add = '''
-  colorscheme onedark
-'''
+hook_add = 'colorscheme onedark'
 
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'
 hook_add = '''
-  let g:context_filetype#ignore_patterns = {
-    \ 'toml': ['^\s*#\s*'],
+  let g:context_filetype#ignore_patterns = #{
+    \ toml: ['^\s*#\s*'],
     \ }
 '''
 
 [[plugins]]
 repo = 'rcarriga/nvim-notify'
+lua_add = '''
+  vim.notify = function(...)
+    vim.notify = require('notify')
+    vim.notify(...)
+  end
+'''
 
 # 末尾の空白が赤で強調表示する
 # 空白を削除する → FixWhitespace

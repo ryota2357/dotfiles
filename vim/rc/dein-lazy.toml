@@ -9,9 +9,10 @@ hook_add = '''
   " <CR> は lexima.vim で定義
 '''
 hook_source = '''
-  call pum#set_option({
-    \   'padding': v:true,
-    \   'scrollbar_char': ''
+  call pum#set_option(#{
+    \   use_complete: v:true,
+    \   padding: v:true,
+    \   scrollbar_char: ''
     \ })
 '''
 
@@ -33,37 +34,37 @@ hook_add = '''
   let g:lexima_accept_pum_with_enter = v:false
   autocmd FileType ddu-ff-filter let b:lexima_disabled = v:true
   let g:lexima_custom = [
-    \   { 'char': '(', 'input_after': ')', 'except': '\\\%#' },
-    \   { 'char': '[', 'input_after': ']', 'except': '\\\%#' },
-    \   { 'char': '{', 'input_after': '}', 'except': '\\\%#' },
-    \   { 'char': '"', 'input_after': '"', 'except': '\\\%#' },
-    \   { 'char': "'", 'input_after': "'", 'except': '\\\%#' },
-    \   { 'char': '`', 'input_after': '`', 'except': '\\\%#' },
-    \   { 'char': ')', 'at': '(\%#)', 'leave': 1 },
-    \   { 'char': ']', 'at': '\%#\]', 'leave': 1 },
-    \   { 'char': ';', 'at': '\%#)',  'leave': ')', 'input': ';' },
-    \   { 'char': ',', 'input': ', ', 'except': '\%#\n', },
-    \   { 'char': '<BS>', 'at': '(\%#)',   'delete': 1 },
-    \   { 'char': '<BS>', 'at': '\[\%#\]', 'delete': 1 },
-    \   { 'char': '<BS>', 'at': '{\%#}',   'delete': 1 },
-    \   { 'char': '<BS>', 'at': '"\%#"',   'delete': 1 },
-    \   { 'char': '<BS>', 'at': "'\%#'",   'delete': 1 },
-    \   { 'char': '<BS>', 'at': '`\%#`',   'delete': 1 },
-    \   { 'char': '<CR>', 'at': '{\%#}',   'input_after': '<CR>' },
-    \   { 'char': '<CR>', 'at': '(\%#)',   'input_after': '<CR>' },
+    \  #{ char: '(', input_after: ')', except: '\\\%#' },
+    \  #{ char: '[', input_after: ']', except: '\\\%#' },
+    \  #{ char: '{', input_after: '}', except: '\\\%#' },
+    \  #{ char: '"', input_after: '"', except: '\\\%#' },
+    \  #{ char: "'", input_after: "'", except: '\\\%#' },
+    \  #{ char: '`', input_after: '`', except: '\\\%#' },
+    \  #{ char: ')', at: '(\%#)', leave: 1 },
+    \  #{ char: ']', at: '\%#\]', leave: 1 },
+    \  #{ char: ';', at: '\%#)',  leave: ')', input: ';' },
+    \  #{ char: ',', input: ', ', except: '\%#\n', },
+    \  #{ char: '<BS>', at: '(\%#)',   delete: 1 },
+    \  #{ char: '<BS>', at: '\[\%#\]', delete: 1 },
+    \  #{ char: '<BS>', at: '{\%#}',   delete: 1 },
+    \  #{ char: '<BS>', at: '"\%#"',   delete: 1 },
+    \  #{ char: '<BS>', at: "'\%#'",   delete: 1 },
+    \  #{ char: '<BS>', at: '`\%#`',   delete: 1 },
+    \  #{ char: '<CR>', at: '{\%#}',   input_after: '<CR>' },
+    \  #{ char: '<CR>', at: '(\%#)',   input_after: '<CR>' },
     \ ]
   let g:lexima_custom_tex = [
-    \   { 'char': '$',    'input_after': '$' },
-    \   { 'char': '<BS>', 'at': '\$\%#\$', 'delete': 1 },
-    \   { 'char': '<CR>', 'at': '^ *\\item.*\%#', 'input': '<CR>\item ', 'except': '\\\\\%#' },
+    \  #{ char: '$',    input_after: '$' },
+    \  #{ char: '<BS>', at: '\$\%#\$', delete: 1 },
+    \  #{ char: '<CR>', at: '^ *\\item.*\%#', input: '<CR>\item ', except: '\\\\\%#' },
     \ ]
   let g:lexima_custom_cs = [
-    \   { 'char': '<CR>', 'at': ' {\%#}', 'input': '<BS><BS><CR>{<CR>', 'input_after': '<CR>' },
-    \   { 'char': '<CR>', 'at': '[^ ]{\%#}', 'input': '<BS><CR>{<CR>', 'input_after': '<CR>' },
+    \  #{ char: '<CR>', at: ' {\%#}', input: '<BS><BS><CR>{<CR>', input_after: '<CR>' },
+    \  #{ char: '<CR>', at: '[^ ]{\%#}', input: '<BS><CR>{<CR>', input_after: '<CR>' },
     \ ]
   let g:lexima_custom_tag = [
-    \   { 'char': '>', 'at': '<\(\w\+\)\%#', 'input_after': '</\1>', 'with_submatch': v:true },
-    \   { 'char': '<CR>', 'at': '<\w\+>\%#<\/\w\+>', 'input_after': '<CR>' },
+    \  #{ char: '>', at: '<\(\w\+\)\%#', input_after: '</\1>', with_submatch: v:true },
+    \  #{ char: '<CR>', at: '<\w\+>\%#<\/\w\+>', input_after: '<CR>' },
     \ ]
 '''
 hook_source = '''
@@ -200,22 +201,22 @@ repo = 'skanehira/denops-silicon.vim'
 depends = 'denops.vim'
 on_cmd = 'Silicon'
 hook_add = '''
-  let g:silicon_options = {
-    \  'font': 'Cica',
-    \  'no_line_number': v:false,
-    \  'no_round_corner': v:false,
-    \  'no_window_controls': v:false,
-    \  'background_color': '#303030',
-    \  'line_offset': 1,
-    \  'line_pad': 2,
-    \  'pad_horiz': 80,
-    \  'pad_vert': 100,
-    \  'shadow_blur_radius': 0,
-    \  'shadow_color': '#f6f5f5',
-    \  'shadow_offset_x': 0,
-    \  'shadow_offset_y': 0,
-    \  'tab_width': 4,
-    \  'theme': 'GitHub',
+  let g:silicon_options = #{
+    \  font: 'Cica',
+    \  no_line_number: v:false,
+    \  no_round_corner: v:false,
+    \  no_window_controls: v:false,
+    \  background_color: '#303030',
+    \  line_offset: 1,
+    \  line_pad: 2,
+    \  pad_horiz: 80,
+    \  pad_vert: 100,
+    \  shadow_blur_radius: 0,
+    \  shadow_color: '#f6f5f5',
+    \  shadow_offset_x: 0,
+    \  shadow_offset_y: 0,
+    \  tab_width: 4,
+    \  theme: 'GitHub',
     \ }
 '''
 
