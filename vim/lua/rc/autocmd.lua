@@ -59,7 +59,9 @@ autocmd 'CmdwinEnter' {
     callback = function(context)
         vim.cmd('TSContextDisable')
         vim.cmd([[g/\v(^qa?!?|^wq?a?!?)$/d]])
+        ---@diagnostic disable-next-line: assign-type-mismatch
         vim.opt_local.number = false
+        ---@diagnostic disable-next-line: assign-type-mismatch
         vim.opt_local.signcolumn = 'no'
         local save_cmdheight = vim.opt.cmdheight
         vim.opt.cmdheight = 0

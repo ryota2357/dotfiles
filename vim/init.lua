@@ -37,12 +37,19 @@ require('dein-snip').setup {
     auto_recache = true
 }
 
-local ui = require('rc.ui')
-Statusline = ui.statusline()
-Tabline = ui.tabline()
+Statusline = require('rc.ui.statusline')
+Statusline.setup()
 vim.api.nvim_set_option('statusline', '%!v:lua.Statusline()')
+
+Tabline = require('rc.ui.tabline')
+Tabline.setup()
 vim.api.nvim_set_option('tabline', '%!v:lua.Tabline()')
-vim.ui.select = ui.select()
+
+---@diagnostic disable-next-line: duplicate-set-field
+vim.ui.select = function(...)
+    vim.ui.select = require('rc.ui.select')
+    vim.ui.select(...)
+end
 
 Inspect = function(any)
     print(vim.inspect(any))

@@ -17,6 +17,9 @@ lua_source = '''
 
   vim.diagnostic.config({
     update_in_insert = true,
+      virtual_text = {
+        prefix = '▰'
+      }
   })
 
   local options = {
@@ -51,17 +54,8 @@ lua_source = '''
       organize_imports_on_format = false,
       enable_import_completion = false,
       sdk_include_prereleases = true,
-      analyze_open_documents_only = false
-    },
-    sumneko_lua = {
-      settings = {
-        Lua = {
-          runtime = { version = 'LuaJIT' },
-          diagnostics = { globals = {'vim'} },
-          workspace = { library = vim.api.nvim_get_runtime_file('', true) },
-          telemetry = { enable = false },
-        }
-      }
+      analyze_open_documents_only = false,
+      autostart = false
     },
     tsserver = {
       root_dir = function(fname)
@@ -80,9 +74,6 @@ lua_source = '''
 
   mason_lspconfig.setup_handlers {
     function(server_name)
-      if server_name == "omnisharp" then
-        return
-      end
       local opts = vim.tbl_extend('force', options.global, options[server_name] or {})
       nvim_lsp[server_name].setup(opts)
     end
@@ -100,12 +91,24 @@ cpp = '''
 lua << EOF
   local notify = vim.notify
   vim.notify = function(msg, ...)
-      if msg:match('warning: multiple different client offset_encodings') then
-          return
-      end
-      notify(msg, ...)
+    if msg:match('warning: multiple different client offset_encodings') then
+      return
+    end
+    notify(msg, ...)
   end
 EOF
+'''
+
+[[plugins]]
+repo = 'folke/neodev.nvim'
+on_source = 'nvim-lspconfig'
+lua_source = '''
+  require("neodev").setup {
+    override = function(_, library)
+      library.enabled = true
+      library.plugins = true
+     end,
+  }
 '''
 
 [[plugins]]

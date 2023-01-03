@@ -78,6 +78,9 @@ hook_source = '''
     \   sources: ['around', 'mocword'],
     \ } : {} })
 
+  " Partedit で補完ができるように
+  autocmd OptionSet buftype if &buftype ==# 'acwrite' | call ddc#custom#patch_buffer('specialBufferCompletion', v:true) | endif
+
   lua require'rc.util'.setcellwidths2({}, true)
   call ddc#enable()
 '''

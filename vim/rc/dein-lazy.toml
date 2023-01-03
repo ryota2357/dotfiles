@@ -42,7 +42,6 @@ hook_add = '''
     \  #{ char: '`', input_after: '`', except: '\\\%#' },
     \  #{ char: ')', at: '(\%#)', leave: 1 },
     \  #{ char: ']', at: '\%#\]', leave: 1 },
-    \  #{ char: ';', at: '\%#)',  leave: ')', input: ';' },
     \  #{ char: ',', input: ', ', except: '\%#\n', },
     \  #{ char: '<BS>', at: '(\%#)',   delete: 1 },
     \  #{ char: '<BS>', at: '\[\%#\]', delete: 1 },
@@ -184,16 +183,67 @@ repo = 'cocopon/inspecthi.vim'
 on_cmd = 'Inspecthi'
 
 [[plugins]]
-repo = 'kat0h/bufpreview.vim'
-on_ft = 'markdown'
-
-[[plugins]]
 repo = 'tomtom/tcomment_vim'
 on_cmd = 'TComment'
 hook_add = '''
   let g:tcomment_maps = 0
   vnoremap _ :TComment<CR>
   nnoremap _ <Cmd>TComment<CR>
+'''
+
+[[plugins]]
+repo = 'prettier/vim-prettier'
+build = 'npm install'
+on_ft = ['markdown', 'typescriptreact']
+hook_source = '''
+  autocmd BufWritePre *.tsx,*.md PrettierAsync
+'''
+hook_add = '''
+  let g:prettier#config#tab_width = 2
+'''
+
+[[plugins]]
+repo = 'thinca/vim-partedit'
+depends = ['context_filetype.vim']
+on_func = ['partedit#start']
+lua_add = '''
+  vim.keymap.set('n', '<Leader>e', function ()
+    local context = vim.fn['context_filetype#get']()
+    if context == nil or context.range == {{0, 0}, {0, 0}} then
+      error('[partedit] Context is not found')
+      return
+    end
+    vim.ui.select({ 'split', 'vsplit', 'rightbelow split', 'rightbelow vsplit' }, {
+      prompt = 'Select partedit opener',
+      format_item = function (item)
+        return 'Open as ' .. item
+      end
+    }, function(choice)
+        vim.fn['partedit#start'](context.range[1][1], context.range[2][1], {
+          filetype = context.filetype,
+          opener = choice
+        })
+    end)
+  end)
+'''
+
+[[plugins]]
+repo = 'kat0h/bufpreview.vim'
+on_ft = 'markdown'
+
+[[plugins]]
+repo = 'ryota2357/vim-skim-synctex'
+# repo = '~/Projects/VimPlugin/vim-skim-synctex'
+depends = 'denops.vim'
+on_ft = 'tex'
+hook_source = '''
+  call synctex#option('readingBar', v:true)
+  call synctex#option('autoQuit', v:true)
+  call synctex#start()
+'''
+[plugins.ftplugin]
+tex = '''
+  nnoremap <buffer> <Leader>s <Cmd>call synctex#forwardSerch()<CR>
 '''
 
 [[plugins]]
@@ -218,30 +268,4 @@ hook_add = '''
     \  tab_width: 4,
     \  theme: 'GitHub',
     \ }
-'''
-
-[[plugins]]
-repo = 'prettier/vim-prettier'
-build = 'npm install'
-on_ft = ['markdown', 'typescriptreact']
-hook_source = '''
-  autocmd BufWritePre *.tsx,*.md PrettierAsync
-'''
-hook_add = '''
-  let g:prettier#config#tab_width = 2
-'''
-
-[[plugins]]
-repo = 'ryota2357/vim-skim-synctex'
-# repo = '~/Projects/VimPlugin/vim-skim-synctex'
-depends = 'denops.vim'
-on_ft = 'tex'
-hook_source = '''
-  call synctex#option('readingBar', v:true)
-  call synctex#option('autoQuit', v:true)
-  call synctex#start()
-'''
-[plugins.ftplugin]
-tex = '''
-  nnoremap <buffer> <Leader>s <Cmd>call synctex#forwardSerch()<CR>
 '''
