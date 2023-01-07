@@ -32,7 +32,10 @@ require('dein-snip').setup {
     },
     install = {
         progress_type = 'floating',
-        max_processes = 1
+        max_processes = 1,
+        git = {
+            partial_clone = true
+        }
     },
     auto_recache = true
 }
