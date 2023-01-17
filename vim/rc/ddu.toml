@@ -5,7 +5,7 @@ on_event = 'CursorHold'
 hook_add = '''
   nnoremap <Leader>f <Cmd>call ddu#start(#{
     \   name: 'file',
-    \   sources: [{'name': 'file_rec'}],
+    \   sources: [#{name: 'file_rec'}],
     \   uiParams: #{
     \     ff: <SID>create_ddu_uiParams('full')
     \   }
@@ -13,7 +13,7 @@ hook_add = '''
 
   nnoremap <Leader>g <Cmd>call ddu#start(#{
     \   name: 'grep',
-    \   sources: [{'name': 'rg'}],
+    \   sources: [#{name: 'rg'}],
     \   volatile: v:true,
     \   uiParams: {
     \     'ff': <SID>create_ddu_uiParams('left')
@@ -22,7 +22,7 @@ hook_add = '''
 
   nnoremap <Leader>b <Cmd>call ddu#start(#{
     \   name: 'buffer',
-    \   sources: [{'name': 'buffer'}],
+    \   sources: [#{name: 'buffer'}],
     \   uiParams: #{
     \     ff: <SID>create_ddu_uiParams('full')
     \   }
@@ -30,7 +30,7 @@ hook_add = '''
 
   nnoremap <Leader>h <Cmd>call ddu#start(#{
     \   name: 'help',
-    \   sources: [{'name': 'help'}],
+    \   sources: [#{name: 'help'}],
     \   uiParams: #{
     \     ff: <SID>create_ddu_uiParams('left', #{
     \       winWidth: round(&columns * 0.40),
@@ -39,16 +39,27 @@ hook_add = '''
     \   }
     \ })<CR>
 
+  nnoremap <Leader>l <Cmd>call ddu#start(#{
+    \  name: 'line',
+    \  sources: [#{name: 'line'}],
+    \   uiParams: #{
+    \     ff: <SID>create_ddu_uiParams('full', #{
+    \       winRow: round(&lines * 0.15),
+    \       winHeight: round(&lines * 0.6)
+    \     })
+    \   }
+    \ })<CR>
+
   nnoremap <Leader>o <Cmd>call ddu#start(#{
     \   name: 'filer',
-    \   sources: [{'name': 'file'}],
+    \   sources: [#{name: 'file'}],
     \   ui: 'filer',
-    \   resume: v:true,
+    \   resume: v:true
     \ })<CR>
 
   command! Library call ddu#start(#{
     \   name: 'library',
-    \   sources: [{'name': 'cpl'}],
+    \   sources: [#{name: 'cpl'}],
     \   uiParams: #{
     \     ff: <SID>create_ddu_uiParams('full')
     \   }
@@ -56,7 +67,7 @@ hook_add = '''
 
   command! DeinPlugins call ddu#start(#{
     \   name: 'dein',
-    \   sources: [{'name': 'dein'}],
+    \   sources: [#{name: 'dein'}],
     \   uiParams: #{
     \     ff: <SID>create_ddu_uiParams('full')
     \   }
@@ -127,6 +138,9 @@ hook_source = '''
     \       matchers: ['matcher_hidden'],
     \       columns: ['icon_filename']
     \     },
+    \     line: #{
+    \       matchers: ['matcher_kensaku']
+    \     },
     \     dein: #{
     \       defaultAction: 'cd',
     \     }
@@ -152,7 +166,8 @@ hook_source = '''
     \     }
     \   },
     \   filterParams: #{
-    \     matcher_fzf: #{ highlightMatched: 'Search' }
+    \     matcher_fzf: #{ highlightMatched: 'Search' },
+    \     matcher_kensaku: #{ highlightMatched: 'Search' },
     \   },
     \   kindParams: #{
     \      file: { 'trashCommand': ['use', 'trash'] }
@@ -179,8 +194,8 @@ ddu-ff = '''
   nnoremap <buffer> <ESC> <Cmd>call ddu#ui#ff#do_action('quit')<CR>
 '''
 ddu-ff-filter = '''
-  if b:ddu_ui_name ==# 'buffer'
-    inoremap <buffer> <CR> <Cmd>call ddu#ui#ff#do_action('itemAction', { 'params': {'command': 'tab drop'} })<CR>
+  if b:ddu_ui_name ==# 'line'
+    inoremap <buffer> <CR> <Cmd>call ddu#ui#ff#do_action('itemAction')<CR>
   else
     inoremap <buffer> <CR>  <Cmd>call ddu#ui#ff#do_action('itemAction', { 'params': {'command': 'drop'} })<CR>
     inoremap <buffer> <C-o> <Cmd>call ddu#ui#ff#do_action('itemAction', { 'params': {'command': 'tab drop'} })<CR>
@@ -240,6 +255,10 @@ repo = 'matsui54/ddu-source-help'
 on_source = 'ddu.vim'
 
 [[plugins]]
+repo = 'Shougo/ddu-source-line'
+on_source = 'ddu.vim'
+
+[[plugins]]
 repo = '~/Projects/VimPlugin/ddu-nvim-notify-history'
 on_source = 'ddu.vim'
 lua_source = '''
@@ -265,6 +284,10 @@ on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-filter-matcher_hidden'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'Milly/ddu-filter-kensaku'
 on_source = 'ddu.vim'
 
 [[plugins]]

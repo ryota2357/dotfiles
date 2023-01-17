@@ -58,6 +58,7 @@ lua_source = '''
       autostart = false
     },
     tsserver = {
+      single_file_support = false,
       root_dir = function(fname)
         local deno_root = util.root_pattern('deno.json', 'deno.jsonc', 'denops')(fname)
         local node_root = util.root_pattern('package.json', 'node_modules')(fname)

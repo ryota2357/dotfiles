@@ -14,4 +14,4 @@ mkcd() {
     mkdir -p $1 && cd $1
 }
 
-alias denops='deno run -A --no-check ~/.cache/dein/repos/github.com/vim-denops/denops.vim/denops/@denops-private/cli.ts'
+alias denops='deno run -A --no-lock ~/.cache/dein/repos/github.com/vim-denops/denops.vim/denops/@denops-private/cli.ts'
