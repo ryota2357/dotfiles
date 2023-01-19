@@ -47,6 +47,10 @@
     "prefix": "cos",
     "body": "\\cos{$0}"
   },
+  "degreeCelsius": {
+    "prefix": ["degreeCelsius", "celsiusDegree"],
+    "body": "\\degreeCelsius"
+  },
   "enumerate": {
     "prefix": ["enumerate", "orderedlist"],
     "body": [
