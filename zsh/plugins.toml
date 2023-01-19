@@ -13,6 +13,10 @@ inline = 'autoload -Uz compinit && zsh-defer compinit'
 [plugins.colors]
 inline = 'autoload -Uz colors && zsh-defer colors'
 
+[plugins.fzf]
+# To install, excute: $HOMEBREW_PREFIX/opt/fzf/install
+inline = '[ -f ~/.fzf.zsh ] && zsh-defer source ~/.fzf.zsh'
+
 [plugins.zsh-autosuggestions]
 github = 'zsh-users/zsh-autosuggestions'
 apply = ['defer']

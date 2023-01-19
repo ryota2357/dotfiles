@@ -57,6 +57,26 @@ lua_source = '''
       analyze_open_documents_only = false,
       autostart = false
     },
+    rust_analyzer = {
+      settings = {
+        rust_analyzer = {
+          check = {
+            features = 'all',
+            command = 'clippy'
+          }
+        }
+      }
+    },
+    sumneko_lua = {
+      settings = {
+        Lua = {
+          runtime = { version = 'LuaJIT' },
+          diagnostics = { globals = {'vim'} },
+          workspace = { library = vim.api.nvim_get_runtime_file('', true) },
+          telemetry = { enable = false }
+        }
+      }
+    },
     tsserver = {
       single_file_support = false,
       root_dir = function(fname)
@@ -98,18 +118,6 @@ lua << EOF
     notify(msg, ...)
   end
 EOF
-'''
-
-[[plugins]]
-repo = 'folke/neodev.nvim'
-on_source = 'nvim-lspconfig'
-lua_source = '''
-  require("neodev").setup {
-    override = function(_, library)
-      library.enabled = true
-      library.plugins = true
-     end,
-  }
 '''
 
 [[plugins]]

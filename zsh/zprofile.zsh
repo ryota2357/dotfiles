@@ -10,6 +10,8 @@ export FPATH="$HOMEBREW_PREFIX/share/zsh/site-functions:$FPATH"
 
 # llvm
 export PATH="$HOMEBREW_PREFIX/opt/llvm/bin:$PATH"
+export LDFLAGS="-L/$HOMEBREW_PREFIX/opt/llvm/lib"
+export CPPFLAGS="-I/$HOMEBREW_PREFIX/llvm/include"
 
 # nodebrew
 export PATH="$HOME/.nodebrew/current/bin:$PATH"

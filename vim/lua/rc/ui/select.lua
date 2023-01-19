@@ -1,3 +1,5 @@
+-- 参考: matsui54/ddu-vim-ui-select (https://github.com/matsui54/ddu-vim-ui-select/blob/main/lua/ddu-vim-ui-select/init.lua)
+
 local M = {}
 local save_on_choice = nil
 
@@ -6,7 +8,8 @@ local save_on_choice = nil
 ---@param on_choice function
 ---@return nil
 function M.select(items, opts, on_choice)
-    opts.format_item = opts.format_item or function(e) return tostring(e) end
+    opts = opts or {}
+    opts.format_item = vim.F.if_nil(opts.format_item, function(e) return tostring(e) end)
     save_on_choice = on_choice
 
     local indexed_items = {}
@@ -42,8 +45,9 @@ function M.on_choice(item, index)
     if save_on_choice == nil then
         return
     end
-    save_on_choice(item, index)
+    local on_choice = save_on_choice
     save_on_choice = nil
+    on_choice(item, index)
 end
 
 setmetatable(M, {

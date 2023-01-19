@@ -218,10 +218,13 @@ lua_add = '''
       format_item = function (item)
         return 'Open as ' .. item
       end
-    }, function(choice)
+    }, function(item, _)
+        if item == nil then
+            return
+        end
         vim.fn['partedit#start'](context.range[1][1], context.range[2][1], {
           filetype = context.filetype,
-          opener = choice
+          opener = item
         })
     end)
   end)

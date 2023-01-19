@@ -1,3 +1,5 @@
+// 参考: matsui54/ddu-vim-ui-select (https://github.com/matsui54/ddu-vim-ui-select/blob/main/denops/%40ddu-kinds/ui_select.ts)
+
 import {
   ActionFlags,
   Actions,

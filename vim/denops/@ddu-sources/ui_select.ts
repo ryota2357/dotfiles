@@ -1,5 +1,11 @@
-import { BaseSource, Item } from "https://deno.land/x/ddu_vim@v2.2.0/types.ts";
-import { Denops } from "https://deno.land/x/ddu_vim@v2.2.0/deps.ts";
+// 参考: matsui54/ddu-vim-ui-select (https://github.com/matsui54/ddu-vim-ui-select/blob/main/denops/%40ddu-sources/ui_select.ts)
+
+import {
+  BaseSource,
+  type DduEvent,
+  Item,
+} from "https://deno.land/x/ddu_vim@v2.2.0/types.ts";
+import type { Denops } from "https://deno.land/x/ddu_vim@v2.2.0/deps.ts";
 
 type SelectItem = {
   index: number;
@@ -18,7 +24,7 @@ export type ActionData = {
 export class Source extends BaseSource<Params> {
   kind = "ui_select";
 
-  gather(args: {
+  override gather(args: {
     denops: Denops;
     sourceParams: Params;
   }): ReadableStream<Item<ActionData>[]> {
@@ -33,6 +39,18 @@ export class Source extends BaseSource<Params> {
         controller.close();
       },
     });
+  }
+
+  override async onEvent(args: {
+    denops: Denops;
+    event: DduEvent;
+  }): Promise<void> {
+    if (args.event === "cancel") {
+      await args.denops.call(
+        "luaeval",
+        "require('rc.ui.select').on_choice(nil, nil)",
+      );
+    }
   }
 
   params(): Params {
