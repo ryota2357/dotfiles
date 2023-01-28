@@ -17,7 +17,8 @@ ln_dots zsh/plugins.toml ~/.config/sheldon/plugins.toml
 
 # neovim/ideavim
 ln_dots vim/init.lua                 ~/.config/nvim/init.lua
-ln_dots vim/vimrc                    ~/.ideavimrc
+ln_dots vim/ideavimrc                ~/.ideavimrc
+ln_dots vim/vimrc                    ~/.vimrc
 ln_dots vim/after                    ~/.config/nvim/after
 ln_dots vim/denops                   ~/.config/nvim/denops
 ln_dots vim/lua                      ~/.config/nvim/lua

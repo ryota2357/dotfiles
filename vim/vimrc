@@ -1,8 +1,217 @@
-"execute 'source ~/dotfiles/vim/vimrc-dev'
-"finish
+set nocompatible
+filetype plugin indent on
+syntax enable
 
-if has('nvim')
-  execute 'source ~/dotfiles/vim/rc/vim.rc.vim'
-elseif has('ide')
-  execute 'source ~/dotfiles/vim/rc/ideavim.rc.vim'
+set encoding=utf8
+scriptencoding utf8
+set fileencodings=utf-8,ucs-boms,euc-jp,ep932
+set fileformat=unix
+set fileformats=unix,dos,mac
+
+" jetpack
+if executable('git')
+  let g:jetpack_download_method = 'git'
+else
+  let g:jetpack_download_method = 'curl'
 endif
+let s:jetpackfile = expand('~/.vim/pack/jetpack/opt/vim-jetpack/plugin/jetpack.vim')
+let s:jetpackurl = "https://raw.githubusercontent.com/tani/vim-jetpack/master/plugin/jetpack.vim"
+if !filereadable(s:jetpackfile)
+  call system(printf('curl -fsSLo %s --create-dirs %s', s:jetpackfile, s:jetpackurl))
+endif
+
+" カーソルの形
+if has('vim_starting')
+  let &t_SI .= "\e[6 q"
+  let &t_EI .= "\e[2 q"
+  let &t_SR .= "\e[4 q"
+endif
+
+" 日本語ヘルプを優先
+set helplang=ja,en
+
+" 曖昧文字幅の幅を1に
+set ambiwidth=single
+
+" BOMを消す
+set nobomb
+
+" 編集中のファイルが他で書き換えられたら自動で読み直す
+set autoread
+
+" ヤンクをクリップボードへ繋ぐ
+set clipboard+=unnamed
+
+" ビープ音を消す
+set belloff=all
+
+" スワップファイルを生成しない
+set noswapfile
+
+" true color
+set termguicolors
+
+" 保存するコマンド履歴の数
+set history=1000
+
+" モードのメッセージをコマンドラインに表示しない
+set noshowmode
+
+" 現在行のハイライトを有効
+set cursorline
+
+" インクリメンタル検索を有効
+set incsearch
+
+" マウスを有効に
+set mouse=a
+
+" 行末の1文字先までカーソルを移動可能に
+set virtualedit=onemore
+
+" カーソル移動の行等行末の扱い
+set whichwrap=b,s,<,>,~,[,]
+
+" インサートモードでの<BS>, <Del>の扱い
+set backspace=indent,eol,start
+
+" どこでも短形ビジュアルモード
+set virtualedit=block
+
+" 行の折り返しを無効に
+set nowrap
+
+" 画面の左右の端でスクロールが発生した場合、何文字ずつスクロールするか
+set sidescroll=1
+
+" 表示文字設定
+set list
+set listchars=extends:,precedes:,space:⋅,tab:——>
+
+" 全角カッコペアの追加
+set matchpairs+=（:）,「:」,『:』,【:】,［:］,＜:＞
+
+" スクロールの余裕
+set scrolloff=3
+set sidescrolloff=5
+
+" インデント設定
+set expandtab
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set autoindent
+set smartindent
+
+" 検索パターンにおいて大文字と小文字を区別しない
+set ignorecase
+
+" マーカー位置で折りたたむ
+set foldmethod=marker
+
+" <Leader>、`'`で囲うとダメみたい
+let mapleader = "\<Space>"
+
+" xで削除した時はヤンクしない
+xnoremap x "_x
+nnoremap x "_x
+
+" ビジュアルで選択したテキストにペースト上書きするときにヤンクしない
+" `P`だとカーソル移動しないからダメ
+xnoremap p pgvy
+
+" インデントを考慮したインサート (ideaにgetline()ない)
+nnoremap <expr> i len(getline('.')) !=# 0 ? 'i' : '"_cc'
+nnoremap <expr> a len(getline('.')) !=# 0 ? 'a' : '"_cc'
+nnoremap <expr> A len(getline('.')) !=# 0 ? 'A' : '"_cc'
+nnoremap <expr> I len(getline('.')) !=# 0 ? 'I' : '"_cc'
+
+" 表示行で移動する
+nnoremap j gj
+nnoremap k gk
+
+" 行頭行末移動
+nnoremap Q ^
+nnoremap P $l
+xnoremap Q ^
+xnoremap P $l
+
+" ノーマルモードでも改行
+nnoremap <CR> i<CR><ESC>
+
+" 行選択モードで左右に動いたらビジュアルモードを抜ける (ideaにmode()ない)
+xnoremap <expr> h mode() ==# 'V' ? '<Esc>h' : 'h'
+xnoremap <expr> l mode() ==# 'V' ? '<Esc>l' : 'l'
+
+" 行選択モードでShift押したままjk押すことあるので
+xnoremap J j
+xnoremap K k
+
+" 選択行のインデントをTabでもできるように
+xnoremap <Tab> >
+xnoremap <S-Tab> <
+
+" :q のタイポ修正
+nnoremap q: :q
+nnoremap <Leader>: q:
+
+" emacsキーバインド
+for key in [['b', '<Left>'],
+         \  ['f', '<Right>'],
+         \  ['p', '<Up>'],
+         \  ['n', '<Down>'],
+         \  ['a', '<Home>'],
+         \  ['e', '<End>'],
+         \  ['d', '<Del>'],
+         \  ['h', '<BS>'],
+         \  ['k', '<Cmd>normal! "_D<CR><End>']]
+    execute 'inoremap <C-' .. key[0] .. '> ' .. key[1]
+    execute 'cnoremap <C-' .. key[0] .. '> ' .. key[1]
+endfor
+
+" めっちゃ誤爆させるので
+nnoremap <C-f> <Nop>
+
+" 画面分割/移動
+nnoremap sj <C-w>j
+nnoremap sk <C-w>k
+nnoremap sl <C-w>l
+nnoremap sh <C-w>h
+nnoremap ss <Cmd>sp<CR><C-w>j"
+nnoremap sv <Cmd>vs<CR><C-w>l
+nnoremap <C-w>j <C-w>-
+nnoremap <C-W>k <C-w>+
+nnoremap <C-w>l <C-w>>
+nnoremap <C-w>h <C-w><
+
+" モーション
+for motion in [['i2', 'i"'], ['i7', "i'"], ['i8', 'i('], ['i9', 'i)'],
+            \  ['a2', '2i"'], ['a7', "2i'"], ['a8', 'a('], ['a9', 'a)'], ['a`', '2i`']]
+  execute 'onoremap ' .. motion[0] .. ' ' .. motion[1]
+  execute 'xnoremap ' .. motion[0] .. ' ' .. motion[1]
+endfor
+for motion in ['f', 't', 'F', 'T']
+  for char in [['1', '!'], ['2', '"'], ['3', '#'], ['4', '$'], ['5', '%'], ['6', '&'], ['7', "'"], ['8', '('], ['9', ')']]
+    execute 'nnoremap ' .. motion .. char[0] .. ' ' .. motion .. char[1]
+    execute 'nnoremap ' .. motion .. char[1] .. ' ' .. motion .. char[0]
+    execute 'onoremap ' .. motion .. char[0] .. ' ' .. motion .. char[1]
+    execute 'onoremap ' .. motion .. char[1] .. ' ' .. motion .. char[0]
+    execute 'xnoremap ' .. motion .. char[0] .. ' ' .. motion .. char[1]
+    execute 'xnoremap ' .. motion .. char[1] .. ' ' .. motion .. char[0]
+  endfor
+endfor
+
+" タブ移動
+nnoremap > <Cmd>tabn<CR>
+nnoremap < <Cmd>tabN<CR>
+
+" プラグイン
+packadd vim-jetpack
+call jetpack#begin()
+Jetpack 'tani/vim-jetpack', {'opt': 1}
+Jetpack 'tomasiser/vim-code-dark'
+Jetpack 'vim-jp/vimdoc-ja'
+Jetpack 'itchyny/lightline.vim'
+call jetpack#end()
+
+colorscheme codedark
