@@ -3,10 +3,10 @@ local save = {
     two_cell_char = {}
 }
 
----@param events string|table
----@return function
+---@param events string|string[]
+---@return fun(opts:table<string, any>):nil
 local function autocmd(events)
-    ---@param opts table
+    ---@param opts table<string, any>
     ---@return nil
     return function(opts)
         opts.group = opts.group or save.augroup

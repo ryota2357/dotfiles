@@ -1,2 +1,2 @@
 eval "$(sheldon source)"
-typeset -U PATH
+[ -f ~/.zshrc-local ] && . ~/.zshrc-local

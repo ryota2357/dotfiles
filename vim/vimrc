@@ -215,3 +215,5 @@ Jetpack 'itchyny/lightline.vim'
 call jetpack#end()
 
 colorscheme codedark
+
+set secure

@@ -42,6 +42,7 @@ brew 'tmux'
 brew 'tree'
 brew 'vim'
 brew 'wget'
+brew 'zsh'
 
 # dart
 tap 'dart-lang/dart'

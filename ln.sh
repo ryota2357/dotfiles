@@ -16,6 +16,7 @@ ln_dots zsh/zshenv.zsh   ~/.zshenv
 ln_dots zsh/plugins.toml ~/.config/sheldon/plugins.toml
 
 # neovim/ideavim
+mkdir -p ~/.config/nvim
 ln_dots vim/init.lua                 ~/.config/nvim/init.lua
 ln_dots vim/ideavimrc                ~/.ideavimrc
 ln_dots vim/vimrc                    ~/.vimrc

@@ -13,12 +13,16 @@ inline = 'autoload -Uz compinit && zsh-defer compinit'
 [plugins.colors]
 inline = 'autoload -Uz colors && zsh-defer colors'
 
+[plugins.typeset]
+inline = 'typeset -U PATH FPATH MANPATH'
+
 [plugins.fzf]
 # To install, excute: $HOMEBREW_PREFIX/opt/fzf/install
 inline = '[ -f ~/.fzf.zsh ] && zsh-defer source ~/.fzf.zsh'
 
 [plugins.zsh-autosuggestions]
 github = 'zsh-users/zsh-autosuggestions'
+use = ["{{ name }}.zsh"]
 apply = ['defer']
 
 [plugins.zsh-syntax-highlighting]

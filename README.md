@@ -11,11 +11,14 @@ TPM は現在(2022/9/22) `git clone` でしか入れられないっぽい(?)の�
 
 ## vim
 
-- Neovim (init.lua)
-- ideavim (vimrc)
+- Neovim (vim/init.lua)
+- Vim (vim/vimrc)
+- ideavim (vim/ideavimrc)
 
-プラグインマネージャに[dein.vim](https://github.com/Shougo/dein.vim)を使用。  
+プラグインマネージャは Neovim には[dein.vim](https://github.com/Shougo/dein.vim), Vim には [vim-jetpack](https://github.com/tani/vim-jetpack)を使用。  
 手動でインストールしなくても自動的にインストールされる。
+
+Neovim がメインエディタ。Vim は vimrc 一枚で持ち運べるようにしてる。
 
 ### checkhealth
 
@@ -29,7 +32,7 @@ TPM は現在(2022/9/22) `git clone` でしか入れられないっぽい(?)の�
 ## zsh
 
 プラグインマネージャに [sheldon](https://github.com/rossmacarthur/sheldon) を使用。  
-Homebrew でインストールしてる。setup は sheldon の　README。
+Homebrew でインストールしてる。setup は sheldon の README。
 
 プラグインのアップデートは
 

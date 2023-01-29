@@ -5,7 +5,7 @@ local save_on_choice = nil
 
 ---@param items table<any>
 ---@param opts table<any, any>
----@param on_choice function
+---@param on_choice fun(item:table<string>|nil, idx:number|nil)
 ---@return nil
 function M.select(items, opts, on_choice)
     opts = opts or {}
@@ -51,13 +51,16 @@ function M.on_choice(item, index)
 end
 
 setmetatable(M, {
-    __call = function(_, item, opts, on_choice)
+    ---@param items table<any>
+    ---@param opts table<any, any>
+    ---@param on_choice fun(item:table<string>|nil, idx:number|nil)
+    __call = function(_, items, opts, on_choice)
         if vim.in_fast_event() then
             vim.schedule(function ()
-                M.select(item, opts, on_choice)
+                M.select(items, opts, on_choice)
             end)
         else
-            M.select(item, opts, on_choice)
+            M.select(items, opts, on_choice)
         end
     end
 })
