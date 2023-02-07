@@ -105,6 +105,9 @@ hook_add = '''
   endfunction
 '''
 hook_source = '''
+  call ddu#custom#alias('filter', 'matcher_fzf_kensaku', 'merge')
+  call ddu#custom#alias('filter', 'matcher_kensaku_fzf', 'merge')
+
   call ddu#custom#patch_global(#{
     \   ui: 'ff',
     \   uiOptions: #{
@@ -129,7 +132,7 @@ hook_source = '''
     \   sourceOptions: #{
     \     _ : #{
     \       ignoreCase: v:true,
-    \       matchers: ['matcher_fzf']
+    \       matchers: ['matcher_fzf_kensaku']
     \     },
     \     rg: #{
     \       matchers: []
@@ -139,7 +142,7 @@ hook_source = '''
     \       columns: ['icon_filename']
     \     },
     \     line: #{
-    \       matchers: ['matcher_kensaku']
+    \       matchers: ['matcher_kensaku_fzf']
     \     },
     \     dein: #{
     \       defaultAction: 'cd',
@@ -168,6 +171,18 @@ hook_source = '''
     \   filterParams: #{
     \     matcher_fzf: #{ highlightMatched: 'Search' },
     \     matcher_kensaku: #{ highlightMatched: 'Search' },
+    \     matcher_fzf_kensaku: #{
+    \       filters: [
+    \         #{name: 'matcher_fzf', weight: 2.0},
+    \         #{name: 'matcher_kensaku', weight: 1.0},
+    \       ]
+    \     },
+    \     matcher_kensaku_fzf: #{
+    \       filters: [
+    \         #{name: 'matcher_kensaku', weight: 2.0},
+    \         #{name: 'matcher_fzf', weight: 1.0},
+    \       ]
+    \     }
     \   },
     \   kindParams: #{
     \      file: { 'trashCommand': ['use', 'trash'] }
@@ -288,6 +303,10 @@ on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Milly/ddu-filter-kensaku'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'Milly/ddu-filter-merge'
 on_source = 'ddu.vim'
 
 [[plugins]]

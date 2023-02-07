@@ -98,6 +98,7 @@ hook_add = '''
     \ 'D', 'S', 'R', 'E', 'W', 'A', 'G', 'T', 'Y',
     \ 'N', 'B', 'M', 'V', 'C', 'Q', 'X', 'Z'
     \ ]
+  let g:fuzzy_motion_matchers = ['fzf', 'kensaku']
   nnoremap <Leader><Space> <Cmd>FuzzyMotion<CR>
 '''
 
