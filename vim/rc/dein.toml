@@ -55,11 +55,3 @@ lua_add = '''
     vim.notify(...)
   end
 '''
-
-# 末尾の空白が赤で強調表示する
-# 空白を削除する → FixWhitespace
-[[plugins]]
-repo = 'bronson/vim-trailing-whitespace'
-hook_add = '''
-  let g:extra_whitespace_ignored_filetypes = ['markdown', 'ddu-ff', 'ddu-filer', 'mason']
-'''

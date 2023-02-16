@@ -1,6 +1,7 @@
 if has('nvim')
   command! -nargs=1 -complete=help Vh :vertical belowright help <args>
   command! Wrap setlocal wrap!
+  command! FixWhitespace silent! keepjumps execute ':%s/\\\@<!\s\+$//'
 endif
 
 " <Leader>、`'`で囲うとダメみたい

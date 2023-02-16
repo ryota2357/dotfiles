@@ -89,7 +89,7 @@ hook_add = '''
         \  winCol: round(&columns * 0.05),
         \  winHeight: round(&lines * 0.8),
         \  winWidth: round(&columns * 0.45),
-        \  previewVertical: v:true,
+        \  previewSplit: "vertical",
         \  previewCol: round(&columns * 0.51),
         \  previewHeight: round(&lines * 0.81),
         \  previewWidth: round(&columns * 0.45),
@@ -126,7 +126,8 @@ hook_source = '''
     \       splitDirection: 'topleft',
     \       winWidth: 30,
     \       sort: 'filename',
-    \       sortTreesFirst: v:true
+    \       sortTreesFirst: v:true,
+    \       statusline: v:false
     \     }
     \   },
     \   sourceOptions: #{

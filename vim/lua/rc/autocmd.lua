@@ -1,8 +1,32 @@
 local autocmd = require('rc.util').autocmd
+local highlight = require('rc.util').highlight
 
 autocmd 'WinEnter' {
     desc = 'ファイルの変更チェックの頻度を強化 (https://vim-jp.org/vim-users-jp/2011/03/12/Hack-206.html)',
     command = "checktime"
+}
+
+highlight.set {
+    ExtraWhitespace = { bg = '#ff0a1e' }
+}
+
+autocmd {'BufRead', 'BufNew', 'FileType', 'InsertEnter', 'InsertLeave'} {
+    desc = '末尾空白ハイライト (https://github.com/bronson/vim-trailing-whitespace)',
+    callback = function (context)
+        local disable = {'markdown', 'ddu-ff', 'ddu-filer', 'mason', 'lspinfo'}
+        local ft = vim.opt.filetype:get()
+        for _, i in ipairs(disable) do
+            if ft == i then
+                vim.cmd([=[ match ExtraWhitespace /^^/ ]=])
+                return
+            end
+        end
+        if context.event == 'InsertEnter' then
+            vim.cmd([=[ match ExtraWhitespace /\\\@<![\u3000[:space:]]\+\%#\@<!$/ ]=])
+        else
+            vim.cmd([=[ match ExtraWhitespace /\\\@<![\u3000[:space:]]\+$/ ]=])
+        end
+    end
 }
 
 autocmd { 'FocusGained', 'FocusLost' } {
@@ -59,9 +83,7 @@ autocmd 'CmdwinEnter' {
     callback = function(context)
         vim.cmd('TSContextDisable')
         vim.cmd([[g/\v(^qa?!?|^wq?a?!?)$/d]])
-        ---@diagnostic disable-next-line: assign-type-mismatch
         vim.opt_local.number = false
-        ---@diagnostic disable-next-line: assign-type-mismatch
         vim.opt_local.signcolumn = 'no'
         local save_cmdheight = vim.opt.cmdheight
         vim.opt.cmdheight = 0

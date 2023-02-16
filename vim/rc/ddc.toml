@@ -46,10 +46,10 @@ hook_source = '''
    \   backspaceCompletion: v:true,
    \ })
 
-  call ddc#custom#patch_filetype(['vim'], #{
+  call ddc#custom#patch_filetype(['vim', 'typescript', 'typescriptreact'], #{
     \   sources: ['vsnip', 'nvim-lsp', 'around']
     \ })
-  call ddc#custom#patch_filetype(['c', 'cpp', 'cs', 'dart', 'typescript', 'typescriptreact', 'rust', 'ruby', 'lua'], #{
+  call ddc#custom#patch_filetype(['c', 'cpp', 'cs', 'dart', 'rust', 'ruby', 'lua'], #{
     \   sources: ['nvim-lsp', 'around']
     \ })
   call ddc#custom#patch_filetype(['css', 'scss'], #{

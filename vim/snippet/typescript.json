@@ -1,0 +1,11 @@
+{
+  "import": {
+    "prefix": "import",
+    "body": "import { $0 } from \"$1\""
+  },
+  "import-as": {
+    "prefix": "import as",
+    "body": "import * as $0 from \"$1\""
+  }
+}
+
