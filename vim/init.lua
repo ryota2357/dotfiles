@@ -20,10 +20,10 @@ require('dein-snip').setup {
             '~/dotfiles/vim/rc/dein.toml',
             '~/dotfiles/vim/rc/filetype.toml',
             { '~/dotfiles/vim/rc/dein-lazy.toml', { lazy = true } },
-            { '~/dotfiles/vim/rc/ddc.toml', { lazy = true } },
-            { '~/dotfiles/vim/rc/ddu.toml', { lazy = true } },
-            { '~/dotfiles/vim/rc/dap.toml', { lazy = true } },
-            { '~/dotfiles/vim/rc/lsp.toml', { lazy = true } },
+            { '~/dotfiles/vim/rc/ddc.toml',       { lazy = true } },
+            { '~/dotfiles/vim/rc/ddu.toml',       { lazy = true } },
+            { '~/dotfiles/vim/rc/dap.toml',       { lazy = true } },
+            { '~/dotfiles/vim/rc/lsp.toml',       { lazy = true } },
         }
     },
     notification = {
@@ -41,18 +41,21 @@ require('dein-snip').setup {
 }
 
 Statusline = require('rc.ui.statusline')
-Statusline.setup()
 vim.api.nvim_set_option('statusline', '%!v:lua.Statusline()')
 
 Tabline = require('rc.ui.tabline')
-Tabline.setup()
 vim.api.nvim_set_option('tabline', '%!v:lua.Tabline()')
 
----@diagnostic disable-next-line: duplicate-set-field
-vim.ui.select = function(...)
-    vim.ui.select = require('rc.ui.select')
-    vim.ui.select(...)
-end
+vim.ui = {
+    select = function(...)
+        vim.ui.select = require('rc.ui.select')
+        vim.ui.select(...)
+    end,
+    input = function(...)
+        vim.ui.input = require('rc.ui.input')
+        vim.ui.input(...)
+    end
+}
 
 Inspect = function(any)
     print(vim.inspect(any))

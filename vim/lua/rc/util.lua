@@ -1,3 +1,5 @@
+local M = {}
+
 local save = {
     augroup = vim.api.nvim_create_augroup('vimrc', { clear = true }),
     two_cell_char = {}
@@ -5,7 +7,7 @@ local save = {
 
 ---@param events string|string[]
 ---@return fun(opts:table<string, any>):nil
-local function autocmd(events)
+function M.autocmd(events)
     ---@param opts table<string, any>
     ---@return nil
     return function(opts)
@@ -18,7 +20,7 @@ end
 ---@param char number
 ---@param apply? boolean
 ---@return nil
-local function setcellwidths2(char, apply)
+function M.setcellwidths2(char, apply)
     if char == nil then
         save.two_cell_char = {}
         return
@@ -38,9 +40,11 @@ local function setcellwidths2(char, apply)
     end
 end
 
+M.highlight = {}
+
 ---@param hls table
 ---@return nil
-local function hl_set(hls)
+function M.highlight.set(hls)
     for group, value in pairs(hls) do
         vim.api.nvim_set_hl(0, group, value)
     end
@@ -48,7 +52,7 @@ end
 
 ---@param links table
 ---@return nil
-local function hl_link(links)
+function M.highlight.link(links)
     for from, to in pairs(links) do
         vim.api.nvim_set_hl(0, from, {
             link = to,
@@ -56,12 +60,4 @@ local function hl_link(links)
     end
 end
 
-
-return {
-    autocmd = autocmd,
-    setcellwidths2 = setcellwidths2,
-    highlight = {
-        set = hl_set,
-        link = hl_link
-    }
-}
+return M

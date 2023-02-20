@@ -1,6 +1,6 @@
 -- 参考: matsui54/ddu-vim-ui-select (https://github.com/matsui54/ddu-vim-ui-select/blob/main/lua/ddu-vim-ui-select/init.lua)
-
 local M = {}
+
 local save_on_choice = nil
 
 ---@param items table<any>
@@ -21,6 +21,7 @@ function M.select(items, opts, on_choice)
 
     vim.fn['ddu#start'] {
         ui = 'ff',
+        name = 'ui-select',
         sources = { {
             name = 'ui_select',
             params = { items = indexed_items, }
