@@ -17,14 +17,14 @@ lua_source = '''
 
   vim.diagnostic.config({
     update_in_insert = true,
-      virtual_text = {
-        prefix = '▰'
-      }
+    virtual_text = {
+      prefix = '▰'
+    }
   })
 
   local options = {
     global = {
-      on_attach = function(_, bufnr)
+      on_attach = function(client, bufnr)
         local nnoremap =  function(key, cmd) vim.keymap.set('n', key, cmd, { buffer = bufnr, silent = true }) end
         nnoremap(',d', vim.lsp.buf.definition)
         nnoremap(',i', vim.lsp.buf.implementation)
@@ -34,6 +34,7 @@ lua_source = '''
         nnoremap(',s', vim.lsp.buf.signature_help)
         nnoremap(',a', vim.lsp.buf.code_action)
         nnoremap(',f', vim.lsp.buf.references)
+        client.server_capabilities.semanticTokensProvider = nil
       end,
       capabilities = (function()
         local c = vim.lsp.protocol.make_client_capabilities()

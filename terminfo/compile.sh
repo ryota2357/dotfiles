@@ -6,3 +6,4 @@
 #    -x: 未知の capabilities をユーザー定義のものして扱い、テーブルエントリを拡張する
 tic -x "$HOME/dotfiles/terminfo/screen-256color.ti"
 tic -x "$HOME/dotfiles/terminfo/xterm-256color.ti"
+tic -x "$HOME/dotfiles/terminfo/tmux-256color.ti"

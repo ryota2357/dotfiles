@@ -1,0 +1,66 @@
+# 設定ファイルの一覧はalacrittyのreleasesのassetsから取得できる
+
+env:
+  TERM: xterm-256color
+
+window:
+  decorations: none
+  opacity: 1.0
+  startup_mode: Fullscreen  # Windowed / Maximized / Fullscreen / SimpleFullscreen (macOS only)
+
+scrolling:
+  history: 10000
+
+font:
+  normal:
+    family: Cica
+    style: Regular
+  bold:
+    family: Cica
+    style: Bold
+  italic:
+    family: Cica
+    style: Italic
+  bold_italic:
+    family: Cica
+    style: Bold Italic
+  size: 18.0
+  builtin_box_drawing: false
+
+draw_bold_text_with_bright_colors: false
+
+colors:
+  cursor:
+    text: CellBackground
+    cursor: "#fffaf5"
+
+cursor:
+  style:
+    shape: Block
+    blinking: Off
+  unfocused_hollow: true
+
+live_config_reload: true
+
+shell:
+ program: /bin/zsh
+ args:
+   - --login
+   - -c
+   - |
+    ID="`tmux list-sessions`"
+    if [[ -z "$ID" ]]; then
+      tmux new-session
+    fi
+    create_new_session="Create New Session"
+    ID="$ID\n${create_new_session}:"
+    ID="`echo $ID | $PERCOL | cut -d: -f1`"
+    if [[ "$ID" = "${create_new_session}" ]]; then
+      tmux new-session
+    fi
+    tmux attach-session -t "$ID"
+
+key_bindings:
+  - { key: Yen,            chars: "\x5C" }
+  - { key: Yen, mods: Alt, chars: "\xA5" }
+
