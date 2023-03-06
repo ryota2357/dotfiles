@@ -275,20 +275,20 @@ on_source = 'ddu.vim'
 repo = 'Shougo/ddu-source-line'
 on_source = 'ddu.vim'
 
-[[plugins]]
-repo = '~/Projects/VimPlugin/ddu-nvim-notify-history'
-on_source = 'ddu.vim'
-lua_source = '''
-  require('ddu-nvim-notify-history').setup {
-    command = 'NotifyHistory',
-    ddu_option = {
-      ui = 'ff',
-      kindOptions = {
-        notify_history = { defaultAction = 'open' }
-      }
-    }
-  }
-'''
+# [[plugins]]
+# repo = '~/Projects/VimPlugin/ddu-nvim-notify-history'
+# on_source = 'ddu.vim'
+# lua_source = '''
+#   require('ddu-nvim-notify-history').setup {
+#     command = 'NotifyHistory',
+#     ddu_option = {
+#       ui = 'ff',
+#       kindOptions = {
+#         notify_history = { defaultAction = 'open' }
+#       }
+#     }
+#   }
+# '''
 
 [[plugins]]
 repo = 'ryota2357/cpl'

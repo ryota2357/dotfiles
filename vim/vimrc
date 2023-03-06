@@ -212,8 +212,11 @@ Jetpack 'tani/vim-jetpack', {'opt': 1}
 Jetpack 'tomasiser/vim-code-dark'
 Jetpack 'vim-jp/vimdoc-ja'
 Jetpack 'itchyny/lightline.vim'
+Jetpack 'ryota2357/necodark', #{ branch: 'vim' }
 call jetpack#end()
 
-colorscheme codedark
+colorscheme necodark
+
+" execute 'source ' .. expand('~/Projects/CSharp/necodark/build/vim/colors/necodark.vim')
 
 set secure

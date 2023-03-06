@@ -63,4 +63,5 @@ shell:
 key_bindings:
   - { key: Yen,            chars: "\x5C" }
   - { key: Yen, mods: Alt, chars: "\xA5" }
+  - { key: Semicolon, mods: Command|Shift, action: IncreaseFontSize }
 

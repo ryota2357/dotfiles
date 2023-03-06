@@ -36,8 +36,13 @@ depends = 'denops.vim'
 repo = 'RRethy/vim-illuminate'
 
 [[plugins]]
+repo = 'ryota2357/necodark'
+rev = 'nvim'
+hook_add = 'colorscheme necodark'
+
+[[plugins]]
 repo = 'joshdick/onedark.vim'
-hook_add = 'colorscheme onedark'
+# hook_add = 'colorscheme onedark'
 
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'
