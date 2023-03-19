@@ -156,8 +156,8 @@ nnoremap q: :q
 nnoremap <Leader>: q:
 
 " emacsキーバインド
-for key in [['b', '<Left>'],
-         \  ['f', '<Right>'],
+for key in [['b', '<C-G>U<Left>'],
+         \  ['f', '<C-G>U<Right>'],
          \  ['p', '<Up>'],
          \  ['n', '<Down>'],
          \  ['a', '<Home>'],

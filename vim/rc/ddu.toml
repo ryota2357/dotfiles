@@ -206,21 +206,21 @@ repo = 'Shougo/ddu-ui-ff'
 on_source = 'ddu.vim'
 [plugins.ftplugin]
 ddu-ff = '''
-  nnoremap <buffer> <CR>  <Cmd>call ddu#ui#ff#do_action('itemAction')<CR>
-  nnoremap <buffer> <ESC> <Cmd>call ddu#ui#ff#do_action('quit')<CR>
-  nnoremap <buffer> i     <Cmd>call ddu#ui#ff#do_action('openFilterWindow')<CR>
+  nnoremap <buffer> <CR>  <Cmd>call ddu#ui#do_action('itemAction')<CR>
+  nnoremap <buffer> <ESC> <Cmd>call ddu#ui#do_action('quit')<CR>
+  nnoremap <buffer> i     <Cmd>call ddu#ui#do_action('openFilterWindow')<CR>
 '''
 ddu-ff-filter = '''
   if b:ddu_ui_name ==# 'line'
-    inoremap <buffer> <CR> <Cmd>call ddu#ui#ff#do_action('itemAction')<CR>
+    inoremap <buffer> <CR> <Cmd>call ddu#ui#do_action('itemAction')<CR>
   else
-    inoremap <buffer> <CR>  <Cmd>call ddu#ui#ff#do_action('itemAction', { 'params': {'command': 'drop'} })<CR>
-    inoremap <buffer> <C-o> <Cmd>call ddu#ui#ff#do_action('itemAction', { 'params': {'command': 'tab drop'} })<CR>
+    inoremap <buffer> <CR>  <Cmd>call ddu#ui#do_action('itemAction', { 'params': {'command': 'drop'} })<CR>
+    inoremap <buffer> <C-o> <Cmd>call ddu#ui#do_action('itemAction', { 'params': {'command': 'tab drop'} })<CR>
   endif
   inoremap <buffer> <C-n> <Cmd>call ddu#ui#ff#execute("call cursor(line('.')+1, 0)")<CR><Cmd>redraw!<CR>
   inoremap <buffer> <C-p> <Cmd>call ddu#ui#ff#execute("call cursor(line('.')-1, 0)")<CR><Cmd>redraw!<CR>
-  inoremap <buffer> <C-q> <Cmd>call ddu#ui#ff#do_action('preview')<CR>
-  inoremap <buffer> <ESC> <Cmd>call ddu#ui#ff#do_action('quit')<CR>
+  inoremap <buffer> <C-q> <Cmd>call ddu#ui#do_action('preview')<CR>
+  inoremap <buffer> <ESC> <Cmd>call ddu#ui#do_action('quit')<CR>
 '''
 
 [[plugins]]
@@ -228,15 +228,15 @@ repo = 'Shougo/ddu-ui-filer'
 on_source = 'ddu.vim'
 [plugins.ftplugin]
 ddu-filer = '''
-  nnoremap <buffer><expr> <CR> ddu#ui#filer#is_tree()
-    \ ? "<Cmd>call ddu#ui#filer#do_action('expandItem', {'mode': 'toggle'})<CR>"
-    \ : "<Cmd>call ddu#ui#filer#do_action('itemAction', { 'params': {'command': 'drop'} })<CR>"
-  nnoremap <buffer> o <Cmd>call ddu#ui#filer#do_action('itemAction', { 'params': {'command': 'tab drop'} })<CR>
-  nnoremap <buffer> n <Cmd>call ddu#ui#filer#do_action('itemAction', { 'name': 'newFile' })<CR>
-  nnoremap <buffer> r <Cmd>call ddu#ui#filer#do_action('itemAction', { 'name': 'rename' })<CR>
-  nnoremap <buffer> R <Cmd>call ddu#ui#filer#do_action('checkItems')<CR>
-  nnoremap <buffer> dd <Cmd>call ddu#ui#filer#do_action('itemAction', { 'name': 'trash' })<CR>
-  nnoremap <buffer> q <Cmd>call ddu#ui#filer#do_action('quit')<CR>
+  nnoremap <buffer><expr> <CR> ddu#ui#get_item()->get('isTree', v:false)
+    \ ? "<Cmd>call ddu#ui#do_action('expandItem', {'mode': 'toggle'})<CR>"
+    \ : "<Cmd>call ddu#ui#do_action('itemAction', { 'params': {'command': 'drop'} })<CR>"
+  nnoremap <buffer> o  <Cmd>call ddu#ui#do_action('itemAction', { 'params': {'command': 'tab drop'} })<CR>
+  nnoremap <buffer> n  <Cmd>call ddu#ui#do_action('itemAction', { 'name': 'newFile' })<CR>
+  nnoremap <buffer> r  <Cmd>call ddu#ui#do_action('itemAction', { 'name': 'rename' })<CR>
+  nnoremap <buffer> R  <Cmd>call ddu#ui#do_action('checkItems')<CR>
+  nnoremap <buffer> dd <Cmd>call ddu#ui#do_action('itemAction', { 'name': 'trash' })<CR>
+  nnoremap <buffer> q  <Cmd>call ddu#ui#do_action('quit')<CR>
 
   nnoremap <buffer> . <Cmd>call ddu#ui#filer#do_action('updateOptions', #{
     \   sourceOptions: #{

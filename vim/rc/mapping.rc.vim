@@ -58,8 +58,8 @@ nnoremap <Leader>: q:
 
 " emacsキーバインド
 " C-p, C-n は ddc(pum) で設定、IdeaVimではなぜかこれだけそのまま使えた
-for key in [['b', '<Left>'],
-         \  ['f', '<Right>'],
+for key in [['b', '<C-G>U<Left>'],
+         \  ['f', '<C-G>U<Right>'],
          \  ['a', '<Home>'],
          \  ['e', '<End>'],
          \  ['d', '<Del>'],
