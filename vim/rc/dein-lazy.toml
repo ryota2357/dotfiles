@@ -10,10 +10,28 @@ hook_add = '''
 '''
 hook_source = '''
   call pum#set_option(#{
+    \   auto_select: v:true,
     \   use_complete: v:true,
     \   padding: v:true,
-    \   scrollbar_char: ''
+    \   scrollbar_char: '',
     \ })
+  call pum#set_local_option('c', #{
+    \   auto_select: v:false,
+    \   reversed: v:true
+    \ })
+'''
+
+[[plugins]]
+repo = 'rcarriga/nvim-notify'
+on_lua = 'notify'
+lua_add = '''
+  vim.notify = function(...)
+    vim.notify = require('notify')
+    vim.notify.setup {
+      level = 0
+    }
+    vim.notify(...)
+  end
 '''
 
 [[plugins]]

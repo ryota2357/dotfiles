@@ -1,3 +1,5 @@
+vim.loader.enable()
+
 local dein_snip = vim.fn.fnamemodify('~/.cache/dein/repos/github.com/ryota2357/dein-snip.lua', ':p')
 -- local dein_snip = vim.fn.fnamemodify('~/Projects/VimPlugin/dein-snip.lua', ':p')
 if not string.match(vim.o.runtimepath, '/dein-snip.lua') then
@@ -32,7 +34,7 @@ require('dein-snip').setup {
     },
     install = {
         progress_type = 'floating',
-        max_processes = 1,
+        max_processes = 2,
         git = {
             partial_clone = true
         }

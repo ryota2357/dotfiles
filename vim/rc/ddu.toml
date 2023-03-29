@@ -119,7 +119,8 @@ hook_source = '''
     \       floatingBorder: 'rounded',
     \       previewFloating: v:true,
     \       previewFloatingBorder: 'rounded',
-    \       startFilter: v:true
+    \       startFilter: v:true,
+    \       replaceCol: match(getline('.')[: col('.') - 1], '\f*$') + 1
     \     },
     \     filer: #{
     \       split: 'vertical',
@@ -217,8 +218,8 @@ ddu-ff-filter = '''
     inoremap <buffer> <CR>  <Cmd>call ddu#ui#do_action('itemAction', { 'params': {'command': 'drop'} })<CR>
     inoremap <buffer> <C-o> <Cmd>call ddu#ui#do_action('itemAction', { 'params': {'command': 'tab drop'} })<CR>
   endif
-  inoremap <buffer> <C-n> <Cmd>call ddu#ui#ff#execute("call cursor(line('.')+1, 0)")<CR><Cmd>redraw!<CR>
-  inoremap <buffer> <C-p> <Cmd>call ddu#ui#ff#execute("call cursor(line('.')-1, 0)")<CR><Cmd>redraw!<CR>
+  inoremap <buffer> <C-n> <Cmd>call ddu#ui#ff#execute("call cursor(line('.')+1, 0)<Bar>redraw")<CR>
+  inoremap <buffer> <C-p> <Cmd>call ddu#ui#ff#execute("call cursor(line('.')-1, 0)<Bar>redraw")<CR>
   inoremap <buffer> <C-q> <Cmd>call ddu#ui#do_action('preview')<CR>
   inoremap <buffer> <ESC> <Cmd>call ddu#ui#do_action('quit')<CR>
 '''
@@ -274,21 +275,6 @@ on_source = 'ddu.vim'
 [[plugins]]
 repo = 'Shougo/ddu-source-line'
 on_source = 'ddu.vim'
-
-# [[plugins]]
-# repo = '~/Projects/VimPlugin/ddu-nvim-notify-history'
-# on_source = 'ddu.vim'
-# lua_source = '''
-#   require('ddu-nvim-notify-history').setup {
-#     command = 'NotifyHistory',
-#     ddu_option = {
-#       ui = 'ff',
-#       kindOptions = {
-#         notify_history = { defaultAction = 'open' }
-#       }
-#     }
-#   }
-# '''
 
 [[plugins]]
 repo = 'ryota2357/cpl'

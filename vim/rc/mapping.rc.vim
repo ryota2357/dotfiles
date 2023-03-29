@@ -71,6 +71,8 @@ endfor
 " <ESC>"_DA だと上手くいかない...どうしたらいい？
 " ひとまず無効化しておく
 if has("ide")
+  inoremap <C-b> <Left>
+  inoremap <C-f> <Right>
   inoremap <C-k> <C-k>
   cnoremap <C-k> <C-k>
 endif

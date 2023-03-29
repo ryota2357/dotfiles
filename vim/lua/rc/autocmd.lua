@@ -10,10 +10,10 @@ highlight.set {
     ExtraWhitespace = { bg = '#ff0a1e' }
 }
 
-autocmd {'BufRead', 'BufNew', 'FileType', 'InsertEnter', 'InsertLeave'} {
+autocmd { 'BufRead', 'BufNew', 'FileType', 'InsertEnter', 'InsertLeave' } {
     desc = '末尾空白ハイライト (https://github.com/bronson/vim-trailing-whitespace)',
-    callback = function (context)
-        local disable = {'markdown', 'ddu-ff', 'ddu-filer', 'mason', 'lspinfo'}
+    callback = function(context)
+        local disable = { 'markdown', 'ddu-ff', 'ddu-filer', 'mason', 'lspinfo' }
         local ft = vim.opt.filetype:get()
         for _, i in ipairs(disable) do
             if ft == i then
@@ -51,7 +51,7 @@ autocmd { 'FocusGained', 'FocusLost' } {
 
 autocmd 'CmdlineLeave' {
     desc = '検索コマンドからの離脱時にIMEをoffにする',
-    pattern = {'/', '?'},
+    pattern = { '/', '?' },
     callback = function()
         -- 102: EISU
         vim.fn.system [[
@@ -66,12 +66,8 @@ autocmd 'CmdlineEnter' {
     callback = function()
         local save = vim.o.completeopt
         vim.o.completeopt = 'menu,noselect'
-        vim.fn['pum#set_option']('auto_select', false)
         autocmd 'CmdlineLeave' {
-            callback = function ()
-                if string.match(save, 'noinsert') then
-                    vim.fn['pum#set_option']('auto_select', true)
-                end
+            callback = function()
                 vim.o.completeopt = save
             end
         }
@@ -88,8 +84,8 @@ autocmd 'CmdwinEnter' {
         local save_cmdheight = vim.opt.cmdheight
         vim.opt.cmdheight = 0
         vim.keymap.set('n', '<ESC>', '<Cmd>:q<CR>', { buffer = context.buf })
-        autocmd 'CmdwinLeave'  {
-            callback = function ()
+        autocmd 'CmdwinLeave' {
+            callback = function()
                 vim.cmd('TSContextEnable')
                 vim.opt.cmdheight = save_cmdheight
             end,
