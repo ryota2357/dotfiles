@@ -46,6 +46,7 @@ local function open_window(buffer, title)
         noautocmd = true
     })
     api.nvim_win_set_option(win, 'number',  false)
+    api.nvim_win_set_option(win, 'relativenumber', false)
     api.nvim_win_set_option(win, 'wrap',  false)
     api.nvim_win_set_option(win, 'cursorline',  false)
     api.nvim_win_set_option(win, 'winhighlight',  'FloatBorder:InputFloatBorder,NormalFloat:Normal')

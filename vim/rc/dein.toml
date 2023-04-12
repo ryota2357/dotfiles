@@ -37,7 +37,7 @@ repo = 'RRethy/vim-illuminate'
 
 [[plugins]]
 repo = 'ryota2357/necodark'
-rev = 'nvim'
+rev = 'build/nvim'
 hook_add = 'colorscheme necodark'
 
 [[plugins]]

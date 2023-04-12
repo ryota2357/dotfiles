@@ -1,4 +1,8 @@
 {
+  "export-from": {
+    "prefix": "export from",
+    "body": "export { $0 } from \"$1\""
+  },
   "import": {
     "prefix": "import",
     "body": "import { $0 } from \"$1\""

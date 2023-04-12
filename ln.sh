@@ -19,6 +19,7 @@ ln_dots zsh/plugins.toml ~/.config/sheldon/plugins.toml
 mkdir -p ~/.config/nvim
 ln_dots vim/init.lua                 ~/.config/nvim/init.lua
 ln_dots vim/ideavimrc                ~/.ideavimrc
+ln_dots vim/vsvimrc                  ~/.vscode/vimrc
 ln_dots vim/vimrc                    ~/.vimrc
 ln_dots vim/after                    ~/.config/nvim/after
 ln_dots vim/denops                   ~/.config/nvim/denops

@@ -91,6 +91,13 @@ lua_source = '''
     },
     solargraph = {
       single_file_support = true
+    },
+    yamlls = {
+      settings = {
+        yaml = {
+          keyOrdering = false,
+        },
+      }
     }
   }
 
@@ -142,3 +149,22 @@ lua_source = '''
 [[plugins]]
 repo = 'williamboman/mason-lspconfig.nvim'
 on_source = 'nvim-lspconfig'
+
+[[plugins]]
+repo = 'j-hui/fidget.nvim'
+on_source = 'nvim-lspconfig'
+lua_source = '''
+  require('fidget').setup {
+    text = {
+      spinner = "dots"
+    },
+    timer = {
+      spinner_rate = 100,
+      fidget_decay = 3000,
+      task_decay = 1000,
+    },
+    fmt = {
+        stack_upwards = false
+    }
+  }
+'''

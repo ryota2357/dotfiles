@@ -16,5 +16,8 @@ export CPPFLAGS="-I/$HOMEBREW_PREFIX/llvm/include"
 # nodebrew
 export PATH="$HOME/.nodebrew/current/bin:$PATH"
 
+# dotnet tools
+export PATH="$HOME/.dotnet/tools:$PATH"
+
 # use
 export PATH="$HOME/Projects/use/bin:$PATH"
