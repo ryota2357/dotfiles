@@ -14,7 +14,6 @@ hook_add = '''
   nnoremap <Leader>g <Cmd>call ddu#start(#{
     \   name: 'grep',
     \   sources: [#{name: 'rg'}],
-    \   volatile: v:true,
     \   uiParams: {
     \     'ff': <SID>create_ddu_uiParams('left')
     \   }
@@ -137,6 +136,7 @@ hook_source = '''
     \       matchers: ['matcher_fzf_kensaku']
     \     },
     \     rg: #{
+    \       volatile: v:true,
     \       matchers: []
     \     },
     \     file: #{

@@ -207,12 +207,13 @@ nnoremap < <Cmd>tabN<CR>
 
 " プラグイン
 packadd vim-jetpack
+let g:jetpack_njobs = 1
 call jetpack#begin()
 Jetpack 'tani/vim-jetpack', {'opt': 1}
 Jetpack 'tomasiser/vim-code-dark'
 Jetpack 'vim-jp/vimdoc-ja'
 Jetpack 'itchyny/lightline.vim'
-Jetpack 'ryota2357/necodark', #{ branch: 'vim' }
+Jetpack 'ryota2357/necodark', #{ branch: 'build/vim' }
 call jetpack#end()
 
 colorscheme necodark

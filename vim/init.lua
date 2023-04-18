@@ -9,9 +9,6 @@ if not string.match(vim.o.runtimepath, '/dein-snip.lua') then
     vim.opt.runtimepath:prepend(dein_snip)
 end
 
-vim.g.do_filetype_lua = true
-vim.g.did_load_filetypes = false
-
 require('dein-snip').setup {
     load = {
         vim = {

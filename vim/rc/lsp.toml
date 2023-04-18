@@ -6,10 +6,6 @@ hook_add = '''
   command! Format lua vim.lsp.buf.format()
 '''
 lua_source = '''
-  local nvim_lsp = require('lspconfig')
-  local util = require('lspconfig.util')
-  local mason_lspconfig = require('mason-lspconfig')
-
   for type, icon in pairs({ Error = "", Warn = "", Hint = "", Info = "" }) do
     local hl = "DiagnosticSign" .. type
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
@@ -22,29 +18,33 @@ lua_source = '''
     }
   })
 
-  local options = {
-    global = {
-      on_attach = function(client, bufnr)
-        local nnoremap =  function(key, cmd) vim.keymap.set('n', key, cmd, { buffer = bufnr, silent = true }) end
-        nnoremap(',d', vim.lsp.buf.definition)
-        nnoremap(',i', vim.lsp.buf.implementation)
-        nnoremap(',r', vim.lsp.buf.rename)
-        nnoremap(',x', vim.diagnostic.open_float)
-        nnoremap(',l', vim.lsp.buf.hover)
-        nnoremap(',s', vim.lsp.buf.signature_help)
-        nnoremap(',a', vim.lsp.buf.code_action)
-        nnoremap(',f', vim.lsp.buf.references)
-        client.server_capabilities.semanticTokensProvider = nil
-      end,
-      capabilities = (function()
-        local c = vim.lsp.protocol.make_client_capabilities()
-        c.textDocument.completion.completionItem.snippetSupport = true
-        return c
-      end)()
+  require('rc.util').autocmd 'LspAttach' {
+      callback = function (context)
+          local bufnr = context.buf
+          local client = vim.lsp.get_client_by_id(context.data.client_id)
+
+          local nmap =  function(key, cmd) vim.keymap.set('n', key, cmd, { buffer = bufnr, silent = true }) end
+
+          nmap(',d', vim.lsp.buf.definition)
+          nmap(',i', vim.lsp.buf.implementation)
+          nmap(',r', vim.lsp.buf.rename)
+          nmap(',x', vim.diagnostic.open_float)
+          nmap(',l', vim.lsp.buf.hover)
+          nmap(',s', vim.lsp.buf.signature_help)
+          nmap(',a', vim.lsp.buf.code_action)
+          nmap(',f', vim.lsp.buf.references)
+          client.server_capabilities.semanticTokensProvider = nil
+      end
+  }
+
+  local lsp_util = require('lspconfig.util')
+  local lsp_config = {
+    dartls = {
+        root_dir = lsp_util.root_pattern('pubspec.yaml', '.dart')
     },
     denols = {
       init_options = { lint = true, unstable = true },
-      root_dir = util.root_pattern('deno.json', 'deno.jsonc', 'denops'),
+      root_dir = lsp_util.root_pattern('deno.json', 'deno.jsonc', 'denops'),
       single_file_support = false
     },
     omnisharp = {
@@ -60,7 +60,7 @@ lua_source = '''
     },
     rust_analyzer = {
       settings = {
-        rust_analyzer = {
+        ['rust-analyzer'] = {
           check = {
             features = 'all',
             command = 'clippy'
@@ -81,8 +81,8 @@ lua_source = '''
     tsserver = {
       single_file_support = false,
       root_dir = function(fname)
-        local deno_root = util.root_pattern('deno.json', 'deno.jsonc', 'denops')(fname)
-        local node_root = util.root_pattern('package.json', 'node_modules')(fname)
+        local deno_root = lsp_util.root_pattern('deno.json', 'deno.jsonc', 'denops')(fname)
+        local node_root = lsp_util.root_pattern('package.json', 'node_modules')(fname)
         if deno_root ~= nil then
             return nil
         end
@@ -101,19 +101,18 @@ lua_source = '''
     }
   }
 
-  mason_lspconfig.setup_handlers {
-    function(server_name)
-      local opts = vim.tbl_extend('force', options.global, options[server_name] or {})
-      nvim_lsp[server_name].setup(opts)
-    end
-  }
+  local lsp_capabilities = vim.lsp.protocol.make_client_capabilities()
+  lsp_capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-  -- Mason に dartls ないので個別に設定、dartls は dart に付属してる
-  nvim_lsp['dartls'].setup {
-    on_attach = options.global.on_attach,
-    capabilities = options.global.capabilities,
-    root_dir = util.root_pattern('pubspec.yaml', '.dart')
-  }
+  local installed_servers = require('mason-lspconfig').get_installed_servers()
+  table.insert(installed_servers, 'dartls') -- Mason に dartls ないので追加、dartls は dart に付属してる
+  local nvim_lsp = require('lspconfig')
+  for _, server_name in ipairs(installed_servers) do
+      local config = lsp_config[server_name] or {}
+      config.capabilities = lsp_capabilities
+      nvim_lsp[server_name].setup(config)
+
+  end
 '''
 [plugins.ftplugin]
 cpp = '''

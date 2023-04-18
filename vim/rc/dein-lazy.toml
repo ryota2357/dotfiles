@@ -211,7 +211,7 @@ repo = 'tomtom/tcomment_vim'
 on_cmd = 'TComment'
 hook_add = '''
   let g:tcomment_maps = 0
-  vnoremap _ :TComment<CR>
+  xnoremap _ :TComment<CR>
   nnoremap _ <Cmd>TComment<CR>
 '''
 
