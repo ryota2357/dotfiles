@@ -38,7 +38,7 @@ lua_add = '''
 repo = 'github/copilot.vim'
 on_cmd = 'Copilot'
 hook_add = '''
-  let g:copilot_node_command = '~/.nodebrew/node/v16.17.0/bin/node'
+  " let g:copilot_node_command = '~/.nodebrew/node/v16.17.0/bin/node'
 '''
 
 [[plugins]]
@@ -56,7 +56,7 @@ hook_add = '''
     \  #{ char: '[', input_after: ']', except: '\\\%#' },
     \  #{ char: '{', input_after: '}', except: '\\\%#' },
     \  #{ char: '"', input_after: '"', except: '\\\%#' },
-    \  #{ char: "'", input_after: "'", except: '\\\%#' },
+    \  #{ char: "'", input_after: "'", except: '\(\\\|<\|&\)\%#' },
     \  #{ char: '`', input_after: '`', except: '\\\%#' },
     \  #{ char: ')', at: '(\%#)', leave: 1 },
     \  #{ char: ']', at: '\%#\]', leave: 1 },
