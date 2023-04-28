@@ -39,6 +39,9 @@ lua_source = '''
 
   local lsp_util = require('lspconfig.util')
   local lsp_config = {
+    astro = {
+        root_dir = lsp_util.root_pattern('astro.config.mjs')
+    },
     dartls = {
         root_dir = lsp_util.root_pattern('pubspec.yaml', '.dart')
     },
@@ -82,8 +85,9 @@ lua_source = '''
       single_file_support = false,
       root_dir = function(fname)
         local deno_root = lsp_util.root_pattern('deno.json', 'deno.jsonc', 'denops')(fname)
+        local astro_root = lsp_util.root_pattern('astro.config.mjs')(fname)
         local node_root = lsp_util.root_pattern('package.json', 'node_modules')(fname)
-        if deno_root ~= nil then
+        if deno_root ~= nil or astro_root ~= nil then
             return nil
         end
         return node_root

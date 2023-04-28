@@ -239,7 +239,7 @@ ddu-filer = '''
   nnoremap <buffer> dd <Cmd>call ddu#ui#do_action('itemAction', { 'name': 'trash' })<CR>
   nnoremap <buffer> q  <Cmd>call ddu#ui#do_action('quit')<CR>
 
-  nnoremap <buffer> . <Cmd>call ddu#ui#filer#do_action('updateOptions', #{
+  nnoremap <buffer> . <Cmd>call ddu#ui#do_action('updateOptions', #{
     \   sourceOptions: #{
     \     file: #{
     \       matchers: ddu#custom#get_current(b:ddu_ui_name)->get('sourceOptions', {})->get('file', {})->get('matchers', [])->empty() ? ['matcher_hidden'] : [],

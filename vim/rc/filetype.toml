@@ -20,6 +20,9 @@ tex = '''
 typescript = '''
   setlocal tabstop=2 softtabstop=2 shiftwidth=2
 '''
+scss = '''
+  setlocal tabstop=2 softtabstop=2 shiftwidth=2
+'''
 dart = '''
   setlocal tabstop=2 softtabstop=2 shiftwidth=2
 '''
