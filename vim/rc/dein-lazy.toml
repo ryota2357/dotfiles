@@ -70,36 +70,37 @@ hook_add = '''
     \  #{ char: '<CR>', at: '{\%#}',   input_after: '<CR>' },
     \  #{ char: '<CR>', at: '(\%#)',   input_after: '<CR>' },
     \ ]
-  let g:lexima_custom_tex = [
-    \  #{ char: '$',    input_after: '$' },
-    \  #{ char: '<BS>', at: '\$\%#\$', delete: 1 },
-    \  #{ char: '<CR>', at: '^ *\\item.*\%#', input: '<CR>\item ', except: '\\\\\%#' },
-    \ ]
-  let g:lexima_custom_cs = [
-    \  #{ char: '<CR>', at: ' {\%#}', input: '<BS><BS><CR>{<CR>', input_after: '<CR>' },
-    \  #{ char: '<CR>', at: '[^ ]{\%#}', input: '<BS><CR>{<CR>', input_after: '<CR>' },
-    \ ]
-  let g:lexima_custom_tag = [
-    \  #{ char: '>', at: '<\(\w\+\)\%#', input_after: '</\1>', with_submatch: v:true },
-    \  #{ char: '<CR>', at: '<\w\+>\%#<\/\w\+>', input_after: '<CR>' },
-    \ ]
+  let g:lexima_custom_ft = #{
+    \   tex: [
+    \     #{ char: '$',    input_after: '$' },
+    \     #{ char: '<BS>', at: '\$\%#\$', delete: 1 },
+    \     #{ char: '<CR>', at: '^ *\\item.*\%#', input: '<CR>\item ', except: '\\\\\%#' },
+    \   ],
+    \   cs: [
+    \     #{ char: '<CR>', at: ' {\%#}', input: '<BS><BS><CR>{<CR>', input_after: '<CR>' },
+    \     #{ char: '<CR>', at: '[^ ]{\%#}', input: '<BS><CR>{<CR>', input_after: '<CR>' },
+    \   ],
+    \   typescriptreact: [
+    \     #{ char: '>', at: '<\(\w\+\)\%#', input_after: '</\1>', with_submatch: v:true },
+    \     #{ char: '<CR>', at: '<\w\+>\%#<\/\w\+>', input_after: '<CR>' },
+    \   ],
+    \   pdf: [
+    \     #{ char: '<', at: '<\%#', input_after: '>>' },
+    \     #{ char: '<CR>', at: '<<\%#>>', input_after: '<CR>' }
+    \   ]
+    \ }
 '''
 hook_source = '''
   call lexima#clear_rules()
   for rule in g:lexima_custom
     call lexima#add_rule(rule)
   endfor
-  for rule in g:lexima_custom_tex
-    let rule['filetype'] = 'tex'
-    call lexima#add_rule(rule)
-  endfor
-  for rule in g:lexima_custom_cs
-    let rule['filetype'] = 'cs'
-    call lexima#add_rule(rule)
-  endfor
-  for rule in g:lexima_custom_tag
-    let rule['filetype'] = ['html', 'typescriptreact']
-    call lexima#add_rule(rule)
+  for ft in keys(g:lexima_custom_ft)
+    let rules = g:lexima_custom_ft[ft]
+    for rule in rules
+        let rule['filetype'] = ft
+        call lexima#add_rule(rule)
+    endfor
   endfor
   execute printf("inoremap <expr><silent> <CR> pum#visible() ? pum#map#confirm() : lexima#expand(%s, 'i')",
                 \ string(lexima#string#to_mappable('<CR>'))

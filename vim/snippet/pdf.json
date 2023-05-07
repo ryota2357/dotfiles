@@ -1,0 +1,94 @@
+{
+  "obj": {
+    "prefix": "obj",
+    "body": [
+      "obj",
+      "<<",
+      "  $0",
+      ">>",
+      "endobj"
+    ]
+  },
+  "stream": {
+    "prefix": "stream",
+    "body": [
+      "stream",
+      "$0",
+      "endstream"
+    ]
+  },
+  "xref": {
+    "prefix": "xref",
+    "body": [
+      "xref",
+      "trailer",
+      "<<",
+      "  /Size",
+      "  /Root",
+      ">>",
+      "startxref",
+      "0"
+    ]
+  },
+  "pdf-1.7": {
+    "prefix": "pdf-17",
+    "body": [
+      "%PDF-1.7",
+      "$0",
+      "%%EOF"
+    ]
+  },
+  "/Type": {
+    "prefix": "Type",
+    "body": "/Type"
+  },
+  "/Pages": {
+    "prefix": "Pages",
+    "body": "/Pages"
+  },
+  "/Kids": {
+    "prefix": "Kids",
+    "body": "/Kids"
+  },
+  "/Font": {
+    "prefix": "Font",
+    "body": "/Font"
+  },
+  "/Subtype": {
+    "prefix": "Subtype",
+    "body": "/Subtype"
+  },
+  "/Count": {
+    "prefix": "Count",
+    "body": "/Count"
+  },
+  "/Catalog": {
+    "prefix": "Catalog",
+    "body": "/Catalog"
+  },
+  "/BaseFont": {
+    "prefix": "BaseFont",
+    "body": "/BaseFont"
+  },
+  "/Page": {
+    "prefix": "Page",
+    "body": "/Page"
+  },
+  "/Parent": {
+    "prefix": "Parent",
+    "body": "/Parent"
+  },
+  "/Resources": {
+    "prefix": "Resources",
+    "body": "/Resources"
+  },
+  "MediaBox": {
+    "prefix": "MediaBox",
+    "body": "/MediaBox"
+  },
+  "Contents": {
+    "prefix": "Contents",
+    "body": "/Contents"
+  }
+}
+

@@ -13,18 +13,18 @@ scrolling:
 
 font:
   normal:
-    family: Cica
+    family: PleckJP
     style: Regular
   bold:
-    family: Cica
+    family: PleckJP
     style: Bold
   italic:
-    family: Cica
+    family: PleckJP
     style: Italic
   bold_italic:
-    family: Cica
+    family: PleckJP
     style: Bold Italic
-  size: 18.0
+  size: 18.5
   builtin_box_drawing: false
 
 draw_bold_text_with_bright_colors: false
