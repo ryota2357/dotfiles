@@ -37,9 +37,6 @@ lua_add = '''
 [[plugins]]
 repo = 'github/copilot.vim'
 on_cmd = 'Copilot'
-hook_add = '''
-  " let g:copilot_node_command = '~/.nodebrew/node/v16.17.0/bin/node'
-'''
 
 [[plugins]]
 repo = 'cohama/lexima.vim'

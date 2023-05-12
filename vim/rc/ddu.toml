@@ -213,13 +213,13 @@ ddu-ff = '''
 '''
 ddu-ff-filter = '''
   if b:ddu_ui_name ==# 'line'
-    inoremap <buffer> <CR> <Cmd>call ddu#ui#do_action('itemAction')<CR>
+    inoremap <buffer> <CR> <Cmd>call ddu#ui#sync_action('itemAction')<CR>
   else
-    inoremap <buffer> <CR>  <Cmd>call ddu#ui#do_action('itemAction', { 'params': {'command': 'drop'} })<CR>
-    inoremap <buffer> <C-o> <Cmd>call ddu#ui#do_action('itemAction', { 'params': {'command': 'tab drop'} })<CR>
+    inoremap <buffer> <CR>  <Cmd>call ddu#ui#sync_action('itemAction', { 'params': {'command': 'drop'} })<CR>
+    inoremap <buffer> <C-o> <Cmd>call ddu#ui#sync_action('itemAction', { 'params': {'command': 'tab drop'} })<CR>
   endif
-  inoremap <buffer> <C-n> <Cmd>call ddu#ui#ff#execute("call cursor(line('.')+1, 0)<Bar>redraw")<CR>
-  inoremap <buffer> <C-p> <Cmd>call ddu#ui#ff#execute("call cursor(line('.')-1, 0)<Bar>redraw")<CR>
+  inoremap <buffer> <C-n> <Cmd>call ddu#ui#do_action("cursorNext")<CR>
+  inoremap <buffer> <C-p> <Cmd>call ddu#ui#do_action("cursorPrevious")<CR>
   inoremap <buffer> <C-q> <Cmd>call ddu#ui#do_action('preview')<CR>
   inoremap <buffer> <ESC> <Cmd>call ddu#ui#do_action('quit')<CR>
 '''

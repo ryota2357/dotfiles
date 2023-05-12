@@ -33,7 +33,7 @@ lua_source = '''
           nmap(',s', vim.lsp.buf.signature_help)
           nmap(',a', vim.lsp.buf.code_action)
           nmap(',f', vim.lsp.buf.references)
-          client.server_capabilities.semanticTokensProvider = nil
+          -- client.server_capabilities.semanticTokensProvider = nil
       end
   }
 

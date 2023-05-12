@@ -29,9 +29,11 @@ ln_dots vim/format/clang-format.yaml ~/.clang-format
 # tmux
 ln_dots tmux/tmux.conf ~/.tmux.conf
 
-# alacritty
+# terminal config
 mkdir -p ~/.config/alacritty
-ln_dots alacritty/alacritty.yaml ~/.config/alacritty/alacritty.yml
+ln_dots terminal/alacritty.yaml ~/.config/alacritty/alacritty.yml
+mkdir -p ~/.config/wezterm
+ln_dots terminal/wezterm.lua ~/.config/wezterm/wezterm.lua
 
 # latex
 ln_dots tex/latexmkrc.perl ~/.latexmkrc

@@ -39,6 +39,10 @@ require('dein-snip').setup {
     auto_recache = true
 }
 
+-- vim.cmd [[
+--   execute 'luafile ' .. expand('~/Projects/CSharp/necodark/build/nvim/colors/necodark.lua')
+-- ]]
+
 Statusline = require('rc.ui.statusline')
 vim.api.nvim_set_option('statusline', '%!v:lua.Statusline()')
 
