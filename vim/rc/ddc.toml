@@ -2,197 +2,189 @@
 repo = 'Shougo/ddc.vim'
 depends = ['denops.vim', 'pum.vim', 'context_filetype.vim']
 on_event = ['InsertEnter', 'CursorHold', 'CmdlineEnter']
-hook_add = '''
-  let g:ddc_source_options = #{
-    \   _: #{
-    \     ignoreCase: v:true,
-    \     matchers: ['matcher_fuzzy'],
-    \     sorters: ['sorter_fuzzy'],
-    \     converters: ['converter_fuzzy']
-    \   }
-    \ }
-
-  nnoremap : <Cmd>call <SID>CommandlinePre()<CR>:
-
-  function! s:CommandlinePre() abort
-    cnoremap <expr><Tab>  pum#visible() ? pum#map#insert_relative(+1) : ddc#map#manual_complete()
-    cnoremap <expr><C-n>  pum#visible() ? pum#map#insert_relative(-1) : '<Down>'
-    cnoremap <expr><C-p>  pum#visible() ? pum#map#insert_relative(+1) : '<Up>'
-    cnoremap <expr><Down> pum#visible() ? pum#map#insert_relative(-1) : '<Down>'
-    cnoremap <expr><Up>   pum#visible() ? pum#map#insert_relative(+1) : '<Up>'
-    cnoremap <expr><CR>   pum#visible() && pum#complete_info()['selected'] != -1 ? pum#map#confirm() : '<CR>'
-    autocmd User DDCCmdlineLeave ++once call s:CommandlinePost()
-    autocmd InsertEnter <buffer> ++once call s:CommandlinePost()
-    call ddc#enable_cmdline_completion()
-  endfunction
-
-  function! s:CommandlinePost() abort
-    silent! cunmap <Tab>
-    silent! cunmap <C-n>
-    silent! cunmap <C-p>
-    silent! cunmap <Down>
-    silent! cunmap <Up>
-    silent! cunmap <CR>
-  endfunction
+lua_add = '''
+    local ddc = require('rc.ddc')
+    ddc.set_source_options('_', {
+        ignoreCase = true,
+        matchers = { 'matcher_fuzzy' },
+        sorters = { 'sorter_fuzzy' },
+        converters = { 'converter_fuzzy' },
+    })
+    ddc.enable_cmdline_completion_with(':', function(cmap, pum)
+        cmap('<Tab>', function()
+            return pum.visible() and pum.map.insert_relative(1) or ddc.map.manual_complete()
+        end)
+        cmap({ '<C-n>', '<Down>' }, function()
+            return pum.visible() and pum.map.insert_relative(-1) or '<Down>'
+        end)
+        cmap({ '<C-p>', '<Up>' }, function()
+            return pum.visible() and pum.map.insert_relative(1) or '<Up>'
+        end)
+        cmap('<CR>', function()
+            if pum.visible() and pum.complete_info().selected ~= -1 then
+                return pum.map.confirm()
+            else
+                return '<CR>'
+            end
+        end)
+    end)
 '''
-hook_source = '''
-  call ddc#custom#patch_global(#{
-   \   ui: 'pum',
-   \   sources: ['around', 'skkeleton'],
-   \   cmdlineSources: ['cmdline', 'cmdline-history', 'around'],
-   \   sourceOptions: g:ddc_source_options,
-   \   sourceParams: { 'around': { 'maxSize': 500 } },
-   \   autoCompleteEvents: ['InsertEnter', 'TextChangedI', 'TextChangedP', 'CmdlineEnter', 'CmdlineChanged'],
-   \   backspaceCompletion: v:true,
-   \ })
+lua_source = '''
+    local ddc = require('rc.ddc')
 
-  call ddc#custom#patch_filetype(['vim', 'typescript', 'typescriptreact', 'astro'], #{
-    \   sources: ['vsnip', 'nvim-lsp', 'around']
-    \ })
-  call ddc#custom#patch_filetype(['c', 'cpp', 'cs', 'dart', 'python', 'rust', 'ruby', 'lua'], #{
-    \   sources: ['nvim-lsp', 'around']
-    \ })
-  call ddc#custom#patch_filetype(['css', 'scss'], #{
-    \   sources: ['nvim-lsp']
-    \ })
-  call ddc#custom#patch_filetype(['tex'], #{
-    \   sources: ['nvim-lsp', 'vsnip', 'around', 'skkeleton'],
-    \   sourceOptions: #{
-    \     vsnip: #{ minAutoCompleteLength: 1 },
-    \     nvim-lsp: #{
-    \       minAutoCompleteLength: 3,
-    \       matchers: ['matcher_head'],
-    \     }
-    \   }
-    \ })
-  call ddc#custom#patch_filetype(['markdown'], #{
-    \   sources: ['around', 'mocword']
-    \ })
-  call ddc#custom#patch_filetype(['pdf'], #{
-    \   sources: ['vsnip', 'around']
-    \ })
+    ddc.custom.patch_global({
+        ui = 'pum',
+        sources = { 'around', 'skkeleton' },
+        cmdlineSources = { 'cmdline', 'cmdline-history', 'around' },
+        sourceOptions = ddc.get_source_options(),
+        sourceParams = { ['around'] = { maxSize = 500 } },
+        autoCompleteEvents = { 'InsertEnter', 'TextChangedI', 'TextChangedP', 'CmdlineEnter', 'CmdlineChanged' },
+        backspaceCompletion = true,
+    })
+    ddc.custom.patch_filetype({ 'vim', 'typescript', 'typescriptreact', 'astro' }, {
+        sources = { 'vsnip', 'nvim-lsp', 'around' },
+    })
+    ddc.custom.patch_filetype({ 'c', 'cpp', 'cs', 'dart', 'python', 'rust', 'ruby', 'lua' }, {
+        sources = { 'nvim-lsp', 'around' },
+    })
+    ddc.custom.patch_filetype({ 'css', 'scss' }, {
+        sources = { 'nvim-lsp' },
+    })
+    ddc.custom.patch_filetype({ 'tex' }, {
+        sources = { 'nvim-lsp', 'vsnip', 'around', 'skkeleton' },
+        sourceOptions = {
+            ['vsnip'] = { minAutoCompleteLength = 1 },
+            ['nvim-lsp'] = {
+                minAutoCompleteLength = 3,
+                matchers = { 'matcher_head' }
+            },
+        },
+    })
+    ddc.custom.patch_filetype({ 'markdown' }, {
+        sources = { 'around', 'mocword' },
+    })
+    ddc.custom.patch_filetype({ 'pdf' }, {
+        sources = { 'vsnip', 'around' },
+    })
+    ddc.custom.patch_filetype({ 'ddu-ff-filter' }, {
+        specialBufferCompletion = false,
+    })
 
-  call ddc#custom#patch_filetype(['ddu-ff-filter'], #{
-    \   specialBufferCompletion: v:false
-    \ })
+    vim.cmd [[
+      call ddc#custom#set_context_global({ ->
+        \ ddc#syntax#in('comment') ? #{
+        \   sources: ['around', 'mocword'],
+        \ } : {} })
+      " Partedit で補完ができるように
+      autocmd OptionSet buftype if &buftype ==# 'acwrite' | call ddc#custom#patch_buffer('specialBufferCompletion', v:true) | endif
+    ]]
 
-  call ddc#custom#set_context_global({ ->
-    \ ddc#syntax#in('comment') ? #{
-    \   sources: ['around', 'mocword'],
-    \ } : {} })
-
-  " Partedit で補完ができるように
-  autocmd OptionSet buftype if &buftype ==# 'acwrite' | call ddc#custom#patch_buffer('specialBufferCompletion', v:true) | endif
-
-  lua require'rc.util'.setcellwidths2({}, true)
-  call ddc#enable()
+    ddc.enable()
 '''
 
 [[plugins]]
 repo = 'Shougo/ddc-source-around'
 on_source = 'ddc.vim'
-hook_source = '''
-  let g:ddc_source_options['around'] = #{
-    \   mark: '',
-    \   matchers: ['matcher_head', 'matcher_length'],
-    \   converters: ['converter_remove_overlap']
-    \ }
-  lua require'rc.util'.setcellwidths2(0xf10c, false)
+lua_source = '''
+    require('rc.ddc').set_source_options('around', {
+        mark = ' ',
+        matchers = { 'matcher_head', 'matcher_length' },
+        converters = { 'converter_remove_overlap' },
+    })
 '''
 
 [[plugins]]
 repo = 'Shougo/ddc-source-mocword'
 on_source = 'ddc.vim'
-hook_source = '''
-  let g:ddc_source_options['mocword'] = #{
-    \   mark: '',
-    \   matchers: ['matcher_head', 'matcher_length'],
-    \   converters: ['converter_remove_overlap'],
-    \   isVolatile: v:true,
-    \   minAutoCompleteLength: 1
-    \ }
-  lua require'rc.util'.setcellwidths2(0xf02d, false)
+lua_source = '''
+    require('rc.ddc').set_source_options('mocword', {
+        mark = ' ',
+        matchers = { 'matcher_head', 'matcher_length' },
+        converters = { 'converter_remove_overlap' },
+        isVolatile = true,
+        minAutoCompleteLength = 1,
+    })
 '''
 
 [[plugins]]
 repo = 'Shougo/ddc-source-nvim-lsp'
 on_source = 'ddc.vim'
-hook_source = '''
-  let g:ddc_source_options['nvim-lsp'] = #{
-    \   mark: '',
-    \   dup: 'keep',
-    \   forceCompletionPattern: '\.\w*|:\w*|->\w*'
-    \ }
-  lua require'rc.util'.setcellwidths2(0xf233, false)
+lua_source = '''
+    require('rc.ddc').set_source_options('nvim-lsp', {
+        mark = ' ',
+        dup = 'keep',
+        forceCompletionPattern = [[\.\w*|:\w*|->\w*]],
+    })
 '''
 
 [[plugins]]
 repo = 'Shougo/ddc-source-cmdline'
 on_source = 'ddc.vim'
-hook_source = '''
-  let g:ddc_source_options['cmdline'] = #{
-    \   mark: '',
-    \   minAutoCompleteLength: 1
-    \ }
-  lua require'rc.util'.setcellwidths2(0xf120, false)
+lua_source = '''
+    require('rc.ddc').set_source_options('cmdline', {
+        mark = ' ',
+        minAutoCompleteLength = 1,
+    })
 '''
 
 [[plugins]]
 repo = 'Shougo/ddc-source-cmdline-history'
 on_source = 'ddc.vim'
-hook_source = '''
-  let g:ddc_source_options['cmdline-history'] = #{
-    \   mark: '',
-    \   matchers: ['matcher_head', 'matcher_length'],
-    \   converters: ['converter_remove_overlap']
-    \ }
-  lua require'rc.util'.setcellwidths2(0xf1da, false)
+lua_source = '''
+    require('rc.ddc').set_source_options('cmdline-history', {
+        mark = ' ',
+        matchers = { 'matcher_head', 'matcher_length' },
+        converters = { 'converter_remove_overlap' },
+    })
 '''
 
 [[plugins]]
 repo = 'hrsh7th/vim-vsnip'
 on_source = 'ddc.vim'
-hook_add = '''
-  let g:vsnip_snippet_dir = expand('~/dotfiles/vim/snippet')
-  imap <expr><Tab>   vsnip#jumpable(1)  ? '<Plug>(vsnip-jump-next)' : '<Tab>'
-  imap <expr><S-Tab> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
+lua_add = '''
+    vim.g.vsnip_snippet_dir = vim.fn.expand('~/dotfiles/vim/snippet')
+    vim.keymap.set('i', '<Tab>', function()
+        return vim.fn['vsnip#jumpable'](1) ~= 0 and '<Plug>(vsnip-jump-next)' or '<Tab>'
+    end, { expr = true })
+    vim.keymap.set('i', '<S-Tab>', function()
+        return vim.fn['vsnip#jumpable'](-1) ~= 0 and '<Plug>(vsnip-jump-prev)' or '<S-Tab>'
+    end, { expr = true })
 '''
 
 [[plugins]]
 repo = 'hrsh7th/vim-vsnip-integ'
 on_source = 'ddc.vim'
 depends = 'vim-vsnip'
-hook_source = '''
-  let g:ddc_source_options['vsnip'] = #{
-    \   mark: '',
-    \   dup: 'keep'
-    \ }
-  lua require'rc.util'.setcellwidths2(0xf135, false)
+lua_source = '''
+    require('rc.ddc').set_source_options('vsnip', {
+        mark = ' ',
+        dup = 'keep',
+    })
 
-  " pum, ddc との連携
-  autocmd User PumCompleteDone call vsnip_integ#on_complete_done(g:pum#completed_item)
+    -- pum, ddc との連携
+    require('rc.util').autocmd 'User' {
+        pattern = 'PumCompleteDone',
+        command = 'call vsnip_integ#on_complete_done(g:pum#completed_item)',
+    }
 '''
 
 [[plugins]]
 repo = 'vim-skk/skkeleton'
 on_source = 'ddc.vim'
-hook_source = '''
-  call skkeleton#config(#{
-    \   globalDictionaries: ['~/.local/share/SKK/dict/SKK-JISYO.L'],
-    \   eggLikeNewline: v:true,
-    \   registerConvertResult: v:true
-    \ })
-  imap <C-j> <Plug>(skkeleton-enable)
-  cmap <C-j> <Plug>(skkeleton-enable)
-  let g:ddc_source_options['skkeleton'] = #{
-    \   mark: '',
-    \   matchers: ['skkeleton'],
-    \   sorters: [],
-    \   converters: [],
-    \   isVolatile: v:true,
-    \   minAutoCompleteLength: 2
-    \ }
-  lua require'rc.util'.setcellwidths2(0xf044, false)
+lua_source = '''
+    require('rc.ddc').set_source_options('skkeleton', {
+        mark = ' ',
+        matchers = { 'matcher_head', 'matcher_length' },
+        converters = { 'converter_remove_overlap' },
+        isVolatile = true,
+        minAutoCompleteLength = 2,
+    })
+    vim.fn['skkeleton#config']({
+        globalDictionaries = { '~/.local/share/SKK/dict/SKK-JISYO.L' },
+        eggLikeNewline = true,
+        registerConvertResult = true,
+    })
+    vim.keymap.set({ 'i', 'c' }, '<C-j>', '<Plug>(skkeleton-enable)')
 '''
 
 [[plugins]]
@@ -222,13 +214,9 @@ on_source = 'ddc.vim'
 [[plugins]]
 repo = 'matsui54/denops-signature_help'
 on_source = 'ddc.vim'
-hook_source = '''
-  call signature_help#enable()
-'''
+hook_source = 'call signature_help#enable()'
 
 [[plugins]]
 repo = 'matsui54/denops-popup-preview.vim'
 on_source = 'ddc.vim'
-hook_source = '''
-  call popup_preview#enable()
-'''
+hook_source = 'call popup_preview#enable()'

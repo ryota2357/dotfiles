@@ -60,10 +60,6 @@ vim.ui = {
     end
 }
 
-Inspect = function(any)
-    print(vim.inspect(any))
-end
-
 require('rc.autocmd')
 
 vim.opt.secure = true

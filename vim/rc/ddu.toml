@@ -2,250 +2,273 @@
 repo = 'Shougo/ddu.vim'
 depends = 'denops.vim'
 on_event = 'CursorHold'
-hook_add = '''
-  nnoremap <Leader>f <Cmd>call ddu#start(#{
-    \   name: 'file',
-    \   sources: [#{name: 'file_rec'}],
-    \   uiParams: #{
-    \     ff: <SID>create_ddu_uiParams('full')
-    \   }
-    \ })<CR>
+lua_add = '''
+    local ddu = require('rc.ddu')
+    local round = function(x)
+        return math.floor(x + 0.5)
+    end
+    local create_uiParams_ff_full = function(ctx, config)
+        return vim.tbl_extend('force', {
+            ff = {
+                winRow = round(ctx.lines * 0.2),
+                winCol = round(ctx.columns * 0.15),
+                winHeight = round(ctx.lines * 0.5),
+                winWidth = round(ctx.columns * 0.7),
+                previewHeight = round(ctx.lines * 0.15),
+                previewWidth = round(ctx.columns * 0.7)
+            }
+        }, config or {})
+    end
+    local create_uiParams_ff_left = function(ctx, config)
+        return vim.tbl_extend('force', {
+            ff = {
+                winRow = round(ctx.lines * 0.05),
+                winCol = round(ctx.columns * 0.05),
+                winHeight = round(ctx.lines * 0.8),
+                winWidth = round(ctx.columns * 0.45),
+                previewSplit = "vertical",
+                previewCol = round(ctx.columns * 0.5),
+                previewHeight = round(ctx.lines * 0.8),
+                previewWidth = round(ctx.columns * 0.45),
+                autoAction = { name = 'preview' }
+            }
+        }, config or {})
+    end
 
-  nnoremap <Leader>g <Cmd>call ddu#start(#{
-    \   name: 'grep',
-    \   sources: [#{name: 'rg'}],
-    \   uiParams: {
-    \     'ff': <SID>create_ddu_uiParams('left')
-    \   }
-    \ })<CR>
+    ddu.start.keymap('n', '<Leader>f', 'file_rec', function(ctx)
+        return {
+            uiParams = create_uiParams_ff_full(ctx)
+        }
+    end)
 
-  nnoremap <Leader>b <Cmd>call ddu#start(#{
-    \   name: 'buffer',
-    \   sources: [#{name: 'buffer'}],
-    \   uiParams: #{
-    \     ff: <SID>create_ddu_uiParams('full')
-    \   }
-    \ })<CR>
+    ddu.start.keymap('n', '<Leader>g', 'rg', function(ctx)
+        return {
+            uiParams = create_uiParams_ff_left(ctx)
+        }
+    end)
 
-  nnoremap <Leader>h <Cmd>call ddu#start(#{
-    \   name: 'help',
-    \   sources: [#{name: 'help'}],
-    \   uiParams: #{
-    \     ff: <SID>create_ddu_uiParams('left', #{
-    \       winWidth: round(&columns * 0.40),
-    \       previewWidth: round(&columns * 0.60),
-    \     })
-    \   }
-    \ })<CR>
+    ddu.start.keymap('n', '<Leader>b', 'buffer', function(ctx)
+        return {
+            uiParams = create_uiParams_ff_full(ctx)
+        }
+    end)
 
-  nnoremap <Leader>l <Cmd>call ddu#start(#{
-    \  name: 'line',
-    \  sources: [#{name: 'line'}],
-    \   uiParams: #{
-    \     ff: <SID>create_ddu_uiParams('full', #{
-    \       winRow: round(&lines * 0.15),
-    \       winHeight: round(&lines * 0.6)
-    \     })
-    \   }
-    \ })<CR>
+    ddu.start.keymap('n', '<Leader>h', 'help', function(ctx)
+        return {
+            uiParams = create_uiParams_ff_left(ctx, {
+                winWidth = round(ctx.lines * 0.40),
+                previewWidth = round(ctx.columns * 0.60)
+            })
+        }
+    end)
 
-  nnoremap <Leader>o <Cmd>call ddu#start(#{
-    \   name: 'file',
-    \   sources: [#{name: 'file'}],
-    \   ui: 'filer',
-    \   resume: v:true
-    \ })<CR>
+    ddu.start.keymap('n', '<Leader>l', 'line', function(ctx)
+        return {
+            uiParams = create_uiParams_ff_full(ctx, {
+                winWidth = round(ctx.lines * 0.15),
+                previewWidth = round(ctx.columns * 0.60)
+            })
+        }
+    end)
 
-  command! Library call ddu#start(#{
-    \   name: 'library',
-    \   sources: [#{name: 'cpl'}],
-    \   uiParams: #{
-    \     ff: <SID>create_ddu_uiParams('full')
-    \   }
-    \ })
+    ddu.start.keymap('n', '<Leader>o', 'file', function()
+        return {
+            ui = 'filer',
+            resume = true
+        }
+    end)
 
-  command! DeinPlugins call ddu#start(#{
-    \   name: 'dein',
-    \   sources: [#{name: 'dein'}],
-    \   uiParams: #{
-    \     ff: <SID>create_ddu_uiParams('full')
-    \   }
-    \ })
+    ddu.start.command('Library', 'cpl', function(ctx)
+        return {
+            uiParams = create_uiParams_ff_full(ctx)
+        }
+    end)
 
-  function! s:create_ddu_uiParams(type, ...) abort
-    if a:type ==# 'full'
-      let l:ret = #{
-        \   winRow: round(&lines * 0.2),
-        \   winCol: round(&columns * 0.15),
-        \   winHeight: round(&lines * 0.5),
-        \   winWidth: round(&columns * 0.7),
-        \   previewHeight: round(&lines * 0.15),
-        \   previewWidth: round(&columns * 0.7)
-        \ }
-    elseif a:type ==# 'left'
-      let l:ret = #{
-        \  winRow: round(&lines * 0.05),
-        \  winCol: round(&columns * 0.05),
-        \  winHeight: round(&lines * 0.8),
-        \  winWidth: round(&columns * 0.45),
-        \  previewSplit: "vertical",
-        \  previewCol: round(&columns * 0.5),
-        \  previewHeight: round(&lines * 0.8),
-        \  previewWidth: round(&columns * 0.45),
-        \  autoAction: { 'name': 'preview' }
-        \ }
-    endif
-    if a:0 > 0
-      for [key, value] in items(a:1)
-        let l:ret[key] = value
-      endfor
-    endif
-    return l:ret
-  endfunction
+    ddu.start.command('DeinPlugins', 'dein', function(ctx)
+        return {
+            uiParams = create_uiParams_ff_full(ctx)
+        }
+    end)
 '''
-hook_source = '''
-  call ddu#custom#alias('filter', 'matcher_fzf_kensaku', 'merge')
-  call ddu#custom#alias('filter', 'matcher_kensaku_fzf', 'merge')
+lua_source = '''
+    local ddu = require('rc.ddu')
 
-  call ddu#custom#patch_global(#{
-    \   ui: 'ff',
-    \   uiOptions: #{
-    \     filer: { 'toggle': v:true }
-    \    },
-    \   uiParams: #{
-    \     ff: #{
-    \       split: 'floating',
-    \       floatingBorder: 'rounded',
-    \       previewFloating: v:true,
-    \       previewFloatingBorder: 'rounded',
-    \       startFilter: v:true,
-    \       replaceCol: match(getline('.')[: col('.') - 1], '\f*$') + 1
-    \     },
-    \     filer: #{
-    \       split: 'vertical',
-    \       splitDirection: 'topleft',
-    \       winWidth: 30,
-    \       sort: 'filename',
-    \       sortTreesFirst: v:true,
-    \       statusline: v:false
-    \     }
-    \   },
-    \   sourceOptions: #{
-    \     _ : #{
-    \       ignoreCase: v:true,
-    \       matchers: ['matcher_fzf_kensaku']
-    \     },
-    \     rg: #{
-    \       volatile: v:true,
-    \       matchers: []
-    \     },
-    \     file: #{
-    \       matchers: ['matcher_hidden'],
-    \       columns: ['icon_filename']
-    \     },
-    \     line: #{
-    \       matchers: ['matcher_kensaku_fzf']
-    \     },
-    \     dein: #{
-    \       defaultAction: 'cd',
-    \     }
-    \   },
-    \   sourceParams: #{
-    \     file_rec: #{
-    \       ignoredDirectories: ['.git', 'node_modules', '.cache', 'target']
-    \     },
-    \     rg: #{
-    \       args: ['--json', '--ignore-case']
-    \     },
-    \     help: #{
-    \       style: 'allLang'
-    \     }
-    \   },
-    \   columnParams: #{
-    \     icon_filename: #{
-    \       defaultIcon: #{ icon: '' },
-    \       useLinkIcon: 'grayout',
-    \       customFileIcons: #{
-    \         tex: #{ icon: 'ﭨ' }
-    \       }
-    \     }
-    \   },
-    \   filterParams: #{
-    \     matcher_fzf: #{ highlightMatched: 'Search' },
-    \     matcher_kensaku: #{ highlightMatched: 'Search' },
-    \     matcher_fzf_kensaku: #{
-    \       filters: [
-    \         #{name: 'matcher_fzf', weight: 2.0},
-    \         #{name: 'matcher_kensaku', weight: 1.0},
-    \       ]
-    \     },
-    \     matcher_kensaku_fzf: #{
-    \       filters: [
-    \         #{name: 'matcher_kensaku', weight: 2.0},
-    \         #{name: 'matcher_fzf', weight: 1.0},
-    \       ]
-    \     }
-    \   },
-    \   kindParams: #{
-    \      file: { 'trashCommand': ['use', 'trash'] }
-    \   },
-    \   kindOptions: #{
-    \     file: #{ defaultAction: 'open' },
-    \     help: #{ defaultAction: 'open' },
-    \     cpl: #{ defaultAction: 'paste' }
-    \   },
-    \   actionOptions: #{
-    \     narrow: #{
-    \       quit: v:false,
-    \     },
-    \   }
-    \ })
+    ddu.custom.alias('filter', 'matcher_fzf_kensaku', 'merge')
+    ddu.custom.alias('filter', 'matcher_kensaku_fzf', 'merge')
+    ddu.custom.alias('column', 'icon_filename_for_ff', 'icon_filename')
+
+    ddu.custom.patch_global({
+        ui = 'ff',
+        uiOptions = {
+            filer = { toggle = true }
+        },
+        uiParams = {
+            ff = {
+                split = 'floating',
+                floatingBorder = 'rounded',
+                previewFloating = true,
+                previewFloatingBorder = 'rounded',
+                startFilter = true,
+            },
+            filer = {
+                split = 'vertical',
+                splitDirection = 'topleft',
+                winWidth = 30,
+                sort = 'filename',
+                sortTreesFirst = true,
+                statusline = false
+            }
+        },
+        sourceOptions = {
+            _ = {
+                ignoreCase = true,
+                matchers = { 'matcher_fzf_kensaku' }
+            },
+            rg = {
+                volatile = true,
+                matchers = {}
+            },
+            file = {
+                matchers = { 'matcher_hidden' },
+                columns = { 'icon_filename' }
+            },
+            file_rec = {
+                columns = { 'icon_filename_for_ff' }
+            },
+            line = {
+                matchers = { 'matcher_kensaku_fzf' }
+            },
+            dein = {
+                defaultAction = 'cd',
+            }
+        },
+        sourceParams = {
+            file_rec = {
+                ignoredDirectories = { '.git', 'node_modules', '.cache', 'target' }
+            },
+            rg = {
+                args = { '--json', '--ignore-case' },
+                volatile = true,
+            },
+            help = {
+                style = 'allLang'
+            }
+        },
+        columnParams = {
+            icon_filename = {
+                defaultIcon = { icon = '' },
+                useLinkIcon = 'grayout'
+            },
+            icon_filename_for_ff = {
+                defaultIcon = { icon = '' },
+                padding = 0,
+                pathDisplayOption = "relative"
+            }
+        },
+        filterParams = {
+            matcher_fzf = { highlightMatched = 'Search' },
+            matcher_kensaku = { highlightMatched = 'Search' },
+            matcher_fzf_kensaku = {
+                filters = {
+                    { name = 'matcher_fzf',     weight = 2.0 },
+                    { name = 'matcher_kensaku', weight = 1.0 },
+                }
+            },
+            matcher_kensaku_fzf = {
+                filters = {
+                    { name = 'matcher_kensaku', weight = 2.0 },
+                    { name = 'matcher_fzf',     weight = 1.0 },
+                }
+            }
+        },
+        kindParams = {
+            file = { trashCommand = { 'use', 'trash' } }
+        },
+        kindOptions = {
+            file = { defaultAction = 'open' },
+            help = { defaultAction = 'open' },
+            cpl = { defaultAction = 'paste' }
+        },
+        actionOptions = {
+            narrow = {
+                quit = false
+            }
+        }
+    })
 '''
 
 [[plugins]]
 repo = 'Shougo/ddu-ui-ff'
 on_source = 'ddu.vim'
 [plugins.ftplugin]
-ddu-ff = '''
-  nnoremap <buffer> <CR>  <Cmd>call ddu#ui#do_action('itemAction')<CR>
-  nnoremap <buffer> <ESC> <Cmd>call ddu#ui#do_action('quit')<CR>
-  nnoremap <buffer> i     <Cmd>call ddu#ui#do_action('openFilterWindow')<CR>
+lua_ddu-ff = '''
+    local ddu = require('rc.ddu')
+    ddu.nmap('<CR>',  function() ddu.ui.do_action('itemAction') end)
+    ddu.nmap('<ESC>', function() ddu.ui.do_action('quit') end)
+    ddu.nmap('i',     function() ddu.ui.do_action('openFilterWindow') end)
+    vim.opt.signcolumn = "no"
 '''
-ddu-ff-filter = '''
-  if b:ddu_ui_name ==# 'line'
-    inoremap <buffer> <CR> <Cmd>call ddu#ui#sync_action('itemAction')<CR>
-  else
-    inoremap <buffer> <CR>  <Cmd>call ddu#ui#sync_action('itemAction', { 'params': {'command': 'drop'} })<CR>
-    inoremap <buffer> <C-o> <Cmd>call ddu#ui#sync_action('itemAction', { 'params': {'command': 'tab drop'} })<CR>
-  endif
-  inoremap <buffer> <C-n> <Cmd>call ddu#ui#do_action("cursorNext")<CR>
-  inoremap <buffer> <C-p> <Cmd>call ddu#ui#do_action("cursorPrevious")<CR>
-  inoremap <buffer> <C-q> <Cmd>call ddu#ui#do_action('preview')<CR>
-  inoremap <buffer> <ESC> <Cmd>call ddu#ui#do_action('quit')<CR>
+lua_ddu-ff-filter = '''
+    local ddu = require('rc.ddu')
+    if vim.b.ddu_ui_name == 'line' then
+        ddu.imap('<CR>', function() ddu.ui.sync_action('itemAction') end)
+    else
+        ddu.imap('<CR>', function()
+            ddu.ui.sync_action('itemAction', {
+                params = { command = 'drop' }
+            })
+        end)
+        ddu.imap('<C-o>', function()
+            ddu.ui.sync_action('itemAction', {
+                params = { command = 'tab drop' }
+            })
+        end)
+    end
+    ddu.imap('<C-n>', function() ddu.ui.do_action('cursorNext') end)
+    ddu.imap('<C-p>', function() ddu.ui.do_action('cursorPrevious') end)
+    ddu.imap('<C-q>', function() ddu.ui.sync_action('preview') end)
+    ddu.imap('<ESC>', function() ddu.ui.do_action('quit') end)
 '''
 
 [[plugins]]
 repo = 'Shougo/ddu-ui-filer'
 on_source = 'ddu.vim'
 [plugins.ftplugin]
-ddu-filer = '''
-  nnoremap <buffer><expr> <CR> ddu#ui#get_item()->get('isTree', v:false)
-    \ ? "<Cmd>call ddu#ui#do_action('expandItem', {'mode': 'toggle'})<CR>"
-    \ : "<Cmd>call ddu#ui#do_action('itemAction', { 'params': {'command': 'drop'} })<CR>"
-  nnoremap <buffer> o  <Cmd>call ddu#ui#do_action('itemAction', { 'params': {'command': 'tab drop'} })<CR>
-  nnoremap <buffer> n  <Cmd>call ddu#ui#do_action('itemAction', { 'name': 'newFile' })<CR>
-  nnoremap <buffer> r  <Cmd>call ddu#ui#do_action('itemAction', { 'name': 'rename' })<CR>
-  nnoremap <buffer> R  <Cmd>call ddu#ui#do_action('checkItems')<CR>
-  nnoremap <buffer> dd <Cmd>call ddu#ui#do_action('itemAction', { 'name': 'trash' })<CR>
-  nnoremap <buffer> q  <Cmd>call ddu#ui#do_action('quit')<CR>
-
-  nnoremap <buffer> . <Cmd>call ddu#ui#do_action('updateOptions', #{
-    \   sourceOptions: #{
-    \     file: #{
-    \       matchers: ddu#custom#get_current(b:ddu_ui_name)->get('sourceOptions', {})->get('file', {})->get('matchers', [])->empty() ? ['matcher_hidden'] : [],
-    \     },
-    \   },
-    \ })<CR>
+lua_ddu-filer = '''
+    local ddu = require('rc.ddu')
+    ddu.nmap('<CR>', function()
+        if ddu.ui.get_item().isTree then
+            ddu.ui.do_action('expandItem', { mode = 'toggle' })
+        else
+            ddu.ui.do_action('itemAction', { params = { command = 'drop' } })
+        end
+    end)
+    ddu.nmap('o',  function() ddu.ui.do_action('itemAction', { params = { command = 'tab drop' } }) end)
+    ddu.nmap('n',  function() ddu.ui.do_action('itemAction', { name = 'newFile' }) end)
+    ddu.nmap('r',  function() ddu.ui.do_action('itemAction', { name = 'rename' }) end)
+    ddu.nmap('R',  function() ddu.ui.do_action('checkItems') end)
+    ddu.nmap('dd', function() ddu.ui.do_action('itemAction', { name = 'trash' }) end)
+    ddu.nmap('q',  function() ddu.ui.do_action('quit') end)
+    ddu.nmap('.',  function()
+        ddu.ui.do_action('updateOptions', {
+            sourceOptions = {
+                file = {
+                    matchers = (function()
+                        local matchers = require('rc.util').tbl_get(
+                            ddu.custom.get_current(vim.b.ddu_ui_name),
+                            { 'sourceOptions', 'file', 'matchers' },
+                            {}
+                        )
+                        if next(matchers) == nil then
+                            return { 'matcher_hidden' }
+                        else
+                            return {}
+                        end
+                    end)()
+                },
+            },
+        })
+    end)
 '''
 
 [[plugins]]

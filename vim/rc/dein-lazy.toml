@@ -12,10 +12,10 @@ hook_source = '''
   call pum#set_option(#{
     \   auto_select: v:true,
     \   use_complete: v:true,
-    \   padding: v:true,
     \   scrollbar_char: '',
     \ })
   call pum#set_local_option('c', #{
+    \   padding: v:true,
     \   auto_select: v:false,
     \   reversed: v:true
     \ })
@@ -25,13 +25,13 @@ hook_source = '''
 repo = 'rcarriga/nvim-notify'
 on_lua = 'notify'
 lua_add = '''
-  vim.notify = function(...)
-    vim.notify = require('notify')
-    vim.notify.setup {
-      level = 0
-    }
-    vim.notify(...)
-  end
+    vim.notify = function(...)
+        vim.notify = require('notify')
+        vim.notify.setup {
+            level = 0
+        }
+        vim.notify(...)
+    end
 '''
 
 [[plugins]]
@@ -48,74 +48,75 @@ hook_add = '''
   let g:lexima_map_escape = ''
   let g:lexima_accept_pum_with_enter = v:false
   autocmd FileType ddu-ff-filter let b:lexima_disabled = v:true
-  let g:lexima_custom = [
-    \  #{ char: '(', input_after: ')', except: '\\\%#' },
-    \  #{ char: '[', input_after: ']', except: '\\\%#' },
-    \  #{ char: '{', input_after: '}', except: '\\\%#' },
-    \  #{ char: '"', input_after: '"', except: '\\\%#' },
-    \  #{ char: "'", input_after: "'", except: '\(\\\|<\|&\)\%#' },
-    \  #{ char: '`', input_after: '`', except: '\\\%#' },
-    \  #{ char: ')', at: '(\%#)', leave: 1 },
-    \  #{ char: ']', at: '\%#\]', leave: 1 },
-    \  #{ char: ',', input: ', ', except: '\%#\n', },
-    \  #{ char: '<BS>', at: '(\%#)',   delete: 1 },
-    \  #{ char: '<BS>', at: '\[\%#\]', delete: 1 },
-    \  #{ char: '<BS>', at: '{\%#}',   delete: 1 },
-    \  #{ char: '<BS>', at: '"\%#"',   delete: 1 },
-    \  #{ char: '<BS>', at: "'\%#'",   delete: 1 },
-    \  #{ char: '<BS>', at: '`\%#`',   delete: 1 },
-    \  #{ char: '<CR>', at: '{\%#}',   input_after: '<CR>' },
-    \  #{ char: '<CR>', at: '(\%#)',   input_after: '<CR>' },
-    \ ]
-  let g:lexima_custom_ft = #{
-    \   tex: [
-    \     #{ char: '$',    input_after: '$' },
-    \     #{ char: '<BS>', at: '\$\%#\$', delete: 1 },
-    \     #{ char: '<CR>', at: '^ *\\item.*\%#', input: '<CR>\item ', except: '\\\\\%#' },
-    \   ],
-    \   cs: [
-    \     #{ char: '<CR>', at: ' {\%#}', input: '<BS><BS><CR>{<CR>', input_after: '<CR>' },
-    \     #{ char: '<CR>', at: '[^ ]{\%#}', input: '<BS><CR>{<CR>', input_after: '<CR>' },
-    \   ],
-    \   typescriptreact: [
-    \     #{ char: '>', at: '<\(\w\+\)\%#', input_after: '</\1>', with_submatch: v:true },
-    \     #{ char: '<CR>', at: '<\w\+>\%#<\/\w\+>', input_after: '<CR>' },
-    \   ],
-    \   pdf: [
-    \     #{ char: '<', at: '<\%#', input_after: '>>' },
-    \     #{ char: '<CR>', at: '<<\%#>>', input_after: '<CR>' }
-    \   ]
-    \ }
 '''
-hook_source = '''
-  call lexima#clear_rules()
-  for rule in g:lexima_custom
-    call lexima#add_rule(rule)
-  endfor
-  for ft in keys(g:lexima_custom_ft)
-    let rules = g:lexima_custom_ft[ft]
-    for rule in rules
-        let rule['filetype'] = ft
-        call lexima#add_rule(rule)
-    endfor
-  endfor
-  execute printf("inoremap <expr><silent> <CR> pum#visible() ? pum#map#confirm() : lexima#expand(%s, 'i')",
-                \ string(lexima#string#to_mappable('<CR>'))
-                \ )
+lua_source = '''
+    vim.fn['lexima#clear_rules']()
+
+    for _, rule in ipairs({
+        { char = [=[(]=],    input_after = [=[)]=], except = [=[\\\%#]=] },
+        { char = [=[[]=],    input_after = [=[]]=], except = [=[\\\%#]=] },
+        { char = [=[{]=],    input_after = [=[}]=], except = [=[\\\%#]=] },
+        { char = [=["]=],    input_after = [=["]=], except = [=[\\\%#]=] },
+        { char = [=[']=],    input_after = [=[']=], except = [=[\(\\\|<\|&\)\%#]=] },
+        { char = [=[`]=],    input_after = [=[`]=], except = [=[\\\%#]=] },
+        { char = [=[)]=],    at = [=[(\%#)]=],      leave = 1 },
+        { char = [=[]]=],    at = [=[\%#\]]=],      leave = 1 },
+        { char = [=[,]=],    input = [=[, ]=],      except = [=[\%#\n]=], },
+        { char = [=[<BS>]=], at = [=[(\%#)]=],      delete = 1 },
+        { char = [=[<BS>]=], at = [=[\[\%#\]]=],    delete = 1 },
+        { char = [=[<BS>]=], at = [=[{\%#}]=],      delete = 1 },
+        { char = [=[<BS>]=], at = [=["\%#"]=],      delete = 1 },
+        { char = [=[<BS>]=], at = [=['\%#']=],      delete = 1 },
+        { char = [=[<BS>]=], at = [=[`\%#`]=],      delete = 1 },
+        { char = [=[<CR>]=], at = [=[{\%#}]=],      input_after = [=[<CR>]=] },
+        { char = [=[<CR>]=], at = [=[(\%#)]=],      input_after = [=[<CR>]=] },
+    }) do
+        vim.fn['lexima#add_rule'](rule)
+    end
+
+    for filetype, rules in pairs({
+        tex = {
+            { char = [=[$]=],    input_after = [=[$]=] },
+            { char = [=[<BS>]=], at = [=[\$\%#\$]=],        delete = 1 },
+            { char = [=[<CR>]=], at = [=[^ *\\item.*\%#]=], input = [=[<CR>\item ]=], except = [=[\\\\\%#]=] },
+        },
+        cs = {
+            { char = [=[<CR>]=], at = [=[ {\%#}]=],    input = [=[<BS><BS><CR>{<CR>]=], input_after = [=[<CR>]=] },
+            { char = [=[<CR>]=], at = [=[[^ ]{\%#}]=], input = [=[<BS><CR>{<CR>]=],     input_after = [=[<CR>]=] },
+        },
+        typescriptreact = {
+            { char = [=[>]=],    at = [=[<\(\w\+\)\%#]=],      input_after = [=[</\1>]=], with_submatch = true },
+            { char = [=[<CR>]=], at = [=[<\w\+>\%#<\/\w\+>]=], input_after = [=[<CR>]=] },
+        },
+        pdf = {
+            { char = [=[<]=],    at = [=[<\%#]=],    input_after = [=[>>]=] },
+            { char = [=[<CR>]=], at = [=[<<\%#>>]=], input_after = [=[<CR>]=] }
+        }
+    }) do
+        for _, rule in ipairs(rules) do
+            rule.filetype = filetype
+            vim.fn['lexima#add_rule'](rule)
+        end
+    end
+    vim.cmd [[
+      execute printf("inoremap <expr><silent> <CR> pum#visible() ? pum#map#confirm() : lexima#expand(%s, 'i')",
+                    \ string(lexima#string#to_mappable('<CR>'))
+                    \ )
+    ]]
 '''
 
 [[plugins]]
 repo = 'yuki-yano/fuzzy-motion.vim'
 depends = 'denops.vim'
 on_cmd = 'FuzzyMotion'
-hook_add = '''
-  let g:fuzzy_motion_labels = [
-    \ 'L', 'K', 'J', 'P', 'O', 'I', 'H', 'U', 'F',
-    \ 'D', 'S', 'R', 'E', 'W', 'A', 'G', 'T', 'Y',
-    \ 'N', 'B', 'M', 'V', 'C', 'Q', 'X', 'Z'
-    \ ]
-  let g:fuzzy_motion_matchers = ['fzf', 'kensaku']
-  nnoremap <Leader><Space> <Cmd>FuzzyMotion<CR>
+lua_add = '''
+    vim.g.fuzzy_motion_labels = {
+        'L', 'K', 'J', 'P', 'O', 'I', 'H', 'U', 'F',
+        'D', 'S', 'R', 'E', 'W', 'A', 'G', 'T', 'Y',
+        'N', 'B', 'M', 'V', 'C', 'Q', 'X', 'Z'
+    }
+    vim.g.fuzzy_motion_matchers = { 'fzf', 'kensaku' }
+    vim.keymap.set('n', '<Leader><Space>', vim.cmd.FuzzyMotion)
 '''
 
 [[plugins]]
@@ -123,17 +124,16 @@ repo = 'nvim-treesitter/nvim-treesitter'
 on_event = 'BufEnter'
 hook_post_update = 'TSUpdate'
 lua_source = '''
-  require('nvim-treesitter.configs').setup {
-    ensure_installed = 'all',
-    additional_vim_regex_highlighting = false,
+    require('nvim-treesitter.configs').setup {
+        ensure_installed = 'all',
+        additional_vim_regex_highlighting = false,
 
-    -- help : ハイライト変になる
-    -- tex  : snipet挿入後とかでエラーが出る
-    highlight = {
-      enable = true,
-      disable = { 'help', 'latex', 'tex' },
-    },
-  }
+        -- tex  : snipet挿入後とかでエラーが出る
+        highlight = {
+            enable = true,
+            disable = { 'latex', 'tex' },
+        },
+    }
 '''
 
 [[plugins]]
@@ -151,15 +151,13 @@ hook_source = '''
 [[plugins]]
 repo = 'lukas-reineke/indent-blankline.nvim'
 on_event = 'BufEnter'
-lua_add = '''
-  require('rc.util').highlight.set {
-    IndentBlanklineContextChar = { fg = '#6e6e6e', nocombine = true }
-  }
-'''
 lua_source = '''
-  require('indent_blankline').setup {
-    show_current_context = true,
-  }
+    require('rc.util').highlight.set {
+        IndentBlanklineContextChar = { fg = '#6e6e6e', nocombine = true }
+    }
+    require('indent_blankline').setup {
+        show_current_context = true,
+    }
 '''
 
 [[plugins]]
@@ -169,16 +167,16 @@ lua_source = '''
   local ccc = require('ccc')
   local mapping = ccc.mapping
   ccc.setup {
-    bar_len = 40,
-    point_char = '■',
-    point_color = '#202020',
-    highlighter = { auto_enable = true },
-    mappings = {
-      ['q'] = mapping.none,
-      ['<ESC>'] = mapping.quit,
-      ['<Left>'] = mapping.decrease1,
-      ['<Right>'] = mapping.increase1
-    }
+      bar_len = 40,
+      point_char = '■',
+      point_color = '#202020',
+      highlighter = { auto_enable = true },
+      mappings = {
+          ['q'] = mapping.none,
+          ['<ESC>'] = mapping.quit,
+          ['<Left>'] = mapping.decrease1,
+          ['<Right>'] = mapping.increase1
+      }
   }
 '''
 
@@ -187,12 +185,12 @@ repo = 'petertriho/nvim-scrollbar'
 on_event = 'WinScrolled'
 lua_source = '''
   require('scrollbar').setup {
-    handle = { color = '#4B4B4B' },
-    excluded_filetypes = {
-        "vim-ui-input",
-        "ddu-ff-filter",
-        "ddu-filer"
-    }
+      handle = { color = '#4B4B4B' },
+      excluded_filetypes = {
+          "vim-ui-input",
+          "ddu-ff-filter",
+          "ddu-filer"
+      }
   }
 '''
 
@@ -229,27 +227,27 @@ repo = 'thinca/vim-partedit'
 depends = ['context_filetype.vim']
 on_func = ['partedit#start']
 lua_add = '''
-  vim.keymap.set('n', '<Leader>e', function ()
-    local context = vim.fn['context_filetype#get']()
-    if context == nil or context.range == {{0, 0}, {0, 0}} then
-      error('[partedit] Context is not found')
-      return
-    end
-    vim.ui.select({ 'split', 'vsplit', 'rightbelow split', 'rightbelow vsplit' }, {
-      prompt = 'Select partedit opener',
-      format_item = function (item)
-        return 'Open as ' .. item
-      end
-    }, function(item, _)
-        if item == nil then
+    vim.keymap.set('n', '<Leader>e', function()
+        local context = vim.fn['context_filetype#get']()
+        if context == nil or context.range == { { 0, 0 }, { 0, 0 } } then
+            error('[partedit] Context is not found')
             return
         end
-        vim.fn['partedit#start'](context.range[1][1], context.range[2][1], {
-          filetype = context.filetype,
-          opener = item
-        })
+        vim.ui.select({ 'split', 'vsplit', 'rightbelow split', 'rightbelow vsplit' }, {
+            prompt = 'Select partedit opener',
+            format_item = function(item)
+                return 'Open as ' .. item
+            end
+        }, function(item, _)
+            if item == nil then
+                return
+            end
+            vim.fn['partedit#start'](context.range[1][1], context.range[2][1], {
+                filetype = context.filetype,
+                opener = item
+            })
+        end)
     end)
-  end)
 '''
 
 [[plugins]]
@@ -269,28 +267,4 @@ hook_source = '''
 [plugins.ftplugin]
 tex = '''
   nnoremap <buffer> <Leader>s <Cmd>call synctex#forwardSerch()<CR>
-'''
-
-[[plugins]]
-repo = 'skanehira/denops-silicon.vim'
-depends = 'denops.vim'
-on_cmd = 'Silicon'
-hook_add = '''
-  let g:silicon_options = #{
-    \  font: 'Cica',
-    \  no_line_number: v:false,
-    \  no_round_corner: v:false,
-    \  no_window_controls: v:false,
-    \  background_color: '#303030',
-    \  line_offset: 1,
-    \  line_pad: 2,
-    \  pad_horiz: 80,
-    \  pad_vert: 100,
-    \  shadow_blur_radius: 0,
-    \  shadow_color: '#f6f5f5',
-    \  shadow_offset_x: 0,
-    \  shadow_offset_y: 0,
-    \  tab_width: 4,
-    \  theme: 'GitHub',
-    \ }
 '''

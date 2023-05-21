@@ -1,9 +1,6 @@
 local M = {}
 
-local save = {
-    augroup = vim.api.nvim_create_augroup('vimrc', { clear = true }),
-    two_cell_char = {}
-}
+local vimrc_augroup = vim.api.nvim_create_augroup('vimrc', { clear = true })
 
 ---@param events string|string[]
 ---@return fun(opts:table<string, any>):nil
@@ -11,33 +8,38 @@ function M.autocmd(events)
     ---@param opts table<string, any>
     ---@return nil
     return function(opts)
-        opts.group = opts.group or save.augroup
+        opts.group = vim.F.if_nil(opts.group, vimrc_augroup)
         vim.api.nvim_create_autocmd(events, opts)
     end
 end
 
-
----@param char number
----@param apply? boolean
----@return nil
-function M.setcellwidths2(char, apply)
-    if char == nil then
-        save.two_cell_char = {}
-        return
+---@param table table
+---@param keys string[]
+---@param default? any
+---@return any
+function M.tbl_get(table, keys, default)
+    default = vim.F.if_nil(default, nil)
+    local result = table
+    for _, key in ipairs(keys) do
+        if result == nil then
+            return default
+        end
+        result = result[key]
     end
-    apply = apply or true
-    if char ~= {} then
-        if type(char) == "number" then
-            table.insert(save.two_cell_char, { char, char, 2 });
-        elseif type(char) == "table" then
-            for _, c in ipairs(char) do
-                table.insert(save.two_cell_char, { c, c, 2 });
+    return vim.F.if_nil(result, default)
+end
+
+---@param prefix string
+---@param table? table
+---@return table
+function M.set_fn_metatable(prefix, table)
+    return setmetatable(table or {}, {
+        __index = function(_, key)
+            return function(...)
+                return vim.fn[prefix .. key](...)
             end
         end
-    end
-    if apply then
-        vim.fn.setcellwidths(save.two_cell_char)
-    end
+    })
 end
 
 M.highlight = {}

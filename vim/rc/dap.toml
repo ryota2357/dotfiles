@@ -2,53 +2,53 @@
 repo = 'mfussenegger/nvim-dap'
 depends = 'nvim-dap-ui'
 lua_add = '''
-  require('rc.util').highlight.set {
-    DapBreakpointTextHl = { fg = '#ba000d', nocombine = true },
-    DapStoppedTextHl= { fg = '#bef67a', nocombine = true}
-  }
+    require('rc.util').highlight.set {
+        DapBreakpointTextHl = { fg = '#ba000d', nocombine = true },
+        DapStoppedTextHl = { fg = '#bef67a', nocombine = true }
+    }
 '''
 lua_source = '''
-  local dap = require('dap')
-  vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'DapBreakpointTextHl' })
-  vim.fn.sign_define('DapStopped', { text = '', texthl = 'DapStoppedTextHl' })
-  dap.adapters = {
-    codelldb = {
-      type = 'server',
-      port = '${port}',
-      executable = {
-        command = vim.fn.stdpath('data') .. '/mason/packages/codelldb/extension/adapter/codelldb',
-        args = {'--port', '${port}'}
-      }
-    },
-    debugpy = {
-      type = 'executable',
-      command = vim.fn.stdpath('data') .. '/mason/packages/debugpy/venv/bin/python',
-      args = { '-m', 'debugpy.adapter' }
+    local dap = require('dap')
+    vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'DapBreakpointTextHl' })
+    vim.fn.sign_define('DapStopped', { text = '', texthl = 'DapStoppedTextHl' })
+    dap.adapters = {
+        codelldb = {
+            type = 'server',
+            port = '${port}',
+            executable = {
+                command = vim.fn.stdpath('data') .. '/mason/packages/codelldb/extension/adapter/codelldb',
+                args = { '--port', '${port}' }
+            }
+        },
+        debugpy = {
+            type = 'executable',
+            command = vim.fn.stdpath('data') .. '/mason/packages/debugpy/venv/bin/python',
+            args = { '-m', 'debugpy.adapter' }
+        }
     }
-  }
-  dap.configurations = {
-    cpp = {
-      {
-        name = 'Launch file',
-        type = 'codelldb',
-        request = 'launch',
-        program = function()
-          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/a.out', 'file')
-        end,
-        cwd = '${workspaceFolder}',
-        stopOnEntry = false -- trueだとバイナリのデバッグになっちゃう(なんで?)
-      }
-    },
-    python = {
-      {
-        name = 'Launch file',
-        type = 'debugpy',
-        request = 'launch',
-        program = '${file}',
-        pythonPath = vim.fn.fnamemodify('~/.pyenv/shims/python', ':p')
-      }
+    dap.configurations = {
+        cpp = {
+            {
+                name = 'Launch file',
+                type = 'codelldb',
+                request = 'launch',
+                program = function()
+                    return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/a.out', 'file')
+                end,
+                cwd = '${workspaceFolder}',
+                stopOnEntry = false -- trueだとバイナリのデバッグになっちゃう(なんで?)
+            }
+        },
+        python = {
+            {
+                name = 'Launch file',
+                type = 'debugpy',
+                request = 'launch',
+                program = '${file}',
+                pythonPath = vim.fn.fnamemodify('~/.pyenv/shims/python', ':p')
+            }
+        }
     }
-  }
 '''
 hook_add = '''
   command! DapBegin call <SID>DapBegin()
@@ -82,39 +82,39 @@ hook_add = '''
 repo = 'rcarriga/nvim-dap-ui'
 on_source = 'nvim-dap'
 lua_source = '''
-  require('dapui').setup {
-    icons = { expanded = '', collapsed = '', current_frame = '' },
-    layouts = {
-      {
-        elements = {
-          { id = 'repl', size = 0.15 },
-          { id = 'stacks', size = 0.2 },
-          { id = 'watches', size = 0.2 },
-          { id = 'scopes', size = 0.35 },
-          { id = 'breakpoints', size = 0.1 }
+    require('dapui').setup {
+        icons = { expanded = '', collapsed = '', current_frame = '' },
+        layouts = {
+            {
+                elements = {
+                    { id = 'repl',        size = 0.15 },
+                    { id = 'stacks',      size = 0.2 },
+                    { id = 'watches',     size = 0.2 },
+                    { id = 'scopes',      size = 0.35 },
+                    { id = 'breakpoints', size = 0.1 }
+                },
+                size = 0.4,
+                position = 'left'
+            },
+            {
+                elements = { 'console' },
+                size = 0.25,
+                position = 'bottom'
+            }
         },
-        size = 0.4,
-        position = 'left'
-      },
-      {
-        elements = { 'console' },
-        size = 0.25,
-        position = 'bottom'
-      }
-    },
-    controls = {
-      enabled = true,
-      element = "breakpoints",
-      icons = {
-        pause = "",
-        play = "",
-        step_into = "",
-        step_over = "",
-        step_out = "",
-        step_back = "",
-        run_last = "↻",
-        terminate = "□",
-      }
+        controls = {
+            enabled = true,
+            element = "breakpoints",
+            icons = {
+                pause = "",
+                play = "",
+                step_into = "",
+                step_over = "",
+                step_out = "",
+                step_back = "",
+                run_last = "↻",
+                terminate = "□",
+            }
+        }
     }
-  }
 '''
