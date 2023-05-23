@@ -6,6 +6,16 @@ autocmd 'WinEnter' {
     command = "checktime"
 }
 
+autocmd 'FileType' {
+    desc = 'インデントのスペースの数2のファイルタイプ設定',
+    pattern = { 'typescript', 'scss', 'dart', 'json', 'vim', 'pdf' },
+    callback = function()
+        vim.opt_local.tabstop = 2
+        vim.opt_local.softtabstop = 2
+        vim.opt_local.shiftwidth = 2
+    end
+}
+
 highlight.set {
     ExtraWhitespace = { bg = '#ff0a1e' }
 }

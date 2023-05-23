@@ -151,8 +151,6 @@ lua_source = '''
       }
     }
   }
-  --  はddcの方で2幅に設定済み
-  require('rc.util').setcellwidths2({0xf05d, 0xf18e})
 '''
 
 [[plugins]]
