@@ -53,5 +53,8 @@ hook_add = '''
     \ }
 '''
 
+[[plugins]]
+repo = 'harenome/vim-mipssyntax'
+
 # [[plugins]]
 # repo = '~/Projects/VimPlugin/ffiler'

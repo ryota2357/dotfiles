@@ -12,13 +12,13 @@ lua_add = '''
     })
     ddc.enable_cmdline_completion_with(':', function(cmap, pum)
         cmap('<Tab>', function()
-            return pum.visible() and pum.map.insert_relative(1) or ddc.map.manual_complete()
+            return pum.visible() and pum.map.insert_relative(1, "loop") or ddc.map.manual_complete()
         end)
         cmap({ '<C-n>', '<Down>' }, function()
-            return pum.visible() and pum.map.insert_relative(-1) or '<Down>'
+            return pum.visible() and pum.map.insert_relative(-1, "loop") or '<Down>'
         end)
         cmap({ '<C-p>', '<Up>' }, function()
-            return pum.visible() and pum.map.insert_relative(1) or '<Up>'
+            return pum.visible() and pum.map.insert_relative(1, "loop") or '<Up>'
         end)
         cmap('<CR>', function()
             if pum.visible() and pum.complete_info().selected ~= -1 then

@@ -26,3 +26,7 @@ make = '''
   setlocal noexpandtab
   setlocal tabstop=6 softtabstop=6 shiftwidth=6
 '''
+mips = '''
+  setlocal noexpandtab
+  setlocal tabstop=4 softtabstop=4 shiftwidth=4
+'''
