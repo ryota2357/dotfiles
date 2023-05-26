@@ -24,14 +24,20 @@
     ]
   },
   "cdot": {
-    "prefix": ["cdot", "dot"],
+    "prefix": [
+      "cdot",
+      "dot"
+    ],
     "body": "\\cdot "
   },
   "cdots": {
-    "prefix": ["cdots", "dots"],
+    "prefix": [
+      "cdots",
+      "dots"
+    ],
     "body": "\\cdots"
   },
-  "ce" :{
+  "ce": {
     "prefix": "ce",
     "body": "\\ce{$0}"
   },
@@ -48,11 +54,17 @@
     "body": "\\cos{$0}"
   },
   "degreeCelsius": {
-    "prefix": ["degreeCelsius", "celsiusDegree"],
+    "prefix": [
+      "degreeCelsius",
+      "celsiusDegree"
+    ],
     "body": "\\degreeCelsius"
   },
   "enumerate": {
-    "prefix": ["enumerate", "orderedlist"],
+    "prefix": [
+      "enumerate",
+      "orderedlist"
+    ],
     "body": [
       "\\begin{enumerate}",
       "  \\item $0",
@@ -87,7 +99,10 @@
     "body": "\\frac{$1}{$0}"
   },
   "int": {
-    "prefix": ["int", "integral"],
+    "prefix": [
+      "int",
+      "integral"
+    ],
     "body": "\\int"
   },
   "item": {
@@ -95,7 +110,10 @@
     "body": "\\item "
   },
   "itemize": {
-    "prefix": ["itemize", "list"],
+    "prefix": [
+      "itemize",
+      "list"
+    ],
     "body": [
       "\\begin{itemize}",
       "  \\item $0",
@@ -143,11 +161,18 @@
     "body": "\\refeq{$0}"
   },
   "refig": {
-    "prefix": ["refig", "reffg", "reffig"],
+    "prefix": [
+      "refig",
+      "reffg",
+      "reffig"
+    ],
     "body": "\\refig{$0}"
   },
   "reftb": {
-    "prefix": ["reftb", "reftable"],
+    "prefix": [
+      "reftb",
+      "reftable"
+    ],
     "body": "\\reftb{$0}"
   },
   "right": {
@@ -241,7 +266,10 @@
     "body": "\\times "
   },
   "verbatim": {
-    "prefix": ["verbatim", "pre"],
+    "prefix": [
+      "verbatim",
+      "pre"
+    ],
     "body": [
       "\\scriptsize",
       "\\begin{verbatim}",

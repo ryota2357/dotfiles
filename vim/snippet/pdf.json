@@ -7,7 +7,8 @@
       "  $0",
       ">>",
       "endobj"
-    ]
+    ],
+    "bodyis": []
   },
   "stream": {
     "prefix": "stream",
@@ -91,4 +92,3 @@
     "body": "/Contents"
   }
 }
-

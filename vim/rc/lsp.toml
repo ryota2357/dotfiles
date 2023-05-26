@@ -1,128 +1,136 @@
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
+depends = ['mason.nvim', 'mason-lspconfig.nvim', 'SchemaStore.nvim']
 on_event = 'BufReadPost'
 hook_add = '''
   autocmd BufWritePre *.ts,*.dart,*.rs lua vim.lsp.buf.format()
   command! Format lua vim.lsp.buf.format()
 '''
 lua_source = '''
-  for type, icon in pairs({ Error = "", Warn = "", Hint = "", Info = "" }) do
-    local hl = "DiagnosticSign" .. type
-    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-  end
+    for type, icon in pairs({ Error = "", Warn = "", Hint = "", Info = "" }) do
+        local hl = "DiagnosticSign" .. type
+        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+    end
 
-  vim.diagnostic.config({
-    update_in_insert = true,
-    virtual_text = {
-      prefix = '▰'
-    }
-  })
-
-  require('rc.util').autocmd 'LspAttach' {
-      callback = function (context)
-          local bufnr = context.buf
-          local client = vim.lsp.get_client_by_id(context.data.client_id)
-
-          local nmap =  function(key, cmd) vim.keymap.set('n', key, cmd, { buffer = bufnr, silent = true }) end
-
-          nmap(',d', vim.lsp.buf.definition)
-          nmap(',i', vim.lsp.buf.implementation)
-          nmap(',r', vim.lsp.buf.rename)
-          nmap(',x', vim.diagnostic.open_float)
-          nmap(',l', vim.lsp.buf.hover)
-          nmap(',s', vim.lsp.buf.signature_help)
-          nmap(',a', vim.lsp.buf.code_action)
-          nmap(',f', vim.lsp.buf.references)
-          client.server_capabilities.semanticTokensProvider = nil
-      end
-  }
-
-  local lsp_util = require('lspconfig.util')
-  local root_pattern = {
-      astro = lsp_util.root_pattern('astro.config.mjs'),
-      deno = lsp_util.root_pattern('deno.json', 'deno.jsonc', 'denops'),
-      node = lsp_util.root_pattern('package.json', 'node_modules')
-  }
-
-  local lsp_config = {
-    astro = {
-        root_dir = root_pattern.astro
-    },
-    dartls = {
-        root_dir = lsp_util.root_pattern('pubspec.yaml', '.dart')
-    },
-    denols = {
-      init_options = { lint = true, unstable = true },
-      root_dir = root_pattern.deno,
-      single_file_support = false
-    },
-    omnisharp = {
-      cmd = { 'dotnet',  vim.fn.stdpath('data') .. '/mason/packages/omnisharp/OmniSharp.dll' },
-      enable_editorconfig_support = true,
-      enable_ms_build_load_projects_on_demand = false,
-      enable_roslyn_analyzers = true,
-      organize_imports_on_format = false,
-      enable_import_completion = false,
-      sdk_include_prereleases = true,
-      analyze_open_documents_only = false,
-      autostart = false
-    },
-    rust_analyzer = {
-      settings = {
-        ['rust-analyzer'] = {
-          check = {
-            features = 'all',
-            command = 'clippy'
-          }
+    vim.diagnostic.config({
+        update_in_insert = true,
+        virtual_text = {
+            prefix = '▰'
         }
-      }
-    },
-    lua_ls = {
-      settings = {
-        Lua = {
-          runtime = { version = 'LuaJIT' },
-          diagnostics = { globals = {'vim'} },
-          workspace = { library = vim.api.nvim_get_runtime_file('', true) },
-          telemetry = { enable = false }
-        }
-      }
-    },
-    tsserver = {
-      single_file_support = false,
-      root_dir = function(fname)
-        local astro_root = root_pattern.astro(fname)
-        local deno_root = root_pattern.deno(fname)
-        local node_root = root_pattern.node(fname)
-        if deno_root ~= nil or astro_root ~= nil then
-            return nil
+    })
+
+    require('rc.util').autocmd 'LspAttach' {
+        callback = function(context)
+            local bufnr = context.buf
+            local client = vim.lsp.get_client_by_id(context.data.client_id)
+
+            local nmap = function(key, cmd) vim.keymap.set('n', key, cmd, { buffer = bufnr, silent = true }) end
+
+            nmap(',d', vim.lsp.buf.definition)
+            nmap(',i', vim.lsp.buf.implementation)
+            nmap(',r', vim.lsp.buf.rename)
+            nmap(',x', vim.diagnostic.open_float)
+            nmap(',l', vim.lsp.buf.hover)
+            nmap(',s', vim.lsp.buf.signature_help)
+            nmap(',a', vim.lsp.buf.code_action)
+            nmap(',f', vim.lsp.buf.references)
+            client.server_capabilities.semanticTokensProvider = nil
         end
-        return node_root
-      end
-    },
-    solargraph = {
-      single_file_support = true
-    },
-    yamlls = {
-      settings = {
-        yaml = {
-          keyOrdering = false,
-        },
-      }
     }
-  }
 
-  local lsp_capabilities = vim.lsp.protocol.make_client_capabilities()
-  lsp_capabilities.textDocument.completion.completionItem.snippetSupport = true
+    local lsp_util = require('lspconfig.util')
+    local root_pattern = {
+        astro = lsp_util.root_pattern('astro.config.mjs'),
+        deno = lsp_util.root_pattern('deno.json', 'deno.jsonc', 'denops'),
+        node = lsp_util.root_pattern('package.json', 'node_modules')
+    }
 
-  local installed_servers = require('mason-lspconfig').get_installed_servers()
-  table.insert(installed_servers, 'dartls') -- Mason に dartls ないので追加、dartls は dart に付属してる
-  local nvim_lsp = require('lspconfig')
-  for _, server_name in ipairs(installed_servers) do
-      local config = lsp_config[server_name] or {}
-      config.capabilities = lsp_capabilities
-      nvim_lsp[server_name].setup(config)
+    local lsp_config = {
+        astro = {
+            root_dir = root_pattern.astro
+        },
+        dartls = {
+            root_dir = lsp_util.root_pattern('pubspec.yaml', '.dart')
+        },
+        denols = {
+            init_options = { lint = true, unstable = true },
+            root_dir = root_pattern.deno,
+            single_file_support = false
+        },
+        jsonls = {
+            settings = {
+                json = {
+                    schemas = require('schemastore').json.schemas(),
+                    validate = { enable = true },
+                }
+            }
+        },
+        lua_ls = {
+            settings = {
+                Lua = {
+                    runtime = { version = 'LuaJIT' },
+                    diagnostics = { globals = { 'vim' } },
+                    workspace = { library = vim.api.nvim_get_runtime_file('', true) },
+                    telemetry = { enable = false }
+                }
+            }
+        },
+        omnisharp = {
+            cmd = { 'dotnet', vim.fn.stdpath('data') .. '/mason/packages/omnisharp/OmniSharp.dll' },
+            enable_editorconfig_support = true,
+            enable_ms_build_load_projects_on_demand = false,
+            enable_roslyn_analyzers = true,
+            organize_imports_on_format = false,
+            enable_import_completion = false,
+            sdk_include_prereleases = true,
+            analyze_open_documents_only = false,
+            autostart = false
+        },
+        rust_analyzer = {
+            settings = {
+                ['rust-analyzer'] = {
+                    check = {
+                        features = 'all',
+                        command = 'clippy'
+                    }
+                }
+            }
+        },
+        solargraph = {
+            single_file_support = true
+        },
+        tsserver = {
+            single_file_support = false,
+            root_dir = function(fname)
+                local astro_root = root_pattern.astro(fname)
+                local deno_root = root_pattern.deno(fname)
+                local node_root = root_pattern.node(fname)
+                if deno_root ~= nil or astro_root ~= nil then
+                    return nil
+                end
+                return node_root
+            end
+        },
+        yamlls = {
+            settings = {
+                yaml = {
+                    keyOrdering = false,
+                }
+            }
+        }
+    }
 
-  end
+    local lsp_capabilities = vim.lsp.protocol.make_client_capabilities()
+    lsp_capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+    local installed_servers = require('mason-lspconfig').get_installed_servers()
+    table.insert(installed_servers, 'dartls') -- Mason に dartls ないので追加、dartls は dart に付属してる
+    local nvim_lsp = require('lspconfig')
+    for _, server_name in ipairs(installed_servers) do
+        local config = lsp_config[server_name] or {}
+        config.capabilities = lsp_capabilities
+        nvim_lsp[server_name].setup(config)
+    end
 '''
 [plugins.ftplugin]
 cpp = '''
@@ -141,16 +149,16 @@ EOF
 repo = 'williamboman/mason.nvim'
 on_source = 'nvim-lspconfig'
 lua_source = '''
-  require('mason').setup {
-    automatic_installation = true,
-    ui = {
-      icons = {
-        package_installed = '',
-        package_pending = '',
-        package_uninstalled = ''
-      }
+    require('mason').setup {
+        automatic_installation = true,
+        ui = {
+            icons = {
+                package_installed = '',
+                package_pending = '',
+                package_uninstalled = ''
+            }
+        }
     }
-  }
 '''
 
 [[plugins]]
@@ -161,17 +169,40 @@ on_source = 'nvim-lspconfig'
 repo = 'j-hui/fidget.nvim'
 on_source = 'nvim-lspconfig'
 lua_source = '''
-  require('fidget').setup {
-    text = {
-      spinner = "dots"
-    },
-    timer = {
-      spinner_rate = 100,
-      fidget_decay = 3000,
-      task_decay = 1000,
-    },
-    fmt = {
-        stack_upwards = false
+    require('fidget').setup {
+        text = {
+            spinner = "dots"
+        },
+        timer = {
+            spinner_rate = 100,
+            fidget_decay = 3000,
+            task_decay = 1000,
+        },
+        fmt = {
+            stack_upwards = false
+        }
     }
-  }
 '''
+
+[[plugins]]
+repo = 'jose-elias-alvarez/null-ls.nvim'
+on_source = 'nvim-lspconfig'
+depends = 'plenary.nvim'
+lua_source = '''
+    local null_ls = require("null-ls")
+    null_ls.setup {
+        sources = {
+            null_ls.builtins.formatting.stylua,
+            null_ls.builtins.diagnostics.eslint,
+            null_ls.builtins.code_actions.eslint,
+            null_ls.builtins.formatting.prettier,
+            null_ls.builtins.diagnostics.markdownlint,
+            null_ls.builtins.diagnostics.hadolint,
+            null_ls.builtins.diagnostics.zsh,
+            null_ls.builtins.formatting.fixjson
+        },
+    }
+'''
+
+[[plugins]]
+repo = 'b0o/SchemaStore.nvim'
