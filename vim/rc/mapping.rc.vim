@@ -31,9 +31,12 @@ endif
 
 " 行頭行末移動
 nnoremap Q ^
-nnoremap P $l
+nnoremap ` $l
 xnoremap Q ^
-xnoremap P $l
+xnoremap ` $l
+
+" ペア移動
+nnoremap ] %
 
 " ノーマルモードでも改行
 nnoremap <CR> i<CR><ESC>

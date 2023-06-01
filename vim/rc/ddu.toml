@@ -27,6 +27,7 @@ lua_add = '''
                 winHeight = round(ctx.lines * 0.8),
                 winWidth = round(ctx.columns * 0.45),
                 previewSplit = "vertical",
+                previewRow = round(ctx.lines * 0.05),
                 previewCol = round(ctx.columns * 0.5),
                 previewHeight = round(ctx.lines * 0.8),
                 previewWidth = round(ctx.columns * 0.45),
@@ -122,11 +123,13 @@ lua_source = '''
         sourceOptions = {
             _ = {
                 ignoreCase = true,
-                matchers = { 'matcher_fzf_kensaku' }
+                matchers = { 'matcher_fzf_kensaku' },
+                sorters = { 'sorter_fzf' }
             },
             rg = {
                 volatile = true,
-                matchers = {}
+                matchers = {},
+                sorters = {}
             },
             file = {
                 matchers = { 'matcher_hidden' },
@@ -203,31 +206,35 @@ on_source = 'ddu.vim'
 [plugins.ftplugin]
 lua_ddu-ff = '''
     local ddu = require('rc.ddu')
-    ddu.nmap('<CR>',  function() ddu.ui.do_action('itemAction') end)
-    ddu.nmap('<ESC>', function() ddu.ui.do_action('quit') end)
-    ddu.nmap('i',     function() ddu.ui.do_action('openFilterWindow') end)
+    ddu.nmap('<CR>',  function() ddu.ui.async_action('itemAction') end)
+    ddu.nmap('<ESC>', function() ddu.ui.async_action('quit') end)
+    ddu.nmap('i',     function() ddu.ui.sync_action('openFilterWindow') end)
     vim.opt.signcolumn = "no"
 '''
 lua_ddu-ff-filter = '''
     local ddu = require('rc.ddu')
     if vim.b.ddu_ui_name == 'line' then
-        ddu.imap('<CR>', function() ddu.ui.sync_action('itemAction') end)
+        ddu.imap('<CR>', function() ddu.ui.async_action('itemAction') end)
     else
         ddu.imap('<CR>', function()
-            ddu.ui.sync_action('itemAction', {
+            ddu.ui.async_action('itemAction', {
                 params = { command = 'drop' }
             })
         end)
         ddu.imap('<C-o>', function()
-            ddu.ui.sync_action('itemAction', {
+            ddu.ui.async_action('itemAction', {
                 params = { command = 'tab drop' }
             })
         end)
     end
-    ddu.imap('<C-n>', function() ddu.ui.do_action('cursorNext') end)
-    ddu.imap('<C-p>', function() ddu.ui.do_action('cursorPrevious') end)
+    vim.cmd [[
+      inoremap <buffer> <C-n> <Cmd>call ddu#ui#ff#execute("call cursor(line('.')+1, 0)<Bar>redraw")<CR>
+      inoremap <buffer> <C-p> <Cmd>call ddu#ui#ff#execute("call cursor(line('.')-1, 0)<Bar>redraw")<CR>
+    ]]
+    -- ddu.imap('<C-n>', function() ddu.ui.async_action('cursorNext') end)
+    -- ddu.imap('<C-p>', function() ddu.ui.async_action('cursorPrevious') end)
     ddu.imap('<C-q>', function() ddu.ui.sync_action('preview') end)
-    ddu.imap('<ESC>', function() ddu.ui.do_action('quit') end)
+    ddu.imap('<ESC>', function() ddu.ui.async_action('quit') end)
 '''
 
 [[plugins]]
@@ -238,19 +245,19 @@ lua_ddu-filer = '''
     local ddu = require('rc.ddu')
     ddu.nmap('<CR>', function()
         if ddu.ui.get_item().isTree then
-            ddu.ui.do_action('expandItem', { mode = 'toggle' })
+            ddu.ui.async_action('expandItem', { mode = 'toggle' })
         else
-            ddu.ui.do_action('itemAction', { params = { command = 'drop' } })
+            ddu.ui.async_action('itemAction', { params = { command = 'drop' } })
         end
     end)
-    ddu.nmap('o',  function() ddu.ui.do_action('itemAction', { params = { command = 'tab drop' } }) end)
-    ddu.nmap('n',  function() ddu.ui.do_action('itemAction', { name = 'newFile' }) end)
-    ddu.nmap('r',  function() ddu.ui.do_action('itemAction', { name = 'rename' }) end)
-    ddu.nmap('R',  function() ddu.ui.do_action('checkItems') end)
-    ddu.nmap('dd', function() ddu.ui.do_action('itemAction', { name = 'trash' }) end)
-    ddu.nmap('q',  function() ddu.ui.do_action('quit') end)
+    ddu.nmap('o',  function() ddu.ui.async_action('itemAction', { params = { command = 'tab drop' } }) end)
+    ddu.nmap('n',  function() ddu.ui.sync_action('itemAction', { name = 'newFile' }) end)
+    ddu.nmap('r',  function() ddu.ui.sync_action('itemAction', { name = 'rename' }) end)
+    ddu.nmap('R',  function() ddu.ui.async_action('checkItems') end)
+    ddu.nmap('dd', function() ddu.ui.sync_action('itemAction', { name = 'trash' }) end)
+    ddu.nmap('q',  function() ddu.ui.async_action('quit') end)
     ddu.nmap('.',  function()
-        ddu.ui.do_action('updateOptions', {
+        ddu.ui.async_action('updateOptions', {
             sourceOptions = {
                 file = {
                     matchers = (function()

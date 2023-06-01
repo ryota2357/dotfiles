@@ -15,3 +15,6 @@ rustup component add rls rust-src rust-analysis
 
 # macwordコマンド: https://github.com/high-moctane/mocword
 cargo install mocword
+
+# cargo install したのをアプデする
+cargo install cargo-update

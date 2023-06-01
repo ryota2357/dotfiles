@@ -109,6 +109,11 @@ set ignorecase
 " マーカー位置で折りたたむ
 set foldmethod=marker
 
+" コマンド定義
+command! -nargs=1 -complete=help Vh :vertical belowright help <args>
+command! Wrap setlocal wrap!
+command! FixWhitespace silent! keepjumps execute ':%s/\\\@<!\s\+$//'
+
 " <Leader>、`'`で囲うとダメみたい
 let mapleader = "\<Space>"
 
@@ -120,7 +125,7 @@ nnoremap x "_x
 " `P`だとカーソル移動しないからダメ
 xnoremap p pgvy
 
-" インデントを考慮したインサート (ideaにgetline()ない)
+" インデントを考慮したインサート
 nnoremap <expr> i len(getline('.')) !=# 0 ? 'i' : '"_cc'
 nnoremap <expr> a len(getline('.')) !=# 0 ? 'a' : '"_cc'
 nnoremap <expr> A len(getline('.')) !=# 0 ? 'A' : '"_cc'
@@ -132,14 +137,17 @@ nnoremap k gk
 
 " 行頭行末移動
 nnoremap Q ^
-nnoremap P $l
+nnoremap ` $l
 xnoremap Q ^
-xnoremap P $l
+xnoremap ` $l
+
+" ペア移動
+nnoremap ] %
 
 " ノーマルモードでも改行
 nnoremap <CR> i<CR><ESC>
 
-" 行選択モードで左右に動いたらビジュアルモードを抜ける (ideaにmode()ない)
+" 行選択モードで左右に動いたらビジュアルモードを抜ける
 xnoremap <expr> h mode() ==# 'V' ? '<Esc>h' : 'h'
 xnoremap <expr> l mode() ==# 'V' ? '<Esc>l' : 'l'
 

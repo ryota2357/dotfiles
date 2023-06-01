@@ -206,3 +206,4 @@ lua_source = '''
 
 [[plugins]]
 repo = 'b0o/SchemaStore.nvim'
+on_source = 'nvim-lspconfig'
