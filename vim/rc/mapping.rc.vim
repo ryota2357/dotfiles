@@ -120,3 +120,6 @@ elseif has('ide')
   nnoremap > :<C-u>tabn<CR>
   nnoremap < :<C-u>tabN<CR>
 endif
+
+" 文字コード入力
+inoremap <C-v>u <C-r>=nr2char(0x)<Left>

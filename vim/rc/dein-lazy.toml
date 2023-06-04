@@ -61,7 +61,7 @@ lua_source = '''
         { char = [=[`]=],    input_after = [=[`]=], except = [=[\\\%#]=] },
         { char = [=[)]=],    at = [=[(\%#)]=],      leave = 1 },
         { char = [=[]]=],    at = [=[\%#\]]=],      leave = 1 },
-        { char = [=[,]=],    input = [=[, ]=],      except = [=[\%#\n]=], },
+        { char = [=[,]=],    input = [=[, ]=] },
         { char = [=[<BS>]=], at = [=[(\%#)]=],      delete = 1 },
         { char = [=[<BS>]=], at = [=[\[\%#\]]=],    delete = 1 },
         { char = [=[<BS>]=], at = [=[{\%#}]=],      delete = 1 },
@@ -70,6 +70,7 @@ lua_source = '''
         { char = [=[<BS>]=], at = [=[`\%#`]=],      delete = 1 },
         { char = [=[<CR>]=], at = [=[{\%#}]=],      input_after = [=[<CR>]=] },
         { char = [=[<CR>]=], at = [=[(\%#)]=],      input_after = [=[<CR>]=] },
+        { char = [=[<CR>]=], at = [=[, \%#]=],      input = [=[<BS><CR>]=] }
     }) do
         vim.fn['lexima#add_rule'](rule)
     end

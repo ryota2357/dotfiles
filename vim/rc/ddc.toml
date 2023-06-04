@@ -63,7 +63,7 @@ lua_source = '''
     ddc.custom.patch_filetype({ 'markdown' }, {
         sources = { 'around', 'mocword' },
     })
-    ddc.custom.patch_filetype({ 'pdf' }, {
+    ddc.custom.patch_filetype({ 'pdf', 'mips' }, {
         sources = { 'vsnip', 'around' },
     })
     ddc.custom.patch_filetype({ 'ddu-ff-filter' }, {

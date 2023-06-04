@@ -1,0 +1,162 @@
+{
+  "register:0": {
+    "prefix": "zero",
+    "body": "\\$zero",
+    "description": "constant 0"
+  },
+  "register:1": {
+    "prefix": "at",
+    "body": "\\$at",
+    "description": "reserved for assembler"
+  },
+  "register:2": {
+    "prefix": "v0",
+    "body": "\\$v0",
+    "description": "expression evaluation and results of a function"
+  },
+  "register:3": {
+    "prefix": "v1",
+    "body": "\\$v1",
+    "description": "expression evaluation and results of a function"
+  },
+  "register:4": {
+    "prefix": "a0",
+    "body": "\\$a0",
+    "description": "argument 1"
+  },
+  "register:5": {
+    "prefix": "a1",
+    "body": "\\$a1",
+    "description": "argument 2"
+  },
+  "register:6": {
+    "prefix": "a2",
+    "body": "\\$a2",
+    "description": "argument 3"
+  },
+  "register:7": {
+    "prefix": "a3",
+    "body": "\\$a3",
+    "description": "argument 4"
+  },
+  "register:8": {
+    "prefix": "t0",
+    "body": "\\$t0",
+    "description": "temporary (not preserved across call)"
+  },
+  "register:9": {
+    "prefix": "t1",
+    "body": "\\$t1",
+    "description": "temporary (not preserved across call)"
+  },
+  "register:10": {
+    "prefix": "t2",
+    "body": "\\$t2",
+    "description": "temporary (not preserved across call)"
+  },
+  "register:11": {
+    "prefix": "t3",
+    "body": "\\$t3",
+    "description": "temporary (not preserved across call)"
+  },
+  "register:12": {
+    "prefix": "t4",
+    "body": "\\$t4",
+    "description": "temporary (not preserved across call)"
+  },
+  "register:13": {
+    "prefix": "t5",
+    "body": "\\$t5",
+    "description": "temporary (not preserved across call)"
+  },
+  "register:14": {
+    "prefix": "t6",
+    "body": "\\$t6",
+    "description": "temporary (not preserved across call)"
+  },
+  "register:15": {
+    "prefix": "t7",
+    "body": "\\$t7",
+    "description": "temporary (not preserved across call)"
+  },
+  "register:16": {
+    "prefix": "s0",
+    "body": "\\$s0",
+    "description": "saved temporary (preserved across call)"
+  },
+  "register:17": {
+    "prefix": "s1",
+    "body": "\\$s1",
+    "description": "saved temporary (preserved across call)"
+  },
+  "register:18": {
+    "prefix": "s2",
+    "body": "\\$s2",
+    "description": "saved temporary (preserved across call)"
+  },
+  "register:19": {
+    "prefix": "s3",
+    "body": "\\$s3",
+    "description": "saved temporary (preserved across call)"
+  },
+  "register:20": {
+    "prefix": "s4",
+    "body": "\\$s4",
+    "description": "saved temporary (preserved across call)"
+  },
+  "register:21": {
+    "prefix": "s5",
+    "body": "\\$s5",
+    "description": "saved temporary (preserved across call)"
+  },
+  "register:22": {
+    "prefix": "s6",
+    "body": "\\$s6",
+    "description": "saved temporary (preserved across call)"
+  },
+  "register:23": {
+    "prefix": "s7",
+    "body": "\\$s7",
+    "description": "saved temporary (preserved across call)"
+  },
+  "register:24": {
+    "prefix": "t8",
+    "body": "\\$t8",
+    "description": "temporary (not preserved across call)"
+  },
+  "register:25": {
+    "prefix": "t9",
+    "body": "\\$t9",
+    "description": "temporary (not preserved across call)"
+  },
+  "register:26": {
+    "prefix": "k0",
+    "body": "\\$k0",
+    "description": "reserved for OS kernel"
+  },
+  "register:27": {
+    "prefix": "k1",
+    "body": "\\$k1",
+    "description": "reserved for OS kernel"
+  },
+  "register:28": {
+    "prefix": "gp",
+    "body": "\\$gp",
+    "description": "pointer to global area"
+  },
+  "register:29": {
+    "prefix": "sp",
+    "body": "\\$sp",
+    "description": "stack pointer"
+  },
+  "register:30": {
+    "prefix": "fp",
+    "body": "\\$fp",
+    "description": "frame pointer"
+  },
+  "register:31": {
+    "prefix": "ra",
+    "body": "\\$ra",
+    "description": "return address (used by function call)"
+  }
+}
