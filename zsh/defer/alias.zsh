@@ -3,11 +3,14 @@ alias cg='clang++ -std=c++17 -stdlib=libc++ -g3'
 alias a='./a.out'
 
 alias ...='cd ../../'
+alias ....='cd ../../../'
 
 alias clip='pbcopy'
 
 alias vi='nvim'
 alias :q='exit'
+alias cp='cp -i'
+alias rm='rm -i'
 
 alias trash='use trash'
 

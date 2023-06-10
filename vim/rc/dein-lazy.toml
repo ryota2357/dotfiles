@@ -77,7 +77,7 @@ lua_source = '''
 
     for filetype, rules in pairs({
         tex = {
-            { char = [=[$]=],    input_after = [=[$]=] },
+            { char = [=[$]=],    input_after = [=[$]=],     except = [=[\\\%#]=] },
             { char = [=[<BS>]=], at = [=[\$\%#\$]=],        delete = 1 },
             { char = [=[<CR>]=], at = [=[^ *\\item.*\%#]=], input = [=[<CR>\item ]=], except = [=[\\\\\%#]=] },
         },
@@ -92,6 +92,9 @@ lua_source = '''
         pdf = {
             { char = [=[<]=],    at = [=[<\%#]=],    input_after = [=[>>]=] },
             { char = [=[<CR>]=], at = [=[<<\%#>>]=], input_after = [=[<CR>]=] }
+        },
+        rust = {
+            { char = [=[<Bar>]=], input_after = [=[<Bar>]=], except = [=[\\\%#]=] }
         }
     }) do
         for _, rule in ipairs(rules) do

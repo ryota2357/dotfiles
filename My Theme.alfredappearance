@@ -5,20 +5,20 @@
       "subtext" : {
         "size" : 16,
         "colorSelected" : "#FFFFFFE5",
-        "font" : "Cica",
+        "font" : "PleckJP",
         "color" : "#878787E5"
       },
       "shortcut" : {
         "size" : 16,
         "colorSelected" : "#00FF5FFF",
-        "font" : "Cica",
+        "font" : "PleckJP",
         "color" : "#8787877F"
       },
       "backgroundSelected" : "#005FE1E2",
       "text" : {
         "size" : 26,
         "colorSelected" : "#FFFFFFFF",
-        "font" : "Cica",
+        "font" : "PleckJP",
         "color" : "#FFFFD7E5"
       },
       "iconPaddingHorizontal" : 5,
@@ -33,7 +33,7 @@
       "text" : {
         "size" : 46,
         "colorSelected" : "#FFFFFFFF",
-        "font" : "Cica",
+        "font" : "PleckJP",
         "color" : "#FFFFD6FF"
       },
       "background" : "#000000FF",
