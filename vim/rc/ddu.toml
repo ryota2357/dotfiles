@@ -110,6 +110,7 @@ lua_source = '''
                 previewFloating = true,
                 previewFloatingBorder = 'rounded',
                 startFilter = true,
+                filterFloatingPosition = 'bottom'
             },
             filer = {
                 split = 'vertical',
@@ -214,27 +215,31 @@ lua_ddu-ff = '''
 lua_ddu-ff-filter = '''
     local ddu = require('rc.ddu')
     if vim.b.ddu_ui_name == 'line' then
-        ddu.imap('<CR>', function() ddu.ui.async_action('itemAction') end)
+        ddu.imap('<CR>', function()
+            vim.cmd('stopinsert')
+            ddu.ui.async_action('itemAction')
+        end)
     else
         ddu.imap('<CR>', function()
+            vim.cmd('stopinsert')
             ddu.ui.async_action('itemAction', {
                 params = { command = 'drop' }
             })
         end)
         ddu.imap('<C-o>', function()
+            vim.cmd('stopinsert')
             ddu.ui.async_action('itemAction', {
                 params = { command = 'tab drop' }
             })
         end)
     end
-    vim.cmd [[
-      inoremap <buffer> <C-n> <Cmd>call ddu#ui#ff#execute("call cursor(line('.')+1, 0)<Bar>redraw")<CR>
-      inoremap <buffer> <C-p> <Cmd>call ddu#ui#ff#execute("call cursor(line('.')-1, 0)<Bar>redraw")<CR>
-    ]]
-    -- ddu.imap('<C-n>', function() ddu.ui.async_action('cursorNext') end)
-    -- ddu.imap('<C-p>', function() ddu.ui.async_action('cursorPrevious') end)
+    ddu.imap('<C-n>', function() ddu.ui.async_action('cursorNext') end)
+    ddu.imap('<C-p>', function() ddu.ui.async_action('cursorPrevious') end)
     ddu.imap('<C-q>', function() ddu.ui.sync_action('preview') end)
-    ddu.imap('<ESC>', function() ddu.ui.async_action('quit') end)
+    ddu.imap('<ESC>', function()
+        vim.cmd('stopinsert')
+        ddu.ui.async_action('quit')
+    end)
 '''
 
 [[plugins]]
