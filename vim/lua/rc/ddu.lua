@@ -36,20 +36,6 @@ function M.start.command(command, source, config_fn)
     end, {})
 end
 
----@param lhs string
----@param rhs string|function
----@return nil
-function M.nmap(lhs, rhs)
-    vim.keymap.set('n', lhs, rhs, { buffer = true })
-end
-
----@param lhs string
----@param rhs string|function
----@return nil
-function M.imap(lhs, rhs)
-    vim.keymap.set('i', lhs, rhs, { buffer = true })
-end
-
 local set_fn_metatable = require('rc.util').set_fn_metatable
 M.ui = set_fn_metatable('ddu#ui#')
 M.custom = set_fn_metatable('ddu#custom#')

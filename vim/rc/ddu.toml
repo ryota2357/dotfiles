@@ -207,36 +207,38 @@ on_source = 'ddu.vim'
 [plugins.ftplugin]
 lua_ddu-ff = '''
     local ddu = require('rc.ddu')
-    ddu.nmap('<CR>',  function() ddu.ui.async_action('itemAction') end)
-    ddu.nmap('<ESC>', function() ddu.ui.async_action('quit') end)
-    ddu.nmap('i',     function() ddu.ui.sync_action('openFilterWindow') end)
+    local nmap = function(lhs, rhs) vim.keymap.set('n', lhs, rhs, { buffer = true }) end
+    nmap('<CR>',  function() ddu.ui.async_action('itemAction') end)
+    nmap('<ESC>', function() ddu.ui.async_action('quit') end)
+    nmap('i',     function() ddu.ui.sync_action('openFilterWindow') end)
     vim.opt.signcolumn = "no"
 '''
 lua_ddu-ff-filter = '''
     local ddu = require('rc.ddu')
+    local imap = function(lhs, rhs) vim.keymap.set('i', lhs, rhs, { buffer = true }) end
     if vim.b.ddu_ui_name == 'line' then
-        ddu.imap('<CR>', function()
+        imap('<CR>', function()
             vim.cmd('stopinsert')
             ddu.ui.async_action('itemAction')
         end)
     else
-        ddu.imap('<CR>', function()
+        imap('<CR>', function()
             vim.cmd('stopinsert')
             ddu.ui.async_action('itemAction', {
                 params = { command = 'drop' }
             })
         end)
-        ddu.imap('<C-o>', function()
+        imap('<C-o>', function()
             vim.cmd('stopinsert')
             ddu.ui.async_action('itemAction', {
                 params = { command = 'tab drop' }
             })
         end)
     end
-    ddu.imap('<C-n>', function() ddu.ui.async_action('cursorNext') end)
-    ddu.imap('<C-p>', function() ddu.ui.async_action('cursorPrevious') end)
-    ddu.imap('<C-q>', function() ddu.ui.sync_action('preview') end)
-    ddu.imap('<ESC>', function()
+    imap('<C-n>', function() ddu.ui.async_action('cursorNext') end)
+    imap('<C-p>', function() ddu.ui.async_action('cursorPrevious') end)
+    imap('<C-q>', function() ddu.ui.sync_action('preview') end)
+    imap('<ESC>', function()
         vim.cmd('stopinsert')
         ddu.ui.async_action('quit')
     end)
@@ -248,20 +250,21 @@ on_source = 'ddu.vim'
 [plugins.ftplugin]
 lua_ddu-filer = '''
     local ddu = require('rc.ddu')
-    ddu.nmap('<CR>', function()
+    local nmap = function(lhs, rhs) vim.keymap.set('n', lhs, rhs, { buffer = true }) end
+    nmap('<CR>', function()
         if ddu.ui.get_item().isTree then
             ddu.ui.async_action('expandItem', { mode = 'toggle' })
         else
             ddu.ui.async_action('itemAction', { params = { command = 'drop' } })
         end
     end)
-    ddu.nmap('o',  function() ddu.ui.async_action('itemAction', { params = { command = 'tab drop' } }) end)
-    ddu.nmap('n',  function() ddu.ui.sync_action('itemAction', { name = 'newFile' }) end)
-    ddu.nmap('r',  function() ddu.ui.sync_action('itemAction', { name = 'rename' }) end)
-    ddu.nmap('R',  function() ddu.ui.async_action('checkItems') end)
-    ddu.nmap('dd', function() ddu.ui.sync_action('itemAction', { name = 'trash' }) end)
-    ddu.nmap('q',  function() ddu.ui.async_action('quit') end)
-    ddu.nmap('.',  function()
+    nmap('o',  function() ddu.ui.async_action('itemAction', { params = { command = 'tab drop' } }) end)
+    nmap('n',  function() ddu.ui.sync_action('itemAction', { name = 'newFile' }) end)
+    nmap('r',  function() ddu.ui.sync_action('itemAction', { name = 'rename' }) end)
+    nmap('R',  function() ddu.ui.async_action('checkItems') end)
+    nmap('dd', function() ddu.ui.sync_action('itemAction', { name = 'trash' }) end)
+    nmap('q',  function() ddu.ui.async_action('quit') end)
+    nmap('.',  function()
         ddu.ui.async_action('updateOptions', {
             sourceOptions = {
                 file = {

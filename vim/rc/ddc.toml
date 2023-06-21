@@ -41,10 +41,10 @@ lua_source = '''
         autoCompleteEvents = { 'InsertEnter', 'TextChangedI', 'TextChangedP', 'CmdlineEnter', 'CmdlineChanged' },
         backspaceCompletion = true,
     })
-    ddc.custom.patch_filetype({ 'vim', 'typescript', 'typescriptreact', 'astro' }, {
+    ddc.custom.patch_filetype({ 'vim', 'typescript', 'typescriptreact', 'astro', 'rust' }, {
         sources = { 'vsnip', 'nvim-lsp', 'around' },
     })
-    ddc.custom.patch_filetype({ 'c', 'cpp', 'cs', 'dart', 'python', 'rust', 'ruby', 'lua' }, {
+    ddc.custom.patch_filetype({ 'c', 'cpp', 'cs', 'dart', 'python', 'ruby', 'lua' }, {
         sources = { 'nvim-lsp', 'around' },
     })
     ddc.custom.patch_filetype({ 'css', 'scss' }, {
