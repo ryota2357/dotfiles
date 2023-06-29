@@ -2,6 +2,7 @@ local M = {}
 local set_fn_metatable = require('rc.util').set_fn_metatable
 
 local source_options = {}
+local source_params = {}
 
 ---@param name string
 ---@param config any
@@ -15,7 +16,19 @@ function M.get_source_options()
     return source_options
 end
 
----@param opts table
+---@param name string
+---@param config any
+---@return nil
+function M.set_source_params(name, config)
+    source_params[name] = config
+end
+
+---@return table
+function M.get_source_params()
+    return source_params
+end
+
+---@param opts table?
 ---@return nil
 function M.enable(opts)
     vim.fn["ddc#enable"](vim.F.if_nil(opts, {}))

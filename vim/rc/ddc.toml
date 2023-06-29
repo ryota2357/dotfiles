@@ -37,7 +37,7 @@ lua_source = '''
         sources = { 'around', 'skkeleton' },
         cmdlineSources = { 'cmdline', 'cmdline-history', 'around' },
         sourceOptions = ddc.get_source_options(),
-        sourceParams = { ['around'] = { maxSize = 500 } },
+        sourceParams = ddc.get_source_params(),
         autoCompleteEvents = { 'InsertEnter', 'TextChangedI', 'TextChangedP', 'CmdlineEnter', 'CmdlineChanged' },
         backspaceCompletion = true,
     })
@@ -91,6 +91,9 @@ lua_source = '''
         matchers = { 'matcher_head', 'matcher_length' },
         converters = { 'converter_remove_overlap' },
     })
+    require('rc.ddc').set_source_params('around', {
+        maxSize = 500
+    })
 '''
 
 [[plugins]]
@@ -114,6 +117,13 @@ lua_source = '''
         mark = ' ',
         dup = 'keep',
         forceCompletionPattern = [[\.\w*|:\w*|->\w*]],
+    })
+    require('rc.ddc').set_source_params('nvim-lsp', {
+        snippetEngine = vim.fn['denops#callback#register'](function(body)
+          vim.fn['vsnip#anonymous'](body)
+        end),
+        enableResolveItem = true,
+        enableAdditionalTextEdit = true
     })
 '''
 
@@ -160,12 +170,6 @@ lua_source = '''
         mark = ' ',
         dup = 'keep',
     })
-
-    -- pum, ddc との連携
-    require('rc.util').autocmd 'User' {
-        pattern = 'PumCompleteDone',
-        command = 'call vsnip_integ#on_complete_done(g:pum#completed_item)',
-    }
 '''
 
 [[plugins]]
