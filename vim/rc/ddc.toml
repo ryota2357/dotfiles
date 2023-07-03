@@ -112,6 +112,7 @@ lua_source = '''
 [[plugins]]
 repo = 'Shougo/ddc-source-nvim-lsp'
 on_source = 'ddc.vim'
+depends = 'vim-vsnip'
 lua_source = '''
     require('rc.ddc').set_source_options('nvim-lsp', {
         mark = ' ',
@@ -162,7 +163,7 @@ lua_add = '''
 '''
 
 [[plugins]]
-repo = 'hrsh7th/vim-vsnip-integ'
+repo = 'uga-rosa/ddc-source-vsnip'
 on_source = 'ddc.vim'
 depends = 'vim-vsnip'
 lua_source = '''

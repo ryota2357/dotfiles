@@ -5,8 +5,8 @@ import {
   Actions,
   BaseKind,
   DduItem,
-} from "https://deno.land/x/ddu_vim@v3.0.2/types.ts";
-import { Denops } from "https://deno.land/x/ddu_vim@v3.0.2/deps.ts";
+} from "https://deno.land/x/ddu_vim@v3.3.2/types.ts";
+import { Denops } from "https://deno.land/x/ddu_vim@v3.3.2/deps.ts";
 import { ActionData } from "../@ddu-sources/ui_select.ts";
 
 type Params = Record<never, never>;
