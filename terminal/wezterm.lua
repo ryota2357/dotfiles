@@ -14,6 +14,7 @@ config.colors = {
     cursor_fg = 'black',
     cursor_border = '#fffaf5',
 }
+-- config.window_decorations = 'NONE'
 
 -- Key
 config.keys = {

@@ -19,5 +19,8 @@ export PATH="$HOME/.nodebrew/current/bin:$PATH"
 # dotnet tools
 export PATH="$HOME/.dotnet/tools:$PATH"
 
+# go tools
+export PATH="$HOME/go/bin:$PATH"
+
 # use
 export PATH="$HOME/Projects/use/bin:$PATH"

@@ -61,13 +61,14 @@ repo = 'harenome/vim-mipssyntax'
 
 [[plugins]]
 repo = 'monaqa/dial.nvim'
+# repo = '~/Projects/VimPlugin/dial.nvim'
 hook_add = '''
   nnoremap  <C-a>  <Plug>(dial-increment)
   nnoremap  <C-x>  <Plug>(dial-decrement)
-  nnoremap g<C-a> g<Plug>(dial-increment)
-  nnoremap g<C-x> g<Plug>(dial-decrement)
   vnoremap  <C-a>  <Plug>(dial-increment)
   vnoremap  <C-x>  <Plug>(dial-decrement)
-  vnoremap g<C-a> g<Plug>(dial-increment)
-  vnoremap g<C-x> g<Plug>(dial-decrement)
+  nmap g<C-a> g<Plug>(dial-increment)
+  nmap g<C-x> g<Plug>(dial-decrement)
+  vmap g<C-a> g<Plug>(dial-increment)
+  vmap g<C-x> g<Plug>(dial-decrement)
 '''

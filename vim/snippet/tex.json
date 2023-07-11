@@ -45,6 +45,14 @@
     "prefix": "cite",
     "body": "\\cite{$0}"
   },
+  "code-block": {
+    "prefix": "codeblock",
+    "body": [
+      "\\begin{lstlisting}[caption=$1, label=$2]",
+      "$0",
+      "\\end{lstlisting}"
+    ]
+  },
   "const": {
     "prefix": "const",
     "body": "\\const"
