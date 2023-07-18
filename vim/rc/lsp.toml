@@ -185,25 +185,5 @@ lua_source = '''
 '''
 
 [[plugins]]
-repo = 'jose-elias-alvarez/null-ls.nvim'
-on_source = 'nvim-lspconfig'
-depends = 'plenary.nvim'
-lua_source = '''
-    local null_ls = require("null-ls")
-    null_ls.setup {
-        sources = {
-            null_ls.builtins.formatting.stylua,
-            null_ls.builtins.diagnostics.eslint,
-            null_ls.builtins.code_actions.eslint,
-            null_ls.builtins.formatting.prettier,
-            null_ls.builtins.diagnostics.markdownlint,
-            null_ls.builtins.diagnostics.hadolint,
-            null_ls.builtins.diagnostics.zsh,
-            null_ls.builtins.formatting.fixjson
-        },
-    }
-'''
-
-[[plugins]]
 repo = 'b0o/SchemaStore.nvim'
 on_source = 'nvim-lspconfig'

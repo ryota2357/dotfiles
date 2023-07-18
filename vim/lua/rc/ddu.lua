@@ -1,38 +1,33 @@
 local M = {}
 
----@param source string
----@param config_fn fun(ctx: { lines: integer, columns: integer }):table
+---@param config table
 ---@return nil
-local function ddu_start(source, config_fn)
-    local config = config_fn({
-        lines = vim.opt.lines:get(),
-        columns = vim.opt.columns:get()
-    })
-    config.name = source
-    config.sources = { { name = source } }
-    vim.fn["ddu#start"](config)
+local function fix_config_sources(config)
+    for lua_key, source_name in pairs(config.sources or {}) do
+        config.sources[lua_key] = { name = source_name }
+    end
 end
 
 M.start = {}
 
 ---@param mode string
 ---@param key string
----@param source string
----@param config_fn fun(ctx: { lines: integer, columns: integer }):table
+---@param config table
 ---@return nil
-function M.start.keymap(mode, key, source, config_fn)
+function M.start.keymap(mode, key, config)
+    fix_config_sources(config)
     vim.keymap.set(mode, key, function()
-        ddu_start(source, config_fn)
+        vim.fn['ddu#start'](config)
     end)
 end
 
 ---@param command string
----@param source string
----@param config_fn fun(ctx: { lines: integer, columns: integer }):table
+---@param config table
 ---@return nil
-function M.start.command(command, source, config_fn)
+function M.start.command(command, config)
+    fix_config_sources(config)
     vim.api.nvim_create_user_command(command, function()
-        ddu_start(source, config_fn)
+        vim.fn['ddu#start'](config)
     end, {})
 end
 

@@ -4,92 +4,45 @@ depends = 'denops.vim'
 on_event = 'CursorHold'
 lua_add = '''
     local ddu = require('rc.ddu')
-    local round = function(x)
-        return math.floor(x + 0.5)
-    end
-    local create_uiParams_ff_full = function(ctx, config)
-        return vim.tbl_extend('force', {
+    ddu.start.keymap('n', '<Leader>f', {
+        sources = { 'file_rec' },
+        name = 'ff_list'
+    })
+    ddu.start.keymap('n', '<Leader>g', {
+        sources = { 'rg' },
+        name = 'ff_preview'
+    })
+    ddu.start.keymap('n', '<Leader>b', {
+        sources = { 'buffer' },
+        name = 'ff_list'
+    })
+    ddu.start.keymap('n', '<Leader>h', {
+        sources = { 'help' },
+        name = 'ff_preview',
+        uiParams = {
             ff = {
-                winRow = round(ctx.lines * 0.2),
-                winCol = round(ctx.columns * 0.15),
-                winHeight = round(ctx.lines * 0.5),
-                winWidth = round(ctx.columns * 0.7),
-                previewHeight = round(ctx.lines * 0.15),
-                previewWidth = round(ctx.columns * 0.7)
+                previewCol = 'round(&columns * 0.40)',
+                previewWidth = 'round(&columns * 0.55)'
             }
-        }, config or {})
-    end
-    local create_uiParams_ff_left = function(ctx, config)
-        return vim.tbl_extend('force', {
-            ff = {
-                winRow = round(ctx.lines * 0.05),
-                winCol = round(ctx.columns * 0.05),
-                winHeight = round(ctx.lines * 0.8),
-                winWidth = round(ctx.columns * 0.45),
-                previewSplit = "vertical",
-                previewRow = round(ctx.lines * 0.05),
-                previewCol = round(ctx.columns * 0.5),
-                previewHeight = round(ctx.lines * 0.8),
-                previewWidth = round(ctx.columns * 0.45),
-                autoAction = { name = 'preview' }
-            }
-        }, config or {})
-    end
-
-    ddu.start.keymap('n', '<Leader>f', 'file_rec', function(ctx)
-        return {
-            uiParams = create_uiParams_ff_full(ctx)
         }
-    end)
-
-    ddu.start.keymap('n', '<Leader>g', 'rg', function(ctx)
-        return {
-            uiParams = create_uiParams_ff_left(ctx)
-        }
-    end)
-
-    ddu.start.keymap('n', '<Leader>b', 'buffer', function(ctx)
-        return {
-            uiParams = create_uiParams_ff_full(ctx)
-        }
-    end)
-
-    ddu.start.keymap('n', '<Leader>h', 'help', function(ctx)
-        return {
-            uiParams = create_uiParams_ff_left(ctx, {
-                winWidth = round(ctx.lines * 0.40),
-                previewWidth = round(ctx.columns * 0.60)
-            })
-        }
-    end)
-
-    ddu.start.keymap('n', '<Leader>l', 'line', function(ctx)
-        return {
-            uiParams = create_uiParams_ff_full(ctx, {
-                winWidth = round(ctx.lines * 0.15),
-                previewWidth = round(ctx.columns * 0.60)
-            })
-        }
-    end)
-
-    ddu.start.keymap('n', '<Leader>o', 'file', function()
-        return {
-            ui = 'filer',
-            resume = true
-        }
-    end)
-
-    ddu.start.command('Library', 'cpl', function(ctx)
-        return {
-            uiParams = create_uiParams_ff_full(ctx)
-        }
-    end)
-
-    ddu.start.command('DeinPlugins', 'dein', function(ctx)
-        return {
-            uiParams = create_uiParams_ff_full(ctx)
-        }
-    end)
+    })
+    ddu.start.keymap('n', '<Leader>l', {
+        sources = { 'line' },
+        name = 'ff_line',
+    })
+    ddu.start.keymap('n', '<Leader>o', {
+        ui = 'filer',
+        sources = { 'file' },
+        resume = true
+    })
+    ddu.start.command('Library', {
+        sources = { 'cpl' },
+        name = 'ff_list'
+    })
+    ddu.start.command('DeinPlugins', {
+        sources = { 'dein' },
+        name = 'ff_list'
+    })
 '''
 lua_source = '''
     local ddu = require('rc.ddu')
@@ -110,7 +63,7 @@ lua_source = '''
                 previewFloating = true,
                 previewFloatingBorder = 'rounded',
                 startFilter = true,
-                filterFloatingPosition = 'bottom'
+                filterFloatingPosition = 'top'
             },
             filer = {
                 split = 'vertical',
@@ -199,6 +152,55 @@ lua_source = '''
             }
         }
     })
+
+    ddu.custom.patch_local('ff_list', {
+        uiParams = {
+            ff = {
+                winRow = 'round(&lines * 0.15)',
+                winCol = 'round(&columns * 0.20)',
+                winHeight = 'round(&lines * 0.65)',
+                winWidth = 'round(&columns * 0.60)',
+                previewHeight = 0,
+                previewWidth = 0
+            }
+        }
+    })
+
+    ddu.custom.patch_local('ff_preview', {
+        uiParams = {
+            ff = {
+                winRow = 'round(&lines * 0.10)',
+                winCol = 'floor(&columns * 0.05)',
+                winHeight = 'round(&lines * 0.80)',
+                winWidth = 'floor(&columns * 0.90)',
+                previewSplit = 'vertical',
+                previewRow = 'round(&lines * 0.10)',
+                previewCol = 'floor(&columns * 0.50)',
+                previewHeight = 'round(&lines * 0.80)',
+                previewWidth = 'floor(&columns * 0.45)',
+                autoAction = { name = 'preview' },
+                startAutoAction = true
+            }
+        }
+    })
+
+    ddu.custom.patch_local('ff_line', {
+        uiParams = {
+            ff = {
+                winRow = 'floor(&lines * 0.35)',
+                winCol = 'round(&columns * 0.05)',
+                winHeight = 'floor(&lines * 0.50)',
+                winWidth = 'round(&columns * 0.90)',
+                previewSplit = 'horizontal',
+                previewRow = 'floor(&lines * 0.35) - 3',
+                previewCol = 'round(&columns * 0.05)',
+                previewHeight = 'floor(&lines * 0.20)',
+                previewWidth = 'round(&columns * 0.90)',
+                autoAction = { name = 'preview' },
+                startAutoAction = true
+            }
+        }
+    })
 '''
 
 [[plugins]]
@@ -216,7 +218,7 @@ lua_ddu-ff = '''
 lua_ddu-ff-filter = '''
     local ddu = require('rc.ddu')
     local imap = function(lhs, rhs) vim.keymap.set('i', lhs, rhs, { buffer = true }) end
-    if vim.b.ddu_ui_name == 'line' then
+    if vim.b.ddu_ui_name == 'ff_line' then
         imap('<CR>', function()
             vim.cmd('stopinsert')
             ddu.ui.async_action('itemAction')
@@ -237,7 +239,9 @@ lua_ddu-ff-filter = '''
     end
     imap('<C-n>', function() ddu.ui.async_action('cursorNext') end)
     imap('<C-p>', function() ddu.ui.async_action('cursorPrevious') end)
-    imap('<C-q>', function() ddu.ui.sync_action('preview') end)
+    if vim.b.ddu_ui_name == 'ff_preview' or vim.b.ddu_ui_name == 'ff_line' then
+        imap('<C-q>', function() ddu.ui.sync_action('toggleAutoAction') end)
+    end
     imap('<ESC>', function()
         vim.cmd('stopinsert')
         ddu.ui.async_action('quit')
