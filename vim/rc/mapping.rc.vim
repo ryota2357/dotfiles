@@ -30,10 +30,12 @@ if has('nvim')
 endif
 
 " 行頭行末移動
-nnoremap Q ^
-nnoremap ` $l
-xnoremap Q ^
-xnoremap ` $l
+nnoremap 0 ^
+nnoremap ^ 0
+nnoremap + $
+xnoremap 0 ^
+xnoremap ^ 0
+xnoremap + $
 
 " ペア移動
 nnoremap ] %

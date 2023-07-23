@@ -22,10 +22,8 @@ lua_source = '''
     require('rc.util').autocmd 'LspAttach' {
         callback = function(context)
             local bufnr = context.buf
-            local client = vim.lsp.get_client_by_id(context.data.client_id)
-
+            -- local client = vim.lsp.get_client_by_id(context.data.client_id)
             local nmap = function(key, cmd) vim.keymap.set('n', key, cmd, { buffer = bufnr, silent = true }) end
-
             nmap(',d', vim.lsp.buf.definition)
             nmap(',i', vim.lsp.buf.implementation)
             nmap(',r', vim.lsp.buf.rename)
@@ -56,6 +54,21 @@ lua_source = '''
             init_options = { lint = true, unstable = true },
             root_dir = root_pattern.deno,
             single_file_support = false
+        },
+        efm = {
+            init_options = { documentFormatting = true },
+            single_file_support = true,
+            filetypes = { 'markdown' },
+            settings = {
+                rootMarkers = { ".git/" },
+                languages = {
+                    markdown = {{
+                        lintCommand = 'npx textlint --format unix ${INPUT}',
+                        lintFormats = { '%f:%l:%n: %m' }
+                    }}
+
+                }
+            }
         },
         jsonls = {
             settings = {

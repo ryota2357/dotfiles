@@ -38,4 +38,7 @@ ln_dots terminal/wezterm.lua ~/.config/wezterm/wezterm.lua
 # latex
 ln_dots tex/latexmkrc.perl ~/.latexmkrc
 
+# style
+ln_dots style/textlintrc.json ~/.textlintrc.json
+
 unset -f ln_dots
