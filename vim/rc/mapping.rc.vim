@@ -41,7 +41,7 @@ xnoremap + $
 nnoremap ] %
 
 " ノーマルモードでも改行
-nnoremap <CR> i<CR><ESC>
+" nnoremap <CR> i<CR><ESC>
 
 " 行選択モードで左右に動いたらビジュアルモードを抜ける (ideaにmode()ない)
 if has('nvim')

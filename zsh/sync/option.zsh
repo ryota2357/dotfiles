@@ -8,10 +8,10 @@ export LANG=ja_JP.UTF-8
 HISTFILE=~/.zsh_history
 
 # メモリに保存される履歴の件数
-HISTSIZE=10000
+HISTSIZE=100000
 
 # 履歴ファイルに保存される履歴の件数
-SAVEHIST=100000
+SAVEHIST=1000000
 
 # 改行のない出力をプロンプトで上書きするのを防ぐ
 unsetopt promptcr

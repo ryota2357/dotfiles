@@ -8,5 +8,8 @@ export MOCWORD_DATA="$HOME/github/high-moctane/mocword-data/releases/eng20200217
 # export MANPAGER='nvim +Man!'
 export MANPAGER="vim +MANPAGER --not-a-term -"
 
+# fzf <C-r>
+export FZF_CTRL_R_OPTS=--reverse
+
 # rust
 . "$HOME/.cargo/env"

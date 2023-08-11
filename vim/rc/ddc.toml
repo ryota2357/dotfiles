@@ -117,7 +117,7 @@ lua_source = '''
     require('rc.ddc').set_source_options('nvim-lsp', {
         mark = ' ',
         dup = 'keep',
-        forceCompletionPattern = [[\.\w*|:\w*|->\w*]],
+        -- forceCompletionPattern = [[\.\w*|:\w*|->\w*]],
     })
     require('rc.ddc').set_source_params('nvim-lsp', {
         snippetEngine = vim.fn['denops#callback#register'](function(body)
@@ -126,6 +126,16 @@ lua_source = '''
         enableResolveItem = true,
         enableAdditionalTextEdit = true
     })
+'''
+
+[[plugins]]
+repo = 'uga-rosa/ddc-nvim-lsp-setup'
+on_source = 'ddc.vim'
+lua_source = '''
+    require("ddc_nvim_lsp_setup").setup {
+        override_capabilities = false,
+        respect_trigger = true
+    }
 '''
 
 [[plugins]]

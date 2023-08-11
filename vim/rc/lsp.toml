@@ -62,10 +62,10 @@ lua_source = '''
             settings = {
                 rootMarkers = { ".git/" },
                 languages = {
-                    markdown = {{
+                    markdown = { {
                         lintCommand = 'npx textlint --format unix ${INPUT}',
                         lintFormats = { '%f:%l:%n: %m' }
-                    }}
+                    } }
 
                 }
             }
