@@ -226,6 +226,11 @@ on_source = 'ddc.vim'
 repo = 'Shougo/ddc-filter-converter_remove_overlap'
 on_source = 'ddc.vim'
 
+# [[plugins]]
+# repo = 'uga-rosa/ddc-previewer-floating'
+# on_source = 'ddc.vim'
+# lua_source = 'require("ddc_previewer_floating").enable()'
+
 [[plugins]]
 repo = 'matsui54/denops-signature_help'
 on_source = 'ddc.vim'
