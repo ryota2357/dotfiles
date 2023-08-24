@@ -231,28 +231,37 @@ lua_ddu-ff = '''
 lua_ddu-ff-filter = '''
     local ddu = require('rc.ddu')
     local imap = function(lhs, rhs) vim.keymap.set('i', lhs, rhs, { buffer = true }) end
+    local stopinsert_then = function(func)
+        vim.cmd('stopinsert')
+        vim.schedule(func)
+    end
+
     if vim.b.ddu_ui_name == 'ff_line' then
         imap('<CR>', function()
-            vim.cmd('stopinsert')
-            ddu.ui.async_action('itemAction')
+            stopinsert_then(function()
+                ddu.ui.async_action('itemAction')
+            end)
         end)
     elseif vim.b.ddu_ui_name == 'ff_help' then
         imap('<CR>', function()
-            vim.cmd('stopinsert')
-            ddu.ui.sync_action('chooseAction')
+            stopinsert_then(function()
+                ddu.ui.async_action('chooseAction')
+            end)
         end)
     else
         imap('<CR>', function()
-            vim.cmd('stopinsert')
-            ddu.ui.async_action('itemAction', {
-                params = { command = 'drop' }
-            })
+            stopinsert_then(function()
+                ddu.ui.async_action('itemAction', {
+                    params = { command = 'drop' }
+                })
+            end)
         end)
         imap('<C-o>', function()
-            vim.cmd('stopinsert')
-            ddu.ui.async_action('itemAction', {
-                params = { command = 'tab drop' }
-            })
+            stopinsert_then(function()
+                ddu.ui.async_action('itemAction', {
+                    params = { command = 'tab drop' }
+                })
+            end)
         end)
     end
     imap('<C-n>', function() ddu.ui.async_action('cursorNext') end)
@@ -261,8 +270,9 @@ lua_ddu-ff-filter = '''
         imap('<C-q>', function() ddu.ui.sync_action('toggleAutoAction') end)
     end
     imap('<ESC>', function()
-        vim.cmd('stopinsert')
-        ddu.ui.async_action('quit')
+        stopinsert_then(function()
+            ddu.ui.async_action('quit')
+        end)
     end)
 '''
 
