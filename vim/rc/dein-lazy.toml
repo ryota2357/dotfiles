@@ -217,7 +217,7 @@ hook_add = '''
 
 [[plugins]]
 repo = 'prettier/vim-prettier'
-build = 'npm install'
+build = 'pnpm install'
 on_ft = ['astro', 'typescriptreact', 'markdown']
 hook_source = '''
   autocmd BufWritePre *.astro,*.tsx,*.md PrettierAsync

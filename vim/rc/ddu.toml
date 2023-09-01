@@ -161,18 +161,21 @@ lua_source = '''
         }
     })
 
+    local p_winCol = 'round(&columns * 0.05)'
+    local p_winWidth = 'round(&columns * 0.90)'
+    local p_previewWidth = 'round(&columns * 0.45)'
     ddu.custom.patch_local('ff_preview', {
         uiParams = {
             ff = {
                 winRow = 'round(&lines * 0.10)',
-                winCol = 'floor(&columns * 0.05)',
+                winCol = p_winCol,
                 winHeight = 'round(&lines * 0.80)',
-                winWidth = 'floor(&columns * 0.90)',
+                winWidth = p_winWidth,
                 previewSplit = 'vertical',
                 previewRow = 'round(&lines * 0.10)',
-                previewCol = 'floor(&columns * 0.50)',
+                previewCol = p_winCol .. '+' .. p_winWidth .. '-' .. p_previewWidth,
                 previewHeight = 'round(&lines * 0.80)',
-                previewWidth = 'floor(&columns * 0.45)',
+                previewWidth = p_previewWidth,
                 autoAction = { name = 'preview' },
                 startAutoAction = true
             }
@@ -182,14 +185,14 @@ lua_source = '''
     ddu.custom.patch_local('ff_line', {
         uiParams = {
             ff = {
-                winRow = 'floor(&lines * 0.35)',
+                winRow = 'round(&lines * 0.35)',
                 winCol = 'round(&columns * 0.05)',
-                winHeight = 'floor(&lines * 0.50)',
+                winHeight = 'round(&lines * 0.50)',
                 winWidth = 'round(&columns * 0.90)',
                 previewSplit = 'horizontal',
-                previewRow = 'floor(&lines * 0.35) - 3',
+                previewRow = 'round(&lines * 0.35) - 3',
                 previewCol = 'round(&columns * 0.05)',
-                previewHeight = 'floor(&lines * 0.20)',
+                previewHeight = 'round(&lines * 0.20)',
                 previewWidth = 'round(&columns * 0.90)',
                 autoAction = { name = 'preview' },
                 startAutoAction = true
@@ -197,18 +200,21 @@ lua_source = '''
         }
     })
 
+    local h_winCol = 'round(&columns * 0.05)'
+    local h_winWidth = 'round(&columns * 0.90)'
+    local h_previewWidth = 'round(&columns * 0.55)'
     ddu.custom.patch_local('ff_help', {
         uiParams = {
             ff = {
                 winRow = 'round(&lines * 0.10)',
-                winCol = 'floor(&columns * 0.05)',
+                winCol = h_winCol,
                 winHeight = 'round(&lines * 0.80)',
-                winWidth = 'floor(&columns * 0.90)',
+                winWidth = h_winWidth,
                 previewSplit = 'vertical',
                 previewRow = 'round(&lines * 0.10)',
-                previewCol = 'round(&columns * 0.40)',
+                previewCol = h_winCol .. '+' .. h_winWidth .. '-' .. h_previewWidth,
                 previewHeight = 'round(&lines * 0.80)',
-                previewWidth = 'round(&columns * 0.55)',
+                previewWidth = h_previewWidth,
                 autoAction = { name = 'preview' },
                 startAutoAction = true
             }
