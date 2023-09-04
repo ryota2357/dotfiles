@@ -45,7 +45,8 @@ lua_source = '''
 
     local lsp_config = {
         astro = {
-            root_dir = root_pattern.astro
+            root_dir = root_pattern.astro,
+            filetypes = { 'astro', 'typescript' }
         },
         dartls = {
             root_dir = lsp_util.root_pattern('pubspec.yaml', '.dart')

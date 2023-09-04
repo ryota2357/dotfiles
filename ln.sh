@@ -24,7 +24,6 @@ ln_dots vim/vimrc                    ~/.vimrc
 ln_dots vim/after                    ~/.config/nvim/after
 ln_dots vim/denops                   ~/.config/nvim/denops
 ln_dots vim/lua                      ~/.config/nvim/lua
-ln_dots vim/format/clang-format.yaml ~/.clang-format
 
 # tmux
 ln_dots tmux/tmux.conf ~/.tmux.conf
@@ -39,6 +38,7 @@ ln_dots terminal/wezterm.lua ~/.config/wezterm/wezterm.lua
 ln_dots tex/latexmkrc.perl ~/.latexmkrc
 
 # style
-ln_dots style/textlintrc.json ~/.textlintrc.json
+ln_dots style/textlintrc.json   ~/.textlintrc.json
+ln_dots style/clang-format.yaml ~/.clang-format
 
 unset -f ln_dots
