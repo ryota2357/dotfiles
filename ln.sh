@@ -37,6 +37,9 @@ ln_dots terminal/wezterm.lua ~/.config/wezterm/wezterm.lua
 # latex
 ln_dots tex/latexmkrc.perl ~/.latexmkrc
 
+# tree-sitter
+ln_dots tree-sitter/config.json ~/.config/tree-sitter/config.json
+
 # style
 ln_dots style/textlintrc.json   ~/.textlintrc.json
 ln_dots style/clang-format.yaml ~/.clang-format

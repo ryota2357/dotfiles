@@ -1,0 +1,54 @@
+{
+  "parser-directories": [
+    "~/github/tree-sitter"
+  ],
+  "theme": {
+    "constant.builtin": {
+      "color": 94,
+      "bold": true
+    },
+    "tag": 18,
+    "punctuation.bracket": 239,
+    "module": 136,
+    "keyword": 56,
+    "string.special": 30,
+    "type.builtin": {
+      "bold": true,
+      "color": 23
+    },
+    "variable.parameter": {
+      "underline": true
+    },
+    "type": 23,
+    "number": {
+      "color": 94,
+      "bold": true
+    },
+    "punctuation.delimiter": 239,
+    "attribute": {
+      "italic": true,
+      "color": 124
+    },
+    "property": 124,
+    "constructor": 136,
+    "embedded": null,
+    "constant": 94,
+    "string": 28,
+    "function.builtin": {
+      "color": 26,
+      "bold": true
+    },
+    "variable.builtin": {
+      "bold": true
+    },
+    "comment": {
+      "color": 245,
+      "italic": true
+    },
+    "operator": {
+      "color": 239,
+      "bold": true
+    },
+    "function": 26
+  }
+}
