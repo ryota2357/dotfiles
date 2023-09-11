@@ -1,6 +1,9 @@
 # rustc とか cargo とか、入れる
 rustup-init
 
+# パス通す
+. "$HOME/.cargo/env"
+
 # https://rust-lang.github.io/rustup/concepts/components.html
 # rustc         — The Rust compiler and Rustdoc.
 # cargo         — Cargo is a package manager and build tool.
