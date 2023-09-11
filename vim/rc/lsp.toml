@@ -38,7 +38,7 @@ lua_source = '''
 
     local lsp_util = require('lspconfig.util')
     local root_pattern = {
-        astro = lsp_util.root_pattern('astro.config.mjs'),
+        astro = lsp_util.root_pattern('astro.config.mjs', 'astro.config.ts'),
         deno = lsp_util.root_pattern('deno.json', 'deno.jsonc', 'denops'),
         node = lsp_util.root_pattern('package.json', 'node_modules')
     }
@@ -46,7 +46,7 @@ lua_source = '''
     local lsp_config = {
         astro = {
             root_dir = root_pattern.astro,
-            filetypes = { 'astro', 'typescript' }
+            filetypes = { 'astro', 'typescript', 'javascript' }
         },
         dartls = {
             root_dir = lsp_util.root_pattern('pubspec.yaml', '.dart')

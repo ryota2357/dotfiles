@@ -8,7 +8,7 @@ autocmd 'WinEnter' {
 
 autocmd 'FileType' {
     desc = 'インデントのスペースの数2のファイルタイプ設定',
-    pattern = { 'astro', 'dart', 'json', 'pdf', 'scss', 'typescript', 'typescriptreact', 'vim' },
+    pattern = { 'astro', 'dart', 'javascript', 'json', 'pdf', 'scss', 'typescript', 'typescriptreact', 'vim' },
     callback = function()
         vim.opt_local.tabstop = 2
         vim.opt_local.softtabstop = 2
