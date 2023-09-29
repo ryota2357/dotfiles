@@ -29,9 +29,6 @@ repo = 'lambdalisue/kensaku.vim'
 depends = 'denops.vim'
 
 [[plugins]]
-repo = 'RRethy/vim-illuminate'
-
-[[plugins]]
 repo = 'ryota2357/necodark'
 rev = 'build/nvim'
 hook_add = 'colorscheme necodark'
@@ -60,14 +57,40 @@ hook_add = '''
 repo = 'harenome/vim-mipssyntax'
 
 [[plugins]]
-repo = 'monaqa/dial.nvim'
-hook_add = '''
-  nnoremap  <C-a>  <Plug>(dial-increment)
-  nnoremap  <C-x>  <Plug>(dial-decrement)
-  vnoremap  <C-a>  <Plug>(dial-increment)
-  vnoremap  <C-x>  <Plug>(dial-decrement)
-  nmap g<C-a> g<Plug>(dial-increment)
-  nmap g<C-x> g<Plug>(dial-decrement)
-  vmap g<C-a> g<Plug>(dial-increment)
-  vmap g<C-x> g<Plug>(dial-decrement)
+repo = 'RRethy/vim-illuminate'
+
+[[plugins]]
+repo = 'nvim-treesitter/nvim-treesitter'
+hook_post_update = 'TSUpdate'
+lua_source = '''
+    require('nvim-treesitter.configs').setup {
+        ensure_installed = 'all',
+        additional_vim_regex_highlighting = false,
+
+        -- tex  : snipet挿入後とかでエラーが出る
+        highlight = {
+            enable = true,
+            disable = { 'latex', 'tex' },
+        },
+    }
+'''
+
+[[plugins]]
+repo = 'lukas-reineke/indent-blankline.nvim'
+lua_source = '''
+    require('rc.util').highlight.set {
+        IndentBlanklineIndentChar = { fg = '#373741', nocombine = true },
+        IndentBlanklineScopeChar = { fg = '#737378', nocombine = true },
+    }
+    require('ibl').setup {
+        indent = {
+            char = '│',
+            highlight = 'IndentBlanklineIndentChar',
+        },
+        scope = {
+            show_start = false,
+            show_end = false,
+            highlight = 'IndentBlanklineScopeChar',
+        },
+    }
 '''

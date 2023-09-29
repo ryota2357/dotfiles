@@ -23,5 +23,8 @@ cargo install cargo-edit
 # macwordコマンド: https://github.com/high-moctane/mocword
 cargo install mocword
 
+# mdbookコマンド
+cargo install mdbook
+
 # cargo install したのをアプデする ($ cargo install-update --all)
 cargo install cargo-update

@@ -44,15 +44,19 @@ require('dein-snip').setup {
 -- ]]
 
 Statusline = require('rc.ui.statusline')
-vim.api.nvim_set_option('statusline', '%!v:lua.Statusline()')
+vim.api.nvim_set_option_value('statusline', '%!v:lua.Statusline()', { scope = "global" })
 
 Tabline = require('rc.ui.tabline')
-vim.api.nvim_set_option('tabline', '%!v:lua.Tabline()')
+vim.api.nvim_set_option_value('tabline', '%!v:lua.Tabline()', { scope = "global" })
 
 vim.ui = {
     select = function(...)
         vim.ui.select = require('rc.ui.select')
         vim.ui.select(...)
+    end,
+    open = function (...)
+        vim.ui.open = require('vim.ui').open
+        vim.ui.open(...)
     end,
     input = function(...)
         vim.ui.input = require('rc.ui.input')
