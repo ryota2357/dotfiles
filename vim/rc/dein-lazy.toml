@@ -143,6 +143,28 @@ depends = 'nvim-treesitter'
 on_event = ['CursorMoved', 'CursorMovedI']
 
 [[plugins]]
+repo = 'lukas-reineke/indent-blankline.nvim'
+depends = 'nvim-treesitter'
+on_event = ['CursorHold', 'CursorMoved', 'CursorMovedI']
+lua_source = '''
+    require('rc.util').highlight.set {
+        IndentBlanklineIndentChar = { fg = '#373741', nocombine = true },
+        IndentBlanklineScopeChar = { fg = '#737378', nocombine = true },
+    }
+    require('ibl').setup {
+        indent = {
+            char = '│',
+            highlight = 'IndentBlanklineIndentChar',
+        },
+        scope = {
+            show_start = false,
+            show_end = false,
+            highlight = 'IndentBlanklineScopeChar',
+        },
+    }
+'''
+
+[[plugins]]
 repo = 'lewis6991/gitsigns.nvim'
 on_event = 'BufReadPost'
 hook_source = '''
@@ -213,8 +235,8 @@ hook_add = '''
 
 [[plugins]]
 repo = 'thinca/vim-partedit'
-depends = ['context_filetype.vim']
-on_func = ['partedit#start']
+depends = 'context_filetype.vim'
+on_func = 'partedit#start'
 lua_add = '''
     vim.keymap.set('n', '<Leader>e', function()
         local context = vim.fn['context_filetype#get']()

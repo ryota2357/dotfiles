@@ -74,23 +74,3 @@ lua_source = '''
         },
     }
 '''
-
-[[plugins]]
-repo = 'lukas-reineke/indent-blankline.nvim'
-lua_source = '''
-    require('rc.util').highlight.set {
-        IndentBlanklineIndentChar = { fg = '#373741', nocombine = true },
-        IndentBlanklineScopeChar = { fg = '#737378', nocombine = true },
-    }
-    require('ibl').setup {
-        indent = {
-            char = '│',
-            highlight = 'IndentBlanklineIndentChar',
-        },
-        scope = {
-            show_start = false,
-            show_end = false,
-            highlight = 'IndentBlanklineScopeChar',
-        },
-    }
-'''

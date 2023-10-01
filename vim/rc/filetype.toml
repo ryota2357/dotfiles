@@ -4,6 +4,14 @@ hook_add = '''
 '''
 
 [ftplugin]
+help = '''
+  setlocal nolist
+  setlocal noexpandtab
+  setlocal tabstop=8 softtabstop=8 shiftwidth=8
+'''
+qf = '''
+  nnoremap <buffer><ESC> <Cmd>close<CR>
+'''
 tex = '''
   setlocal tabstop=2 softtabstop=2 shiftwidth=2
   setlocal sidescrolloff=10
@@ -16,11 +24,6 @@ tex = '''
     silent! execute ':%s/\\\@<!\s\+$//'
     call setpos('.', l:pos)
   endfunction
-'''
-help = '''
-  setlocal nolist
-  setlocal noexpandtab
-  setlocal tabstop=8 softtabstop=8 shiftwidth=8
 '''
 make = '''
   setlocal noexpandtab

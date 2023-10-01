@@ -139,7 +139,7 @@ lua_source = '''
             file = { defaultAction = 'open' },
             help = { defaultAction = 'open' },
             action = { defaultAction = 'do' },
-            cpl = { defaultAction = 'paste' }
+            cpl = { defaultAction = 'paste' },
         },
         actionOptions = {
             narrow = {
@@ -229,14 +229,21 @@ on_source = 'ddu.vim'
 lua_ddu-ff = '''
     local ddu = require('rc.ddu')
     local nmap = function(lhs, rhs) vim.keymap.set('n', lhs, rhs, { buffer = true }) end
-    nmap('<CR>',  function() ddu.ui.async_action('itemAction') end)
-    nmap('<ESC>', function() ddu.ui.async_action('quit') end)
-    nmap('i',     function() ddu.ui.sync_action('openFilterWindow') end)
+    nmap('<CR>',    function() ddu.ui.multi_actions({'clearSelectAllItems', 'itemAction'}) end)
+    nmap('<ESC>',   function() ddu.ui.async_action('quit') end)
+    nmap('i',       function() ddu.ui.sync_action('openFilterWindow') end)
+    nmap('<Space>', function() ddu.ui.sync_action('toggleSelectItem') end)
+    nmap('u',       function() ddu.ui.async_action('chooseAction') end)
+    nmap('U',       function() ddu.ui.multi_actions({'clearSelectAllItems', 'toggleAllItems', 'chooseAction' }) end)
     vim.opt.signcolumn = "no"
 '''
 lua_ddu-ff-filter = '''
     local ddu = require('rc.ddu')
-    local imap = function(lhs, rhs) vim.keymap.set('i', lhs, rhs, { buffer = true }) end
+    local imap = function(lhs, rhs)
+        for _, v in ipairs( type(lhs) == 'string' and { lhs } or lhs) do
+            vim.keymap.set('i', v, rhs, { buffer = true })
+        end
+    end
     local stopinsert_then = function(func)
         vim.cmd('stopinsert')
         vim.schedule(func)
@@ -249,7 +256,7 @@ lua_ddu-ff-filter = '''
             end)
         end)
     elseif vim.b.ddu_ui_name == 'ff_help' then
-        imap('<CR>', function()
+        imap({ '<CR>', '<C-o>' }, function()
             stopinsert_then(function()
                 ddu.ui.async_action('chooseAction')
             end)
@@ -270,11 +277,21 @@ lua_ddu-ff-filter = '''
             end)
         end)
     end
+    imap('<C-i>', function()
+        stopinsert_then(function()
+            ddu.ui.async_action('leaveFilterWindow')
+        end)
+    end)
+    imap('<C-u>', function()
+        stopinsert_then(function()
+            ddu.ui.multi_actions({
+                'clearSelectAllItems', 'toggleAllItems', -- select all
+                'chooseAction', 'openFilterWindow'
+            })
+        end)
+    end)
     imap('<C-n>', function() ddu.ui.async_action('cursorNext') end)
     imap('<C-p>', function() ddu.ui.async_action('cursorPrevious') end)
-    if vim.b.ddu_ui_name == 'ff_preview' or vim.b.ddu_ui_name == 'ff_line' then
-        imap('<C-q>', function() ddu.ui.sync_action('toggleAutoAction') end)
-    end
     imap('<ESC>', function()
         stopinsert_then(function()
             ddu.ui.async_action('quit')
