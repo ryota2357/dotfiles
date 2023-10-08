@@ -1,6 +1,8 @@
 #!/bin/sh
 
 ln_dots() {
+  dir_path=$(dirname "$2")
+  mkdir -p "$dir_path"
   ln -sfnv "$HOME/dotfiles/$1" "$2"
 }
 

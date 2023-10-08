@@ -52,9 +52,24 @@ lua_source = '''
             root_dir = lsp_util.root_pattern('pubspec.yaml', '.dart')
         },
         denols = {
-            init_options = { lint = true, unstable = true },
             root_dir = root_pattern.deno,
-            single_file_support = false
+            single_file_support = false,
+            settings = {
+                deno = {
+                    enable = true,
+                    lint = true,
+                    unstable = true,
+                    suggest = {
+                        imports = {
+                            hosts = {
+                                ["https://crux.land"] = true,
+                                ["https://deno.land"] = true,
+                                ["https://x.nest.land"] = true
+                            }
+                        }
+                    }
+                }
+            }
         },
         efm = {
             init_options = { documentFormatting = true },
