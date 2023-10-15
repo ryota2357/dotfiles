@@ -1,0 +1,65 @@
+{
+  "alfredtheme" : {
+    "result" : {
+      "textSpacing" : 4,
+      "subtext" : {
+        "size" : 16,
+        "colorSelected" : "#EDEEF299",
+        "font" : "PleckJP Italic",
+        "color" : "#5C6370FF"
+      },
+      "shortcut" : {
+        "size" : 16,
+        "colorSelected" : "#00FF5FE5",
+        "font" : "PleckJP",
+        "color" : "#5C6370CC"
+      },
+      "backgroundSelected" : "#334870FF",
+      "text" : {
+        "size" : 26,
+        "colorSelected" : "#EDEEF2FF",
+        "font" : "PleckJP",
+        "color" : "#EDEEF2FF"
+      },
+      "iconPaddingHorizontal" : 5,
+      "roundness" : 14,
+      "paddingVertical" : 2,
+      "iconSize" : 46
+    },
+    "search" : {
+      "backgroundSelected" : "#334870FF",
+      "paddingHorizontal" : 5,
+      "spacing" : 0,
+      "text" : {
+        "size" : 47,
+        "colorSelected" : "#FFFFFFFF",
+        "font" : "PleckJP",
+        "color" : "#EDEEF2FF"
+      },
+      "background" : "#1A1B1FFF",
+      "roundness" : 14,
+      "paddingVertical" : 4
+    },
+    "window" : {
+      "color" : "#1A1B1FFF",
+      "paddingHorizontal" : 10,
+      "width" : 630,
+      "borderPadding" : 0,
+      "borderColor" : "#FEFFFF33",
+      "blur" : 0,
+      "roundness" : 22,
+      "paddingVertical" : 6
+    },
+    "credit" : "ryota2357",
+    "visualEffectMode" : 2,
+    "separator" : {
+      "color" : "#1A1B1FF3",
+      "thickness" : 4
+    },
+    "scrollbar" : {
+      "color" : "#4B4B4BFF",
+      "thickness" : 4
+    },
+    "name" : "MyTheme"
+  }
+}

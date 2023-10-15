@@ -229,7 +229,8 @@ on_ft = ['astro', 'typescriptreact', 'markdown']
 hook_source = '''
   autocmd BufWritePre *.astro,*.tsx,*.md PrettierAsync
 '''
-hook_add = '''
+[plugins.ftplugin]
+markdown = '''
   let g:prettier#config#tab_width = 2
 '''
 

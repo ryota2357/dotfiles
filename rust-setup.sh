@@ -26,5 +26,8 @@ cargo install mocword
 # mdbookコマンド
 cargo install mdbook
 
+# cargo expand でマクロを展開
+cargo install cargo-expand
+
 # cargo install したのをアプデする ($ cargo install-update --all)
 cargo install cargo-update
