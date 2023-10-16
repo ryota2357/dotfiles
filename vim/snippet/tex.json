@@ -12,7 +12,7 @@
     ]
   },
   "approx": {
-    "prefix": "approx",
+    "prefix": ["approx", "nearly equal", "week equal"],
     "body": "\\approx "
   },
   "begin": {
@@ -87,6 +87,14 @@
       "\\end{equation}"
     ]
   },
+  "equiv": {
+    "prefix": ["equiv", "modeq"],
+    "body": "\\equiv "
+  },
+  "exists": {
+    "prefix": "exists",
+    "body": "\\exists "
+  },
   "figure": {
     "prefix": "figure",
     "body": [
@@ -102,9 +110,21 @@
     "prefix": "footnote",
     "body": "\\footnote{$0}"
   },
+  "forall": {
+    "prefix": "forall",
+    "body": "\\forall "
+  },
   "frac": {
     "prefix": "frac",
     "body": "\\frac{$1}{$0}"
+  },
+  "in": {
+    "prefix": "in",
+    "body": "\\in "
+  },
+  "infty": {
+    "prefix": "infty",
+    "body": "\\infty"
   },
   "int": {
     "prefix": [
@@ -132,9 +152,17 @@
     "prefix": "label",
     "body": "\\label{$0}"
   },
+  "land": {
+    "prefix": ["land", "and"],
+    "body": "\\land "
+  },
   "left": {
     "prefix": "left",
     "body": "\\left"
+  },
+  "lnot": {
+    "prefix": ["lnot", "not", "neg"],
+    "body": "\\lnot "
   },
   "log": {
     "prefix": "log",
@@ -148,9 +176,17 @@
     "prefix": "newpage",
     "body": "\\newpage"
   },
+  "neq": {
+    "prefix": ["neq", "notequal"],
+    "body": "\\neq "
+  },
   "overline": {
     "prefix": "overline",
     "body": "\\overline{$0}"
+  },
+  "pmod": {
+    "prefix": ["pmod", "mod"],
+    "body": "\\pmod"
   },
   "quotation": {
     "prefix": "quotation",
@@ -186,6 +222,10 @@
   "right": {
     "prefix": "right",
     "body": "\\right"
+  },
+  "rightarrow": {
+    "prefix": "rightarrow",
+    "body": "\\rightarrow "
   },
   "section": {
     "prefix": "section",
@@ -255,6 +295,10 @@
       "  \\end{center}",
       "\\end{table}"
     ]
+  },
+  "text": {
+    "prefix": "text",
+    "body": "\\text{$0}"
   },
   "textbackslash": {
     "prefix": "textbackslash",
