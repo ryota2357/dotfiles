@@ -1,12 +1,13 @@
 #!/usr/bin/env perl
 
 # texファイルをコンパイルするコマンドの設定
+#  -shell-escape  : mintedパッケージ(コードのsyntax highlight)で必要
 #  -synctex=1     : SyncTeX を有効に
 #  -halt-on-error : コンパイル中にエラーが発生した場合、コンパイルを終了する
-$latex = 'uplatex -synctex=1 -halt-on-error';
+$latex = 'uplatex -shell-escape -synctex=1 -halt-on-error';
 
 #  -interaction=batchmode : コンパイル中にエラーが起きても、ユーザーにどう処理するかの指示を求めずにコンパイルを続行する
-$latex_silent = 'uplatex -synctex=1 -halt-on-error -interaction=batchmode';
+$latex_silent = 'uplatex -shell-escape -synctex=1 -halt-on-error -interaction=batchmode';
 
 # BiblatexのバックエンドにBibTeXを使用するときのコマンドを指定する
 $bibtex = 'upbibtex %O %B';
