@@ -118,6 +118,10 @@
     "prefix": "frac",
     "body": "\\frac{$1}{$0}"
   },
+  "hat": {
+    "prefix": "hat",
+    "body": "\\hat{$0}"
+  },
   "in": {
     "prefix": "in",
     "body": "\\in "
@@ -179,6 +183,10 @@
   "neq": {
     "prefix": ["neq", "notequal"],
     "body": "\\neq "
+  },
+  "notin": {
+    "prefix": "notin",
+    "body": "\\notin "
   },
   "overline": {
     "prefix": "overline",
