@@ -46,13 +46,16 @@
     "body": "\\cite{$0}"
   },
   "code-block": {
-    "prefix": "codeblock",
+    "prefix": ["code-block", "minted"],
     "body": [
-      "\\begin{lstlisting}[caption=$1, label=$2]",
+      "\\begin{mdframed}",
+      "\\begin{minted}[breaklines]{${1:language}}",
       "$0",
-      "\\end{lstlisting}"
+      "\\end{minted}",
+      "\\end{mdframed}"
     ]
   },
+
   "const": {
     "prefix": "const",
     "body": "\\const"
@@ -85,6 +88,14 @@
       "\\begin{equation}",
       "  $0",
       "\\end{equation}"
+    ]
+  },
+  "equation*": {
+    "prefix": "equation*",
+    "body": [
+      "\\begin{equation*}",
+      "  $0",
+      "\\end{equation*}"
     ]
   },
   "equiv": {
@@ -163,6 +174,14 @@
   "left": {
     "prefix": "left",
     "body": "\\left"
+  },
+  "lstlisting": {
+    "prefix": "lstlisting",
+    "body": [
+      "\\begin{lstlisting}[caption=$1, label=$2]",
+      "$0",
+      "\\end{lstlisting}"
+    ]
   },
   "lnot": {
     "prefix": ["lnot", "not", "neg"],
@@ -294,8 +313,8 @@
       "\\begin{table}[H]",
       "  \\begin{center}",
       "    \\caption{$1}",
-      "    \\label{表:$1}",
-      "    \\begin{tabular}{$2:lcr...}",
+      "    \\label{$1}",
+      "    \\begin{tabular}{${2:lcr...}}",
       "      \\hline",
       "        $0",
       "      \\hline",
