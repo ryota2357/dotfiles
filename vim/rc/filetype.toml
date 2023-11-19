@@ -11,6 +11,7 @@ help = '''
 '''
 qf = '''
   nnoremap <buffer><ESC> <Cmd>close<CR>
+  setlocal cmdheight=0
 '''
 tex = '''
   setlocal tabstop=2 softtabstop=2 shiftwidth=2
