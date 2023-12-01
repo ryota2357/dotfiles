@@ -191,6 +191,10 @@
     "prefix": "log",
     "body": "\\log"
   },
+  "mathbf": {
+    "prefix": ["mathbf", "vector", "bold"],
+    "body": "\\mathbf{$0}"
+  },
   "mathrm": {
     "prefix": "mathrm",
     "body": "\\mathrm{$0}"
@@ -202,6 +206,10 @@
   "neq": {
     "prefix": ["neq", "notequal"],
     "body": "\\neq "
+  },
+  "norm": {
+    "prefix": "norm",
+    "body": "\\norm{$0}"
   },
   "notin": {
     "prefix": "notin",

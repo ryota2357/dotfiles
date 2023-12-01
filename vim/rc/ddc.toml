@@ -42,19 +42,19 @@ lua_source = '''
         backspaceCompletion = true,
     })
     ddc.custom.patch_filetype({ 'vim', 'typescript', 'typescriptreact', 'astro', 'rust', 'javascript' }, {
-        sources = { 'vsnip', 'nvim-lsp', 'around' },
+        sources = { 'vsnip', 'lsp', 'around' },
     })
     ddc.custom.patch_filetype({ 'awk', 'c', 'cpp', 'cs', 'dart', 'python', 'ruby', 'lua' }, {
-        sources = { 'nvim-lsp', 'around' },
+        sources = { 'lsp', 'around' },
     })
     ddc.custom.patch_filetype({ 'css', 'scss' }, {
-        sources = { 'nvim-lsp' },
+        sources = { 'lsp' },
     })
     ddc.custom.patch_filetype({ 'tex' }, {
-        sources = { 'nvim-lsp', 'vsnip', 'around', 'skkeleton' },
+        sources = { 'lsp', 'vsnip', 'around', 'skkeleton' },
         sourceOptions = {
             ['vsnip'] = { minAutoCompleteLength = 1 },
-            ['nvim-lsp'] = {
+            ['lsp'] = {
                 minAutoCompleteLength = 3,
                 matchers = { 'matcher_head' }
             },
@@ -110,16 +110,16 @@ lua_source = '''
 '''
 
 [[plugins]]
-repo = 'Shougo/ddc-source-nvim-lsp'
+repo = 'Shougo/ddc-source-lsp'
 on_source = 'ddc.vim'
 depends = 'vim-vsnip'
 lua_source = '''
-    require('rc.ddc').set_source_options('nvim-lsp', {
+    require('rc.ddc').set_source_options('lsp', {
         mark = ' ',
         dup = 'keep',
         -- forceCompletionPattern = [[\.\w*|:\w*|->\w*]],
     })
-    require('rc.ddc').set_source_params('nvim-lsp', {
+    require('rc.ddc').set_source_params('lsp', {
         snippetEngine = vim.fn['denops#callback#register'](function(body)
           vim.fn['vsnip#anonymous'](body)
         end),
@@ -129,10 +129,10 @@ lua_source = '''
 '''
 
 [[plugins]]
-repo = 'uga-rosa/ddc-nvim-lsp-setup'
+repo = 'uga-rosa/ddc-source-lsp-setup'
 on_source = 'ddc.vim'
 lua_source = '''
-    require("ddc_nvim_lsp_setup").setup {
+    require("ddc_source_lsp_setup").setup {
         override_capabilities = false,
         respect_trigger = true
     }

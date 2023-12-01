@@ -1,6 +1,6 @@
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
-depends = ['mason.nvim', 'mason-lspconfig.nvim', 'SchemaStore.nvim', 'ddc-source-nvim-lsp']
+depends = ['mason.nvim', 'mason-lspconfig.nvim', 'SchemaStore.nvim', 'ddc-source-lsp']
 on_event = 'BufReadPost'
 hook_add = '''
   autocmd BufWritePre *.ts,*.dart,*.rs lua vim.lsp.buf.format()
@@ -150,7 +150,7 @@ lua_source = '''
         }
     }
 
-    local lsp_capabilities = require("ddc_nvim_lsp").make_client_capabilities()
+    local lsp_capabilities = require("ddc_source_lsp").make_client_capabilities()
 
     local installed_servers = require('mason-lspconfig').get_installed_servers()
     table.insert(installed_servers, 'dartls') -- Mason に dartls ないので追加、dartls は dart に付属してる
