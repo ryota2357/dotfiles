@@ -4,8 +4,8 @@ import {
   BaseSource,
   type DduEvent,
   Item,
-} from "https://deno.land/x/ddu_vim@v3.6.0/types.ts";
-import type { Denops } from "https://deno.land/x/ddu_vim@v3.6.0/deps.ts";
+} from "https://deno.land/x/ddu_vim@v3.8.1/types.ts";
+import type { Denops } from "https://deno.land/x/ddu_vim@v3.8.1/deps.ts";
 
 type SelectItem = {
   index: number;
