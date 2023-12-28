@@ -30,12 +30,11 @@ if has('nvim')
 endif
 
 " 行頭行末移動
-nnoremap 0 ^
-nnoremap ^ 0
-nnoremap + $
-xnoremap 0 ^
-xnoremap ^ 0
-xnoremap + $
+for mode in ['n', 'x']
+  execute mode .. 'noremap 0 ^'
+  execute mode .. 'noremap ^ 0'
+  execute mode .. 'noremap + $'
+endfor
 
 " ペア移動
 nnoremap ] %
@@ -105,12 +104,10 @@ for motion in [['i2', 'i"'], ['i7', "i'"], ['i8', 'i('], ['i9', 'i)'],
 endfor
 for motion in ['f', 't', 'F', 'T']
   for char in [['1', '!'], ['2', '"'], ['3', '#'], ['4', '$'], ['5', '%'], ['6', '&'], ['7', "'"], ['8', '('], ['9', ')']]
-    execute 'nnoremap ' .. motion .. char[0] .. ' ' .. motion .. char[1]
-    execute 'nnoremap ' .. motion .. char[1] .. ' ' .. motion .. char[0]
-    execute 'onoremap ' .. motion .. char[0] .. ' ' .. motion .. char[1]
-    execute 'onoremap ' .. motion .. char[1] .. ' ' .. motion .. char[0]
-    execute 'xnoremap ' .. motion .. char[0] .. ' ' .. motion .. char[1]
-    execute 'xnoremap ' .. motion .. char[1] .. ' ' .. motion .. char[0]
+    for mode in ['n', 'o', 'x']
+      execute mode .. 'noremap ' .. motion .. char[0] .. ' ' .. motion .. char[1]
+      execute mode .. 'noremap ' .. motion .. char[1] .. ' ' .. motion .. char[0]
+    endfor
   endfor
 endfor
 
@@ -121,6 +118,14 @@ if has('nvim')
 elseif has('ide')
   nnoremap > :<C-u>tabn<CR>
   nnoremap < :<C-u>tabN<CR>
+endif
+
+" Karabiner で } と { を入れ替えてるけど、移動は元のキーで。
+if has("mac")
+  for mode in ['n', 'x']
+    execute mode .. 'noremap { }'
+    execute mode .. 'noremap } {'
+  endfor
 endif
 
 " 文字コード入力

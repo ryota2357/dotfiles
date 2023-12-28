@@ -95,7 +95,7 @@ lua_source = '''
         },
         sourceParams = {
             file_rec = {
-                ignoredDirectories = { '.git', 'node_modules', '.next', '.cache', 'target' }
+                ignoredDirectories = { '.git', 'node_modules', '.next', '.cache', 'target', '.idea' }
             },
             rg = {
                 args = { '--json', '--ignore-case' },

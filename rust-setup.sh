@@ -31,3 +31,7 @@ cargo install cargo-expand
 
 # cargo install したのをアプデする ($ cargo install-update --all)
 cargo install cargo-update
+
+# カバレッジ計測ツール ($ cargo llvm-cov)
+cargo install cargo-llvm-cov
+rustup component add llvm-tools-preview
