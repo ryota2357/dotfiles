@@ -71,6 +71,10 @@
     ],
     "body": "\\degreeCelsius"
   },
+  "emptyset": {
+    "prefix": "emptyset",
+    "body": "\\emptyset"
+  },
   "enumerate": {
     "prefix": [
       "enumerate",
@@ -302,6 +306,10 @@
   "sqrt": {
     "prefix": "sqrt",
     "body": "\\sqrt{$0}"
+  },
+  "setminus": {
+    "prefix": ["setminus", "setdifference"],
+    "body": "\\setminus "
   },
   "subsection": {
     "prefix": "subsection",

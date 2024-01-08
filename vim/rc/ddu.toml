@@ -81,6 +81,7 @@ lua_source = '''
             },
             file = {
                 matchers = { 'matcher_hidden' },
+                sorters = {},
                 columns = { 'icon_filename' }
             },
             file_rec = {

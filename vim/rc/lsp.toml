@@ -54,17 +54,17 @@ lua_source = '''
         denols = {
             root_dir = root_pattern.deno,
             single_file_support = false,
+            init_options = {
+                enable = true,
+                lint = true,
+            },
             settings = {
                 deno = {
-                    enable = true,
-                    lint = true,
                     unstable = true,
                     suggest = {
                         imports = {
                             hosts = {
-                                ["https://crux.land"] = true,
                                 ["https://deno.land"] = true,
-                                ["https://x.nest.land"] = true
                             }
                         }
                     }

@@ -121,6 +121,42 @@ hook_add = '''
   vmap g<C-a> g<Plug>(dial-increment)
   vmap g<C-x> g<Plug>(dial-decrement)
 '''
+lua_source = '''
+local augend = require("dial.augend")
+require("dial.config").augends:register_group({
+    default = {
+		augend.integer.alias.decimal,
+		augend.integer.alias.hex,
+		augend.integer.alias.octal,
+		augend.date.new {
+			pattern = "%Y/%m/%d",
+			default_kind = "day",
+			only_valid = false,
+		},
+		augend.date.new {
+			pattern = "%Y-%m-%d",
+			default_kind = "day",
+			only_valid = false,
+		},
+		augend.date.new {
+			pattern = "%m/%d",
+			default_kind = "day",
+			only_valid = true,
+		},
+        augend.date.new({
+            pattern = "%Y年%-m月%-d日",
+            default_kind = "day",
+            only_valid = false,
+        }),
+        augend.date.new({
+            pattern = "%-m月%-d日",
+            default_kind = "day",
+            only_valid = false,
+        }),
+		augend.constant.alias.ja_weekday_full,
+    }
+})
+'''
 
 [[plugins]]
 repo = 'yuki-yano/fuzzy-motion.vim'
