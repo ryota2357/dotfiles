@@ -100,7 +100,7 @@ lua_source = '''
                 Lua = {
                     runtime = { version = 'LuaJIT' },
                     diagnostics = { globals = { 'vim' } },
-                    workspace = { library = vim.api.nvim_get_runtime_file('', true) },
+                    workspace = { library = vim.api.nvim_get_runtime_file('lua', true) },
                     telemetry = { enable = false }
                 }
             }
@@ -128,6 +128,9 @@ lua_source = '''
         },
         solargraph = {
             single_file_support = true
+        },
+        tailwindcss = {
+            root_dir = lsp_util.root_pattern('tailwind.config.js', 'tailwind.config.cjs', 'tailwind.config.mjs', 'tailwind.config.ts')
         },
         tsserver = {
             single_file_support = false,
