@@ -32,7 +32,7 @@ ln_dots tmux/tmux.conf ~/.tmux.conf
 
 # terminal config
 mkdir -p ~/.config/alacritty
-ln_dots terminal/alacritty.yaml ~/.config/alacritty/alacritty.yml
+ln_dots terminal/alacritty.toml ~/.config/alacritty/alacritty.toml
 mkdir -p ~/.config/wezterm
 ln_dots terminal/wezterm.lua ~/.config/wezterm/wezterm.lua
 

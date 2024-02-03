@@ -1,0 +1,63 @@
+live_config_reload = true
+
+[env]
+TERM = "xterm-256color"
+
+[window]
+decorations = "none"
+opacity = 1.0
+startup_mode = "Fullscreen"
+
+[scrolling]
+history = 10000
+
+[font]
+builtin_box_drawing = false
+size = 18.5
+normal      = { family = "PleckJP", style = "Regular" }
+bold        = { family = "PleckJP", style = "Bold" }
+bold_italic = { family = "PleckJP", style = "Bold Italic" }
+italic      = { family = "PleckJP", style = "Italic" }
+
+[colors]
+draw_bold_text_with_bright_colors = false
+cursor = { cursor = "#fffaf5", text = "CellBackground" }
+
+[cursor]
+unfocused_hollow = true
+style = { blinking = "Off", shape = "Block" }
+
+
+[shell]
+program = "/bin/zsh"
+args = [
+    "--login",
+    "-c",
+    '''
+        ID="`tmux list-sessions`"
+        if [[ -z "$ID" ]]; then
+          tmux new-session
+        fi
+        create_new_session="Create New Session"
+        ID="$ID\n${create_new_session}:"
+        ID="`echo $ID | $PERCOL | cut -d: -f1`"
+        if [[ "$ID" = "${create_new_session}" ]]; then
+          tmux new-session
+        fi
+        tmux attach-session -t "$ID"
+    '''
+]
+
+[[keyboard.bindings]]
+chars = "\\"
+key = "¥"
+
+[[keyboard.bindings]]
+chars = "¥"
+key = "¥"
+mods = "Alt"
+
+[[keyboard.bindings]]
+action = "IncreaseFontSize"
+key = "Semicolon"
+mods = "Command|Shift"

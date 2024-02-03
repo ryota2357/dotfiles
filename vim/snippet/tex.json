@@ -227,6 +227,10 @@
     "prefix": ["pmod", "mod"],
     "body": "\\pmod"
   },
+  "prod": {
+    "prefix": "prod",
+    "body": "\\prod"
+  },
   "quotation": {
     "prefix": "quotation",
     "body": [
@@ -428,6 +432,10 @@
   "π": {
     "prefix": "pi",
     "body": "\\pi"
+  },
+  "ξ": {
+    "prefix": "xi",
+    "body": "\\xi"
   },
   "ρ": {
     "prefix": "rho",
