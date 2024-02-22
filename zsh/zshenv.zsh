@@ -14,5 +14,8 @@ export MANPAGER="vim +MANPAGER --not-a-term -"
 # fzf <C-r>
 export FZF_CTRL_R_OPTS=--reverse
 
+# rye
+. "$HOME/.rye/env"
+
 # rust
 . "$HOME/.cargo/env"

@@ -1,6 +1,6 @@
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
-depends = ['mason.nvim', 'mason-lspconfig.nvim', 'SchemaStore.nvim', 'ddc-source-lsp']
+depends = ['SchemaStore.nvim', 'ddc-source-lsp']
 on_event = 'BufReadPost'
 hook_add = '''
   autocmd BufWritePre *.ts,*.dart,*.rs lua vim.lsp.buf.format()
@@ -15,44 +15,57 @@ lua_source = '''
     vim.diagnostic.config({
         update_in_insert = true,
         virtual_text = {
-            prefix = '▰'
+            prefix = "▰"
         }
     })
 
-    require('rc.util').autocmd 'LspAttach' {
+    require("rc.util").autocmd "LspAttach" {
         callback = function(context)
             local bufnr = context.buf
             -- local client = vim.lsp.get_client_by_id(context.data.client_id)
-            local nmap = function(key, cmd) vim.keymap.set('n', key, cmd, { buffer = bufnr, silent = true }) end
-            nmap(',d', vim.lsp.buf.definition)
-            nmap(',i', vim.lsp.buf.implementation)
-            nmap(',r', vim.lsp.buf.rename)
-            nmap(',x', vim.diagnostic.open_float)
-            nmap(',l', vim.lsp.buf.hover)
-            nmap(',s', vim.lsp.buf.signature_help)
-            nmap(',a', vim.lsp.buf.code_action)
-            nmap(',f', vim.lsp.buf.references)
+            local nmap = function(key, cmd) vim.keymap.set("n", key, cmd, { buffer = bufnr, silent = true }) end
+            nmap(",d", vim.lsp.buf.definition)
+            nmap(",i", vim.lsp.buf.implementation)
+            nmap(",r", vim.lsp.buf.rename)
+            nmap(",x", vim.diagnostic.open_float)
+            nmap(",l", vim.lsp.buf.hover)
+            nmap(",s", vim.lsp.buf.signature_help)
+            nmap(",a", vim.lsp.buf.code_action)
+            nmap(",f", vim.lsp.buf.references)
             --client.server_capabilities.semanticTokensProvider = nil
         end
     }
 
-    local lsp_util = require('lspconfig.util')
+    local lsp_util = require("lspconfig.util")
     local root_pattern = {
-        astro = lsp_util.root_pattern('astro.config.mjs', 'astro.config.ts'),
-        deno = lsp_util.root_pattern('deno.json', 'deno.jsonc', 'denops'),
-        node = lsp_util.root_pattern('package.json', 'node_modules')
+        astro = lsp_util.root_pattern("astro.config.mjs", "astro.config.ts"),
+        deno = lsp_util.root_pattern("deno.json", "deno.jsonc", "denops"),
+        node = lsp_util.root_pattern("package.json", "node_modules")
     }
 
     local lsp_config = {
         astro = {
+            cmd = { "astro-ls", "--stdio" },
+            filetypes = { "astro", "typescript", "javascript" },
             root_dir = root_pattern.astro,
-            filetypes = { 'astro', 'typescript', 'javascript' }
+        },
+        clangd = {
+            cmd = { "clangd" },
+            filetypes = { "c", "cpp" }
+        },
+        cssls = {
+            cmd = { "css-ls", "--stdio" },
+            filetypes = { "css", "scss" }
         },
         dartls = {
-            root_dir = lsp_util.root_pattern('pubspec.yaml', '.dart')
+            cmd = { "dart", "language-server", "--protocol=lsp" },
+            filetypes = { "dart" },
+            root_dir = lsp_util.root_pattern("pubspec.yaml", ".dart")
         },
         denols = {
+            cmd = { "deno", "lsp" },
             root_dir = root_pattern.deno,
+            filetypes = { "javascript", "typescript" },
             single_file_support = false,
             init_options = {
                 enable = true,
@@ -71,68 +84,89 @@ lua_source = '''
                 }
             }
         },
-        efm = {
-            init_options = { documentFormatting = true },
-            single_file_support = true,
-            filetypes = { 'markdown' },
-            settings = {
-                rootMarkers = { ".git/" },
-                languages = {
-                    markdown = { {
-                        lintIgnoreExitCode = true,
-                        lintCommand = [[npx textlint -f json ${INPUT} | jq -r '.[] | .filePath as $filePath | .messages[] | "1;\($filePath):\(.line):\(.column):\n2;\(.message | split("\n")[0])\n3;[\(.ruleId)]"']],
-                        lintFormats = { '%E1;%E%f:%l:%c:', '%C2;%m', '%C3;%m%Z' },
-                        rootMarkers = { ".textlintrc", ".textlintrc.json" },
-                    } }
-                }
-            }
+        dockerls = {
+            cmd = { "docker-ls", "--stdio" },
+        },
+        -- efm = {
+        --     cmd = {  }
+        --     -- init_options = { documentFormatting = true },
+        --     single_file_support = true,
+        --     filetypes = { "markdown" },
+        --     settings = {
+        --         rootMarkers = { ".git/" },
+        --         languages = {
+        --             markdown = { {
+        --                 lintIgnoreExitCode = true,
+        --                 lintCommand = [[npx textlint -f json ${INPUT} | jq -r '.[] | .filePath as $filePath | .messages[] | "1;\($filePath):\(.line):\(.column):\n2;\(.message | split("\n")[0])\n3;[\(.ruleId)]"']],
+        --                 lintFormats = { "%E1;%E%f:%l:%c:", "%C2;%m", "%C3;%m%Z" },
+        --                 rootMarkers = { ".textlintrc", ".textlintrc.json" },
+        --             } }
+        --         }
+        --     }
+        -- },
+        tailwindcss = {
+            cmd = { "tailwindcss-ls", "--stdio" },
+            root_dir = lsp_util.root_pattern("tailwind.config.js", "tailwind.config.cjs", "tailwind.config.mjs", "tailwind.config.ts")
+        },
+        html = {
+            cmd = { "html-ls", "--stdio" },
+            filetypes = { "html" },
         },
         jsonls = {
+            cmd = { "json-ls", "--stdio" },
             settings = {
                 json = {
-                    schemas = require('schemastore').json.schemas(),
+                    schemas = require("schemastore").json.schemas(),
                     validate = { enable = true },
                 }
             }
         },
         lua_ls = {
+            cmd = { "lua-ls" },
             settings = {
                 Lua = {
-                    runtime = { version = 'LuaJIT' },
-                    diagnostics = { globals = { 'vim' } },
-                    workspace = { library = vim.api.nvim_get_runtime_file('lua', true) },
+                    runtime = { version = "LuaJIT" },
+                    diagnostics = { globals = { "vim" } },
+                    workspace = { library = vim.api.nvim_get_runtime_file("lua", true) },
                     telemetry = { enable = false }
                 }
             }
         },
-        omnisharp = {
-            cmd = { 'dotnet', vim.fn.stdpath('data') .. '/mason/packages/omnisharp/OmniSharp.dll' },
-            enable_editorconfig_support = true,
-            enable_ms_build_load_projects_on_demand = false,
-            enable_roslyn_analyzers = true,
-            organize_imports_on_format = false,
-            enable_import_completion = false,
-            sdk_include_prereleases = true,
-            analyze_open_documents_only = false,
-            autostart = false
-        },
+        -- omnisharp = {
+        --     cmd = { 'dotnet', vim.fn.stdpath('data') .. '/mason/packages/omnisharp/OmniSharp.dll' },
+        --     enable_editorconfig_support = true,
+        --     enable_ms_build_load_projects_on_demand = false,
+        --     enable_roslyn_analyzers = true,
+        --     organize_imports_on_format = false,
+        --     enable_import_completion = false,
+        --     sdk_include_prereleases = true,
+        --     analyze_open_documents_only = false,
+        --     autostart = false
+        -- },
         rust_analyzer = {
+            cmd = { "rust-analyzer" },
             settings = {
-                ['rust-analyzer'] = {
+                ["rust-analyzer"] = {
                     check = {
-                        features = 'all',
-                        command = 'clippy'
+                        features = "all",
+                        command = "clippy"
                     }
                 }
             }
         },
         solargraph = {
+            cmd = { "solargraph", "stdio" },
             single_file_support = true
         },
-        tailwindcss = {
-            root_dir = lsp_util.root_pattern('tailwind.config.js', 'tailwind.config.cjs', 'tailwind.config.mjs', 'tailwind.config.ts')
+        taplo = {
+            cmd = { "taplo", "lsp", "stdio" },
+        },
+        texlab = {
+            cmd = { "texlab" },
+            filetypes = { "tex", "plaintex" }
         },
         tsserver = {
+            cmd = { "tsserver", "--stdio" },
             single_file_support = false,
             root_dir = function(fname)
                 local astro_root = root_pattern.astro(fname)
@@ -144,24 +178,32 @@ lua_source = '''
                 return node_root
             end
         },
+        vimls = {
+            cmd = { "vim-ls", "--stdio" },
+        },
         yamlls = {
+            cmd = { "yaml-ls", "--stdio" },
             settings = {
-                yaml = {
-                    keyOrdering = false,
-                }
-            }
+              yaml = {
+                keyOrdering = false,
+                schemaStore = {
+                  enable = false,
+                  url = "", -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+                },
+                schemas = require('schemastore').yaml.schemas(),
+              },
+            },
         }
     }
 
     local lsp_capabilities = require("ddc_source_lsp").make_client_capabilities()
-
-    local installed_servers = require('mason-lspconfig').get_installed_servers()
-    table.insert(installed_servers, 'dartls') -- Mason に dartls ないので追加、dartls は dart に付属してる
     local nvim_lsp = require('lspconfig')
-    for _, server_name in ipairs(installed_servers) do
-        local config = lsp_config[server_name] or {}
-        config.capabilities = lsp_capabilities
-        nvim_lsp[server_name].setup(config)
+    for server_name, config in pairs(lsp_config) do
+        if vim.fn.executable(config.cmd[1]) == 1 then
+            config.capabilities = lsp_capabilities
+            nvim_lsp[server_name].setup(config)
+        else
+        end
     end
 '''
 [plugins.ftplugin]
@@ -220,3 +262,165 @@ lua_source = '''
 [[plugins]]
 repo = 'b0o/SchemaStore.nvim'
 on_source = 'nvim-lspconfig'
+
+[[plugins]]
+# repo = 'ryota2357/sepia.vim'
+repo = '~/Projects/VimPlugin/sepia.vim'
+on_source = 'nvim-lspconfig'
+lua_source = '''
+  local sepia = require("sepia")
+  sepia.setup { npm_installer = "pnpm" }
+  sepia.register(
+      {
+          type = "npm",
+          package = {
+              name = "astro-ls",
+              binPath = "node_modules/@astrojs/language-server/bin/nodeServer.js",
+              dependencies = {
+                  ["@astrojs/language-server"] = "2.7.4",
+                  ["typescript"] = "5.3.3",
+              }
+          }
+      },
+      {
+          type = "compressed",
+          package = {
+              name = "clangd",
+              binPath = "clangd_17.0.3/bin/clangd",
+              url = (function()
+                  local version = "17.0.3"
+                  local site = "https://github.com/clangd/clangd/releases/download/"
+                  return site .. version .. "/clangd-mac-" .. version .. ".zip"
+              end)()
+          }
+      },
+      {
+          type = "npm",
+          package = {
+              name = "css-ls",
+              binPath = "node_modules/vscode-langservers-extracted/bin/vscode-css-language-server",
+              dependencies = {
+                  ["vscode-langservers-extracted"] = "4.8.0",
+              }
+          }
+      },
+      {
+          type = "npm",
+          package = {
+              name = "docker-ls",
+              binPath = "node_modules/dockerfile-language-server-nodejs/bin/docker-langserver",
+              dependencies = {
+                  ["dockerfile-language-server-nodejs"] = "0.11.0",
+              }
+          }
+      },
+      {
+          type = "npm",
+          package = {
+              name = "tailwindcss-ls",
+              binPath = "node_modules/@tailwindcss/language-server/bin/tailwindcss-language-server",
+              dependencies = {
+                  ["@tailwindcss/language-server"] = "0.0.16"
+              }
+          }
+      },
+      {
+          type = "npm",
+          package = {
+              name = "html-ls",
+              binPath = "node_modules/vscode-langservers-extracted/bin/vscode-html-language-server",
+              dependencies = {
+                  ["vscode-langservers-extracted"] = "4.8.0",
+              }
+          }
+      },
+      {
+          type = "npm",
+          package = {
+              name = "json-ls",
+              binPath = "node_modules/vscode-langservers-extracted/bin/vscode-json-language-server",
+              dependencies = {
+                  ["vscode-langservers-extracted"] = "4.8.0",
+              }
+          }
+      },
+      {
+          type = "compressed",
+          package = {
+              name = "lua-ls",
+              binPath = "bin/lua-language-server",
+              url = (function()
+                  local version = "3.7.4"
+                  local arch = "darwin-arm64"
+                  local site = "https://github.com/LuaLS/lua-language-server/releases/download/"
+                  return site ..  version .. "/lua-language-server-" .. version .. "-" .. arch .. ".tar.gz"
+              end)()
+          }
+      },
+      {
+          type = "gem",
+          package = {
+              name = "solargraph",
+              version = "0.50.0"
+          }
+      },
+      {
+          type = "compressed",
+          package = {
+              name = "taplo",
+              binPath = "",
+              url = (function()
+                  local version = "0.8.1"
+                  local arch = "darwin-aarch64"
+                  local site = "https://github.com/tamasfe/taplo/releases/download/"
+                  return site .. version .. "/taplo-full-" .. arch .. ".gz"
+              end)()
+          }
+      },
+      {
+          type = "compressed",
+          package = {
+              name = "texlab",
+              binPath = "texlab",
+              url = (function()
+                  local version = "v5.12.3"
+                  local arch = "aarch64-macos"
+                  local site = "https://github.com/latex-lsp/texlab/releases/download/"
+                  return site .. version .. "/texlab-" .. arch .. ".tar.gz"
+              end)()
+          }
+      },
+      {
+          type = "npm",
+          package = {
+              name = "tsserver",
+              binPath = "node_modules/typescript-language-server/lib/cli.mjs",
+              dependencies = {
+                  ["typescript-language-server"] = "4.3.2",
+                  ["typescript"] = "5.3.3",
+              },
+          }
+      },
+      {
+          type = "npm",
+          package = {
+              name = "vim-ls",
+              binPath = "node_modules/vim-language-server/bin/index.js",
+              dependencies = {
+                  ["vim-language-server"] = "2.3.1",
+              },
+          }
+      },
+      {
+          type = "npm",
+          package = {
+              name = "yaml-ls",
+              binPath = "node_modules/yaml-language-server/bin/yaml-language-server",
+              dependencies = {
+                  ["yaml-language-server"] = "1.14.0",
+              },
+          }
+      }
+  )
+  -- sepia.install_all()
+'''

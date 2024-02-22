@@ -21,7 +21,7 @@ require('dein-snip').setup {
             { '~/dotfiles/vim/rc/dein-lazy.toml', { lazy = true } },
             { '~/dotfiles/vim/rc/ddc.toml',       { lazy = true } },
             { '~/dotfiles/vim/rc/ddu.toml',       { lazy = true } },
-            { '~/dotfiles/vim/rc/dap.toml',       { lazy = true } },
+            -- { '~/dotfiles/vim/rc/dap.toml',       { lazy = true } },
             { '~/dotfiles/vim/rc/lsp.toml',       { lazy = true } },
         }
     },
