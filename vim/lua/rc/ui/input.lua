@@ -21,7 +21,7 @@ local function get_buffer()
     end
     local buf = api.nvim_create_buf(false, true)
     api.nvim_buf_set_name(buf, 'vim-ui-input')
-    api.nvim_buf_set_option(buf, 'filetype', 'vim-ui-input')
+    api.nvim_set_option_value('filetype', 'vim-ui-input', { buf = buf })
     cache_bufnr = buf
     return buf
 end
@@ -45,11 +45,11 @@ local function open_window(buffer, title)
         title_pos = 'left',
         noautocmd = true
     })
-    api.nvim_win_set_option(win, 'number',  false)
-    api.nvim_win_set_option(win, 'relativenumber', false)
-    api.nvim_win_set_option(win, 'wrap',  false)
-    api.nvim_win_set_option(win, 'cursorline',  false)
-    api.nvim_win_set_option(win, 'winhighlight',  'FloatBorder:InputFloatBorder,NormalFloat:Normal')
+    api.nvim_set_option_value('number', false, { win = win })
+    api.nvim_set_option_value('relativenumber', false, { win = win })
+    api.nvim_set_option_value('wrap', false, { win = win })
+    api.nvim_set_option_value('cursorline', false, { win = win })
+    api.nvim_set_option_value('winhighlight', 'FloatBorder:InputFloatBorder,NormalFloat:Normal', { win = win })
     vim.fn.sign_place(1, '', 'InputPrompt', buffer, { lnum = vim.fn.line('.') })
     return win
 end
