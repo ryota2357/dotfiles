@@ -35,3 +35,5 @@ cargo install cargo-update
 # カバレッジ計測ツール ($ cargo llvm-cov)
 rustup component add llvm-tools-preview
 cargo install cargo-llvm-cov
+
+cargo install wasm-pack

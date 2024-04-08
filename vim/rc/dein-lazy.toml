@@ -34,6 +34,28 @@ lua_add = '''
 '''
 
 [[plugins]]
+repo = 'stevearc/oil.nvim'
+on_cmd = 'Oil'
+lua_source = '''
+    require('oil').setup {
+        delete_to_trash = true,
+        view_options = {
+            show_hidden = true,
+            is_hidden_file = function(name, _bufnr)
+              return vim.startswith(name, ".")
+            end,
+            is_always_hidden = function(name, _bufnr)
+              return name == '.DS_Store'
+            end,
+        }
+    }
+'''
+
+[[plugins]]
+repo = 'nvim-tree/nvim-web-devicons'
+on_source = 'oil.nvim'
+
+[[plugins]]
 repo = 'github/copilot.vim'
 on_cmd = 'Copilot'
 

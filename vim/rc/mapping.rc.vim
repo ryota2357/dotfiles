@@ -36,8 +36,9 @@ for mode in ['n', 'x']
   execute mode .. 'noremap + $'
 endfor
 
-" ペア移動
-nnoremap ] %
+" if has('nvim')
+"   nnoremap <silent><expr> * v:count ? '*' : ':sil exe "keepj norm! *" <Bar> call winrestview(' . string(winsaveview()) . ')<CR>'
+" endif
 
 " ノーマルモードでも改行
 " nnoremap <CR> i<CR><ESC>

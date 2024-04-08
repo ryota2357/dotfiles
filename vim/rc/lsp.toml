@@ -219,25 +219,25 @@ lua << EOF
 EOF
 '''
 
-[[plugins]]
-repo = 'williamboman/mason.nvim'
-on_source = 'nvim-lspconfig'
-lua_source = '''
-    require('mason').setup {
-        automatic_installation = true,
-        ui = {
-            icons = {
-                package_installed = '',
-                package_pending = '',
-                package_uninstalled = ''
-            }
-        }
-    }
-'''
-
-[[plugins]]
-repo = 'williamboman/mason-lspconfig.nvim'
-on_source = 'nvim-lspconfig'
+# [[plugins]]
+# repo = 'williamboman/mason.nvim'
+# on_source = 'nvim-lspconfig'
+# lua_source = '''
+#     require('mason').setup {
+#         automatic_installation = true,
+#         ui = {
+#             icons = {
+#                 package_installed = '',
+#                 package_pending = '',
+#                 package_uninstalled = ''
+#             }
+#         }
+#     }
+# '''
+#
+# [[plugins]]
+# repo = 'williamboman/mason-lspconfig.nvim'
+# on_source = 'nvim-lspconfig'
 
 [[plugins]]
 repo = 'j-hui/fidget.nvim'
@@ -277,8 +277,8 @@ lua_source = '''
               name = "astro-ls",
               binPath = "node_modules/@astrojs/language-server/bin/nodeServer.js",
               dependencies = {
-                  ["@astrojs/language-server"] = "2.7.4",
-                  ["typescript"] = "5.3.3",
+                  ["@astrojs/language-server"] = "2.8.2",
+                  ["typescript"] = "5.4.3",
               }
           }
       },
@@ -399,6 +399,19 @@ lua_source = '''
                   ["typescript-language-server"] = "4.3.2",
                   ["typescript"] = "5.3.3",
               },
+          }
+      },
+      {
+          type = "file",
+          package = {
+              name = "typst-lsp",
+              url = (function()
+                  -- https://github.com/nvarner/typst-lsp/releases/download/v0.13.0/typst-lsp-aarch64-apple-darwin
+                  local version = "v0.13.0"
+                  local arch = "aarch64-apple-darwin"
+                  local site = "https://github.com/nvarner/typst-lsp/releases/download/"
+                  return site .. version .. "/typst-lsp-" .. arch
+              end)()
           }
       },
       {

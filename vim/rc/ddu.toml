@@ -225,6 +225,7 @@ lua_source = '''
 
 [[plugins]]
 repo = 'Shougo/ddu-ui-ff'
+rev = '1b397550dd154fa3f66a7654e178c654e59a21e7'
 on_source = 'ddu.vim'
 [plugins.ftplugin]
 lua_ddu-ff = '''
