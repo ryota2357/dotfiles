@@ -42,6 +42,24 @@ function M.set_fn_metatable(prefix, table)
     })
 end
 
+local arch = nil
+
+function M.if_arch(cond)
+    if arch == nil then
+        local res = vim.system({"uname", "-m"}, { text = true }):wait()
+        if res.code == 0 and res.signal == 0 and res.stderr == "" then
+            arch = vim.fn.substitute(res.stdout, "\n", "", "")
+        else
+            error(vim.inspect(res))
+        end
+    end
+    local ret = cond[arch]
+    if ret == nil then
+        error("Unknown arch: " .. arch)
+    end
+    return ret
+end
+
 M.highlight = {}
 
 ---@param hls table

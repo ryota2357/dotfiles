@@ -178,6 +178,12 @@ lua_source = '''
                 return node_root
             end
         },
+        typst_lsp = {
+            cmd = { "typst-ls" },
+            settings = {
+                exportPdf = "onType"
+            }
+        },
         vimls = {
             cmd = { "vim-ls", "--stdio" },
         },
@@ -269,6 +275,7 @@ repo = '~/Projects/VimPlugin/sepia.vim'
 on_source = 'nvim-lspconfig'
 lua_source = '''
   local sepia = require("sepia")
+  local if_arch = require("rc.util").if_arch
   sepia.setup { npm_installer = "pnpm" }
   sepia.register(
       {
@@ -351,7 +358,7 @@ lua_source = '''
               binPath = "bin/lua-language-server",
               url = (function()
                   local version = "3.7.4"
-                  local arch = "darwin-arm64"
+                  local arch = if_arch({ arm64 = "darwin-arm64", x86_64 = "darwin-x64" })
                   local site = "https://github.com/LuaLS/lua-language-server/releases/download/"
                   return site ..  version .. "/lua-language-server-" .. version .. "-" .. arch .. ".tar.gz"
               end)()
@@ -404,11 +411,13 @@ lua_source = '''
       {
           type = "file",
           package = {
-              name = "typst-lsp",
+              name = "typst-ls",
               url = (function()
-                  -- https://github.com/nvarner/typst-lsp/releases/download/v0.13.0/typst-lsp-aarch64-apple-darwin
                   local version = "v0.13.0"
-                  local arch = "aarch64-apple-darwin"
+                  local arch = if_arch({
+                      arm64 = "aarch64-apple-darwin",
+                      x86_64 = "x86_64-apple-darwin"
+                  })
                   local site = "https://github.com/nvarner/typst-lsp/releases/download/"
                   return site .. version .. "/typst-lsp-" .. arch
               end)()

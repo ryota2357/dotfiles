@@ -349,6 +349,15 @@ repo = 'kat0h/bufpreview.vim'
 on_ft = 'markdown'
 
 [[plugins]]
+repo = 'chomosuke/typst-preview.nvim'
+on_ft = 'typst'
+lua_source = '''
+  require('typst-preview').setup {
+      invert_colors = 'auto'
+  }
+'''
+
+[[plugins]]
 repo = 'ryota2357/vim-skim-synctex'
 # repo = '~/Projects/VimPlugin/vim-skim-synctex'
 depends = 'denops.vim'
