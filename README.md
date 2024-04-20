@@ -24,11 +24,6 @@ Neovim がメインエディタ。Vim は vimrc 一枚で持ち運べるよう�
 
 書いた https://ryota2357.com/blog/2022/nvim-checkhealth-path/
 
-## vscode
-
-昔に作った設定を保存したほうがよさそうな物だけ突っ込んだ。  
-いちから設定する必要がある。
-
 ## zsh
 
 プラグインマネージャに [sheldon](https://github.com/rossmacarthur/sheldon) を使用。  
