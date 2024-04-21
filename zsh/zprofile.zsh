@@ -20,8 +20,8 @@ export PATH="$VOLTA_HOME/bin:$PATH"
 # dotnet tools
 export PATH="$HOME/.dotnet/tools:$PATH"
 
-# go tools
-export PATH="$HOME/go/bin:$PATH"
+# aqua
+export PATH="${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin:$PATH"
 
 # use
 export PATH="$HOME/Projects/use/bin:$PATH"

@@ -1,6 +1,10 @@
 # brew bump
 export HOMEBREW_BUNDLE_FILE="$HOME/.config/brew/Brewfile"
 
+# aqua global
+export AQUA_GLOBAL_CONFIG="$HOME/.config/aqua/aqua.yaml"
+export AQUA_PROGRESS_BAR=true
+
 # mocward
 export MOCWORD_DATA="$HOME/github/high-moctane/mocword-data/releases/eng20200217/mocword.sqlite"
 

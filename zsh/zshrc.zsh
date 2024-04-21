@@ -15,15 +15,15 @@ ensure_zcompiled ~/.zshenv
 ensure_zcompiled ~/.zprofile
 
 # sheldon cache technique
-sheldon_cache="$HOME/.cache/zsh/sheldon.zsh"
-sheldon_toml="$HOME/dotfiles/zsh/plugins.toml"
-if [[ ! -r "$sheldon_cache" || "$sheldon_toml" -nt "$sheldon_cache" ]]; then
-    mkdir -p "$(dirname "$sheldon_cache")"
-    touch "$sheldon_cache"
-    sheldon source > $sheldon_cache
-fi
-source "$sheldon_cache"
-unset sheldon_cache sheldon_toml
+() {
+  local sheldon_cache="$HOME/.cache/zsh/sheldon.zsh"
+  local sheldon_toml="$HOME/dotfiles/zsh/plugins.toml"
+  if [[ ! -r "$sheldon_cache" || "$sheldon_toml" -nt "$sheldon_cache" ]]; then
+      mkdir -p "$(dirname "$sheldon_cache")"
+      sheldon source > "$sheldon_cache"
+  fi
+  source "$sheldon_cache"
+}
 
 [ -f ~/.zshrc-local ] && source ~/.zshrc-local
 zsh-defer unfunction source

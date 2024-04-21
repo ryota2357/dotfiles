@@ -17,8 +17,8 @@ inline = 'autoload -Uz colors && zsh-defer colors'
 inline = 'typeset -U PATH FPATH MANPATH'
 
 [plugins.fzf]
-# To install, excute: $HOMEBREW_PREFIX/opt/fzf/install
-inline = '[ -f ~/.fzf.zsh ] && zsh-defer source ~/.fzf.zsh'
+# To install, excute: mkdir -p "$HOME/.cache/fzf/" && fzf --zsh > "$HOME/.cache/fzf/setup.zsh"
+inline = '[ -f "$HOME/.cache/fzf/setup.zsh" ] && zsh-defer source "$HOME/.cache/fzf/setup.zsh"'
 
 [plugins.zsh-autosuggestions]
 github = 'zsh-users/zsh-autosuggestions'

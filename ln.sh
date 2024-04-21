@@ -10,6 +10,10 @@ ln_dots() {
 mkdir -p ~/.config/brew/
 ln_dots Brewfile ~/.config/brew/Brewfile
 
+# aqua
+mkdir -p ~/.config/aqua
+ln_dots aqua/aqua.yaml ~/.config/aqua/aqua.yaml
+
 # zsh
 sheldon init --shell zsh
 ln_dots zsh/zshrc.zsh    ~/.zshrc

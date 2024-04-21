@@ -20,12 +20,6 @@ rustup component add \
 # cargo add で cargo.toml にパッケージ追加できるように
 cargo install cargo-edit
 
-# macwordコマンド: https://github.com/high-moctane/mocword
-cargo install mocword
-
-# mdbookコマンド
-cargo install mdbook
-
 # cargo expand でマクロを展開
 cargo install cargo-expand
 
@@ -35,5 +29,3 @@ cargo install cargo-update
 # カバレッジ計測ツール ($ cargo llvm-cov)
 rustup component add llvm-tools-preview
 cargo install cargo-llvm-cov
-
-cargo install wasm-pack
