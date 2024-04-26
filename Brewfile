@@ -60,6 +60,7 @@ tap 'homebrew/cask-fonts'
 tap 'ryota2357/pleck-jp'
 cask 'font-cica'
 cask 'font-hack-nerd-font'
+cask 'font-harano-aji'
 cask 'font-plemol-jp-nf'
 cask 'pleck-jp'
 

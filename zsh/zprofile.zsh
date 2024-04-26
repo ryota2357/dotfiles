@@ -10,8 +10,8 @@ export FPATH="$HOMEBREW_PREFIX/share/zsh/site-functions:$FPATH"
 
 # llvm
 export PATH="$HOMEBREW_PREFIX/opt/llvm/bin:$PATH"
-export LDFLAGS="-L/$HOMEBREW_PREFIX/opt/llvm/lib"
-export CPPFLAGS="-I/$HOMEBREW_PREFIX/llvm/include"
+export LDFLAGS="-L$HOMEBREW_PREFIX/opt/llvm/lib"
+export CPPFLAGS="-I$HOMEBREW_PREFIX/llvm/include"
 
 # volta
 export VOLTA_HOME="$HOME/.volta"
