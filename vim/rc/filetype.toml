@@ -25,6 +25,10 @@ tex = '''
     call setpos('.', l:pos)
   endfunction
 '''
+typst = '''
+  setlocal tabstop=2 softtabstop=2 shiftwidth=2
+  setlocal sidescrolloff=10
+'''
 make = '''
   setlocal noexpandtab
   setlocal tabstop=6 softtabstop=6 shiftwidth=6

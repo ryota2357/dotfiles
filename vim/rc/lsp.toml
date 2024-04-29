@@ -181,7 +181,7 @@ lua_source = '''
         typst_lsp = {
             cmd = { "typst-ls" },
             settings = {
-                exportPdf = "onType"
+                exportPdf = "onSave"
             }
         },
         vimls = {
