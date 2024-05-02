@@ -357,7 +357,7 @@ lua_source = '''
               name = "lua-ls",
               binPath = "bin/lua-language-server",
               url = (function()
-                  local version = "3.7.4"
+                  local version = "3.8.3"
                   local arch = if_arch({ arm64 = "darwin-arm64", x86_64 = "darwin-x64" })
                   local site = "https://github.com/LuaLS/lua-language-server/releases/download/"
                   return site ..  version .. "/lua-language-server-" .. version .. "-" .. arch .. ".tar.gz"
@@ -403,8 +403,8 @@ lua_source = '''
               name = "tsserver",
               binPath = "node_modules/typescript-language-server/lib/cli.mjs",
               dependencies = {
-                  ["typescript-language-server"] = "4.3.2",
-                  ["typescript"] = "5.3.3",
+                  ["typescript-language-server"] = "4.3.3",
+                  ["typescript"] = "5.4.5",
               },
           }
       },
