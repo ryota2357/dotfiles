@@ -20,18 +20,18 @@ hook_source = '''
     \ })
 '''
 
-[[plugins]]
-repo = 'rcarriga/nvim-notify'
-on_lua = 'notify'
-lua_add = '''
-    vim.notify = function(...)
-        vim.notify = require('notify')
-        vim.notify.setup {
-            level = 0
-        }
-        vim.notify(...)
-    end
-'''
+#[[plugins]]
+#repo = 'rcarriga/nvim-notify'
+#on_lua = 'notify'
+#lua_add = '''
+#    vim.notify = function(...)
+#        vim.notify = require('notify')
+#        vim.notify.setup {
+#            level = 0
+#        }
+#        vim.notify(...)
+#    end
+#'''
 
 [[plugins]]
 repo = 'stevearc/oil.nvim'

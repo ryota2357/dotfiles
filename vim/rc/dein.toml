@@ -60,6 +60,12 @@ repo = 'harenome/vim-mipssyntax'
 repo = 'RRethy/vim-illuminate'
 
 [[plugins]]
+repo = 'rcarriga/nvim-notify'
+lua_source = '''
+    vim.notify = require('notify')
+'''
+
+[[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter'
 hook_post_update = 'TSUpdate'
 lua_source = '''

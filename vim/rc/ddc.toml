@@ -232,7 +232,8 @@ on_source = 'ddc.vim'
 # lua_source = 'require("ddc_previewer_floating").enable()'
 
 [[plugins]]
-repo = 'matsui54/denops-signature_help'
+# repo = 'matsui54/denops-signature_help'
+repo = '/Users/otsukiryota/Projects/VimPlugin/denops-signature_help'
 on_source = 'ddc.vim'
 hook_source = 'call signature_help#enable()'
 
