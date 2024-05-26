@@ -353,6 +353,13 @@ repo = 'kat0h/bufpreview.vim'
 on_ft = 'markdown'
 
 [[plugins]]
+repo = 'MeanderingProgrammer/markdown.nvim'
+on_ft = 'markdown'
+lua_source = '''
+  require('render-markdown').setup({})
+'''
+
+[[plugins]]
 repo = 'chomosuke/typst-preview.nvim'
 on_ft = 'typst'
 lua_source = '''
