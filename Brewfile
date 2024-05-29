@@ -1,14 +1,12 @@
 # frozen_string_literal: true
 
+# tap 'homebrew/core'
 tap 'homebrew/bundle'
 if OS.mac?
   tap 'homebrew/cask'
   tap 'homebrew/cask-versions'
+  tap 'buo/cask-upgrade'
 end
-tap 'homebrew/core'
-
-# brew cu
-tap 'buo/cask-upgrade'
 
 brew 'bats-core'
 brew 'cloc'
