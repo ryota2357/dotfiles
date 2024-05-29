@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 tap 'homebrew/bundle'
-tap 'homebrew/cask'
-tap 'homebrew/cask-versions'
+if OS.mac?
+  tap 'homebrew/cask'
+  tap 'homebrew/cask-versions'
+end
 tap 'homebrew/core'
 
 # brew cu
@@ -55,6 +57,8 @@ brew 'aquaproj/aqua/aqua'
 tap 'dart-lang/dart'
 brew 'dart-lang/dart/dart'
 
+return unless OS.mac?
+
 # fonts
 tap 'ryota2357/pleck-jp'
 cask 'pleck-jp'
@@ -97,6 +101,7 @@ cask 'slack'
 cask 'unity-hub'
 cask 'visual-studio-code'
 cask 'wezterm'
+cask 'wireshark'
 cask 'xmind'
 cask 'zoom'
 
