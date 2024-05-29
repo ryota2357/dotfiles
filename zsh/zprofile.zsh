@@ -2,9 +2,10 @@
 # PATH は zshrc でもいいけど、export してるから zprofile で十分だと思う
 
 # Homebrew
-case $(uname -m) in
-  "x86_64" ) eval $(/usr/local/bin/brew shellenv) ;;
-  "arm64" ) eval $(/opt/homebrew/bin/brew shellenv) ;;
+case $(uname -om) in
+  "Darwin x86_64" ) eval $(/usr/local/bin/brew shellenv) ;;
+  "Darwin arm64" ) eval $(/opt/homebrew/bin/brew shellenv) ;;
+  * ) echo "You need to setup Homebrew manually (Unsupported: $(uname -om))" ;;
 esac
 export FPATH="$HOMEBREW_PREFIX/share/zsh/site-functions:$FPATH"
 
