@@ -75,7 +75,7 @@ for key in [['b', '<C-G>U<Left>'],
 endfor
 " <ESC>"_DA だと上手くいかない...どうしたらいい？
 " ひとまず無効化しておく
-if has("ide")
+if has('ide')
   inoremap <C-b> <Left>
   inoremap <C-f> <Right>
   inoremap <C-k> <C-k>
@@ -90,8 +90,13 @@ nnoremap sj <C-w>j
 nnoremap sk <C-w>k
 nnoremap sl <C-w>l
 nnoremap sh <C-w>h
-nnoremap ss <Cmd>sp<CR><C-w>j"
-nnoremap sv <Cmd>vs<CR><C-w>l
+if has('ide')
+  nnoremap ss :<C-u>sp<CR>
+  nnoremap sv :<C-u>vs<CR>
+else
+  nnoremap ss <Cmd>sp<CR><C-w>j"
+  nnoremap sv <Cmd>vs<CR><C-w>l
+end
 nnoremap <C-w>j <C-w>-
 nnoremap <C-W>k <C-w>+
 nnoremap <C-w>l <C-w>>
