@@ -2,6 +2,10 @@ if has('nvim')
   command! -nargs=1 -complete=help Vh :vertical belowright help <args>
   command! Wrap setlocal wrap!
   command! FixWhitespace silent! keepjumps execute ':%s/\\\@<!\s\+$//'
+
+  function! s:keycode(keys) abort
+    return substitute(a:keys, '<[^>]*>', '\=eval(''"\'' .. submatch(0) .. ''"'')', 'g')
+  endfunction
 endif
 
 " <Leader>、`'`で囲うとダメみたい
@@ -85,22 +89,59 @@ endif
 " めっちゃ誤爆させるので
 nnoremap <C-f> <Nop>
 
-" 画面分割/移動
-nnoremap sj <C-w>j
-nnoremap sk <C-w>k
-nnoremap sl <C-w>l
-nnoremap sh <C-w>h
+" 画面分割
 if has('ide')
   nnoremap ss :<C-u>sp<CR>
   nnoremap sv :<C-u>vs<CR>
 else
-  nnoremap ss <Cmd>sp<CR><C-w>j"
+  nnoremap ss <Cmd>sp<CR><C-w>j
   nnoremap sv <Cmd>vs<CR><C-w>l
 end
-nnoremap <C-w>j <C-w>-
-nnoremap <C-W>k <C-w>+
-nnoremap <C-w>l <C-w>>
-nnoremap <C-w>h <C-w><
+
+" ウィンドウサイズの変更
+nmap <Plug>(window-resize-mode) <Nop>
+function! s:has_edge(direct) abort
+  if a:direct ==# 'left'
+    return winnr('h') != winnr()
+  elseif a:direct ==# 'down'
+    return winnr('j') != winnr()
+  elseif a:direct ==# 'up'
+    return winnr('k') != winnr()
+  elseif a:direct ==# 'right'
+    return winnr('l') != winnr()
+  endif
+  echoerr 'invalid direct'
+  return false
+endfunction
+function! s:update_win_resize_cmd() abort
+  let l:signs = #{ left: '-', down: '+', up: '-', right: '+' }
+  if s:has_edge('left') && !s:has_edge('right')
+    let l:signs['left'] = '+'
+    let l:signs['right'] = '-'
+  endif
+  if s:has_edge('up') && !s:has_edge('down')
+    let l:signs['up'] = '+'
+    let l:signs['down'] = '-'
+  endif
+  let s:win_resize_cmd_dict = #{
+      \ left:  s:keycode('<Cmd>vertical resize ' .. l:signs['left'] .. '1<CR>'),
+      \ right: s:keycode('<Cmd>vertical resize ' .. l:signs['right'] .. '1<CR>'),
+      \ down:  s:keycode('<Cmd>resize ' .. l:signs['down'] .. '1<CR>'),
+      \ up:    s:keycode('<Cmd>resize ' .. l:signs['up'] .. '1<CR>'),
+      \ }
+  return ''
+endfunction
+function! s:win_resize_cmd(direct) abort
+  return get(s:win_resize_cmd_dict, a:direct, '')
+endfunction
+nnoremap <expr> <C-w><Down>  <SID>update_win_resize_cmd() .. <SID>win_resize_cmd('down')  .. '<Plug>(window-resize-mode)'
+nnoremap <expr> <C-w><Up>    <SID>update_win_resize_cmd() .. <SID>win_resize_cmd('up')    .. '<Plug>(window-resize-mode)'
+nnoremap <expr> <C-w><Right> <SID>update_win_resize_cmd() .. <SID>win_resize_cmd('right') .. '<Plug>(window-resize-mode)'
+nnoremap <expr> <C-w><Left>  <SID>update_win_resize_cmd() .. <SID>win_resize_cmd('left')  .. '<Plug>(window-resize-mode)'
+nnoremap <expr> <Plug>(window-resize-mode)<Down>  <SID>win_resize_cmd('down')  .. '<Plug>(window-resize-mode)'
+nnoremap <expr> <Plug>(window-resize-mode)<Up>    <SID>win_resize_cmd('up')    .. '<Plug>(window-resize-mode)'
+nnoremap <expr> <Plug>(window-resize-mode)<Right> <SID>win_resize_cmd('right') .. '<Plug>(window-resize-mode)'
+nnoremap <expr> <Plug>(window-resize-mode)<Left>  <SID>win_resize_cmd('left')  .. '<Plug>(window-resize-mode)'
 
 " モーション
 for motion in [['i2', 'i"'], ['i7', "i'"], ['i8', 'i('], ['i9', 'i)'],
@@ -128,10 +169,10 @@ endif
 
 " Karabiner で } と { を入れ替えてるけど、移動は元のキーで。
 if has("mac")
-  for mode in ['n', 'x']
-    execute mode .. 'noremap { }'
-    execute mode .. 'noremap } {'
-  endfor
+  nnoremap { }
+  xnoremap { }
+  nnoremap } {
+  xnoremap } {
 endif
 
 " 文字コード入力

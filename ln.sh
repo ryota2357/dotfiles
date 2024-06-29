@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -euo pipefail
+
 ln_dots() {
   dir_path=$(dirname "$2")
   mkdir -p "$dir_path"

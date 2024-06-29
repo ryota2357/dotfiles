@@ -199,6 +199,17 @@ lua_add = '''
 '''
 
 [[plugins]]
+repo = 'christoomey/vim-tmux-navigator'
+on_cmd = ['TmuxNavigateLeft', 'TmuxNavigateDown', 'TmuxNavigateUp', 'TmuxNavigateRight']
+hook_add = '''
+  let g:tmux_navigator_no_mappings = 1
+  nnoremap <silent> <C-w>h <Cmd>TmuxNavigateLeft<CR>
+  nnoremap <silent> <C-w>j <Cmd>TmuxNavigateDown<CR>
+  nnoremap <silent> <C-w>k <Cmd>TmuxNavigateUp<CR>
+  nnoremap <silent> <C-w>l <Cmd>TmuxNavigateRight<CR>
+'''
+
+[[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter-context'
 depends = 'nvim-treesitter'
 on_event = ['CursorMoved', 'CursorMovedI']

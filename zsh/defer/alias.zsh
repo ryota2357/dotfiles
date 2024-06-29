@@ -18,4 +18,12 @@ mkcd() {
     mkdir -p $1 && cd $1
 }
 
+git() {
+    if [ $# -eq 0 ]; then
+        lazygit
+    else
+        command git "$@"
+    fi
+}
+
 alias denops='deno run -A --no-lock ~/.cache/dein/repos/github.com/vim-denops/denops.vim/denops/@denops-private/cli.ts'
