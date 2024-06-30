@@ -113,7 +113,7 @@ function! s:has_edge(direct) abort
   echoerr 'invalid direct'
   return false
 endfunction
-function! s:update_win_resize_cmd() abort
+function! s:win_resize_count_cmd_with_update(direct, count1) abort
   let l:signs = #{ left: '-', down: '+', up: '-', right: '+' }
   if s:has_edge('left') && !s:has_edge('right')
     let l:signs['left'] = '+'
@@ -129,15 +129,19 @@ function! s:update_win_resize_cmd() abort
       \ down:  s:keycode('<Cmd>resize ' .. l:signs['down'] .. '1<CR>'),
       \ up:    s:keycode('<Cmd>resize ' .. l:signs['up'] .. '1<CR>'),
       \ }
-  return ''
+  if a:direct ==# 'left' || a:direct ==# 'right'
+    return s:keycode('<Cmd>vertical resize ' .. l:signs[a:direct] .. a:count1 .. '<CR>')
+  else
+    return s:keycode('<Cmd>resize ' .. l:signs[a:direct] .. a:count1 .. '<CR>')
+  endif
 endfunction
 function! s:win_resize_cmd(direct) abort
   return get(s:win_resize_cmd_dict, a:direct, '')
 endfunction
-nnoremap <expr> <C-w><Down>  <SID>update_win_resize_cmd() .. <SID>win_resize_cmd('down')  .. '<Plug>(window-resize-mode)'
-nnoremap <expr> <C-w><Up>    <SID>update_win_resize_cmd() .. <SID>win_resize_cmd('up')    .. '<Plug>(window-resize-mode)'
-nnoremap <expr> <C-w><Right> <SID>update_win_resize_cmd() .. <SID>win_resize_cmd('right') .. '<Plug>(window-resize-mode)'
-nnoremap <expr> <C-w><Left>  <SID>update_win_resize_cmd() .. <SID>win_resize_cmd('left')  .. '<Plug>(window-resize-mode)'
+nnoremap <expr> <C-w><Down>  <SID>win_resize_count_cmd_with_update('down', v:count1)  .. '<Plug>(window-resize-mode)'
+nnoremap <expr> <C-w><Up>    <SID>win_resize_count_cmd_with_update('up', v:count1)    .. '<Plug>(window-resize-mode)'
+nnoremap <expr> <C-w><Right> <SID>win_resize_count_cmd_with_update('right', v:count1) .. '<Plug>(window-resize-mode)'
+nnoremap <expr> <C-w><Left>  <SID>win_resize_count_cmd_with_update('left', v:count1)  .. '<Plug>(window-resize-mode)'
 nnoremap <expr> <Plug>(window-resize-mode)<Down>  <SID>win_resize_cmd('down')  .. '<Plug>(window-resize-mode)'
 nnoremap <expr> <Plug>(window-resize-mode)<Up>    <SID>win_resize_cmd('up')    .. '<Plug>(window-resize-mode)'
 nnoremap <expr> <Plug>(window-resize-mode)<Right> <SID>win_resize_cmd('right') .. '<Plug>(window-resize-mode)'
