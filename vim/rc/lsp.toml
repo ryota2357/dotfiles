@@ -67,7 +67,17 @@ lua_source = '''
         },
         denols = {
             cmd = { "deno", "lsp" },
-            root_dir = root_pattern.deno,
+            root_dir = function(filename, _bufnr)
+                local is_deno = root_pattern.deno(filename)
+                if is_deno then
+                    return is_deno
+                end
+                local other = root_pattern.astro(filename) or root_pattern.deno(filename)
+                if other then
+                    return other
+                end
+                return lsp_util.root_pattern(".")(filename)
+            end,
             filetypes = { "javascript", "typescript" },
             single_file_support = false,
             init_options = {

@@ -1,5 +1,6 @@
 [[plugins]]
 repo = 'Shougo/ddu.vim'
+rev = 'fc8d89edcc69ae2c1ac765cf3bab3b5a7bc19b7d'
 depends = 'denops.vim'
 on_event = 'CursorHold'
 lua_add = '''
