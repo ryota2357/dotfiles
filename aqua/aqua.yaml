@@ -6,7 +6,7 @@
 #   - all
 registries:
   - type: standard
-    ref: v4.201.0 # renovate: depName=aquaproj/aqua-registry
+    ref: v4.204.0 # renovate: depName=aquaproj/aqua-registry
   # - name: local
   #   type: local
   #   path: ~/Go/aqua-registry/registry.yaml
@@ -15,12 +15,12 @@ packages:
   - name: WebAssembly/wabt@1.0.35
   - name: aquaproj/registry-tool@v0.2.5
   - name: cli/cli@v2.52.0
-  - name: denoland/deno@v1.44.4
+  - name: denoland/deno@v1.45.2
   - name: golang/go@go1.22.5
   - name: high-moctane/mocword@v0.2.0
-  - name: jesseduffield/lazygit@v0.42.0
+  - name: jesseduffield/lazygit@v0.43.1
   - name: jqlang/jq@jq-1.7.1
-  - name: junegunn/fzf@0.53.0
+  - name: junegunn/fzf@v0.54.0
   - name: nektos/act@v0.2.64
   - name: rhysd/vim-startuptime@v1.3.2
   - name: rust-lang/mdBook@v0.4.40
