@@ -297,8 +297,8 @@ lua_source = '''
               name = "astro-ls",
               binPath = "node_modules/@astrojs/language-server/bin/nodeServer.js",
               dependencies = {
-                  ["@astrojs/language-server"] = "2.8.2",
-                  ["typescript"] = "5.4.3",
+                  ["@astrojs/language-server"] = "2.12.1",
+                  ["typescript"] = "5.5.3",
               }
           }
       },
@@ -320,7 +320,7 @@ lua_source = '''
               name = "css-ls",
               binPath = "node_modules/vscode-langservers-extracted/bin/vscode-css-language-server",
               dependencies = {
-                  ["vscode-langservers-extracted"] = "4.8.0",
+                  ["vscode-langservers-extracted"] = "4.10.0",
               }
           }
       },
@@ -350,7 +350,7 @@ lua_source = '''
               name = "html-ls",
               binPath = "node_modules/vscode-langservers-extracted/bin/vscode-html-language-server",
               dependencies = {
-                  ["vscode-langservers-extracted"] = "4.8.0",
+                  ["vscode-langservers-extracted"] = "4.10.0",
               }
           }
       },
@@ -360,7 +360,7 @@ lua_source = '''
               name = "json-ls",
               binPath = "node_modules/vscode-langservers-extracted/bin/vscode-json-language-server",
               dependencies = {
-                  ["vscode-langservers-extracted"] = "4.8.0",
+                  ["vscode-langservers-extracted"] = "4.10.0",
               }
           }
       },
@@ -417,7 +417,7 @@ lua_source = '''
               binPath = "node_modules/typescript-language-server/lib/cli.mjs",
               dependencies = {
                   ["typescript-language-server"] = "4.3.3",
-                  ["typescript"] = "5.4.5",
+                  ["typescript"] = "5.5.3",
               },
           }
       },
@@ -452,7 +452,7 @@ lua_source = '''
               name = "yaml-ls",
               binPath = "node_modules/yaml-language-server/bin/yaml-language-server",
               dependencies = {
-                  ["yaml-language-server"] = "1.14.0",
+                  ["yaml-language-server"] = "1.15.0",
               },
           }
       }

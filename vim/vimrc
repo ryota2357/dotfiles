@@ -253,21 +253,6 @@ for motion in ['f', 't', 'F', 'T']
   endfor
 endfor
 
-" モーション
-for motion in [['i2', 'i"'], ['i7', "i'"], ['i8', 'i('], ['i9', 'i)'],
-            \  ['a2', '2i"'], ['a7', "2i'"], ['a8', 'a('], ['a9', 'a)'], ['a`', '2i`']]
-  execute 'onoremap ' .. motion[0] .. ' ' .. motion[1]
-  execute 'xnoremap ' .. motion[0] .. ' ' .. motion[1]
-endfor
-for motion in ['f', 't', 'F', 'T']
-  for char in [['1', '!'], ['2', '"'], ['3', '#'], ['4', '$'], ['5', '%'], ['6', '&'], ['7', "'"], ['8', '('], ['9', ')']]
-    for mode in ['n', 'o', 'x']
-      execute mode .. 'noremap ' .. motion .. char[0] .. ' ' .. motion .. char[1]
-      execute mode .. 'noremap ' .. motion .. char[1] .. ' ' .. motion .. char[0]
-    endfor
-  endfor
-endfor
-
 " タブ移動
 nnoremap > <Cmd>tabn<CR>
 nnoremap < <Cmd>tabN<CR>
@@ -291,8 +276,15 @@ Jetpack 'tani/vim-jetpack', {'opt': 1}
 Jetpack 'tomasiser/vim-code-dark'
 Jetpack 'vim-jp/vimdoc-ja'
 Jetpack 'itchyny/lightline.vim'
+Jetpack 'christoomey/vim-tmux-navigator'
 Jetpack 'ryota2357/necodark', #{ branch: 'build/vim' }
 call jetpack#end()
+
+let g:tmux_navigator_no_mappings = 1
+nnoremap <silent> <C-w>h <Cmd>TmuxNavigateLeft<CR>
+nnoremap <silent> <C-w>j <Cmd>TmuxNavigateDown<CR>
+nnoremap <silent> <C-w>k <Cmd>TmuxNavigateUp<CR>
+nnoremap <silent> <C-w>l <Cmd>TmuxNavigateRight<CR>
 
 colorscheme necodark
 
