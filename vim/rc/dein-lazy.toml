@@ -1,5 +1,6 @@
 [[plugins]]
 repo = 'Shougo/pum.vim'
+rev = 'e92be2e427cd3b39541016eb80f87d43f2919e1c'
 on_event = ['InsertEnter', 'CmdlineEnter']
 hook_add = '''
   inoremap <expr><C-n>  pum#visible() ? pum#map#select_relative(+1, "empty") : '<Cmd>normal! gj<CR>'
@@ -367,42 +368,9 @@ on_ft = 'markdown'
 repo = 'MeanderingProgrammer/markdown.nvim'
 on_ft = 'markdown'
 lua_source = '''
-  require('render-markdown').setup({
-    headings = { '# ', '## ', '### ', '#### ', '##### ', '###### ' },
-    markdown_query = [[
-        (atx_heading [
-            (atx_h1_marker)
-            (atx_h2_marker)
-            (atx_h3_marker)
-            (atx_h4_marker)
-            (atx_h5_marker)
-            (atx_h6_marker)
-        ] @heading)
-
-        (thematic_break) @dash
-
-        (fenced_code_block) @code
-
-        [
-            (list_marker_plus)
-            (list_marker_minus)
-            (list_marker_star)
-        ] @list_marker
-
-        (task_list_marker_unchecked) @checkbox_unchecked
-        (task_list_marker_checked) @checkbox_checked
-
-        (block_quote (block_quote_marker) @quote_marker)
-        (block_quote (paragraph (inline (block_continuation) @quote_marker)))
-        (block_quote (paragraph (block_continuation) @quote_marker))
-        (block_quote ((block_continuation) @quote_marker))
-
-        (pipe_table) @table
-        (pipe_table_header) @table_head
-        (pipe_table_delimiter_row) @table_delim
-        (pipe_table_row) @table_row
-    ]],
-  })
+  require('render-markdown').setup {
+    heading = { icons = { '# ', '## ', '### ', '#### ', '##### ', '###### ' } },
+  }
 '''
 
 [[plugins]]

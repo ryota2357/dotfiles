@@ -74,7 +74,7 @@ lua_source = '''
                 end
                 local other = root_pattern.astro(filename) or root_pattern.deno(filename)
                 if other then
-                    return other
+                    return nil
                 end
                 return lsp_util.root_pattern(".")(filename)
             end,

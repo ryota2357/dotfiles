@@ -304,6 +304,7 @@ lua_ddu-ff-filter = '''
 
 [[plugins]]
 repo = 'Shougo/ddu-ui-filer'
+rev = '33051fd4775b95806cdcd5eaf96d272602f4f324'
 on_source = 'ddu.vim'
 [plugins.ftplugin]
 lua_ddu-filer = '''
