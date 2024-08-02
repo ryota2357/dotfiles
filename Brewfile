@@ -4,60 +4,18 @@
 tap 'homebrew/bundle'
 if OS.mac?
   tap 'homebrew/cask'
-  tap 'homebrew/cask-versions'
   tap 'buo/cask-upgrade'
 end
 
-brew 'bats-core'
-brew 'cloc'
-brew 'cmake'
-brew 'doxygen'
-brew 'exercism'
-brew 'ffmpeg'
 brew 'gawk'
-brew 'fastfetch'
-brew 'gcc'
-brew 'git'
 brew 'gnu-sed'
-brew 'gnuplot'
-brew 'gpg'
-brew 'gtk+3'
-brew 'libsixel'
 brew 'llvm'
-brew 'neovim', args: ['HEAD']
-brew 'ninja'
-brew 'openjdk'
-brew 'pdf2svg'
-brew 'pdftk-java'
-brew 'php'
-brew 'pinentry-mac'
-brew 'plantuml'
-brew 'pstree'
 brew 'rbenv'
-brew 'rustup-init'
-brew 'rye'
 brew 'sheldon'
-brew 'spim'
-brew 'svgo'
-brew 'texlive'
-brew 'tmux'
-brew 'tree'
-brew 'vim'
-brew 'volta'
-brew 'wget'
-brew 'yt-dlp'
-brew 'zlib'
-brew 'zsh'
-
-# aqua
-tap 'aquaproj/aqua'
-brew 'aquaproj/aqua/aqua'
-
-# dart
-tap 'dart-lang/dart'
-brew 'dart-lang/dart/dart'
 
 return unless OS.mac?
+
+brew 'pinentry_mac'
 
 # fonts
 tap 'ryota2357/pleck-jp'

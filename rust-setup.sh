@@ -29,3 +29,6 @@ cargo install cargo-update
 # カバレッジ計測ツール ($ cargo llvm-cov)
 rustup component add llvm-tools-preview
 cargo install cargo-llvm-cov
+
+# スナップショットテスト用のツール ($ cargo insta ...)
+cargo install cargo-insta

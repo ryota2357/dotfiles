@@ -31,6 +31,8 @@ endif
 if has('nvim')
   nnoremap j gj
   nnoremap k gk
+  nnoremap <Up> g<Up>
+  nnoremap <Down> g<Down>
 endif
 
 " 行頭行末移動

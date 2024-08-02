@@ -138,6 +138,8 @@ nnoremap <expr> I len(getline('.')) !=# 0 ? 'I' : '"_cc'
 " 表示行で移動する
 nnoremap j gj
 nnoremap k gk
+nnoremap <Up> g<Up>
+nnoremap <Down> g<Down>
 
 " 行頭行末移動
 for mode in ['n', 'x']

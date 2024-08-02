@@ -41,6 +41,7 @@ end)
 config.default_prog = {
     '/bin/zsh',
     '--login',
+    '--interactive',
     '-c',
     [=[
     ID="`tmux list-sessions`"

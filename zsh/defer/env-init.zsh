@@ -1,1 +1,1 @@
-eval "$(rbenv init - zsh)"
+eval "$(rbenv init - --no-rehash zsh)"

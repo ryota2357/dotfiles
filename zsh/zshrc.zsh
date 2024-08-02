@@ -1,4 +1,4 @@
-# source command override technique
+# overrid source command
 function source {
   ensure_zcompiled $1
   builtin source $1
@@ -14,7 +14,13 @@ ensure_zcompiled ~/.zshrc
 ensure_zcompiled ~/.zshenv
 ensure_zcompiled ~/.zprofile
 
-# sheldon cache technique
+# set fpath
+fpath+=($HOMEBREW_PREFIX/share/zsh/site-functions)
+for profile in ${(z)NIX_PROFILES}; do
+  fpath+=($profile/share/zsh/site-functions $profile/share/zsh/$ZSH_VERSION/functions $profile/share/zsh/vendor-completions)
+done
+
+# sheldon source
 () {
   local sheldon_cache="$HOME/.cache/zsh/sheldon.zsh"
   local sheldon_toml="$HOME/dotfiles/zsh/plugins.toml"
@@ -26,4 +32,6 @@ ensure_zcompiled ~/.zprofile
 }
 
 [ -f ~/.zshrc-local ] && source ~/.zshrc-local
+
+# un-overrid source command
 zsh-defer unfunction source

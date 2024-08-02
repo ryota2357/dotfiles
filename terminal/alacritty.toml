@@ -27,11 +27,11 @@ cursor = { cursor = "#fffaf5", text = "CellBackground" }
 unfocused_hollow = true
 style = { blinking = "Off", shape = "Block" }
 
-
 [shell]
 program = "/bin/zsh"
 args = [
     "--login",
+    "--interactive",
     "-c",
     '''
         ID="`tmux list-sessions`"
