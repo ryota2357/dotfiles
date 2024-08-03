@@ -40,3 +40,5 @@ case ":${PATH}:" in
     export PATH="$HOME/.cargo/bin:$PATH"
     ;;
 esac
+
+[ -f ~/.zshenv-local ] && source ~/.zshenv-local
