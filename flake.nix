@@ -26,7 +26,7 @@
             gh
             git
             gnupg
-            gnuplot
+            # gnuplot_qt   qt周りでエラー起こしてterm qtが使えない
             hyperfine
             jq
             lazygit
@@ -46,7 +46,7 @@
             cmake
             dart
             deno
-            # gcc
+            # gcc   # ccがgccになってしまうしapple clangとぶつかると怖いので
             go
             jdk
             ninja

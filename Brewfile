@@ -12,6 +12,7 @@ brew 'gnu-sed'
 brew 'llvm'
 brew 'rbenv'
 brew 'sheldon'
+brew 'gnuplot'
 
 return unless OS.mac?
 
