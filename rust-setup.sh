@@ -32,3 +32,6 @@ cargo install cargo-llvm-cov
 
 # スナップショットテスト用のツール ($ cargo insta ...)
 cargo install cargo-insta
+
+# 辞書補完
+cargo install mocword

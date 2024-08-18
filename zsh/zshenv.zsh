@@ -8,8 +8,8 @@ if [[ ! -f $MOCWORD_DATA ]]; then
   echo "mocword data file not found."
   echo "Run the following commands to download and extract the data file."
   mkdir -p "$(dirname $MOCWORD_DATA)"
-  echo "  curl -L -o $MOCWORD_DATA $URL"
-  echo "  gunzip -f $MOCWORD_DATA"
+  echo '  curl -L -o "$MOCWORD_DATA.gz"' "'$URL'"
+  echo '  gunzip -f "$MOCWORD_DATA.gz"'
 fi
 
 # tree-sitter config directory
