@@ -72,7 +72,7 @@ lua_source = '''
                 if is_deno then
                     return is_deno
                 end
-                local other = root_pattern.astro(filename) or root_pattern.deno(filename)
+                local other = root_pattern.astro(filename) or root_pattern.node(filename)
                 if other then
                     return nil
                 end

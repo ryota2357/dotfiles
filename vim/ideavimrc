@@ -8,6 +8,8 @@ set scrolloff=3
 set ignorecase
 set ideajoin
 set clipboard=unnamed
+set visualbell
+set noerrorbells
 
 inoremap ( ()<Left>
 inoremap () ()
