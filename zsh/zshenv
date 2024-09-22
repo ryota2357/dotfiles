@@ -1,8 +1,14 @@
+# XDG Base Directory (default)
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
+
 # brew bump
-export HOMEBREW_BUNDLE_FILE="$HOME/.config/brew/Brewfile"
+export HOMEBREW_BUNDLE_FILE="$XDG_CACHE_HOME/brew/Brewfile"
 
 # mocward
-export MOCWORD_DATA="$HOME/.cache/mocword/mocword.sqlite"
+export MOCWORD_DATA="$XDG_CACHE_HOME/mocword/mocword.sqlite"
 if [[ ! -f $MOCWORD_DATA ]]; then
   URL="https://github.com/high-moctane/mocword-data/releases/download/eng20200217/mocword.sqlite.gz"
   echo "mocword data file not found."
@@ -12,24 +18,12 @@ if [[ ! -f $MOCWORD_DATA ]]; then
   echo '  gunzip -f "$MOCWORD_DATA.gz"'
 fi
 
-# tree-sitter config directory
-export TREE_SITTER_DIR="$HOME/.config/tree-sitter/"
-
 # man with neovim/vim
 # export MANPAGER='nvim +Man!'
 export MANPAGER="vim +MANPAGER --not-a-term -"
 
 # fzf <C-r>
 export FZF_CTRL_R_OPTS=--reverse
-
-# rye shell setup
-case ":${PATH}:" in
-  *:"$HOME/.rye/shims":*)
-    ;;
-  *)
-    export PATH="$HOME/.rye/shims:$PATH"
-    ;;
-esac
 
 # rustup shell setup
 case ":${PATH}:" in

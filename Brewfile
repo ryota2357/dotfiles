@@ -3,7 +3,7 @@
 # tap 'homebrew/core'
 tap 'homebrew/bundle'
 if OS.mac?
-  tap 'homebrew/cask'
+  # tap 'homebrew/cask'
   tap 'buo/cask-upgrade'
 end
 
@@ -11,12 +11,11 @@ brew 'gawk'
 brew 'gnu-sed'
 brew 'llvm'
 brew 'rbenv'
-brew 'sheldon'
 brew 'gnuplot'
 
 return unless OS.mac?
 
-brew 'pinentry_mac'
+brew 'pinentry-mac'
 
 # fonts
 tap 'ryota2357/pleck-jp'

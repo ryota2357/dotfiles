@@ -10,6 +10,9 @@ set-option -g status-bg "#494949"
 # 文字色
 set-option -g status-fg "#ffffff"
 
+# command prompt (prefix + :) では emacs キーバインドを使う
+set-option -g status-keys emacs
+
 # === window-status ===
 # 中央よせ
 set-option -g status-justify "centre"

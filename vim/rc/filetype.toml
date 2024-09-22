@@ -1,6 +1,7 @@
 hook_add = '''
   let g:tex_flavor = 'latex'
   autocmd BufRead CMakeLists.txt set filetype=cmake
+  autocmd BufRead *.tmux set filetype=tmux
 '''
 
 [ftplugin]

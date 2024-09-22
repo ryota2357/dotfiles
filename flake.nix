@@ -1,76 +1,63 @@
 {
-  description = "ryota2357's HOME environment for mac";
+  description = "ryota2357's Nix configuration";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixpkgs-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nix-darwin = {
+      url = "github:LnL7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, flake-utils, neovim-nightly-overlay }:
-    flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = import nixpkgs {
-            inherit system;
-            overlays = [ neovim-nightly-overlay.overlays.default ];
-        };
-      in {
-        packages.home = pkgs.buildEnv {
-          name = "home";
-          paths = with pkgs; [
-            bat
-            cloc
-            fastfetch
-            ffmpeg
-            fzf
-            gh
-            git
-            gnupg
-            # gnuplot_qt   qt周りでエラー起こしてterm qtが使えない
-            hyperfine
-            jq
-            lazygit
-            neovim
-            nodePackages.svgo
-            pdf2svg
-            ripgrep
-            tmux
-            tree
-            tree-sitter
-            vim
-            wget
-            # yt-dlp
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      nix-darwin,
+      neovim-nightly-overlay,
+    }:
+    let
+      system = "aarch64-darwin";
+    in
+    {
+      apps = (
+        import ./nix/apps/default.nix {
+          inherit nixpkgs;
+        }
+      );
 
-            # Language/Framework tools
-            act
-            cmake
-            dart
-            deno
-            # gcc   # ccがgccになってしまうしapple clangとぶつかると怖いので
-            go
-            jdk
-            ninja
-            php
-            rye
-            # rbenv
-            rustup
-            texliveFull
-            typst
-            volta
-            wabt
-          ];
-        };
-        apps.update = {
-          type = "app";
-          program = toString (pkgs.writeShellScript "update-script" ''
-            set -e
-            echo "Updating flake..."
-            nix flake update
-            echo "Updating profile..."
-            nix profile upgrade home
-            echo "Update complete!"
-          '');
-        };
-      }
-    );
+      formatter = (
+        import ./nix/formatter/default.nix {
+          inherit nixpkgs;
+        }
+      );
+
+      darwinConfigurations = (
+        import ./nix/darwin/default.nix {
+          inherit system nix-darwin;
+        }
+      );
+
+      homeConfigurations = (
+        import ./nix/home/default.nix {
+          inherit system home-manager;
+          username = "ryota2357";
+          pkgs = import nixpkgs {
+            inherit system;
+            overlays = [
+              neovim-nightly-overlay.overlays.default
+            ];
+          };
+        }
+      );
+    };
 }

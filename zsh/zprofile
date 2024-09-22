@@ -19,3 +19,5 @@ export PATH="$HOME/.dotnet/tools:$PATH"
 
 # use
 export PATH="$HOME/Projects/use/bin:$PATH"
+
+# vim:filetype=zsh:

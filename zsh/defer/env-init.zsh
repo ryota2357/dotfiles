@@ -1,1 +1,1 @@
-eval "$(rbenv init - --no-rehash zsh)"
+eval "$(direnv hook zsh)"
