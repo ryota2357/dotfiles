@@ -1,0 +1,133 @@
+{
+  "title": "ryota2357 complex modifications (JIS)",
+  "rules": [
+    {
+      "description": "escキーを押したときに、英数キーも送信する",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": { "key_code": "escape" },
+          "to": [
+            { "key_code": "escape" },
+            { "key_code": "japanese_eisuu" }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "; と : を入れ替える",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": { "key_code": "semicolon" },
+          "to": [ { "key_code": "quote" } ]
+        },
+        {
+          "type": "basic",
+          "from": { "key_code": "quote" },
+          "to": [ { "key_code": "semicolon" } ]
+        }
+      ]
+    },
+    {
+      "description": "[ と ] を入れ替える",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": { "key_code": "backslash" },
+          "to": [ { "key_code": "close_bracket" } ]
+        },
+        {
+          "type": "basic",
+          "from": { "key_code": "close_bracket" },
+          "to": [ { "key_code": "backslash" } ]
+        }
+      ]
+    },
+    {
+      "description": "{ と } を入れ替える",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "backslash",
+            "modifiers": { "mandatory": [ "shift" ] }
+          },
+          "to": [{
+            "key_code": "close_bracket",
+            "modifiers": ["right_shift"]
+          }]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "close_bracket",
+            "modifiers": { "mandatory": [ "shift" ] }
+          },
+          "to": [{
+            "key_code": "backslash",
+            "modifiers": ["right_shift"]
+          }]
+        }
+      ]
+    },
+    {
+      "description": "shift + 7・8・9 を shift + 8・9・0 に (右にスライド)",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "8",
+            "modifiers": { "mandatory": [ "shift" ] }
+          },
+          "to": [{
+            "key_code": "7",
+            "modifiers": ["right_shift"]
+          }]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "9",
+            "modifiers": { "mandatory": [ "shift" ] }
+          },
+          "to": [{
+            "key_code": "8",
+            "modifiers": ["right_shift"]
+          }]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "0",
+            "modifiers": { "mandatory": [ "shift" ] }
+          },
+          "to": [{
+            "key_code": "9",
+            "modifiers": ["right_shift"]
+          }]
+        }
+      ]
+    },
+    {
+      "description": "_ と @ と - の入れ替え (_ を @ に、@ を - に、- を _ に)",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": { "key_code": "international1" },
+          "to": [ { "key_code": "open_bracket" } ]
+        },
+        {
+          "type": "basic",
+          "from": { "key_code": "open_bracket" },
+          "to": [ { "key_code": "hyphen" } ]
+        },
+        {
+          "type": "basic",
+          "from": { "key_code": "hyphen" },
+          "to": [ { "key_code": "international1" } ]
+        }
+      ]
+    }
+  ]
+}
