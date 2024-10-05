@@ -30,25 +30,25 @@
     in
     {
       apps = (
-        import ./nix/apps/default.nix {
+        import ./nix/apps {
           inherit nixpkgs;
         }
       );
 
       formatter = (
-        import ./nix/formatter/default.nix {
+        import ./nix/formatter {
           inherit nixpkgs;
         }
       );
 
       darwinConfigurations = (
-        import ./nix/darwin/default.nix {
+        import ./nix/darwin {
           inherit system nix-darwin;
         }
       );
 
       homeConfigurations = (
-        import ./nix/home/default.nix {
+        import ./nix/home {
           inherit system home-manager;
           username = "ryota2357";
           pkgs = import nixpkgs {
@@ -59,5 +59,17 @@
           };
         }
       );
+
+      devShells.${system}.default =
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+        pkgs.mkShellNoCC {
+          packages = with pkgs; [
+            lua-language-server
+            vim-language-server
+            nil
+          ];
+        };
     };
 }
