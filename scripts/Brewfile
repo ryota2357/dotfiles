@@ -1,0 +1,28 @@
+# frozen_string_literal: true
+
+# nix/darwin/homebrew.nix に移せてないもの
+
+# fonts
+tap 'ryota2357/pleck-jp'
+cask 'pleck-jp'
+
+cask 'chatgpt'
+cask 'deepl'
+cask 'font-cica'
+cask 'font-hack-nerd-font'
+cask 'font-harano-aji'
+cask 'font-plemol-jp-nf'
+cask 'github'
+cask 'jetbrains-toolbox'
+cask 'keycastr'
+cask 'notion'
+cask 'numi'
+cask 'ollama'
+cask 'qtspim'
+cask 'r'
+cask 'rstudio'
+cask 'unity-hub'
+cask 'wireshark'
+cask 'xmind'
+
+# vim: ft=ruby

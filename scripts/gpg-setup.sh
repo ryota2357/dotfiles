@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -eu
+
 mkdir -p ~/.gnupg
 
 # change Pinentry to pinentry-mac
