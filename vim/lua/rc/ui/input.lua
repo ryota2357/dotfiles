@@ -3,7 +3,7 @@ local M = {}
 local api = vim.api
 local cache_bufnr = nil
 
-require("rcutil.highlight").set {
+require("vimrc.highlight").set {
     InputFloatBorder = { fg = "#006db3" },
     InputFloatTitle = { fg = "#6ab7ff" },
     InputPrompt = { fg = "#5c6370" },

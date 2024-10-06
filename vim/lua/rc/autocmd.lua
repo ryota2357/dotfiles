@@ -1,19 +1,9 @@
-local autocmd = require("rcutil.autocmd")
-local highlight = require("rcutil.highlight")
+local autocmd = require("vimrc.autocmd")
+local highlight = require("vimrc.highlight")
 
 autocmd "WinEnter" {
     desc = "ファイルの変更チェックの頻度を強化 (https://vim-jp.org/vim-users-jp/2011/03/12/Hack-206.html)",
     command = "checktime",
-}
-
-autocmd "FileType" {
-    desc = "インデントのスペースの数2のファイルタイプ設定",
-    pattern = { "astro", "dart", "javascript", "json", "pdf", "scss", "typescript", "typescriptreact", "vim" },
-    callback = function()
-        vim.opt_local.tabstop = 2
-        vim.opt_local.softtabstop = 2
-        vim.opt_local.shiftwidth = 2
-    end,
 }
 
 highlight.set {

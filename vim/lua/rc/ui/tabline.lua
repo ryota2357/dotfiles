@@ -1,7 +1,7 @@
 local M = {}
 
 local fn = vim.fn
-local highlight = require("rcutil.highlight")
+local highlight = require("vimrc.highlight")
 
 highlight.link { TabLineSel = "Normal" }
 highlight.set {

@@ -2,7 +2,7 @@
 repo = 'mfussenegger/nvim-dap'
 depends = 'nvim-dap-ui'
 lua_add = '''
-    require('rcutil.highlight').set {
+    require('vimrc.highlight').set {
         DapBreakpointTextHl = { fg = '#ba000d', nocombine = true },
         DapStoppedTextHl = { fg = '#bef67a', nocombine = true }
     }

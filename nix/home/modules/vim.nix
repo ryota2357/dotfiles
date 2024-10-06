@@ -17,7 +17,9 @@
 
       # neovim directories
       "nvim/after" = s "after";
+      "nvim/autoload" = s "autoload";
       "nvim/denops" = s "denops";
+      "nvim/ftdetect" = s "ftdetect";
       "nvim/lua" = s "lua";
     };
 

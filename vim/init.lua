@@ -17,7 +17,6 @@ require("dein-snip").setup({
         },
         toml = {
             "~/dotfiles/vim/rc/dein.toml",
-            "~/dotfiles/vim/rc/filetype.toml",
             { "~/dotfiles/vim/rc/dein-lazy.toml", { lazy = true } },
             { "~/dotfiles/vim/rc/ddc.toml", { lazy = true } },
             { "~/dotfiles/vim/rc/ddu.toml", { lazy = true } },

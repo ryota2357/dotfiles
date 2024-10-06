@@ -94,16 +94,16 @@ set scrolloff=3
 set sidescrolloff=5
 
 " インデント設定
-" extends: tabキーを押すとスペースが入力される
-" tabstop: 画面上で表示する1つのタブの幅
-" softtabstop: いくつの連続した空白を1回で削除できるようにするか
-" shiftwidth; 自動インデントでのインデントの長さ
-" autoindent: 改行した時に自動でインデントします
-" smartindent: {があると次の行は自動で1段深く自動インデントしてくれる
+" expandtab    挿入された <Tab> を適当な数の空白にする
+" tabstop      画面上で表示される1つのタブ文字の幅
+" shiftwidth   自動インデント等でのインデントで挿入される空白の数
+" softtabstop  <Tab> や <BS> キーで適用される空白の数
+" autoindent   改行した時に自動でインデントする
+" smartindent  {などがあると次の行は自動で1段深く自動インデントする
 set expandtab
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=0    " use 'tabstop' value
+set softtabstop=-1  " use 'shiftwidth' value
 set autoindent
 set smartindent
 

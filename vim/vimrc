@@ -102,9 +102,9 @@ set sidescrolloff=5
 
 " インデント設定
 set expandtab
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=0    " use 'tabstop' value
+set softtabstop=-1  " use 'shiftwidth' value
 set autoindent
 set smartindent
 
@@ -246,13 +246,13 @@ nnoremap <expr> <Plug>(window-resize-mode)<Right> <SID>win_resize_cmd('right') .
 nnoremap <expr> <Plug>(window-resize-mode)<Left>  <SID>win_resize_cmd('left')  .. '<Plug>(window-resize-mode)'
 
 " モーション
-for motion in [['i2', 'i"'], ['i7', "i'"], ['i8', 'i('], ['i9', 'i)'],
+for motion in [['i2', 'i"'], ['i8', "i'"], ['i9', 'i('], ['i0', 'i)'],
             \  ['a2', '2i"'], ['a7', "2i'"], ['a8', 'a('], ['a9', 'a)'], ['a`', '2i`']]
   execute 'onoremap ' .. motion[0] .. ' ' .. motion[1]
   execute 'xnoremap ' .. motion[0] .. ' ' .. motion[1]
 endfor
 for motion in ['f', 't', 'F', 'T']
-  for char in [['1', '!'], ['2', '"'], ['3', '#'], ['4', '$'], ['5', '%'], ['6', '&'], ['7', "'"], ['8', '('], ['9', ')']]
+  for char in [['1', '!'], ['2', '"'], ['3', '#'], ['4', '$'], ['5', '%'], ['6', '&'], ['7', "'"], ['8', "'"], ['9', '('], ['0', ')']]
     for mode in ['n', 'o', 'x']
       execute mode .. 'noremap ' .. motion .. char[0] .. ' ' .. motion .. char[1]
       execute mode .. 'noremap ' .. motion .. char[1] .. ' ' .. motion .. char[0]

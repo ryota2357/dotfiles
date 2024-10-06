@@ -1,16 +1,16 @@
 local M = {}
 
 local fn = vim.fn
-local highlight = require("rcutil.highlight")
+local highlight = require("vimrc.highlight")
 
-highlight.link({ StatusLine = "Normal" })
-highlight.set({
+highlight.link { StatusLine = "Normal" }
+highlight.set {
     StatusLineNormal = { fg = "#4caf50", bg = "NONE" },
     StatusLineInsert = { fg = "#03a9f4", bg = "NONE" },
     StatusLineVisual = { fg = "#ff9800", bg = "NONE" },
     StatusLineReplace = { fg = "#ff5722", bg = "NONE" },
     StatusLineCommand = { fg = "#8eacbb", bg = "NONE" },
-})
+}
 
 ---@return string
 local function mode()

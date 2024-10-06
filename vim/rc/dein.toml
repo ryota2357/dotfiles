@@ -61,7 +61,7 @@ repo = 'RRethy/vim-illuminate'
 
 [[plugins]]
 repo = 'rcarriga/nvim-notify'
-lua_source = '''
+lua_add = '''
     vim.notify = require('notify')
 '''
 

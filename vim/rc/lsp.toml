@@ -22,7 +22,7 @@ lua_source = '''
         }
     })
 
-    require("rcutil.autocmd") "LspAttach" {
+    require("vimrc.autocmd") "LspAttach" {
         callback = function(context)
             local bufnr = context.buf
             -- local client = vim.lsp.get_client_by_id(context.data.client_id)

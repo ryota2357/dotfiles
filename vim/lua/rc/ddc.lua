@@ -52,7 +52,7 @@ function M.enable_cmdline_completion_with(map_key, config_fn)
         map = setmetatable({}, {
             __index = function(_, key)
                 return function(...)
-                    return vim.fn["pum#map" .. key](...)
+                    return vim.fn["pum#map#" .. key](...)
                 end
             end,
         }),
@@ -73,7 +73,7 @@ function M.enable_cmdline_completion_with(map_key, config_fn)
         for lhs, rhs in pairs(cmap_config) do
             vim.keymap.set("c", lhs, rhs, { expr = true })
         end
-        require("rcutil.autocmd") "User" {
+        require("vimrc.autocmd") "User" {
             pattern = "DDCCmdlineLeave",
             once = true,
             callback = function()
