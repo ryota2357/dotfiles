@@ -69,6 +69,7 @@
             lua-language-server
             vim-language-server
             nil
+            stylua
           ];
         };
     };

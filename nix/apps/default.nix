@@ -27,8 +27,6 @@ forAllSystems (
       program = toString (
         pkgs.writeShellScript "update" ''
           ${shellScriptHeader}
-          message "nvfetcher"
-          nix run nixpkgs#nvfetcher -- --config nix/nvfetcher.toml --build-dir nix/_sources
           message "nix flake update"
           nix flake update
         ''

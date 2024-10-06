@@ -9,7 +9,9 @@ local save_on_choice = nil
 ---@return nil
 function M.select(items, opts, on_choice)
     opts = opts or {}
-    opts.format_item = vim.F.if_nil(opts.format_item, function(e) return tostring(e) end)
+    opts.format_item = vim.F.if_nil(opts.format_item, function(e)
+        return tostring(e)
+    end)
     save_on_choice = on_choice
 
     local indexed_items = {}
@@ -19,25 +21,25 @@ function M.select(items, opts, on_choice)
     end
     print("called 1")
 
-    vim.fn['ddu#start'] {
-        ui = 'ff',
-        name = 'ui-select',
+    vim.fn["ddu#start"]({
+        ui = "ff",
+        name = "ui-select",
         sources = { {
-            name = 'ui_select',
-            params = { items = indexed_items, }
+            name = "ui_select",
+            params = { items = indexed_items },
         } },
         uiParams = {
             ff = {
                 startFilter = false,
                 autoResize = true,
-            }
+            },
         },
         kindOptions = {
             ui_select = {
-                defaultAction = 'select'
-            }
-        }
-    }
+                defaultAction = "select",
+            },
+        },
+    })
 end
 
 ---@param item? any
@@ -57,13 +59,13 @@ setmetatable(M, {
     ---@param on_choice fun(item:table<string>|nil, idx:number|nil)
     __call = function(_, items, opts, on_choice)
         if vim.in_fast_event() then
-            vim.schedule(function ()
+            vim.schedule(function()
                 M.select(items, opts, on_choice)
             end)
         else
             M.select(items, opts, on_choice)
         end
-    end
+    end,
 })
 
 return M

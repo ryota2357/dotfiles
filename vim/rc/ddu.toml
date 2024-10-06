@@ -323,26 +323,26 @@ lua_ddu-filer = '''
     nmap('R',  function() ddu.ui.async_action('checkItems') end)
     nmap('dd', function() ddu.ui.sync_action('itemAction', { name = 'trash' }) end)
     nmap('q',  function() ddu.ui.async_action('quit') end)
-    nmap('.',  function()
-        ddu.ui.async_action('updateOptions', {
-            sourceOptions = {
-                file = {
-                    matchers = (function()
-                        local matchers = require('rc.util').tbl_get(
-                            ddu.custom.get_current(vim.b.ddu_ui_name),
-                            { 'sourceOptions', 'file', 'matchers' },
-                            {}
-                        )
-                        if next(matchers) == nil then
-                            return { 'matcher_hidden' }
-                        else
-                            return {}
-                        end
-                    end)()
-                },
-            },
-        })
-    end)
+    -- nmap('.',  function()
+    --     ddu.ui.async_action('updateOptions', {
+    --         sourceOptions = {
+    --             file = {
+    --                 matchers = (function()
+    --                     -- local matchers = require('rc.util').tbl_get(
+    --                     --     ddu.custom.get_current(vim.b.ddu_ui_name),
+    --                     --     { 'sourceOptions', 'file', 'matchers' },
+    --                     --     {}
+    --                     -- )
+    --                     if next(matchers) == nil then
+    --                         return { 'matcher_hidden' }
+    --                     else
+    --                         return {}
+    --                     end
+    --                 end)()
+    --             },
+    --         },
+    --     })
+    -- end)
 '''
 
 [[plugins]]
@@ -409,3 +409,4 @@ on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/cmdline.vim'
+on_source = 'ddu.vim'

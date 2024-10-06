@@ -1,5 +1,4 @@
 local M = {}
-local set_fn_metatable = require('rc.util').set_fn_metatable
 
 local source_options = {}
 local source_params = {}
@@ -40,7 +39,7 @@ end
 function M.enable_cmdline_completion_with(map_key, config_fn)
     local cmap_config = {}
     local cmap = function(lhs, rhs)
-        if type(lhs) == 'table' then
+        if type(lhs) == "table" then
             for _, v in ipairs(lhs) do
                 cmap_config[v] = rhs
             end
@@ -48,35 +47,60 @@ function M.enable_cmdline_completion_with(map_key, config_fn)
             cmap_config[lhs] = rhs
         end
     end
-    local pum = set_fn_metatable('pum#', {
-        map = set_fn_metatable('pum#map#')
+
+    local pum = setmetatable({
+        map = setmetatable({}, {
+            __index = function(_, key)
+                return function(...)
+                    return vim.fn["pum#map" .. key](...)
+                end
+            end,
+        }),
+    }, {
+        __index = function(_, key)
+            return function(...)
+                return vim.fn["pum#" .. key](...)
+            end
+        end,
     })
 
     config_fn(cmap, pum)
 
-    vim.keymap.set('n', map_key, function()
-        if require('dein').tap('pum.vim') == 0 then
+    vim.keymap.set("n", map_key, function()
+        if require("dein").tap("pum.vim") == 0 then
             return map_key
         end
         for lhs, rhs in pairs(cmap_config) do
-            vim.keymap.set('c', lhs, rhs, { expr = true })
+            vim.keymap.set("c", lhs, rhs, { expr = true })
         end
-        require('rc.util').autocmd 'User' {
-            pattern = 'DDCCmdlineLeave',
+        require("rcutil.autocmd") "User" {
+            pattern = "DDCCmdlineLeave",
             once = true,
             callback = function()
                 for lhs, _ in pairs(cmap_config) do
-                    vim.keymap.del('c', lhs)
+                    vim.keymap.del("c", lhs)
                 end
                 return true
-            end
+            end,
         }
         vim.fn["ddc#enable_cmdline_completion"]()
         return map_key
     end, { expr = true })
 end
 
-M.custom = set_fn_metatable('ddc#custom#')
-M.map = set_fn_metatable('ddc#map#')
+M.map = setmetatable({}, {
+    __index = function(_, key)
+        return function(...)
+            return vim.fn["ddc#map#" .. key](...)
+        end
+    end,
+})
+M.custom = setmetatable({}, {
+    __index = function(_, key)
+        return function(...)
+            return vim.fn["ddc#custom#" .. key](...)
+        end
+    end,
+})
 
 return M

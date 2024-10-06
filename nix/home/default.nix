@@ -28,6 +28,7 @@ in
       ./modules/fd.nix
       ./modules/git.nix
       ./modules/rg.nix
+      ./modules/terminal.nix
       ./modules/texlive.nix
       ./modules/tmux.nix
       ./modules/vim.nix

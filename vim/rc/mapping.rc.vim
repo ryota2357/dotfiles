@@ -101,6 +101,7 @@ else
 end
 
 " ウィンドウサイズの変更
+" TODO: これだと、edge 方向が tmux だった時の変更ができない
 nmap <Plug>(window-resize-mode) <Nop>
 function! s:has_edge(direct) abort
   if a:direct ==# 'left'

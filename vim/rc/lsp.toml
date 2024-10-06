@@ -22,7 +22,7 @@ lua_source = '''
         }
     })
 
-    require("rc.util").autocmd "LspAttach" {
+    require("rcutil.autocmd") "LspAttach" {
         callback = function(context)
             local bufnr = context.buf
             -- local client = vim.lsp.get_client_by_id(context.data.client_id)
@@ -48,7 +48,7 @@ lua_source = '''
 
     local lsp_config = {
         astro = {
-            cmd = { "astro-ls", "--stdio" },
+            cmd = { "astro-language-server", "--stdio" },
             filetypes = { "astro", "typescript", "javascript" },
             root_dir = root_pattern.astro,
         },
@@ -63,7 +63,7 @@ lua_source = '''
         dartls = {
             cmd = { "dart", "language-server", "--protocol=lsp" },
             filetypes = { "dart" },
-            root_dir = lsp_util.root_pattern("pubspec.yaml", ".dart")
+            root_pattern = { "pubspec.yaml", ".dart" }
         },
         denols = {
             cmd = { "deno", "lsp" },
@@ -98,7 +98,7 @@ lua_source = '''
             }
         },
         dockerls = {
-            cmd = { "docker-ls", "--stdio" },
+            cmd = { "docker-langserver", "--stdio" },
         },
         -- efm = {
         --     cmd = {  }
@@ -118,8 +118,9 @@ lua_source = '''
         --     }
         -- },
         tailwindcss = {
-            cmd = { "tailwindcss-ls", "--stdio" },
-            root_dir = lsp_util.root_pattern("tailwind.config.js", "tailwind.config.cjs", "tailwind.config.mjs", "tailwind.config.ts")
+            cmd = { "tailwindcss-language-server", "--stdio" },
+            filetypes = { "astro", "css", "scss", "javascriptreact", "typescriptreact" },
+            root_pattern = { "tailwind.config.js", "tailwind.config.cjs", "tailwind.config.mjs", "tailwind.config.ts" }
         },
         html = {
             cmd = { "html-ls", "--stdio" },
@@ -135,7 +136,7 @@ lua_source = '''
             }
         },
         lua_ls = {
-            cmd = { "lua-ls" },
+            cmd = { "lua-language-server" },
             settings = {
                 Lua = {
                     runtime = { version = "LuaJIT" },
@@ -144,6 +145,9 @@ lua_source = '''
                     telemetry = { enable = false }
                 }
             }
+        },
+        nil_ls = {
+            cmd = { "nil" },
         },
         -- omnisharp = {
         --     cmd = { 'dotnet', vim.fn.stdpath('data') .. '/mason/packages/omnisharp/OmniSharp.dll' },
@@ -178,8 +182,8 @@ lua_source = '''
             cmd = { "texlab" },
             filetypes = { "tex", "plaintex" }
         },
-        tsserver = {
-            cmd = { "tsserver", "--stdio" },
+        ts_ls = {
+            cmd = { "typescript-language-server", "--stdio" },
             single_file_support = false,
             root_dir = function(fname)
                 local astro_root = root_pattern.astro(fname)
@@ -192,25 +196,25 @@ lua_source = '''
             end
         },
         typst_lsp = {
-            cmd = { "typst-ls" },
+            cmd = { "typst-lsp" },
             settings = {
                 exportPdf = "onSave"
             }
         },
         vimls = {
-            cmd = { "vim-ls", "--stdio" },
+            cmd = { "vim-language-server", "--stdio" },
         },
         yamlls = {
             cmd = { "yaml-ls", "--stdio" },
             settings = {
-              yaml = {
-                keyOrdering = false,
-                schemaStore = {
-                  enable = false,
-                  url = "", -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+                yaml = {
+                    keyOrdering = false,
+                    schemaStore = {
+                        enable = false,
+                        url = "", -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+                    },
+                    schemas = require('schemastore').yaml.schemas(),
                 },
-                schemas = require('schemastore').yaml.schemas(),
-              },
             },
         }
     }
@@ -220,6 +224,10 @@ lua_source = '''
     for server_name, config in pairs(lsp_config) do
         if vim.fn.executable(config.cmd[1]) == 1 then
             config.capabilities = lsp_capabilities
+            if config.root_pattern ~= nil then
+                config.root_dir = lsp_util.root_pattern(unpack(config.root_pattern))
+                config.root_pattern = nil
+            end
             nvim_lsp[server_name].setup(config)
         else
         end
@@ -281,181 +289,3 @@ lua_source = '''
 [[plugins]]
 repo = 'b0o/SchemaStore.nvim'
 on_source = 'nvim-lspconfig'
-
-[[plugins]]
-# repo = 'ryota2357/sepia.vim'
-repo = '~/Projects/VimPlugin/sepia.vim'
-on_source = 'nvim-lspconfig'
-lua_source = '''
-  local sepia = require("sepia")
-  local if_arch = require("rc.util").if_arch
-  sepia.setup { npm_installer = "pnpm" }
-  sepia.register(
-      {
-          type = "npm",
-          package = {
-              name = "astro-ls",
-              binPath = "node_modules/@astrojs/language-server/bin/nodeServer.js",
-              dependencies = {
-                  ["@astrojs/language-server"] = "2.12.1",
-                  ["typescript"] = "5.5.3",
-              }
-          }
-      },
-      {
-          type = "compressed",
-          package = {
-              name = "clangd",
-              binPath = "clangd_17.0.3/bin/clangd",
-              url = (function()
-                  local version = "17.0.3"
-                  local site = "https://github.com/clangd/clangd/releases/download/"
-                  return site .. version .. "/clangd-mac-" .. version .. ".zip"
-              end)()
-          }
-      },
-      {
-          type = "npm",
-          package = {
-              name = "css-ls",
-              binPath = "node_modules/vscode-langservers-extracted/bin/vscode-css-language-server",
-              dependencies = {
-                  ["vscode-langservers-extracted"] = "4.10.0",
-              }
-          }
-      },
-      {
-          type = "npm",
-          package = {
-              name = "docker-ls",
-              binPath = "node_modules/dockerfile-language-server-nodejs/bin/docker-langserver",
-              dependencies = {
-                  ["dockerfile-language-server-nodejs"] = "0.11.0",
-              }
-          }
-      },
-      {
-          type = "npm",
-          package = {
-              name = "tailwindcss-ls",
-              binPath = "node_modules/@tailwindcss/language-server/bin/tailwindcss-language-server",
-              dependencies = {
-                  ["@tailwindcss/language-server"] = "0.0.16"
-              }
-          }
-      },
-      {
-          type = "npm",
-          package = {
-              name = "html-ls",
-              binPath = "node_modules/vscode-langservers-extracted/bin/vscode-html-language-server",
-              dependencies = {
-                  ["vscode-langservers-extracted"] = "4.10.0",
-              }
-          }
-      },
-      {
-          type = "npm",
-          package = {
-              name = "json-ls",
-              binPath = "node_modules/vscode-langservers-extracted/bin/vscode-json-language-server",
-              dependencies = {
-                  ["vscode-langservers-extracted"] = "4.10.0",
-              }
-          }
-      },
-      {
-          type = "compressed",
-          package = {
-              name = "lua-ls",
-              binPath = "bin/lua-language-server",
-              url = (function()
-                  local version = "3.8.3"
-                  local arch = if_arch({ arm64 = "darwin-arm64", x86_64 = "darwin-x64" })
-                  local site = "https://github.com/LuaLS/lua-language-server/releases/download/"
-                  return site ..  version .. "/lua-language-server-" .. version .. "-" .. arch .. ".tar.gz"
-              end)()
-          }
-      },
-      {
-          type = "gem",
-          package = {
-              name = "solargraph",
-              version = "0.50.0"
-          }
-      },
-      {
-          type = "compressed",
-          package = {
-              name = "taplo",
-              binPath = "",
-              url = (function()
-                  local version = "0.8.1"
-                  local arch = "darwin-aarch64"
-                  local site = "https://github.com/tamasfe/taplo/releases/download/"
-                  return site .. version .. "/taplo-full-" .. arch .. ".gz"
-              end)()
-          }
-      },
-      {
-          type = "compressed",
-          package = {
-              name = "texlab",
-              binPath = "texlab",
-              url = (function()
-                  local version = "v5.12.3"
-                  local arch = "aarch64-macos"
-                  local site = "https://github.com/latex-lsp/texlab/releases/download/"
-                  return site .. version .. "/texlab-" .. arch .. ".tar.gz"
-              end)()
-          }
-      },
-      {
-          type = "npm",
-          package = {
-              name = "tsserver",
-              binPath = "node_modules/typescript-language-server/lib/cli.mjs",
-              dependencies = {
-                  ["typescript-language-server"] = "4.3.3",
-                  ["typescript"] = "5.5.3",
-              },
-          }
-      },
-      {
-          type = "file",
-          package = {
-              name = "typst-ls",
-              url = (function()
-                  local version = "v0.13.0"
-                  local arch = if_arch({
-                      arm64 = "aarch64-apple-darwin",
-                      x86_64 = "x86_64-apple-darwin"
-                  })
-                  local site = "https://github.com/nvarner/typst-lsp/releases/download/"
-                  return site .. version .. "/typst-lsp-" .. arch
-              end)()
-          }
-      },
-      {
-          type = "npm",
-          package = {
-              name = "vim-ls",
-              binPath = "node_modules/vim-language-server/bin/index.js",
-              dependencies = {
-                  ["vim-language-server"] = "2.3.1",
-              },
-          }
-      },
-      {
-          type = "npm",
-          package = {
-              name = "yaml-ls",
-              binPath = "node_modules/yaml-language-server/bin/yaml-language-server",
-              dependencies = {
-                  ["yaml-language-server"] = "1.15.0",
-              },
-          }
-      }
-  )
-  -- sepia.install_all()
-'''

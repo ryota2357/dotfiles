@@ -80,3 +80,6 @@ lua_source = '''
         },
     }
 '''
+
+[[plugins]]
+repo = '~/Projects/VimPlugin/qfind'

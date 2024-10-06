@@ -16,9 +16,10 @@ M.start = {}
 ---@return nil
 function M.start.keymap(mode, key, config)
     fix_config_sources(config)
-    vim.keymap.set(mode, key, function()
-        vim.fn['ddu#start'](config)
-    end)
+    local callback = function()
+        vim.fn["ddu#start"](config)
+    end
+    vim.keymap.set(mode, key, callback)
 end
 
 ---@param command string
@@ -26,13 +27,25 @@ end
 ---@return nil
 function M.start.command(command, config)
     fix_config_sources(config)
-    vim.api.nvim_create_user_command(command, function()
-        vim.fn['ddu#start'](config)
-    end, {})
+    local callback = function()
+        vim.fn["ddu#start"](config)
+    end
+    vim.api.nvim_create_user_command(command, callback, {})
 end
 
-local set_fn_metatable = require('rc.util').set_fn_metatable
-M.ui = set_fn_metatable('ddu#ui#')
-M.custom = set_fn_metatable('ddu#custom#')
+M.ui = setmetatable({}, {
+    __index = function(_, key)
+        return function(...)
+            return vim.fn["ddu#ui#" .. key](...)
+        end
+    end,
+})
+M.custom = setmetatable({}, {
+    __index = function(_, key)
+        return function(...)
+            return vim.fn["ddu#custom#" .. key](...)
+        end
+    end,
+})
 
 return M
