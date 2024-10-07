@@ -1,0 +1,37 @@
+#!/bin/bash
+
+set -eu
+
+ESC="$(printf '\033')"
+readonly ESC
+
+TERM_WIDTH=$(tput cols)
+readonly TERM_WIDTH
+
+# Determine how many colors to display per line
+if (( TERM_WIDTH >= 8 * 16 )); then
+  WRAP_COUNT=16
+elif (( TERM_WIDTH >= 8 * 8 )); then
+  WRAP_COUNT=8
+elif (( TERM_WIDTH >= 8 * 4 )); then
+  WRAP_COUNT=4
+elif (( TERM_WIDTH >= 8 * 2 )); then
+  WRAP_COUNT=2
+else
+  WRAP_COUNT=1
+fi
+readonly WRAP_COUNT
+
+for code in {0..255}; do
+  number=$(printf "%3d" "$code")
+  bg=$(printf "${ESC}[48;5;%sm%s${ESC}[0m" "$code" "$number")
+  fg=$(printf "${ESC}[38;5;%sm%s${ESC}[0m" "$code" "$number")
+  printf "%s %s" "$bg" "$fg"
+
+  # Newline every WRAP_COUNT colors
+  if (( (code + 1) % WRAP_COUNT == 0 )); then
+    echo
+  else
+    printf " "
+  fi
+done

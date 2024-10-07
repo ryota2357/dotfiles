@@ -34,6 +34,7 @@ in
       ./modules/vim.nix
       ./modules/zsh.nix
       {
+        home.file.".local/bin".source = ../../bin;
         home.packages = with pkgs; [
           bat
           fastfetch
@@ -57,6 +58,7 @@ in
           go
           nodejs_22
           rustup
+          shellcheck
           typst
         ];
       }

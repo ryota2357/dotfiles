@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# Based on the following script:
+#   https://github.com/h-matsuo/macOS-trash/blob/master/trash
+#   MIT License: Copyright (c) 2016 Hiroyuki Matsuo
+
+set -eu
+
+CMD_NAME=$(basename "$0")
+readonly CMD_NAME
+
+# Check whether the current OS is macOS
+if [ "$(uname -s)" != "Darwin" ]; then
+  echo "{$CMD_NAME} only supports macOS"
+  exit 1
+fi
+
+# If no arguments are specified, display the usage
+if [ "${#}" -lt 1 ]; then
+  echo "Usage: ${CMD_NAME} <file>..." 1>&2
+  exit 1
+fi
+
+for name in "${@}"; do
+  # Don't remove "." and ".."
+  if [ "${name: -1}" = "." ] || [ "${name: -1}" = ".." ]; then
+    echo "${CMD_NAME}: \".\" and \"..\" may not be removed." 1>&2
+    continue
+  fi
+
+  # Check whether specified file/directory exists
+  if [ ! -e "${name}" ]; then
+    echo "${CMD_NAME}: ${name}: No such file or directory." 1>&2
+    continue
+  fi
+
+  # Calculate the absolute path
+  target=$(cd "$(dirname "${name}")" && pwd)"/"$(basename "${name}")
+
+  # Remove specified file/directory
+  osascript -e """
+    tell application \"Finder\"
+      move POSIX file \"${target}\" to trash
+    end tell
+    """ > /dev/null
+done
