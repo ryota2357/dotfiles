@@ -28,11 +28,11 @@ in
       ./modules/fd.nix
       ./modules/git.nix
       ./modules/rg.nix
+      ./modules/shell.nix
       ./modules/terminal.nix
       ./modules/texlive.nix
       ./modules/tmux.nix
       ./modules/vim.nix
-      ./modules/zsh.nix
       {
         home.file.".local/bin".source = ../../bin;
         home.packages = with pkgs; [

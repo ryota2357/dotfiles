@@ -39,22 +39,17 @@ wezterm.on("gui-startup", function(cmd)
     window:gui_window():toggle_fullscreen()
 end)
 config.default_prog = {
-    "/bin/zsh",
-    "--login",
-    "--interactive",
+    "/bin/bash",
     "-c",
     [=[
-    ID="`tmux list-sessions`"
-    if [[ -z "$ID" ]]; then
-      tmux new-session
+    tmux_connect="$HOME/.local/bin/tmux-connect"
+    tmux_paths="$HOME/.nix-profile/bin/tmux"
+    if [[ -x "$tmux_connect" ]]; then
+      exec "$tmux_connect" --paths "$tmux_paths"
+    else
+      echo "Command not found: $tmux_connect"
+      exec /bin/zsh
     fi
-    create_new_session="Create New Session"
-    ID="$ID\n${create_new_session}:"
-    ID="`echo $ID | $PERCOL | cut -d: -f1`"
-    if [[ "$ID" = "${create_new_session}" ]]; then
-      tmux new-session
-    fi
-    tmux attach-session -t "$ID"
     ]=],
 }
 

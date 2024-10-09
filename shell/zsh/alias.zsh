@@ -13,8 +13,6 @@ alias cp='cp -i'
 alias rm='rm -i'
 alias stat='stat -x'
 
-alias trash='use trash'
-
 mkcd() {
     mkdir -p $1 && cd $1
 }

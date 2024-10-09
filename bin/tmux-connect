@@ -1,0 +1,131 @@
+#!/bin/bash
+
+set -eu
+
+CMD_NAME=$(basename "$0")
+readonly CMD_NAME
+
+display_help() {
+  echo "Usage: $CMD_NAME [options]"
+  echo ""
+  echo "Options:"
+  echo "  -p, --paths      Comma-separated list of paths to the tmux command"
+  echo "  -h, --help       Display this help message"
+  echo ""
+  exit 0
+}
+
+find_tmux_cmd() {
+  local tmux_paths=("$@")
+
+  if [[ ${#tmux_paths[@]} -gt 0 ]]; then
+    for path in "${tmux_paths[@]}"; do
+      if [[ -x "$path" ]]; then
+        echo "$path"
+        return
+      fi
+    done
+  fi
+
+  if type tmux >/dev/null; then
+    echo "tmux"
+    return
+  else
+    echo "Error: 'tmux' command not found." >&2
+    echo "Please install tmux or specify the correct path using the -p option." >&2
+    exit 1
+  fi
+}
+
+select_session() {
+  local tmux_cmd="$1"
+  local session_list="$2"
+
+  # Display a list of sessions to the user
+  echo "Select a session:"
+  local i=1
+  local session_name
+  declare -A session_map
+  while IFS= read -r line; do
+    session_name=$(echo "$line" | cut -d: -f1)
+    echo "$i) $session_name"
+    session_map[$i]=$session_name
+    ((i++))
+  done <<< "$session_list"
+  echo "$i) Create New Session"
+
+  # Prompt the user to select a session, re-prompt if the selection is out of range
+  local choice
+  while true; do
+    read -rp "Enter a number: " choice
+    if [[ "$choice" -ge 1 && "$choice" -le "$i" ]]; then
+      break
+    else
+      echo "Invalid selection. Please choose a valid number."
+    fi
+  done
+
+  # Create a new session or attach to an existing one based on the user's choice
+  if [[ "$choice" -eq "$i" ]]; then
+    "$tmux_cmd" new-session
+  else
+    "$tmux_cmd" attach-session -t "${session_map[$choice]}"
+  fi
+}
+
+create_or_attach_session() {
+  local tmux_cmd="$1"
+
+  local session_list
+  session_list=$("$tmux_cmd" list-sessions 2>/dev/null || true)
+
+  # Create a new session if no sessions exist
+  if [[ -z "$session_list" ]]; then
+    "$tmux_cmd" new-session
+    exit 0
+  fi
+
+  local session_count
+  session_count=$(echo "$session_list" | wc -l)
+
+  # If there is only one session, automatically attach to it
+  if [[ "$session_count" -eq 1 ]]; then
+    local session_name
+    session_name=$(echo "$session_list" | cut -d: -f1)
+    "$tmux_cmd" attach-session -t "$session_name"
+    exit 0
+  fi
+
+  # If multiple sessions exist, prompt the user to select one
+  select_session "$tmux_cmd" "$session_list"
+}
+
+main() {
+  local tmux_paths=()
+  while [[ $# -gt 0 ]]; do
+    case $1 in
+      -p|--paths)
+        IFS=',' read -ra tmux_paths <<< "$2"
+        shift 2
+        ;;
+      -h|--help)
+        display_help
+        ;;
+      *)
+        echo "Unknown option: $1" >&2
+        display_help
+        ;;
+    esac
+  done
+
+  local tmux_cmd
+  if [[ ${#tmux_paths[@]} -gt 0 ]]; then
+    tmux_cmd=$(find_tmux_cmd "${tmux_paths[@]}")
+  else
+    tmux_cmd=$(find_tmux_cmd)
+  fi
+
+  create_or_attach_session "$tmux_cmd"
+}
+
+main "$@"

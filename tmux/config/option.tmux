@@ -20,11 +20,10 @@ set-option -g focus-events on
 # セッション間での自動的なリサイズを有効化
 set-window-option -g aggressive-resize on
 
-# tmux起動時のシェルをhomebrewのzshにする
-# brew の zsh 使うと _arguments:comparguments:409: not enough arguments
-# って出るからひとまず標準の zsh 使う
+# tmux起動時のシェル
+set-option -g default-shell "$HOME/.nix-profile/bin/fish"
+# set-option -g default-shell "/bin/zsh"
 # set-option -g default-shell "$HOMEBREW_PREFIX/bin/zsh"
-set-option -g default-shell "/bin/zsh"
 
 # 256色対応
 set-option -g default-terminal "tmux-256color"
