@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -eu
 
@@ -41,15 +41,16 @@ select_session() {
   local tmux_cmd="$1"
   local session_list="$2"
 
-  # Display a list of sessions to the user
+  # Display a list of sessions to the user (`select` command like)
   echo "Select a session:"
-  local i=1
-  local session_name
-  declare -A session_map
+  # Use an array (-a), not a associative array (-A). Because if the user choiced "01", it will be treated as octal number.
+  # Note: The index of the array is no need to be continuous. (i.e. we can starts from 1)
+  declare -a session_map
+  local i=1 line session_name
   while IFS= read -r line; do
     session_name=$(echo "$line" | cut -d: -f1)
     echo "$i) $session_name"
-    session_map[$i]=$session_name
+    session_map["$i"]=$session_name
     ((i++))
   done <<< "$session_list"
   echo "$i) Create New Session"
@@ -76,8 +77,13 @@ select_session() {
 create_or_attach_session() {
   local tmux_cmd="$1"
 
+  # List all sessions name sorted by creation time
   local session_list
-  session_list=$("$tmux_cmd" list-sessions 2>/dev/null || true)
+  session_list=$(                                                     \
+    "$tmux_cmd" list-sessions -F '#{session_created} #{session_name}' \
+      | sort                                                          \
+      | awk -F ' ' '{ print $2 }'                                     \
+  )
 
   # Create a new session if no sessions exist
   if [[ -z "$session_list" ]]; then

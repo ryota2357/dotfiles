@@ -17,4 +17,10 @@ fish_add_path "$HOMEBREW_PREFIX/opt/llvm/bin"
 set -gx LDFLAGS "-L$HOMEBREW_PREFIX/opt/llvm/lib"
 set -gx CPPFLAGS "-I$HOMEBREW_PREFIX/llvm/include"
 
+# Rust
+fish_add_path "$CARGO_HOME/bin"
+
+source "$XDG_CONFIG_HOME/fish/prompt.fish"
+source "$XDG_CONFIG_HOME/fish/shortcut.fish"
+
 direnv hook fish | source

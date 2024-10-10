@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Based on the following script:
 #   https://github.com/h-matsuo/macOS-trash/blob/master/trash

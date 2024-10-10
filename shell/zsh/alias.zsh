@@ -4,12 +4,14 @@ alias a='./a.out'
 
 alias ...='cd ../../'
 alias ....='cd ../../../'
+alias .....='cd ../../../../'
 
 alias clip='pbcopy'
 
 alias vi='nvim'
 alias :q='exit'
 alias cp='cp -i'
+alias mv='mv -i'
 alias rm='rm -i'
 alias stat='stat -x'
 

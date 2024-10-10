@@ -4,6 +4,7 @@ let
 in
 {
   home.packages = with pkgs; [
+    bash
     # zsh   # システムのを使う
     fish
   ];
@@ -19,5 +20,7 @@ in
 
     "fish/config.fish" = s "fish/config.fish";
     "fish/conf.d" = s "fish/conf.d";
+    "fish/prompt.fish" = s "fish/prompt.fish";
+    "fish/shortcut.fish" = s "fish/shortcut.fish";
   };
 }
