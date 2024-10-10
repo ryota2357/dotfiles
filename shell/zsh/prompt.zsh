@@ -55,7 +55,7 @@ __left-prompt() {
   local dir="%F{11}%~%f"
   local next="%F{47}❯%f "
 
-  if [ `git rev-parse --is-inside-work-tree 2> /dev/null` ]; then
+  if [[ `git rev-parse --is-inside-work-tree 2> /dev/null` ]]; then
     local branch_name=`git rev-parse --abbrev-ref HEAD 2> /dev/null`
     local branch="%F{250} ${branch_name}%f"
     echo -e "\n${dir} ${branch}\n${next}"

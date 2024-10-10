@@ -20,6 +20,7 @@ in
 
     "fish/config.fish" = s "fish/config.fish";
     "fish/conf.d" = s "fish/conf.d";
+    "fish/functions" = s "fish/functions";
     "fish/prompt.fish" = s "fish/prompt.fish";
     "fish/shortcut.fish" = s "fish/shortcut.fish";
   };
