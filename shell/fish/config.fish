@@ -8,6 +8,7 @@ switch (uname -sm)
   case 'Darwin x86_64'; /usr/local/bin/brew shellenv | source
   case '*'; echo "You need to setup Homebrew manually (Unsupported: $(uname -om))"
 end
+set --prepend fish_complete_path "$HOMEBREW_PREFIX/share/fish/vendor_completions.d"
 
 # llvm
 fish_add_path "$HOMEBREW_PREFIX/opt/llvm/bin"
@@ -30,15 +31,21 @@ set -gx MOCWORD_DATA "$XDG_CACHE_HOME/mocword/mocword.sqlite"
 function mocword-data-install
   set -l url "https://github.com/high-moctane/mocword-data/releases/download/eng20200217/mocword.sqlite.gz"
   set -l zip $MOCWORD_DATA'.gz'
-  mkdir -p (dirname $HMOCWORD_DATA)
+  mkdir -p (dirname $MOCWORD_DATA)
   curl -L -o $zip $url
   if type -q gnuzip
-    gunzip -f $zip
-  else
     echo "You need to install 'gunzip' to extract the data file."
     rm -f $zip
     return 1
+  else
+    gunzip -f $zip
   end
+end
+
+# nix complition path
+# TODO: zsh の (z) フラグ (シェルの解析によって単語を分割する。シングルクォートやダブルクォートで囲ったものは一つの文字列として分割する) の方法
+for profile in (string split ' ' $NIX_PROFILES)
+  set --prepend fish_complete_path "$profile/share/fish/completions" "$profile/share/fish/vendor_completions.d"
 end
 
 # My Configs
@@ -46,6 +53,4 @@ fish_add_path "$HOME/.local/bin"
 source "$XDG_CONFIG_HOME/fish/prompt.fish"
 source "$XDG_CONFIG_HOME/fish/shortcut.fish"
 
-# eval "$(direnv hook fish)" 2>&1 > /dev/null &
-# eval "$(direnv hook fish)"&
 direnv hook fish | source

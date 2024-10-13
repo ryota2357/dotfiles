@@ -55,6 +55,7 @@ in
 
           # Language/Framework tools
           deno
+          elan
           go
           nodejs_22
           rustup

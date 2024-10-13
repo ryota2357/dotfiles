@@ -1,6 +1,4 @@
-#!/bin/bash
-
-set -eu
+#!/bin/sh
 
 mkdir -p ~/.gnupg
 

@@ -1,7 +1,5 @@
 #!/bin/sh
 
-set -eu
-
 rustup install stable
 rustup install nightly
 rustup default stable
