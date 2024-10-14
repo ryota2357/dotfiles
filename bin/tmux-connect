@@ -12,7 +12,6 @@ display_help() {
   echo "  -p, --paths      Comma-separated list of paths to the tmux command"
   echo "  -h, --help       Display this help message"
   echo ""
-  exit 0
 }
 
 find_tmux_cmd() {
@@ -116,10 +115,12 @@ main() {
         ;;
       -h|--help)
         display_help
+        exit 0
         ;;
       *)
         echo "Unknown option: $1" >&2
         display_help
+        exit 1
         ;;
     esac
   done
