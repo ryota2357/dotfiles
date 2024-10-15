@@ -20,26 +20,16 @@ forAllSystems (
     pkgs = import nixpkgs {
       inherit system;
     };
+    getExe = pkgs.lib.getExe;
   in
   {
-    update = {
-      type = "app";
-      program = toString (
-        pkgs.writeShellScript "update" ''
-          ${shellScriptHeader}
-          message "nix flake update"
-          nix flake update
-        ''
-      );
-    };
-
     home-manager-switch = {
       type = "app";
       program = toString (
         pkgs.writeShellScript "home-manager" ''
           ${shellScriptHeader}
           message "home-manager switch --flake .#$1"
-          nix run nixpkgs#home-manager -- switch --flake .#$1
+          ${getExe pkgs.home-manager} switch --flake .#$1
         ''
       );
     };
