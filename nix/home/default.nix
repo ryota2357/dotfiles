@@ -36,8 +36,6 @@ in
       {
         home.file.".local/bin".source = ../../bin;
         home.packages = with pkgs; [
-          bat
-          fastfetch
           ffmpeg
           fzf
           hyperfine

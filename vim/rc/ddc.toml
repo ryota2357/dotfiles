@@ -47,6 +47,10 @@ lua_source = '''
     ddc.custom.patch_filetype({ 'awk', 'c', 'cpp', 'cs', 'dart', 'python', 'ruby', 'lua' , 'nil', 'typst' }, {
         sources = { 'lsp', 'around' },
     })
+    ddc.custom.patch_filetype({ 'lean' }, {
+        sources = { 'lsp', 'around' },
+        sourceOptions = { ['lsp'] = { minAutoCompleteLength = 1 } },
+    })
     ddc.custom.patch_filetype({ 'css', 'scss' }, {
         sources = { 'lsp' },
     })

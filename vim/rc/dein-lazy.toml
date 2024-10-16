@@ -186,6 +186,14 @@ require("dial.config").augends:register_group({
 '''
 
 [[plugins]]
+repo = 'Julian/lean.nvim'
+on_ft = 'lean'
+depends = ['nvim-lspconfig', 'plenary.nvim']
+lua_source = '''
+  require('lean').setup{ mappings = true }
+'''
+
+[[plugins]]
 repo = 'yuki-yano/fuzzy-motion.vim'
 depends = 'denops.vim'
 on_cmd = 'FuzzyMotion'

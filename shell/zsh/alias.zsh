@@ -13,7 +13,6 @@ alias :q='exit'
 alias cp='cp -i'
 alias mv='mv -i'
 alias rm='rm -i'
-alias stat='stat -x'
 
 mkcd() {
   mkdir -p $1 && cd $1
