@@ -12,17 +12,17 @@ in
     ".zshenv" = s "zsh/zshenv";
     ".zshrc" = s "zsh/zshrc";
   };
-  xdg.configFile = {
-    "zsh/alias.zsh" = s "zsh/alias.zsh";
-    "zsh/completion.zsh" = s "zsh/completion.zsh";
-    "zsh/option.zsh" = s "zsh/option.zsh";
-    "zsh/prompt.zsh" = s "zsh/prompt.zsh";
+  xdg.configFile = builtins.foldl' (acc: name: acc // { ${name} = s name; }) { } [
+    "zsh/alias.zsh"
+    "zsh/completion.zsh"
+    "zsh/option.zsh"
+    "zsh/prompt.zsh"
 
-    "fish/config.fish" = s "fish/config.fish";
-    "fish/conf.d" = s "fish/conf.d";
-    "fish/completions" = s "fish/completions";
-    "fish/functions" = s "fish/functions";
-    "fish/prompt.fish" = s "fish/prompt.fish";
-    "fish/shortcut.fish" = s "fish/shortcut.fish";
-  };
+    "fish/config.fish"
+    "fish/conf.d"
+    "fish/completions"
+    "fish/functions"
+    "fish/prompt.fish"
+    "fish/shortcut.fish"
+  ];
 }

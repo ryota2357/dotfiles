@@ -41,6 +41,8 @@ forAllSystems (
           ${shellScriptHeader}
           message "nix-darwin switch --flake .#$1"
           nix run nix-darwin -- switch --flake .#$1
+          message "brew upgrade"
+          brew upgrade
         ''
       );
     };

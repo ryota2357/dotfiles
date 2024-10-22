@@ -33,11 +33,13 @@
     # Text Editor
     "coteditor"
     "visual-studio-code"
+    "jetbrains-toolbox"
 
     # Dev Tools
     "docker"
     "dotnet-sdk"
     "fontforge"
+    "github"
 
     # Social
     "discord"
@@ -48,10 +50,11 @@
     "alfred"
     "alt-tab"
     "hiddenbar"
-    "karabiner-elements"
-    "skim"
     "iina"
+    "karabiner-elements"
+    "keycastr"
     "obs"
+    "skim"
 
     # Game
     "osu"
