@@ -11,7 +11,6 @@ display_help() {
   echo "Options:"
   echo "  -p, --paths      Comma-separated list of paths to the tmux command"
   echo "  -h, --help       Display this help message"
-  echo ""
 }
 
 find_tmux_cmd() {
@@ -67,9 +66,9 @@ select_session() {
 
   # Create a new session or attach to an existing one based on the user's choice
   if [[ "$choice" -eq "$i" ]]; then
-    "$tmux_cmd" new-session
+    exec "$tmux_cmd" new-session
   else
-    "$tmux_cmd" attach-session -t "${session_map[$choice]}"
+    exec "$tmux_cmd" attach-session -t "${session_map[$choice]}"
   fi
 }
 
@@ -86,8 +85,7 @@ create_or_attach_session() {
 
   # Create a new session if no sessions exist
   if [[ -z "$session_list" ]]; then
-    "$tmux_cmd" new-session
-    exit 0
+    exec "$tmux_cmd" new-session
   fi
 
   local session_count
@@ -97,8 +95,7 @@ create_or_attach_session() {
   if [[ "$session_count" -eq 1 ]]; then
     local session_name
     session_name=$(echo "$session_list" | cut -d: -f1)
-    "$tmux_cmd" attach-session -t "$session_name"
-    exit 0
+    exec "$tmux_cmd" attach-session -t "$session_name"
   fi
 
   # If multiple sessions exist, prompt the user to select one

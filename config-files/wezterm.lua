@@ -45,10 +45,10 @@ config.default_prog = {
     tmux_connect="$HOME/.local/bin/tmux-connect"
     tmux_paths="$HOME/.nix-profile/bin/tmux"
     if [[ -x "$tmux_connect" ]]; then
-      exec "$tmux_connect" --paths "$tmux_paths"
+      "$tmux_connect" --paths "$tmux_paths"
     else
       echo "Command not found: $tmux_connect"
-      exec /bin/zsh
+      /bin/zsh
     fi
     ]=],
 }
