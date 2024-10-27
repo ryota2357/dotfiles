@@ -10,6 +10,8 @@ alias ... 'cd ../../'
 alias .... 'cd ../../../'
 alias ..... 'cd ../../../../'
 
+abbr --add history ' history'
+
 abbr --add :q 'exit'
 abbr --add :wq 'exit'
 abbr --add :wqa 'exit'

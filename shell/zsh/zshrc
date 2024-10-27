@@ -20,7 +20,7 @@ export LDFLAGS="-L$HOMEBREW_PREFIX/opt/llvm/lib"
 export CPPFLAGS="-I$HOMEBREW_PREFIX/opt/llvm/include"
 
 # Rust
-path=("$CARGO_HOME/bin(N-/)" $path[@])
+path=("$CARGO_HOME/bin"(N-/) $path[@])
 
 # fzf
 export FZF_CTRL_R_OPTS=--reverse
