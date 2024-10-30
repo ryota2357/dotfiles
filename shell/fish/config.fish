@@ -53,4 +53,4 @@ fish_add_path "$HOME/.local/bin"
 source "$XDG_CONFIG_HOME/fish/prompt.fish"
 source "$XDG_CONFIG_HOME/fish/shortcut.fish"
 
-direnv hook fish | source
+type -q direnv; and direnv hook fish | source

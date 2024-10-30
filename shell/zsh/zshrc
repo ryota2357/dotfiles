@@ -57,7 +57,9 @@ source "$XDG_CONFIG_HOME/zsh/completion.zsh"
 source "$XDG_CONFIG_HOME/zsh/option.zsh"
 source "$XDG_CONFIG_HOME/zsh/prompt.zsh"
 
-eval "$(direnv hook zsh)"
+if type direnv > /dev/null 2>&1; then
+  eval "$(direnv hook zsh)"
+fi
 
 typeset -Ux path fpath manpath
 
