@@ -40,6 +40,7 @@
     "dotnet-sdk"
     "fontforge"
     "github"
+    "wireshark"
 
     # Social
     "discord"

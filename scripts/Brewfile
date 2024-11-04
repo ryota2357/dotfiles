@@ -13,6 +13,5 @@ cask 'font-harano-aji'
 cask 'font-plemol-jp-nf'
 cask 'ollama'
 cask 'unity-hub'
-cask 'wireshark'
 
 # vim: ft=ruby

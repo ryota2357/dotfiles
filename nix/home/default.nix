@@ -40,8 +40,10 @@ in
           fzf
           hyperfine
           jq
+          rsync
           tokei
           tree
+          watchexec
           wget
           # yt-dlp
 
