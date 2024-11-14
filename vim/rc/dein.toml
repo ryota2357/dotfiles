@@ -62,7 +62,15 @@ repo = 'RRethy/vim-illuminate'
 [[plugins]]
 repo = 'rcarriga/nvim-notify'
 lua_add = '''
-    vim.notify = require('notify')
+    local ignore_msgs = { "rust_analyzer: -32802: server cancelled the request" }
+    vim.notify = function(msg, ...)
+        for _, ignore in ipairs(ignore_msgs) do
+            if msg == ignore then
+              return
+            end
+        end
+        require("notify")(msg, ...)
+    end
 '''
 
 [[plugins]]
