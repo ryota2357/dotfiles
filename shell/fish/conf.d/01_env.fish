@@ -13,4 +13,5 @@ set -gx MANPAGER "vim +MANPAGER --not-a-term -"
 # set -gx MANPAGER 'nvim +Man!'
 
 set -gx LANG 'ja_JP.UTF-8'
+set -gx LC_ALL 'ja_JP.UTF-8'
 set -gx TZ 'Asia/Tokyo'

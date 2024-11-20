@@ -49,7 +49,7 @@ ln_dots config-files/alacritty.toml  ~/.config/alacritty/alacritty.toml
 ln_dots config-files/wezterm.lua     ~/.config/wezterm/wezterm.lua
 
 # latex
-ln_dots config-files/latexmkrc ~/latexmk/latexmkrc
+ln_dots config-files/latexmkrc ~/.config/latexmk/latexmkrc
 
 # style
 ln_dots style/textlintrc.json   ~/.textlintrc.json

@@ -13,4 +13,5 @@ export MANPAGER="vim +MANPAGER --not-a-term -"
 # export MANPAGER='nvim +Man!'
 
 export LANG='ja_JP.UTF-8'
+export LC_ALL='ja_JP.UTF-8'
 export TZ='Asia/Tokyo'
