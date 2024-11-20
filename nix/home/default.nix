@@ -57,7 +57,7 @@ in
           deno
           elan
           go
-          nodejs_22
+          nodejs_23
           rustup
           shellcheck
           typst
