@@ -9,8 +9,7 @@ setmetatable(M, {
             rawset(self, key, data)
             return data
         end
-
-    end
+    end,
 })
 
 return M

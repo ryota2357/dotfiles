@@ -42,5 +42,5 @@ for name in "${@}"; do
     tell application \"Finder\"
       move POSIX file \"${target}\" to trash
     end tell
-    """ > /dev/null
+    """ >/dev/null
 done

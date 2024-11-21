@@ -76,7 +76,7 @@ autocmd "CmdlineEnter" {
             callback = function()
                 vim.o.completeopt = save
             end,
-            once = true
+            once = true,
         }
     end,
 }

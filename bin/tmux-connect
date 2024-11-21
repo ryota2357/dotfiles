@@ -50,7 +50,7 @@ select_session() {
     echo "$i) $session_name"
     session_map["$i"]=$session_name
     ((i++))
-  done <<< "$session_list"
+  done <<<"$session_list"
   echo "$i) Create New Session"
 
   # Prompt the user to select a session, re-prompt if the selection is out of range
@@ -77,10 +77,10 @@ create_or_attach_session() {
 
   # List all sessions name sorted by creation time
   local session_list
-  session_list=$(                                                     \
-    "$tmux_cmd" list-sessions -F '#{session_created} #{session_name}' \
-      | sort                                                          \
-      | awk -F ' ' '{ print $2 }'                                     \
+  session_list=$(
+    "$tmux_cmd" list-sessions -F '#{session_created} #{session_name}' |
+      sort |
+      awk -F ' ' '{ print $2 }'
   )
 
   # Create a new session if no sessions exist
@@ -106,19 +106,19 @@ main() {
   local tmux_paths=()
   while [[ $# -gt 0 ]]; do
     case $1 in
-      -p|--paths)
-        IFS=',' read -ra tmux_paths <<< "$2"
-        shift 2
-        ;;
-      -h|--help)
-        display_help
-        exit 0
-        ;;
-      *)
-        echo "Unknown option: $1" >&2
-        display_help
-        exit 1
-        ;;
+    -p | --paths)
+      IFS=',' read -ra tmux_paths <<<"$2"
+      shift 2
+      ;;
+    -h | --help)
+      display_help
+      exit 0
+      ;;
+    *)
+      echo "Unknown option: $1" >&2
+      display_help
+      exit 1
+      ;;
     esac
   done
 
