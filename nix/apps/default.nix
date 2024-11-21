@@ -47,4 +47,29 @@ eachSystem (pkgs: {
       ''
     );
   };
+
+  fmt = {
+    type = "app";
+    program = toString (
+      pkgs.writeShellScript "fmt" ''
+        ${shellScriptHeader}
+        while true; do
+          if [[ -f flake.nix ]]; then
+            break
+          fi
+          if [[ "$(pwd)" == "/" ]]; then
+            echo "flake.nix not found." >&2
+            exit 1
+          fi
+          cd ..
+        done
+        message "nixfmt"
+        ${getExe pkgs.nixfmt-rfc-style} ./flake.nix ./nix
+        message "shfmt"
+        ${getExe pkgs.shfmt} -i 2 -w ./bin/* ./scripts/*.sh
+        message "stylua"
+        ${getExe pkgs.stylua} ./vim/lua
+      ''
+    );
+  };
 })

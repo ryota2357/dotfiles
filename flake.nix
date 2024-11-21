@@ -66,10 +66,14 @@
         in
         pkgs.mkShellNoCC {
           packages = with pkgs; [
+            # LS
             lua-language-server
             vim-language-server
             nil
+            # Formatter
+            nixfmt-rfc-style
             stylua
+            shfmt
           ];
         };
     };
