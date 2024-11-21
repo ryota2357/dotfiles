@@ -41,7 +41,7 @@ select_session() {
 
   # Display a list of sessions to the user (`select` command like)
   echo "Select a session:"
-  # Use an array (-a), not a associative array (-A). Because if the user choiced "01", it will be treated as octal number.
+  # Use an array (-a), not a associative array (-A). Because if the user choiced "01", it will be treated as number.
   # Note: The index of the array is no need to be continuous. (i.e. we can starts from 1)
   declare -a session_map
   local i=1 line session_name
