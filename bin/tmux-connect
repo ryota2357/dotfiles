@@ -18,7 +18,7 @@ find_tmux_cmd() {
 
   if [[ ${#tmux_paths[@]} -gt 0 ]]; then
     for path in "${tmux_paths[@]}"; do
-      if [[ -x "$path" ]]; then
+      if [[ -x $path ]]; then
         echo "$path"
         return
       fi
@@ -57,7 +57,7 @@ select_session() {
   local choice
   while true; do
     read -rp "Enter a number: " choice
-    if [[ "$choice" =~ ^[0-9]+$ && "$choice" -ge 1 && "$choice" -le "$i" ]]; then
+    if [[ $choice =~ ^[0-9]+$ && $choice -ge 1 && $choice -le $i ]]; then
       break
     else
       echo "Invalid selection. Please choose a valid number."
@@ -65,7 +65,7 @@ select_session() {
   done
 
   # Create a new session or attach to an existing one based on the user's choice
-  if [[ "$choice" -eq "$i" ]]; then
+  if [[ $choice -eq $i ]]; then
     exec "$tmux_cmd" new-session
   else
     exec "$tmux_cmd" attach-session -t "${session_map[$choice]}"
@@ -84,7 +84,7 @@ create_or_attach_session() {
   )
 
   # Create a new session if no sessions exist
-  if [[ -z "$session_list" ]]; then
+  if [[ -z $session_list ]]; then
     exec "$tmux_cmd" new-session
   fi
 
@@ -92,7 +92,7 @@ create_or_attach_session() {
   session_count=$(echo "$session_list" | wc -l)
 
   # If there is only one session, automatically attach to it
-  if [[ "$session_count" -eq 1 ]]; then
+  if [[ $session_count -eq 1 ]]; then
     local session_name
     session_name=$(echo "$session_list" | cut -d: -f1)
     exec "$tmux_cmd" attach-session -t "$session_name"

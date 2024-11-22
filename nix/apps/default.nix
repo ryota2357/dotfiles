@@ -66,7 +66,7 @@ eachSystem (pkgs: {
         message "nixfmt"
         ${getExe pkgs.nixfmt-rfc-style} ./flake.nix ./nix
         message "shfmt"
-        ${getExe pkgs.shfmt} -i 2 -w ./bin/* ./scripts/*.sh
+        ${getExe pkgs.shfmt} -i 2 -s -w ./bin/* ./scripts/*.sh
         message "stylua"
         ${getExe pkgs.stylua} ./vim/lua
       ''
