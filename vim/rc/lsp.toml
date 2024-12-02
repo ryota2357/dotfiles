@@ -160,6 +160,9 @@ lua_source = '''
         --     analyze_open_documents_only = false,
         --     autostart = false
         -- },
+        pyright = {
+            cmd = { "pyright-langserver", "--stdio" },
+        },
         rust_analyzer = {
             cmd = { "rust-analyzer" },
             settings = {
