@@ -15,7 +15,7 @@ bind-key s split-window -v -c '#{pane_current_path}'
 # `C-w` で WINDOW table に切り替え (https://qiita.com/izumin5210/items/d2e352de1e541ff97079)
 bind-key -n C-w switch-client -T WINDOW
 
-# See: https://github.com/christoomey/vim-tmux-WINDOW
+# See: https://github.com/christoomey/vim-tmux-navigator
 is_vim="ps -o state= -o comm= -t '#{pane_tty}' | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|l?n?vim?x?|fzf)(diff)?$'"
 
 # `C-w` + h, j, k, l: ウィンドウ間を移動

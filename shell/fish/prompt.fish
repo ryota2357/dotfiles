@@ -56,7 +56,7 @@ function fish_prompt
   set -l next (set_color brgreen)"❯ "(set_color normal)
 
   if test (git rev-parse --is-inside-work-tree 2> /dev/null)
-    set -l branch_name (git rev-parse --abbrev-ref HEAD)
+    set -l branch_name (git rev-parse --abbrev-ref HEAD 2> /dev/null)
     set -l branch '\e[38;5;250m '$branch_name(set_color normal)
     echo -e "\n$dir $branch\n$next"
   else

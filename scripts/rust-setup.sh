@@ -32,5 +32,8 @@ cargo install cargo-llvm-cov
 # スナップショットテスト用のツール ($ cargo insta ...)
 cargo install cargo-insta
 
+# crates.io へのリリース ($ cargo release ...)
+cargo install cargo-release
+
 # 辞書補完
 cargo install mocword

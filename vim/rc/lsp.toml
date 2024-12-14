@@ -48,7 +48,7 @@ lua_source = '''
 
     local lsp_config = {
         astro = {
-            cmd = { "astro-language-server", "--stdio" },
+            cmd = { "astro-ls", "--stdio" },
             filetypes = { "astro", "typescript", "javascript" },
             root_dir = root_pattern.astro,
         },
