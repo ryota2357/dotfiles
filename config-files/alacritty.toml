@@ -12,10 +12,10 @@ history = 10000
 [font]
 builtin_box_drawing = false
 size = 18.5
-normal      = { family = "PleckJP", style = "Regular" }
-bold        = { family = "PleckJP", style = "Bold" }
+normal = { family = "PleckJP", style = "Regular" }
+bold = { family = "PleckJP", style = "Bold" }
 bold_italic = { family = "PleckJP", style = "Bold Italic" }
-italic      = { family = "PleckJP", style = "Italic" }
+italic = { family = "PleckJP", style = "Italic" }
 
 [colors]
 draw_bold_text_with_bright_colors = false
@@ -27,19 +27,16 @@ style = { blinking = "Off", shape = "Block" }
 
 [terminal.shell]
 program = "/bin/bash"
-args = [
-    "-c",
-    '''
-    tmux_connect="$HOME/.local/bin/tmux-connect"
-    tmux_paths="$HOME/.nix-profile/bin/tmux"
-    if [[ -x "$tmux_connect" ]]; then
-      "$tmux_connect" --paths "$tmux_paths"
-    else
-      echo "Command not found: $tmux_connect"
-      /bin/zsh
-    fi
-    '''
-]
+args = ["-c", '''
+  tmux_connect="$HOME/.local/bin/tmux-connect"
+  tmux_paths="$HOME/.nix-profile/bin/tmux"
+  if [[ -x "$tmux_connect" ]]; then
+    "$tmux_connect" --paths "$tmux_paths"
+  else
+    echo "Command not found: $tmux_connect"
+    /bin/zsh
+  fi
+  ''']
 
 [[keyboard.bindings]]
 chars = "\\"

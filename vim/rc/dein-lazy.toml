@@ -209,7 +209,12 @@ lua_add = '''
 
 [[plugins]]
 repo = 'christoomey/vim-tmux-navigator'
-on_cmd = ['TmuxNavigateLeft', 'TmuxNavigateDown', 'TmuxNavigateUp', 'TmuxNavigateRight']
+on_cmd = [
+  'TmuxNavigateLeft',
+  'TmuxNavigateDown',
+  'TmuxNavigateUp',
+  'TmuxNavigateRight',
+]
 hook_add = '''
   let g:tmux_navigator_no_mappings = 1
   nnoremap <silent> <C-w>h <Cmd>TmuxNavigateLeft<CR>
