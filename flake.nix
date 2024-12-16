@@ -11,6 +11,10 @@
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -23,6 +27,7 @@
       nixpkgs,
       home-manager,
       nix-darwin,
+      treefmt-nix,
       neovim-nightly-overlay,
     }:
     let
@@ -37,7 +42,7 @@
 
       formatter = (
         import ./nix/formatter {
-          inherit nixpkgs;
+          inherit nixpkgs treefmt-nix;
         }
       );
 
@@ -66,13 +71,9 @@
         in
         pkgs.mkShellNoCC {
           packages = with pkgs; [
-            # LS
             lua-language-server
             vim-language-server
             nil
-            # Formatter
-            nixfmt-rfc-style
-            stylua
             shfmt
           ];
         };
