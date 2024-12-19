@@ -1,7 +1,7 @@
 #!/bin/sh
 
-rustup install stable
-rustup install nightly
+rustup toolchain install stable
+rustup toolchain install nightly
 rustup default stable
 
 # https://rust-lang.github.io/rustup/concepts/components.html
@@ -16,6 +16,9 @@ rustup default stable
 # llvm-tools    — This component contains a collection of LLVM tools. Note that this component has not been stabilized and may change in the future and is provided as-is. See #85658.
 rustup component add \
   rustc cargo rustfmt rust-std rust-docs rust-analyzer clippy rust-src llvm-tools
+
+# cargo +nightly miri [test|run] で unsafe なコードを検証用
+rustup +nightly component add miri
 
 # cargo add/rm/upgrade で Cargo.toml の依存を操作
 cargo install cargo-edit

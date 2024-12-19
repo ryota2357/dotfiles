@@ -45,13 +45,12 @@ in
           tree
           watchexec
           wget
-          # yt-dlp
 
           nodePackages.svgo
           pdf2svg
 
-          # gnuplot_qt   qt周りでエラー起こしてterm qtが使えない
-          # gcc   # ccがgccになってしまうしapple clangとぶつかると怖いので
+          # gnuplot_qt  # qt周りでエラー起こしてterm qtが使えない
+          # gcc         # ccがgccになってしまうしapple clangとぶつかると怖いので
 
           # Language/Framework tools
           deno
