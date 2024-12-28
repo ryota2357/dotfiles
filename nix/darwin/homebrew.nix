@@ -21,6 +21,7 @@
     "alacritty"
     "iterm2"
     "wezterm"
+    "ghostty"
     "xquartz"
 
     # Browser

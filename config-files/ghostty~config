@@ -1,0 +1,9 @@
+font-family = "PleckJP"
+font-size = 18.5
+
+cursor-style = block
+shell-integration-features = no-cursor
+cursor-style-blink = false
+
+window-padding-x = 0
+window-padding-y = 0
