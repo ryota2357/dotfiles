@@ -1,6 +1,5 @@
 [[plugins]]
 repo = 'Shougo/pum.vim'
-rev = 'e92be2e427cd3b39541016eb80f87d43f2919e1c'
 on_event = ['InsertEnter', 'CmdlineEnter']
 hook_add = '''
   inoremap <expr><C-n>  pum#visible() ? pum#map#select_relative(+1, "empty") : '<Cmd>normal! gj<CR>'
@@ -139,50 +138,50 @@ lua_source = '''
 repo = 'monaqa/dial.nvim'
 on_map = { nv = ['<Plug>', 'g<Plug>'] }
 hook_add = '''
-  nnoremap  <C-a>  <Plug>(dial-increment)
-  nnoremap  <C-x>  <Plug>(dial-decrement)
-  vnoremap  <C-a>  <Plug>(dial-increment)
-  vnoremap  <C-x>  <Plug>(dial-decrement)
+  nnoremap <C-a> <Plug>(dial-increment)
+  nnoremap <C-x> <Plug>(dial-decrement)
+  vnoremap <C-a> <Plug>(dial-increment)
+  vnoremap <C-x> <Plug>(dial-decrement)
   nmap g<C-a> g<Plug>(dial-increment)
   nmap g<C-x> g<Plug>(dial-decrement)
   vmap g<C-a> g<Plug>(dial-increment)
   vmap g<C-x> g<Plug>(dial-decrement)
 '''
 lua_source = '''
-local augend = require("dial.augend")
-require("dial.config").augends:register_group({
-    default = {
-		augend.integer.alias.decimal,
-		augend.integer.alias.hex,
-		augend.integer.alias.octal,
-		augend.date.new {
-			pattern = "%Y/%m/%d",
-			default_kind = "day",
-			only_valid = false,
-		},
-		augend.date.new {
-			pattern = "%Y-%m-%d",
-			default_kind = "day",
-			only_valid = false,
-		},
-		augend.date.new {
-			pattern = "%m/%d",
-			default_kind = "day",
-			only_valid = true,
-		},
-        augend.date.new({
-            pattern = "%Y年%-m月%-d日",
-            default_kind = "day",
-            only_valid = false,
-        }),
-        augend.date.new({
-            pattern = "%-m月%-d日",
-            default_kind = "day",
-            only_valid = false,
-        }),
-		augend.constant.alias.ja_weekday_full,
-    }
-})
+    local augend = require("dial.augend")
+    require("dial.config").augends:register_group({
+        default = {
+            augend.integer.alias.decimal,
+            augend.integer.alias.hex,
+            augend.integer.alias.octal,
+            augend.date.new {
+                pattern = "%Y/%m/%d",
+                default_kind = "day",
+                only_valid = false,
+            },
+            augend.date.new {
+                pattern = "%Y-%m-%d",
+                default_kind = "day",
+                only_valid = false,
+            },
+            augend.date.new {
+                pattern = "%m/%d",
+                default_kind = "day",
+                only_valid = true,
+            },
+            augend.date.new({
+                pattern = "%Y年%-m月%-d日",
+                default_kind = "day",
+                only_valid = false,
+            }),
+            augend.date.new({
+                pattern = "%-m月%-d日",
+                default_kind = "day",
+                only_valid = false,
+            }),
+            augend.constant.alias.ja_weekday_full,
+        }
+    })
 '''
 
 [[plugins]]
@@ -261,34 +260,34 @@ hook_source = '''
 repo = 'uga-rosa/ccc.nvim'
 on_event = 'BufReadPost'
 lua_source = '''
-  local ccc = require('ccc')
-  local mapping = ccc.mapping
-  ccc.setup {
-      bar_len = 40,
-      point_char = '■',
-      point_color = '#202020',
-      highlighter = { auto_enable = true },
-      mappings = {
-          ['q'] = mapping.none,
-          ['<ESC>'] = mapping.quit,
-          ['<Left>'] = mapping.decrease1,
-          ['<Right>'] = mapping.increase1
-      }
-  }
+    local ccc = require('ccc')
+    local mapping = ccc.mapping
+    ccc.setup {
+        bar_len = 40,
+        point_char = '■',
+        point_color = '#202020',
+        highlighter = { auto_enable = true },
+        mappings = {
+            ['q'] = mapping.none,
+            ['<ESC>'] = mapping.quit,
+            ['<Left>'] = mapping.decrease1,
+            ['<Right>'] = mapping.increase1
+        }
+    }
 '''
 
 [[plugins]]
 repo = 'petertriho/nvim-scrollbar'
 on_event = 'WinScrolled'
 lua_source = '''
-  require('scrollbar').setup {
-      handle = { color = '#4B4B4B' },
-      excluded_filetypes = {
-          "vim-ui-input",
-          "ddu-ff-filter",
-          "ddu-filer"
-      }
-  }
+    require('scrollbar').setup {
+        handle = { color = '#4B4B4B' },
+        excluded_filetypes = {
+            "vim-ui-input",
+            "ddu-ff-filter",
+            "ddu-filer"
+        }
+    }
 '''
 
 [[plugins]]
