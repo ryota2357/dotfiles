@@ -117,14 +117,22 @@ lua_source = '''
         --         }
         --     }
         -- },
-        tailwindcss = {
-            cmd = { "tailwindcss-language-server", "--stdio" },
-            filetypes = { "astro", "css", "scss", "javascriptreact", "typescriptreact" },
-            root_pattern = { "tailwind.config.js", "tailwind.config.cjs", "tailwind.config.mjs", "tailwind.config.ts" }
+        hls = {
+            cmd = { "haskell-language-server-wrapper", "--lsp" },
+            settings = {
+                haskell = {
+                    -- formattingProvider = "ormolu"
+                }
+            }
         },
         html = {
             cmd = { "html-ls", "--stdio" },
             filetypes = { "html" },
+        },
+        tailwindcss = {
+            cmd = { "tailwindcss-language-server", "--stdio" },
+            filetypes = { "astro", "css", "scss", "javascriptreact", "typescriptreact" },
+            root_pattern = { "tailwind.config.js", "tailwind.config.cjs", "tailwind.config.mjs", "tailwind.config.ts" }
         },
         jsonls = {
             cmd = { "json-ls", "--stdio" },
