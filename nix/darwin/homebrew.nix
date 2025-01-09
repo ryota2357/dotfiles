@@ -33,8 +33,9 @@
 
     # Text Editor
     "coteditor"
-    "visual-studio-code"
+    "cursor"
     "jetbrains-toolbox"
+    "visual-studio-code"
 
     # Dev Tools
     "docker"
