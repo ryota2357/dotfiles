@@ -55,7 +55,6 @@ in
           # Language/Framework tools
           deno
           elan
-          go
           nodejs_23
           rustup
           shellcheck

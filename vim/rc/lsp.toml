@@ -3,7 +3,7 @@ repo = 'neovim/nvim-lspconfig'
 depends = ['SchemaStore.nvim', 'ddc-source-lsp']
 on_event = 'BufReadPost'
 hook_add = '''
-  autocmd BufWritePre *.ts,*.dart,*.rs lua vim.lsp.buf.format()
+  autocmd BufWritePre *.ts,*.dart,*.rs,*.go lua vim.lsp.buf.format()
   command! Format lua vim.lsp.buf.format()
 '''
 lua_source = '''
@@ -117,6 +117,9 @@ lua_source = '''
         --         }
         --     }
         -- },
+        gopls = {
+            cmd = { "gopls" },
+        },
         hls = {
             cmd = { "haskell-language-server-wrapper", "--lsp" },
             settings = {

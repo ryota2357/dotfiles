@@ -7,7 +7,6 @@
     inherit system;
     modules = [
       {
-        services.nix-daemon.enable = true;
         nix = import ./nix.nix;
         system = import ./system.nix;
         homebrew = import ./homebrew.nix;
