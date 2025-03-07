@@ -3,7 +3,8 @@
   gc = {
     automatic = true;
     interval = {
-      Hour = 9;
+      Weekday = 7;
+      Hour = 12;
       Minute = 0;
     };
     options = "--delete-older-than 10d";
