@@ -1,7 +1,7 @@
 # history
-HISTFILE="$XDG_STATE_HOME/zsh/history"
-HISTSIZE=100000  # メモリに保存される履歴の件数
-SAVEHIST=1000000 # 履歴ファイルに保存される履歴の件数
+export HISTFILE="$XDG_STATE_HOME/zsh/history"
+export HISTSIZE=100000  # メモリに保存される履歴の件数
+export SAVEHIST=1000000 # 履歴ファイルに保存される履歴の件数
 
 autoload -Uz compinit && compinit
 autoload -Uz colors && colors
