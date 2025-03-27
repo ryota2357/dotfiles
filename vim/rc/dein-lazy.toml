@@ -60,6 +60,47 @@ repo = 'github/copilot.vim'
 on_cmd = 'Copilot'
 
 [[plugins]]
+repo = 'olimorris/codecompanion.nvim'
+on_cmd = 'CodeCompanionChat'
+depends = ['plenary.nvim', 'nvim-treesitter']
+hook_add = '''
+  nnoremap <Leader>ac <Cmd>CodeCompanionChat<CR>
+  xnoremap <Leader>ac <Cmd>CodeCompanionChat<CR>
+  nnoremap <Leader>aa <Cmd>CodeCompanionAction<CR>
+  xnoremap <Leader>aa <Cmd>CodeCompanionAction<CR>
+'''
+lua_source = '''
+    require("codecompanion").setup({
+        strategies = {
+            chat = {
+              adapter = "copilot"
+            },
+            inline = { adapter = "copilot" },
+        },
+        adapters = {
+            copilot = function()
+                return require("codecompanion.adapters").extend("copilot", {
+                    schema = {
+                      model = { default = "claude-3.7-sonnet" },
+                    }
+                })
+            end,
+        },
+        opts = { language = "Japanese" },
+        display = {
+            chat = {
+                window = {
+                    position = "right",
+                    opts = {
+                        linebreak = false,
+                    }
+                },
+            },
+        },
+    })
+'''
+
+[[plugins]]
 repo = 'cohama/lexima.vim'
 rev = 'feature/feedkeys'
 depends = 'pum.vim'
@@ -377,10 +418,11 @@ repo = 'kat0h/bufpreview.vim'
 on_ft = 'markdown'
 
 [[plugins]]
-repo = 'MeanderingProgrammer/markdown.nvim'
-on_ft = 'markdown'
+repo = 'MeanderingProgrammer/render-markdown.nvim'
+on_ft = ['markdown', 'codecompanion']
 lua_source = '''
   require('render-markdown').setup {
+    file_types = { "markdown", "codecompanion" },
     heading = { icons = { '# ', '## ', '### ', '#### ', '##### ', '###### ' } },
   }
 '''
