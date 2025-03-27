@@ -13,6 +13,7 @@
     "gawk"
     "gnu-sed"
     "llvm"
+    "lld"
     "gnuplot"
     "pinentry-mac"
   ];
