@@ -35,7 +35,7 @@ lua_source = '''
     ddc.custom.patch_global({
         ui = 'pum',
         sources = { 'around', 'skkeleton' },
-        cmdlineSources = { 'cmdline', 'cmdline-history', 'around' },
+        cmdlineSources = { 'cmdline', 'cmdline_history', 'around' },
         sourceOptions = ddc.get_source_options(),
         sourceParams = ddc.get_source_params(),
         autoCompleteEvents = { 'InsertEnter', 'TextChangedI', 'TextChangedP', 'CmdlineEnter', 'CmdlineChanged' },
@@ -153,10 +153,10 @@ lua_source = '''
 '''
 
 [[plugins]]
-repo = 'Shougo/ddc-source-cmdline-history'
+repo = 'Shougo/ddc-source-cmdline_history'
 on_source = 'ddc.vim'
 lua_source = '''
-    require('rc.ddc').set_source_options('cmdline-history', {
+    require('rc.ddc').set_source_options('cmdline_history', {
         mark = ' ',
         matchers = { 'matcher_head', 'matcher_length' },
         converters = { 'converter_remove_overlap' },
