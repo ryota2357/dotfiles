@@ -7,11 +7,12 @@ local keymap = vim.keymap
 
 ---@generic T
 ---@alias rc.select.Item { text: string, lower_text: string, raw: T, index: integer }
+---@alias rc.select.ItemHighlight { start: integer, finish: integer }
 
 local cache = {
     list_bufnr = nil, ---@type integer?
     input_bufnr = nil, ---@type integer?
-    filtered = {}, ---@type table<string, rc.select.Item[]>
+    filtered = {}, ---@type table<string, [rc.select.Item[], rc.select.ItemHighlight[]]>
 }
 
 ---@param name string
@@ -63,12 +64,27 @@ local function open_and_enter_win(bufnr, config)
     set_win_opt("winhighlight", "Normal:NormalFloat,NormalNC:NormalFloat")
 end
 
+local lh_ns = api.nvim_create_namespace("vim-ui-select")
+
 ---@param items rc.select.Item[]
-local function draw_items(items)
+---@param highlights rc.select.ItemHighlight[]
+local function draw_items(items, highlights)
     local buf = get_list_bufnr()
     api.nvim_set_option_value("modifiable", true, { buf = buf })
     for idx, item in ipairs(items) do
         fn.setbufline(buf, idx, item.text)
+        if highlights[idx] ~= nil then
+            local start_row = idx - 1
+            local start_col = highlights[idx].start
+            local end_row = idx - 1
+            local end_col = highlights[idx].finish
+            api.nvim_buf_set_extmark(buf, lh_ns, start_row, start_col, {
+                hl_group = "Search",
+                end_row = end_row,
+                end_col = end_col,
+                strict = false,
+            })
+        end
     end
     fn.deletebufline(buf, #items + 1, "$")
     api.nvim_set_option_value("modifiable", false, { buf = buf })
@@ -76,38 +92,43 @@ end
 
 ---@param items rc.select.Item[]
 ---@param query string
----@return rc.select.Item[]
+---@return rc.select.Item[], rc.select.ItemHighlight[]
 local function filter_items(items, query)
     query = query:lower()
 
-    local cached_items = cache.filtered[query]
-    if cached_items ~= nil then
-        return cached_items
+    local cached = cache.filtered[query]
+    if cached ~= nil then
+        return cached[1], cached[2]
     end
 
-    local prev_items = cache.filtered[query:sub(1, #query - 1)]
-    if prev_items ~= nil then
-        items = prev_items
+    local prev = cache.filtered[query:sub(1, #query - 1)]
+    if prev ~= nil then
+        items = prev[1]
     end
 
-    local scored = {} ---@type [integer, rc.select.Item][]
+    local scored = {} ---@type [integer, [rc.select.Item, rc.select.ItemHighlight]][]
     for _, item in ipairs(items) do
-        local start_pos = item.lower_text:find(query, 1, true)
+        local start_pos, end_pos = item.lower_text:find(query, 1, true)
         if start_pos ~= nil then
             local score = math.max(200 - start_pos, 1)
-            table.insert(scored, { score, item })
+            local highlight = { start = start_pos - 1, finish = end_pos }
+            table.insert(scored, { score, { item, highlight } })
         end
     end
     table.sort(scored, function(a, b)
         return a[1] > b[1]
     end)
 
-    local ret = {}
+    local ret_items = {} ---@type rc.select.Item[]
+    local ret_item_lhs = {} ---@type rc.select.ItemHighlight[]
     for _, value in ipairs(scored) do
-        table.insert(ret, value[2])
+        local item = value[2][1]
+        local highlight = value[2][2]
+        table.insert(ret_items, item)
+        table.insert(ret_item_lhs, highlight)
     end
-    cache.filtered[query] = ret
-    return ret
+    cache.filtered[query] = { ret_items, ret_item_lhs }
+    return ret_items, ret_item_lhs
 end
 
 ---@param resize_height integer
@@ -119,9 +140,9 @@ local function window_layout(resize_height)
     local lines = opt.lines:get() - 2 -- 2 = statusline height + cmdline height
     local columns = opt.columns:get()
 
-    local default_row_ratio = 0.15  -- 画面上部からの相対位置
-    local max_height_ratio = 0.65   -- 最大高さの比率
-    local vertical_bias = 0.4       -- 0.5=中央、0に近いほど上、1に近いほど下
+    local default_row_ratio = 0.15 -- 画面上部からの相対位置
+    local max_height_ratio = 0.65 -- 最大高さの比率
+    local vertical_bias = 0.4 -- 0.5=中央、0に近いほど上、1に近いほど下
     local layout = {
         row = round(lines * default_row_ratio),
         col = round(columns * 0.20),
@@ -169,9 +190,10 @@ function M.select(items, opts, on_choice)
     for _, item in ipairs(select_items) do
         table.insert(filtered_items, item)
     end
-    cache.filtered = { [""] = filtered_items }
+    cache.filtered = { [""] = { filtered_items, {} } }
 
-    draw_items(filtered_items)
+    local filtered_item_lhs = {}
+    draw_items(filtered_items, filtered_item_lhs)
 
     local win_layout = window_layout(#select_items)
 
@@ -257,7 +279,7 @@ function M.select(items, opts, on_choice)
             close_filter_window()
             confirm_list_item()
         end)
-        imap_list_buf("<ESC>", function ()
+        imap_list_buf("<ESC>", function()
             close_filter_window()
             close_list_window()
         end)
@@ -296,8 +318,8 @@ function M.select(items, opts, on_choice)
                     else
                         query = lines[1]
                     end
-                    filtered_items = filter_items(select_items, query)
-                    draw_items(filtered_items)
+                    filtered_items, filtered_item_lhs = filter_items(select_items, query)
+                    draw_items(filtered_items, filtered_item_lhs)
                 end
             end,
         })
