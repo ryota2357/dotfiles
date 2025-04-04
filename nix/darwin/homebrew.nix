@@ -6,7 +6,6 @@
     # cleanup = "uninstall";
   };
   taps = [
-    "homebrew/bundle"
     "buo/cask-upgrade"
   ];
   brews = [

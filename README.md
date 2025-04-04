@@ -2,10 +2,11 @@
 
 パッケージマネージャ: [Nix](https://nixos.org/)
 
-1. Xcode と Xcode command line tools をインストール
+1. Xcode command line tools をインストール
 2. [nix-installer](https://github.com/DeterminateSystems/nix-installer) で Nix をインストール
-3. このリポジトリを clone
-4. clone したディレクトリ以下で `nix run .#home-manager-switch default` と `nix run .#nix-darwin-switch default` を実行
+3. [Homebrew](https://brew.sh/) をインストール
+4. このリポジトリを clone
+5. clone したディレクトリ以下で `nix run .#home-manager-switch default` と `nix run .#nix-darwin-switch default` を実行
 
 ## ahk/
 

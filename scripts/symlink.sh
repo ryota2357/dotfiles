@@ -37,7 +37,6 @@ ln_dots vim/ideavimrc  ~/.config/ideavim/ideavimrc
 ln_dots vim/vsvimrc    ~/.vscode/vimrc
 ln_dots vim/after      ~/.config/nvim/after
 ln_dots vim/autoload   ~/.config/nvim/autoload
-ln_dots vim/denops     ~/.config/nvim/denops
 ln_dots vim/ftdetect   ~/.config/nvim/ftdetect
 ln_dots vim/lua        ~/.config/nvim/lua
 
