@@ -42,6 +42,7 @@
     "dotnet-sdk"
     "fontforge"
     "github"
+    "obsidian"
     "wireshark"
 
     # Social

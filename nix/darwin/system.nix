@@ -5,6 +5,8 @@
       AppleShowAllFiles = true;
       AppleShowAllExtensions = true;
       ApplePressAndHoldEnabled = false;
+      InitialKeyRepeat = 15; # 225 ms
+      KeyRepeat = 2; # 30 ms
     };
     finder = {
       AppleShowAllFiles = true;
@@ -17,6 +19,7 @@
       orientation = "bottom";
       largesize = 128;
       tilesize = 48;
+      persistent-apps = [];
     };
     trackpad = {
       Clicking = true;
