@@ -36,6 +36,7 @@
     "cursor"
     "jetbrains-toolbox"
     "visual-studio-code"
+    "obsidian"
 
     # Dev Tools
     "docker"

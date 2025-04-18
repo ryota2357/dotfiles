@@ -15,6 +15,33 @@
       ]
     },
     {
+      "description": "Space を Shift にする (単押しの場合は Space のまま)",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "spacebar",
+            "modifiers": { "optional": ["any"] }
+          },
+          "to": [{ "key_code": "left_shift" }],
+          "to_if_alone": [{ "key_code": "spacebar" }]
+        }
+      ]
+    },
+    {
+      "description": "Shift + 英数 で かな にする",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "japanese_eisuu",
+            "modifiers": { "mandatory": ["shift"] }
+          },
+          "to": [{ "key_code": "japanese_kana" }]
+        }
+      ]
+    },
+    {
       "description": "; と : を入れ替える",
       "manipulators": [
         {
