@@ -29,15 +29,57 @@
       ]
     },
     {
-      "description": "Shift + 英数 で かな にする",
+      "description": "右コマンド単押しで かな にする",
       "manipulators": [
         {
           "type": "basic",
           "from": {
-            "key_code": "japanese_eisuu",
-            "modifiers": { "mandatory": ["shift"] }
+            "key_code": "right_command",
+            "modifiers": { "optional": ["any"] }
+          },
+          "to": [{ "key_code": "right_command" }],
+          "to_if_alone": [{ "key_code": "japanese_kana" }]
+        }
+      ]
+    },
+    {
+      "description": "左シフト + Enter で かな にする",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "return_or_enter",
+            "modifiers": { "mandatory": ["left_shift"] }
           },
           "to": [{ "key_code": "japanese_kana" }]
+        }
+      ]
+    },
+    {
+      "description": "左シフト単押しで 英数 にする",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "left_shift",
+            "modifiers": { "optional": ["any"] }
+          },
+          "to": [{ "key_code": "left_shift" }],
+          "to_if_alone": [{ "key_code": "japanese_eisuu" }]
+        }
+      ]
+    },
+    {
+      "description": "左コマンド単押しで 英数 にする",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "left_command",
+            "modifiers": { "optional": ["any"] }
+          },
+          "to": [{ "key_code": "right_command" }],
+          "to_if_alone": [{ "key_code": "japanese_eisuu" }]
         }
       ]
     },

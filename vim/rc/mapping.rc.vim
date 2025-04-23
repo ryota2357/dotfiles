@@ -15,9 +15,18 @@ let mapleader = "\<Space>"
 xnoremap x "_x
 nnoremap x "_x
 
+" 行末まで削除 (CやDと動作をそろえる)
+nnoremap X "_D
+
+" 行末までヤンク (neovimはデフォルトマッピング :h default-mappings)
+nnoremap Y y$
+
 " ビジュアルで選択したテキストにペースト上書きするときにヤンクしない
 " `P`だとカーソル移動しないからダメ
 xnoremap p pgvy
+
+" redo (u で undo の逆 (デフォルトのUは使わないので潰す))
+nnoremap U <C-r>
 
 " インデントを考慮したインサート (ideaにgetline()ない)
 if has('nvim')
@@ -41,6 +50,10 @@ for mode in ['n', 'x']
   execute mode .. 'noremap ^ 0'
   execute mode .. 'noremap + $'
 endfor
+
+" 括弧ジャンプ (デフォルトのMは使わないので潰す)
+nnoremap M %
+xnoremap M %
 
 " if has('nvim')
 "   nnoremap <silent><expr> * v:count ? '*' : ':sil exe "keepj norm! *" <Bar> call winrestview(' . string(winsaveview()) . ')<CR>'
