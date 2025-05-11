@@ -55,7 +55,7 @@ in
           # Language/Framework tools
           deno
           elan
-          nodejs_23
+          nodejs_24
           rustup
           shellcheck
           typst

@@ -19,7 +19,7 @@
       orientation = "bottom";
       largesize = 128;
       tilesize = 48;
-      persistent-apps = [];
+      persistent-apps = [ ];
     };
     trackpad = {
       Clicking = true;
