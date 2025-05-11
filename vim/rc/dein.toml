@@ -18,6 +18,9 @@ hook_add = '''
 '''
 
 [[plugins]]
+repo = '~/Projects/VimPlugin/mlua-test'
+
+[[plugins]]
 repo = 'nvim-lua/plenary.nvim'
 
 [[plugins]]

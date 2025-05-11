@@ -39,211 +39,46 @@ lua_source = '''
         end
     }
 
-    local lsp_util = require("lspconfig.util")
-    local root_pattern = {
-        astro = lsp_util.root_pattern("astro.config.mjs", "astro.config.ts"),
-        deno = lsp_util.root_pattern("deno.json", "deno.jsonc", "denops"),
-        node = lsp_util.root_pattern("package.json", "node_modules")
-    }
+    vim.lsp.config("*", {
+        capabilities = require("ddc_source_lsp").make_client_capabilities()
+    })
 
-    local lsp_config = {
-        astro = {
-            cmd = { "astro-ls", "--stdio" },
-            filetypes = { "astro", "typescript", "javascript" },
-            root_dir = root_pattern.astro,
-        },
-        clangd = {
-            cmd = { "clangd" },
-            filetypes = { "c", "cpp" }
-        },
-        cssls = {
-            cmd = { "css-ls", "--stdio" },
-            filetypes = { "css", "scss" }
-        },
-        dartls = {
-            cmd = { "dart", "language-server", "--protocol=lsp" },
-            filetypes = { "dart" },
-            root_pattern = { "pubspec.yaml", ".dart" }
-        },
-        denols = {
-            cmd = { "deno", "lsp" },
-            root_dir = function(filename, _bufnr)
-                local is_deno = root_pattern.deno(filename)
-                if is_deno then
-                    return is_deno
-                end
-                local other = root_pattern.astro(filename) or root_pattern.node(filename)
-                if other then
-                    return nil
-                end
-                return lsp_util.root_pattern(".")(filename)
-            end,
-            filetypes = { "javascript", "typescript" },
-            single_file_support = false,
-            init_options = {
-                enable = true,
-                lint = true,
-            },
-            settings = {
-                deno = {
-                    unstable = true,
-                    suggest = {
-                        imports = {
-                            hosts = {
-                                ["https://deno.land"] = true,
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        dockerls = {
-            cmd = { "docker-langserver", "--stdio" },
-        },
-        -- efm = {
-        --     cmd = {  }
-        --     -- init_options = { documentFormatting = true },
-        --     single_file_support = true,
-        --     filetypes = { "markdown" },
-        --     settings = {
-        --         rootMarkers = { ".git/" },
-        --         languages = {
-        --             markdown = { {
-        --                 lintIgnoreExitCode = true,
-        --                 lintCommand = [[npx textlint -f json ${INPUT} | jq -r '.[] | .filePath as $filePath | .messages[] | "1;\($filePath):\(.line):\(.column):\n2;\(.message | split("\n")[0])\n3;[\(.ruleId)]"']],
-        --                 lintFormats = { "%E1;%E%f:%l:%c:", "%C2;%m", "%C3;%m%Z" },
-        --                 rootMarkers = { ".textlintrc", ".textlintrc.json" },
-        --             } }
-        --         }
-        --     }
-        -- },
-        gopls = {
-            cmd = { "gopls" },
-        },
-        hls = {
-            cmd = { "haskell-language-server-wrapper", "--lsp" },
-            settings = {
-                haskell = {
-                    -- formattingProvider = "ormolu"
-                }
-            }
-        },
-        html = {
-            cmd = { "html-ls", "--stdio" },
-            filetypes = { "html" },
-        },
-        tailwindcss = {
-            cmd = { "tailwindcss-language-server", "--stdio" },
-            filetypes = { "astro", "css", "scss", "javascriptreact", "typescriptreact" },
-            root_pattern = { "tailwind.config.js", "tailwind.config.cjs", "tailwind.config.mjs", "tailwind.config.ts" }
-        },
-        jsonls = {
-            cmd = { "json-ls", "--stdio" },
-            settings = {
-                json = {
-                    schemas = require("schemastore").json.schemas(),
-                    validate = { enable = true },
-                }
-            }
-        },
-        lua_ls = {
-            cmd = { "lua-language-server" },
-            settings = {
-                Lua = {
-                    runtime = { version = "LuaJIT" },
-                    diagnostics = { globals = { "vim" } },
-                    workspace = { library = vim.api.nvim_get_runtime_file("lua", true) },
-                    telemetry = { enable = false }
-                }
-            }
-        },
-        nil_ls = {
-            cmd = { "nil" },
-        },
-        -- omnisharp = {
-        --     cmd = { 'dotnet', vim.fn.stdpath('data') .. '/mason/packages/omnisharp/OmniSharp.dll' },
-        --     enable_editorconfig_support = true,
-        --     enable_ms_build_load_projects_on_demand = false,
-        --     enable_roslyn_analyzers = true,
-        --     organize_imports_on_format = false,
-        --     enable_import_completion = false,
-        --     sdk_include_prereleases = true,
-        --     analyze_open_documents_only = false,
-        --     autostart = false
-        -- },
-        pyright = {
-            cmd = { "pyright-langserver", "--stdio" },
-        },
-        rust_analyzer = {
-            cmd = { "rust-analyzer" },
-            settings = {
-                ["rust-analyzer"] = {
-                    check = {
-                        features = "all",
-                        command = "clippy"
-                    }
-                }
-            }
-        },
-        solargraph = {
-            cmd = { "solargraph", "stdio" },
-            single_file_support = true
-        },
-        taplo = {
-            cmd = { "taplo", "lsp", "stdio" },
-        },
-        texlab = {
-            cmd = { "texlab" },
-            filetypes = { "tex", "plaintex" }
-        },
-        ts_ls = {
-            cmd = { "typescript-language-server", "--stdio" },
-            single_file_support = false,
-            root_dir = function(fname)
-                local astro_root = root_pattern.astro(fname)
-                local deno_root = root_pattern.deno(fname)
-                local node_root = root_pattern.node(fname)
-                if deno_root ~= nil or astro_root ~= nil then
-                    return nil
-                end
-                return node_root
-            end
-        },
-        typst_lsp = {
-            cmd = { "typst-lsp" },
-            settings = {
-                exportPdf = "onSave"
-            }
-        },
-        vimls = {
-            cmd = { "vim-language-server", "--stdio" },
-        },
-        yamlls = {
-            cmd = { "yaml-ls", "--stdio" },
-            settings = {
-                yaml = {
-                    keyOrdering = false,
-                    schemaStore = {
-                        enable = false,
-                        url = "", -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
-                    },
-                    schemas = require('schemastore').yaml.schemas(),
-                },
-            },
-        }
-    }
-
-    local lsp_capabilities = require("ddc_source_lsp").make_client_capabilities()
-    local nvim_lsp = require('lspconfig')
-    for server_name, config in pairs(lsp_config) do
-        if vim.fn.executable(config.cmd[1]) == 1 then
-            config.capabilities = lsp_capabilities
-            if config.root_pattern ~= nil then
-                config.root_dir = lsp_util.root_pattern(unpack(config.root_pattern))
-                config.root_pattern = nil
-            end
-            nvim_lsp[server_name].setup(config)
-        else
+    for _, name in ipairs({
+        "astro",
+        "clangd",
+        "cssls",
+        "dartls",
+        "denols",
+        "dockerls",
+        -- "efm",
+        "gopls",
+        "hls",
+        "html",
+        "tailwindcss",
+        "jsonls",
+        "lua_ls",
+        "nil_ls",
+        -- "omnisharp",
+        "pyright",
+        "rust_analyzer",
+        "solargraph",
+        "taplo",
+        "texlab",
+        "ts_ls",
+        "typst_lsp",
+        "vimls",
+        "yamlls",
+    }) do
+        local config = vim.lsp.config[name]
+        if config == nil then
+            return
+        end
+        local cmd = config.cmd
+        if cmd == nil or #cmd == 0 then
+            return
+        end
+        if vim.fn.executable(cmd[1]) == 1 then
+            vim.lsp.enable(name)
         end
     end
 '''
