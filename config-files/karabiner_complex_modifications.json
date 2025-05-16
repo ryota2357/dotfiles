@@ -173,7 +173,7 @@
       ]
     },
     {
-      "description": "_ と @ と - の入れ替え (_ を @ に、@ を - に、- を _ に)",
+      "description": "シンボルキー周り (_, @, -, \\, ¥)",
       "manipulators": [
         {
           "type": "basic",
@@ -189,6 +189,33 @@
           "type": "basic",
           "from": { "key_code": "hyphen" },
           "to": [{ "key_code": "international1" }]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "international1",
+            "modifiers": { "mandatory": ["shift"] }
+          },
+          "to": [{
+            "key_code": "international3",
+            "modifiers": ["left_option"]
+          }]
+        },
+        {
+          "type": "basic",
+          "from": { "key_code": "international3" },
+          "to": [{
+            "key_code": "international3",
+            "modifiers": ["left_option"]
+          }]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "international3",
+            "modifiers": { "mandatory": ["shift"] }
+          },
+          "to": [{ "key_code": "international3" }]
         }
       ]
     }

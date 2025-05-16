@@ -38,14 +38,14 @@ args = ["-c", '''
   fi
   ''']
 
-[[keyboard.bindings]]
-chars = "\\"
-key = "¥"
-
-[[keyboard.bindings]]
-chars = "¥"
-key = "¥"
-mods = "Alt"
+# [[keyboard.bindings]]
+# chars = "\\"
+# key = "¥"
+#
+# [[keyboard.bindings]]
+# chars = "¥"
+# key = "¥"
+# mods = "Alt"
 
 [[keyboard.bindings]]
 action = "IncreaseFontSize"

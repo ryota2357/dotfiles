@@ -18,8 +18,8 @@ config.colors = {
 
 -- Key
 config.keys = {
-    { key = "¥", action = wezterm.action.SendString("\\") },
-    { key = "¥", mods = "ALT", action = wezterm.action.SendString("¥") },
+    -- { key = "¥", action = wezterm.action.SendString("\\") },
+    -- { key = "¥", mods = "ALT", action = wezterm.action.SendString("¥") },
     { key = "+", mods = "CMD", action = wezterm.action.IncreaseFontSize },
     { key = "-", mods = "CMD", action = wezterm.action.DecreaseFontSize },
     { key = "0", mods = "CMD", action = wezterm.action.ResetFontSize },
