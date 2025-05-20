@@ -63,6 +63,12 @@ fi
 
 typeset -Ux path fpath manpath
 
+# ローカルの設定ファイルがあれば読み込む
+local local_config_file="$HOME/.zshrc.local"
+if [ -f "$local_config_file" ]; then
+  source "$local_config_file"
+fi
+
 # overrid source command
 # function source {
 #   ensure_zcompiled $1

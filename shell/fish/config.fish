@@ -54,3 +54,9 @@ source "$XDG_CONFIG_HOME/fish/prompt.fish"
 source "$XDG_CONFIG_HOME/fish/shortcut.fish"
 
 type -q direnv; and direnv hook fish | source
+
+# ローカルの設定ファイルがあれば読み込む
+set -l local_config_file "$XDG_CONFIG_HOME/fish/config.local.fish"
+if test -f $local_config_file
+  source $local_config_file
+end
