@@ -213,7 +213,7 @@
           "type": "basic",
           "from": {
             "key_code": "international3",
-            "modifiers": { "mandatory": ["shift"] }
+            "modifiers": { "mandatory": ["option"] }
           },
           "to": [{ "key_code": "international3" }]
         }

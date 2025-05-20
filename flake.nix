@@ -74,7 +74,6 @@
             lua-language-server
             vim-language-server
             nil
-            shfmt
           ];
         };
     };

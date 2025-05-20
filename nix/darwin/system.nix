@@ -1,5 +1,6 @@
 {
   stateVersion = 5;
+  primaryUser = "ryota2357";
   defaults = {
     NSGlobalDomain = {
       AppleShowAllFiles = true;
