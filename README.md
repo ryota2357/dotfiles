@@ -6,7 +6,7 @@
 2. [nix-installer](https://github.com/DeterminateSystems/nix-installer) で Nix をインストール
 3. [Homebrew](https://brew.sh/) をインストール
 4. このリポジトリを clone
-5. clone したディレクトリ以下で `nix run .#home-manager-switch default` と `nix run .#nix-darwin-switch default` を実行
+5. clone したディレクトリ以下で `nix run` を実行
 
 ## ahk/
 

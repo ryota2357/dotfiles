@@ -7,69 +7,64 @@ let
     "x86_64-linux"
   ];
   eachSystem = f: nixpkgs.lib.genAttrs systems (system: f nixpkgs.legacyPackages.${system});
-
-  shellScriptHeader = ''
-    set -euo pipefail
-    ESC=$(printf '\033')
-    message() {
-      printf "''${ESC}[32m==>''${ESC}[m ''${ESC}[1m%s''${ESC}[m\n" "$1"
-    }
-  '';
-
   getExe = nixpkgs.lib.getExe;
 in
-eachSystem (pkgs: {
-
-  home-manager-switch = {
-    type = "app";
-    program = toString (
-      pkgs.writeShellScript "home-manager-switch" ''
-        ${shellScriptHeader}
-        message "home-manager switch --flake .#$1"
-        ${getExe pkgs.home-manager} switch --flake .#$1
-      ''
-    );
-  };
-
-  nix-darwin-switch = {
-    type = "app";
-    program = toString (
-      pkgs.writeShellScript "nix-darwin-switch" ''
-        if [[ ! "${pkgs.system}" =~ ^(aarch64|x86_64)-darwin$ ]]; then
-          echo "System is not supported: ${pkgs.system}" >&2
-          exit 1
-        fi
-        ${shellScriptHeader}
-        message "nix-darwin switch --flake .#$1"
-        nix run nix-darwin -- switch --flake .#$1
-        message "brew upgrade"
-        brew upgrade
-      ''
-    );
-  };
-
-  fmt = {
-    type = "app";
-    program = toString (
-      pkgs.writeShellScript "fmt" ''
-        ${shellScriptHeader}
-        while true; do
-          if [[ -f flake.nix ]]; then
-            break
-          fi
-          if [[ "$(pwd)" == "/" ]]; then
-            echo "flake.nix not found." >&2
-            exit 1
-          fi
-          cd ..
-        done
-        message "nixfmt"
-        ${getExe pkgs.nixfmt-rfc-style} ./flake.nix ./nix
-        message "shfmt"
-        ${getExe pkgs.shfmt} -i 2 -s -w ./bin/* ./scripts/*.sh
-        message "stylua"
-        ${getExe pkgs.stylua} ./vim/lua
-      ''
-    );
-  };
-})
+eachSystem (
+  pkgs:
+  let
+    writeShellScript =
+      name: script:
+      toString (
+        pkgs.writeShellScript name ''
+          set -euo pipefail
+          while true; do
+            if [[ -f flake.nix ]]; then
+              break
+            fi
+            if [[ "$(pwd)" == "/" ]]; then
+              echo "flake.nix not found." >&2
+              exit 1
+            fi
+            cd ..
+          done
+          ESC=$(printf '\033')
+          message() {
+            printf "''${ESC}[32m==>''${ESC}[m ''${ESC}[1m%s''${ESC}[m\n" "$1"
+          }
+          ${script}
+        ''
+      );
+  in
+  {
+    default = {
+      type = "app";
+      program = writeShellScript "default" ''
+        choices=$(${getExe pkgs.gum} choose --no-limit --header="" --selected='*' \
+          --cursor-prefix='○ ' --selected-prefix='● ' --unselected-prefix='○ ' \
+          --cursor.foreground='75' --selected.foreground='75' \
+          'darwin-rebuild switch' 'home-manager switch' 'brew upgrade')
+          IFS=$'\n'
+          for choice in $choices; do
+            message "$choice"
+            case "$choice" in
+              'darwin-rebuild switch')
+                if [[ ! "${pkgs.system}" =~ ^(aarch64|x86_64)-darwin$ ]]; then
+                  echo "System is not supported: ${pkgs.system}" >&2
+                else
+                  nix run nix-darwin -- switch --flake .#default
+                fi
+                ;;
+              'home-manager switch')
+                ${getExe pkgs.home-manager} switch --flake .#default
+                ;;
+              'brew upgrade')
+                brew upgrade
+                ;;
+            esac
+          done
+          unset IFS
+          ${getExe pkgs.noti} -t 'Nix App (dotfiles)' -m 'finished'
+      '';
+    };
+  }
+)
