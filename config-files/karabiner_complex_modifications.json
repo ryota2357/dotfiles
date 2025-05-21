@@ -83,6 +83,41 @@
       ]
     },
     {
+      "description": "かな入力中の C-w と ` は英数に入って入力する",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "open_bracket",
+            "modifiers": { "mandatory": ["shift"] }
+          },
+          "to": [
+            { "key_code": "japanese_eisuu" },
+            { "key_code": "open_bracket", "modifiers": ["right_shift"] }
+          ],
+          "conditions": [{
+            "type": "input_source_if",
+            "input_sources": [{ "language": "ja" }]
+          }]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "w",
+            "modifiers": { "mandatory": ["control"] }
+          },
+          "to": [
+            { "key_code": "japanese_eisuu" },
+            { "key_code": "w", "modifiers": ["right_control"] }
+          ],
+          "conditions": [{
+            "type": "input_source_if",
+            "input_sources": [{ "language": "ja" }]
+          }]
+        }
+      ]
+    },
+    {
       "description": "; と : を入れ替える",
       "manipulators": [
         {
