@@ -13,18 +13,6 @@
       }]
     },
     {
-      "description": "Space を Shift にする (単押しの場合は Space のまま)",
-      "manipulators": [{
-        "type": "basic",
-        "from": {
-          "key_code": "spacebar",
-          "modifiers": { "optional": ["any"] }
-        },
-        "to": [{ "key_code": "left_shift" }],
-        "to_if_alone": [{ "key_code": "spacebar" }]
-      }]
-    },
-    {
       "description": "右コマンド単押しで かな にする",
       "manipulators": [{
         "type": "basic",
@@ -118,21 +106,6 @@
       ]
     },
     {
-      "description": "; と : を入れ替える",
-      "manipulators": [
-        {
-          "type": "basic",
-          "from": { "key_code": "semicolon" },
-          "to": [{ "key_code": "quote" }]
-        },
-        {
-          "type": "basic",
-          "from": { "key_code": "quote" },
-          "to": [{ "key_code": "semicolon" }]
-        }
-      ]
-    },
-    {
       "description": "[{ と ]} を入れ替える",
       "manipulators": [
         {
@@ -170,8 +143,41 @@
       ]
     },
     {
-      "description": "shift + 7・8・9 を shift + 8・9・0 に (右にスライド)",
+      "description": "シンボルキー周り",
       "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "2",
+            "modifiers": { "mandatory": ["shift"] }
+          },
+          "to": [{
+            "key_code": "semicolon",
+            "modifiers": ["right_shift"]
+          }]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "6",
+            "modifiers": { "mandatory": ["shift"] }
+          },
+          "to": [{
+            "key_code": "0",
+            "modifiers": ["right_shift"]
+          }]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "7",
+            "modifiers": { "mandatory": ["shift"] }
+          },
+          "to": [{
+            "key_code": "6",
+            "modifiers": ["right_shift"]
+          }]
+        },
         {
           "type": "basic",
           "from": {
@@ -179,7 +185,7 @@
             "modifiers": { "mandatory": ["shift"] }
           },
           "to": [{
-            "key_code": "7",
+            "key_code": "quote",
             "modifiers": ["right_shift"]
           }]
         },
@@ -187,7 +193,7 @@
           "type": "basic",
           "from": {
             "key_code": "9",
-            "modifiers": { "mandatory": [ "shift" ] }
+            "modifiers": { "mandatory": ["shift"] }
           },
           "to": [{
             "key_code": "8",
@@ -198,21 +204,16 @@
           "type": "basic",
           "from": {
             "key_code": "0",
-            "modifiers": { "mandatory": [ "shift" ] }
+            "modifiers": { "mandatory": ["shift"] }
           },
           "to": [{
             "key_code": "9",
             "modifiers": ["right_shift"]
           }]
-        }
-      ]
-    },
-    {
-      "description": "シンボルキー周り (_, @, -, \\, ¥)",
-      "manipulators": [
+        },
         {
           "type": "basic",
-          "from": { "key_code": "international1" },
+          "from": { "key_code": "hyphen" },
           "to": [{ "key_code": "open_bracket" }]
         },
         {
@@ -222,8 +223,45 @@
         },
         {
           "type": "basic",
-          "from": { "key_code": "hyphen" },
+          "from": { "key_code": "semicolon" },
+          "to": [{ "key_code": "quote" }]
+        },
+        {
+          "type": "basic",
+          "from": { "key_code": "quote" },
+          "to": [{ "key_code": "semicolon" }]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "semicolon",
+            "modifiers": { "mandatory": ["shift"] }
+          },
+          "to": [{
+            "key_code": "2",
+            "modifiers": ["right_shift"]
+          }]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "quote",
+            "modifiers": { "mandatory": ["shift"] }
+          },
+          "to": [{
+            "key_code": "7",
+            "modifiers": ["right_shift"]
+          }]
+        },
+        {
+          "type": "basic",
+          "from": { "key_code": "slash" },
           "to": [{ "key_code": "international1" }]
+        },
+        {
+          "type": "basic",
+          "from": { "key_code": "international1" },
+          "to": [{ "key_code": "slash" }]
         },
         {
           "type": "basic",
@@ -235,22 +273,6 @@
             "key_code": "international3",
             "modifiers": ["left_option"]
           }]
-        },
-        {
-          "type": "basic",
-          "from": { "key_code": "international3" },
-          "to": [{
-            "key_code": "international3",
-            "modifiers": ["left_option"]
-          }]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "international3",
-            "modifiers": { "mandatory": ["option"] }
-          },
-          "to": [{ "key_code": "international3" }]
         }
       ]
     }
