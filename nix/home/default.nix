@@ -40,6 +40,7 @@ in
           ffmpeg
           fzf
           hyperfine
+          imagemagick
           jq
           rsync
           tokei

@@ -46,9 +46,8 @@ endif
 
 " 行頭行末移動
 for mode in ['n', 'x']
-  execute mode .. 'noremap 0 ^'
-  execute mode .. 'noremap ^ 0'
-  execute mode .. 'noremap + $'
+  execute mode .. "noremap ' $"
+  execute mode .. 'noremap " ^'
 endfor
 
 " 括弧ジャンプ (デフォルトのMは使わないので潰す)
