@@ -2,11 +2,11 @@
   enable = true;
   onActivation = {
     autoUpdate = true;
-    # dangerous option!!!
-    # cleanup = "uninstall";
+    cleanup = "uninstall";
   };
   taps = [
     "buo/cask-upgrade"
+    "ryota2357/pleck-jp"
   ];
   brews = [
     "gawk"
@@ -30,21 +30,27 @@
     "firefox"
     "google-chrome"
     "microsoft-edge"
+    "tor-browser"
 
     # Text Editor
     "coteditor"
-    "cursor"
     "jetbrains-toolbox"
     "visual-studio-code"
     "obsidian"
 
+    # Fonts
+    "font-cica"
+    "font-hack-nerd-font"
+    "font-harano-aji"
+    "font-plemol-jp-nf"
+    "pleck-jp"
+
     # Dev Tools
-    "docker"
+    "docker-desktop"
     "dotnet-sdk"
-    "fontforge"
-    "github"
+    "fontforge-app"
     "obsidian"
-    "wireshark"
+    "unity-hub"
 
     # Social
     "discord"
@@ -54,12 +60,17 @@
     # macOS improvements
     "alfred"
     "alt-tab"
+    "hhkb"
     "hiddenbar"
     "iina"
     "karabiner-elements"
     "keycastr"
     "obs"
     "skim"
+
+    # AI
+    "chatgpt"
+    "claude"
 
     # Game
     "osu"
