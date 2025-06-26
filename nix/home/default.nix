@@ -48,6 +48,8 @@ in
           watchexec
           wget
 
+          (callPackage ./gemini-cli.nix { })
+
           nodePackages.svgo
           pdf2svg
 
