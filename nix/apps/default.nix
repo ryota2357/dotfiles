@@ -43,27 +43,27 @@ eachSystem (
           --cursor-prefix='○ ' --selected-prefix='● ' --unselected-prefix='○ ' \
           --cursor.foreground='75' --selected.foreground='75' \
           'darwin-rebuild switch' 'home-manager switch' 'brew upgrade')
-          IFS=$'\n'
-          for choice in $choices; do
-            message "$choice"
-            case "$choice" in
-              'darwin-rebuild switch')
-                if [[ ! "${pkgs.system}" =~ ^(aarch64|x86_64)-darwin$ ]]; then
-                  echo "System is not supported: ${pkgs.system}" >&2
-                else
-                  sudo nix run nix-darwin -- switch --flake .#default
-                fi
-                ;;
-              'home-manager switch')
-                ${getExe pkgs.home-manager} switch --flake .#default
-                ;;
-              'brew upgrade')
-                brew upgrade
-                ;;
-            esac
-          done
-          unset IFS
-          ${getExe pkgs.noti} -t 'Nix App (dotfiles)' -m 'finished'
+        IFS=$'\n'
+        for choice in $choices; do
+          message "$choice"
+          case "$choice" in
+            'darwin-rebuild switch')
+              if [[ ! "${pkgs.system}" =~ ^(aarch64|x86_64)-darwin$ ]]; then
+                echo "System is not supported: ${pkgs.system}" >&2
+              else
+                sudo nix run nix-darwin -- switch --flake .#default
+              fi
+              ;;
+            'home-manager switch')
+              ${getExe pkgs.home-manager} switch --flake .#default
+              ;;
+            'brew upgrade')
+              brew upgrade
+              ;;
+          esac
+        done
+        unset IFS
+        ${getExe pkgs.noti} -t 'Nix App (dotfiles)' -m 'finished'
       '';
     };
   }

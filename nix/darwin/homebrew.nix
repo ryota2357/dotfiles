@@ -10,10 +10,11 @@
   ];
   brews = [
     "gawk"
+    "gcc"
     "gnu-sed"
-    "llvm"
-    "lld"
     "gnuplot"
+    "lld"
+    "llvm"
     "pinentry-mac"
   ];
   casks = [
