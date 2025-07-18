@@ -9,8 +9,11 @@ set -gx CARGO_HOME "$XDG_DATA_HOME/cargo"
 set -gx RUSTUP_HOME "$XDG_DATA_HOME/rustup"
 
 # man
-set -gx MANPAGER "vim +MANPAGER --not-a-term -"
+set -gx MANPAGER 'vim +MANPAGER --not-a-term -'
 # set -gx MANPAGER 'nvim +Man!'
+
+set -gx EDITOR 'vim'
+set -gx VISUAL 'vim'
 
 set -gx LANG 'ja_JP.UTF-8'
 set -gx LC_ALL 'ja_JP.UTF-8'

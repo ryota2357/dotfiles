@@ -53,6 +53,9 @@ fish_add_path "$HOME/.local/bin"
 source "$XDG_CONFIG_HOME/fish/prompt.fish"
 source "$XDG_CONFIG_HOME/fish/shortcut.fish"
 
+# Command ine editor
+bind ctrl-x,e 'edit_command_buffer'
+
 type -q direnv; and direnv hook fish | source
 
 # ローカルの設定ファイルがあれば読み込む

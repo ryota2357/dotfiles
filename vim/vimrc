@@ -284,6 +284,16 @@ endif
 " 文字コード入力
 inoremap <C-v>u <C-r>=nr2char(0x)<Left>
 
+" command line editor 等での TMPDIR ファイル編集
+if has("mac")
+  " macOS では /var は /private/var への symlink
+  let $TMPDIR='/private' .. $TMPDIR
+endif
+augroup vimrc
+  autocmd!
+  execute 'autocmd BufRead ' .. $TMPDIR .. '*' .. ' set wrap'
+augroup END
+
 " プラグイン
 packadd vim-jetpack
 let g:jetpack_njobs = 1

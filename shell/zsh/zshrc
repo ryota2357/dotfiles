@@ -52,10 +52,16 @@ for profile in ${(z)NIX_PROFILES}; do
   fpath=($profile/share/zsh/site-functions $profile/share/zsh/$ZSH_VERSION/functions $profile/share/zsh/vendor-completions $fpath)
 done
 
+# My Configs
 source "$XDG_CONFIG_HOME/zsh/alias.zsh"
 source "$XDG_CONFIG_HOME/zsh/completion.zsh"
 source "$XDG_CONFIG_HOME/zsh/option.zsh"
 source "$XDG_CONFIG_HOME/zsh/prompt.zsh"
+
+# Command ine editor
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey '^xe' edit-command-line
 
 if type direnv > /dev/null 2>&1; then
   eval "$(direnv hook zsh)"
