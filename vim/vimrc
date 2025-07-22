@@ -284,14 +284,12 @@ endif
 " 文字コード入力
 inoremap <C-v>u <C-r>=nr2char(0x)<Left>
 
-" command line editor 等での TMPDIR ファイル編集
-if has("mac")
-  " macOS では /var は /private/var への symlink
-  let $TMPDIR='/private' .. $TMPDIR
-endif
-augroup vimrc
+" command line editor での TMPDIR ファイル編集
+augroup vimrc_cmd_line_edit
   autocmd!
-  execute 'autocmd BufRead ' .. $TMPDIR .. '*' .. ' set wrap'
+  " macOS では /var や /tmp は /private/var, /private/tmp への symlink
+  execute 'autocmd BufRead ' .. (has("mac") ? '/private' : '') .. $TMPDIR .. '*' .. ' set wrap'
+  execute 'autocmd BufRead ' .. (has("mac") ? '/private' : '') .. '/tmp/zsh*'    .. ' set wrap'
 augroup END
 
 " プラグイン

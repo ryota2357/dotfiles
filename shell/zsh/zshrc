@@ -61,7 +61,7 @@ source "$XDG_CONFIG_HOME/zsh/prompt.zsh"
 # Command ine editor
 autoload -Uz edit-command-line
 zle -N edit-command-line
-bindkey '^xe' edit-command-line
+bindkey '^x^e' edit-command-line
 
 if type direnv > /dev/null 2>&1; then
   eval "$(direnv hook zsh)"

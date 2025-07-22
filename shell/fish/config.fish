@@ -54,7 +54,7 @@ source "$XDG_CONFIG_HOME/fish/prompt.fish"
 source "$XDG_CONFIG_HOME/fish/shortcut.fish"
 
 # Command ine editor
-bind ctrl-x,e 'edit_command_buffer'
+bind ctrl-x,ctrl-e 'edit_command_buffer'
 
 type -q direnv; and direnv hook fish | source
 
