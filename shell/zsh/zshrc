@@ -3,9 +3,6 @@ export HISTFILE="$XDG_STATE_HOME/zsh/history"
 export HISTSIZE=100000  # メモリに保存される履歴の件数
 export SAVEHIST=1000000 # 履歴ファイルに保存される履歴の件数
 
-autoload -Uz compinit && compinit
-autoload -Uz colors && colors
-
 # Homebrew
 case $(uname -sm) in
   'Darwin arm64' ) eval "$(/opt/homebrew/bin/brew shellenv)" ;;
@@ -20,7 +17,7 @@ export LDFLAGS="-L$HOMEBREW_PREFIX/opt/llvm/lib"
 export CPPFLAGS="-I$HOMEBREW_PREFIX/opt/llvm/include"
 
 # Rust
-path=("$CARGO_HOME/bin"(N-/) $path[@])
+path=("$CARGO_HOME/bin"(N-/) $path)
 
 # fzf
 export FZF_CTRL_R_OPTS=--reverse
@@ -63,17 +60,21 @@ autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey '^x^e' edit-command-line
 
+# direnv setup
 if type direnv > /dev/null 2>&1; then
   eval "$(direnv hook zsh)"
 fi
-
-typeset -Ux path fpath manpath
 
 # ローカルの設定ファイルがあれば読み込む
 local local_config_file="$HOME/.zshrc.local"
 if [ -f "$local_config_file" ]; then
   source "$local_config_file"
 fi
+
+autoload -Uz compinit && compinit
+autoload -Uz colors && colors
+
+typeset -Ux path fpath manpath
 
 # overrid source command
 # function source {

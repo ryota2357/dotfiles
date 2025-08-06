@@ -56,6 +56,7 @@ source "$XDG_CONFIG_HOME/fish/shortcut.fish"
 # Command ine editor
 bind ctrl-x,ctrl-e 'edit_command_buffer'
 
+# direnv setup
 type -q direnv; and direnv hook fish | source
 
 # ローカルの設定ファイルがあれば読み込む

@@ -44,7 +44,7 @@ lua_source = '''
     ddc.custom.patch_filetype({ 'vim', 'typescript', 'typescriptreact', 'astro', 'rust', 'javascript' }, {
         sources = { 'vsnip', 'lsp', 'around' },
     })
-    ddc.custom.patch_filetype({ 'awk', 'c', 'cpp', 'cs', 'dart', 'go', 'haskell', 'python', 'ruby', 'lua' , 'nil', 'typst' }, {
+    ddc.custom.patch_filetype({ 'awk', 'c', 'cpp', 'cs', 'dart', 'go', 'haskell', 'koka', 'python', 'ruby', 'lua' , 'nix', 'typst' }, {
         sources = { 'lsp', 'around' },
     })
     ddc.custom.patch_filetype({ 'lean' }, {

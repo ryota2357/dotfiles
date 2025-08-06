@@ -43,6 +43,7 @@ lua_source = '''
         capabilities = require("ddc_source_lsp").make_client_capabilities()
     })
 
+    local available_ls = {}
     for _, name in ipairs({
         "astro",
         "clangd",
@@ -54,14 +55,15 @@ lua_source = '''
         "gopls",
         "hls",
         "html",
-        "tailwindcss",
         "jsonls",
+        "koka",
         "lua_ls",
         "nil_ls",
         -- "omnisharp",
         "pyright",
         "rust_analyzer",
         "solargraph",
+        "tailwindcss",
         "taplo",
         "texlab",
         "ts_ls",
@@ -78,9 +80,10 @@ lua_source = '''
             return
         end
         if vim.fn.executable(cmd[1]) == 1 then
-            vim.lsp.enable(name)
+            table.insert(available_ls, name)
         end
     end
+    vim.lsp.enable(available_ls)
 '''
 [plugins.ftplugin]
 cpp = '''

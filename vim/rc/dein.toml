@@ -93,6 +93,10 @@ lua_source = '''
 '''
 
 [[plugins]]
+repo = 'koka-lang/koka'
+rtp = 'support/vim'
+
+[[plugins]]
 repo = '~/Projects/VimPlugin/qfind'
 
 [[plugins]]

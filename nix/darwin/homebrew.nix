@@ -9,6 +9,7 @@
     "ryota2357/pleck-jp"
   ];
   brews = [
+    "docker-completion"
     "gawk"
     "gcc"
     "gnu-sed"
