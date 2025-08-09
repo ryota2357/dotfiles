@@ -1,12 +1,16 @@
-if has('nvim')
-  command! -nargs=1 -complete=help Vh :vertical belowright help <args>
-  command! Wrap setlocal wrap!
-  command! FixWhitespace silent! keepjumps execute ':%s/\\\@<!\s\+$//'
+" helpの横開き
+command! -nargs=1 -complete=help Vh :vertical belowright help <args>
 
-  function! s:keycode(keys) abort
-    return substitute(a:keys, '<[^>]*>', '\=eval(''"\'' .. submatch(0) .. ''"'')', 'g')
-  endfunction
-endif
+" 折り返しtoggle
+command! Wrap setlocal wrap!
+
+" 行末の空白を削除
+function! s:fix_whitespace(line1, line2) abort
+  let l:view = winsaveview()
+  keepjumps execute ':' . a:line1 . ',' . a:line2 . 's/\\\@<!\s\+$//e'
+  call winrestview(l:view)
+endfunction
+command! -range=% FixWhitespace call <SID>fix_whitespace(<line1>,<line2>)
 
 " <Leader>、`'`で囲うとダメみたい
 let mapleader = "\<Space>"
@@ -115,6 +119,9 @@ end
 " ウィンドウサイズの変更
 " TODO: これだと、edge 方向が tmux だった時の変更ができない
 nmap <Plug>(window-resize-mode) <Nop>
+function! s:keycode(keys) abort
+  return substitute(a:keys, '<[^>]*>', '\=eval(''"\'' .. submatch(0) .. ''"'')', 'g')
+endfunction
 function! s:has_edge(direct) abort
   if a:direct ==# 'left'
     return winnr('h') != winnr()

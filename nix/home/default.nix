@@ -24,7 +24,7 @@ in
           stateVersion = "24.11"; # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
         };
       }
-      ./modules/aider.nix
+      ./modules/ai.nix
       ./modules/direnv.nix
       ./modules/fd.nix
       ./modules/git.nix
@@ -47,8 +47,6 @@ in
           tree
           watchexec
           wget
-
-          (callPackage ./gemini-cli.nix { })
 
           nodePackages.svgo
           pdf2svg
