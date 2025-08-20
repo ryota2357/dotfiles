@@ -1,1 +1,4 @@
-complete -c mkcd -xa '(__fish_complete_directories)'
+complete \
+    --command mkcd \
+    --no-files \
+    --arguments '(__fish_complete_directories)'

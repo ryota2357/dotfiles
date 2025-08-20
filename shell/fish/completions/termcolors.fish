@@ -1,1 +1,3 @@
-complete -c termcolors -f
+complete \
+  --command termcolors \
+  --no-files
