@@ -53,6 +53,7 @@
     "fontforge-app"
     "obsidian"
     "unity-hub"
+    "racket" # nixのはminimal版しかdarwinに対応していない
 
     # Social
     "discord"
