@@ -450,3 +450,28 @@ hook_source = '''
 tex = '''
   nnoremap <buffer> <Leader>s <Cmd>call synctex#forwardSerch()<CR>
 '''
+
+[[plugins]]
+repo = 'vim-fall/fall.vim'
+depends = ['denops.vim', 'vim-glyph-palette']
+on_cmd = 'Fall'
+hook_add = '''
+  let g:fall_custom_path = expand('~/dotfiles/vim/plugins/fall/custom.ts')
+  nnoremap <Leader>f <Cmd>Fall file<CR>
+  nnoremap <Leader>l <Cmd>Fall line<CR>
+  nnoremap <Leader>g <Cmd>Fall rg<CR>
+  nnoremap <Leader>h <Cmd>Fall help<CR>
+  nnoremap <Leader>b <Cmd>Fall buffer<CR>
+
+  " デフォルトでは FloatNormal に link されている。:h lh-FloatNormal ないし、ミス？
+  highlight default link FallNormal NormalFloat
+'''
+
+[[plugins]]
+repo = 'lambdalisue/vim-glyph-palette'
+hook_source = '''
+  augroup my-glyph-palette
+    autocmd! *
+    autocmd FileType fall-list call glyph_palette#apply()
+  augroup END
+'''
