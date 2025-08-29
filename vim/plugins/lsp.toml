@@ -56,6 +56,7 @@ lua_source = '''
         "hls",
         "html",
         "jsonls",
+        "just",
         "koka",
         "lua_ls",
         "nil_ls",

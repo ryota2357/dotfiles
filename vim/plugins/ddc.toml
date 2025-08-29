@@ -167,7 +167,7 @@ lua_source = '''
 repo = 'hrsh7th/vim-vsnip'
 on_source = 'ddc.vim'
 lua_add = '''
-    vim.g.vsnip_snippet_dir = vim.fn.expand('~/dotfiles/vim/snippet')
+    vim.g.vsnip_snippet_dir = vim.fn.expand('~/dotfiles/vim/plugins/snippet')
     vim.keymap.set('i', '<Tab>', function()
         return vim.fn['vsnip#jumpable'](1) ~= 0 and '<Plug>(vsnip-jump-next)' or '<Tab>'
     end, { expr = true })

@@ -96,8 +96,11 @@ lua_source = '''
 repo = 'koka-lang/koka'
 rtp = 'support/vim'
 
-[[plugins]]
-repo = '~/Projects/VimPlugin/qfind'
+# [[plugins]]
+# repo = '~/Projects/VimPlugin/qfind'
+#
+# [[plugins]]
+# repo = '~/Projects/VimPlugin/ffiler'
 
-[[plugins]]
-repo = '~/Projects/VimPlugin/ffiler'
+# [[plugins]]
+# repo = '~/.cache/dein/repos/github.com/vim-fall/fall.vim'
