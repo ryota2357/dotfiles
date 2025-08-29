@@ -78,18 +78,26 @@ lua_add = '''
 
 [[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter'
+rev = 'main'
 hook_post_update = 'TSUpdate'
 lua_source = '''
-    require('nvim-treesitter.configs').setup {
-        ensure_installed = 'all',
-        additional_vim_regex_highlighting = false,
-
-        -- tex  : snipet挿入後とかでエラーが出る
-        highlight = {
-            enable = true,
-            disable = { 'latex', 'tex' },
-        },
-    }
+    -- require('nvim-treesitter.configs').setup {
+    --     ensure_installed = 'all',
+    --     additional_vim_regex_highlighting = false,
+    --     highlight = {
+    --         enable = true,
+    --         disable = { 'latex', 'tex' }, -- tex  : snipet挿入後とかでエラーが出る
+    --     },
+    -- }
+    require("nvim-treesitter").setup({
+        install_dir = vim.fs.joinpath(vim.fn.stdpath("data"), "site"),
+    })
+    vim.api.nvim_create_autocmd("FileType", {
+        group = vim.api.nvim_create_augroup("vim-treesitter-start", {}),
+        callback = function(ctx)
+            pcall(vim.treesitter.start)
+        end,
+    })
 '''
 
 [[plugins]]

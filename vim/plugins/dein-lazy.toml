@@ -332,10 +332,6 @@ lua_source = '''
 '''
 
 [[plugins]]
-repo = 'nvim-treesitter/playground'
-on_cmd = ['TSHighlightCapturesUnderCursor', 'TSPlaygroundToggle']
-
-[[plugins]]
 repo = 'cocopon/inspecthi.vim'
 on_cmd = 'Inspecthi'
 

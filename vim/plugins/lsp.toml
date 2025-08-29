@@ -100,26 +100,6 @@ lua << EOF
 EOF
 '''
 
-# [[plugins]]
-# repo = 'williamboman/mason.nvim'
-# on_source = 'nvim-lspconfig'
-# lua_source = '''
-#     require('mason').setup {
-#         automatic_installation = true,
-#         ui = {
-#             icons = {
-#                 package_installed = '',
-#                 package_pending = '',
-#                 package_uninstalled = ''
-#             }
-#         }
-#     }
-# '''
-#
-# [[plugins]]
-# repo = 'williamboman/mason-lspconfig.nvim'
-# on_source = 'nvim-lspconfig'
-
 [[plugins]]
 repo = 'j-hui/fidget.nvim'
 rev = 'legacy'
