@@ -453,6 +453,8 @@ depends = ['denops.vim', 'vim-glyph-palette']
 on_cmd = 'Fall'
 hook_add = '''
   let g:fall_custom_path = expand('~/dotfiles/vim/plugins/fall/custom.ts')
+  let g:fall_disable_default_mapping = 1
+
   nnoremap <Leader>f <Cmd>Fall file<CR>
   nnoremap <Leader>l <Cmd>Fall line<CR>
   nnoremap <Leader>g <Cmd>Fall rg<CR>
@@ -461,6 +463,24 @@ hook_add = '''
 
   " デフォルトでは FloatNormal に link されている。:h lh-FloatNormal ないし、ミス？
   highlight default link FallNormal NormalFloat
+'''
+lua_add = '''
+  require("vimrc.autocmd") "User" {
+      pattern = "FallPickerEnter:*",
+      callback = function()
+          local function map(lhss, rhs)
+              if type(lhss) == "string" then
+                  lhss = { lhss }
+              end
+              for _, lhs in ipairs(lhss) do
+                  vim.keymap.set("c", lhs, rhs, { silent = true, nowait = true })
+              end
+          end
+          map({"<C-p>","<Up>"  }, "<Plug>(fall-list-prev)")
+          map({"<C-n>","<Down>"}, "<Plug>(fall-list-next)")
+          map("<Tab>", "<Plug>(fall-action-select)")
+      end
+  }
 '''
 
 [[plugins]]

@@ -168,9 +168,9 @@ end
 ---@return nil
 function M.select(items, opts, on_choice)
     opts = opts or {}
-    opts.format_item = vim.F.if_nil(opts.format_item, function(e)
+    opts.format_item = opts.format_item or function(e)
         return tostring(e)
-    end)
+    end
 
     ---@type rc.select.Item[]
     local select_items = {}

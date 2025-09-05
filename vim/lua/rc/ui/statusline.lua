@@ -53,6 +53,7 @@ local component = {
         if path == "" then
             return "", 0
         end
+        path = path:gsub("%%", "%%") -- escape '%'
         path = " " .. path .. " "
         return "%#StatusLine#" .. path, fn.strdisplaywidth(path)
     end,
