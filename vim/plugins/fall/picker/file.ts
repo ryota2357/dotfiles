@@ -6,9 +6,13 @@ const excludeDirectories = [
   ".cache",
   ".git",
   ".direnv",
+  ".idea",
   "__pycache__",
   "node_modules",
   "target",
+  "build",
+  "cmake-build-debug",
+  "cmake-build-release",
 ].map((p) => `/${p}`);
 
 const excludeFile = [
