@@ -8,6 +8,9 @@ set -gx XDG_STATE_HOME "$HOME/.local/state"
 set -gx CARGO_HOME "$XDG_DATA_HOME/cargo"
 set -gx RUSTUP_HOME "$XDG_DATA_HOME/rustup"
 
+# ghq
+set -gx GHQ_ROOT "$HOME/ghq"
+
 # man
 set -gx MANPAGER 'vim +MANPAGER --not-a-term -'
 # set -gx MANPAGER 'nvim +Man!'

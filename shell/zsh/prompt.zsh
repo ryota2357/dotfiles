@@ -47,17 +47,24 @@ __signal_code_string() {
 }
 
 __left-prompt() {
-  local dir="%F{11}%~%f"
-  local next="%F{47}❯%f "
-
+  if [[ -n "$GHQ_ROOT" && "$PWD" =~ "^${GHQ_ROOT}/([^/]+)/([^/]+)/([^/]+)(/.*)?" ]]; then
+    local owner=${match[2]}
+    local repo=${match[3]}
+    local subdir=${match[4]}
+    local dir="%F{yellow} ${owner}/${repo}${subdir}%f"
+  else
+    local dir="%F{yellow}%~%f"
+  fi
   if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) ]]; then
     local branch_name=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
-    local branch="%F{250} $branch_name%f"
-    echo -e "\n$dir $branch\n$next"
+    local branch=" %F{250} $branch_name%f"
   else
-    echo -e "\n$dir\n$next"
+    local branch=''
   fi
+  local next="%F{47}❯%f "
+  echo -e "\n$dir$branch\n$next"
 }
+
 __right-prompt() {
   local cmd_status=$(__signal_code_string)
   local time="%F{242}%T%f"

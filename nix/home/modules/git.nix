@@ -4,6 +4,7 @@
     git
     git-lfs
     gh
+    ghq
     lazygit
     gnupg
   ];

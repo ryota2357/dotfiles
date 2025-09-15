@@ -51,6 +51,7 @@ done
 
 # My Configs
 source "$XDG_CONFIG_HOME/zsh/alias.zsh"
+source "$XDG_CONFIG_HOME/zsh/functions.zsh"
 source "$XDG_CONFIG_HOME/zsh/completion.zsh"
 source "$XDG_CONFIG_HOME/zsh/option.zsh"
 source "$XDG_CONFIG_HOME/zsh/prompt.zsh"

@@ -52,16 +52,19 @@ function __signal_code_to_string
 end
 
 function fish_prompt
-  set -l dir (set_color yellow)(string replace "$HOME" '~' (pwd))(set_color normal)
-  set -l next (set_color brgreen)"❯ "(set_color normal)
-
+  if set -q GHQ_ROOT; and string match -q -r "^$GHQ_ROOT/(?<host>[^/]+)/(?<owner>[^/]+)/(?<repo>[^/]+)(?<subdir>/.*)?" (pwd)
+    set -f dir (set_color yellow)" $owner/$repo$subdir"(set_color normal)
+  else
+    set -f dir (set_color yellow)(string replace "$HOME" '~' (pwd))(set_color normal)
+  end
   if test (git rev-parse --is-inside-work-tree 2> /dev/null)
     set -l branch_name (git rev-parse --abbrev-ref HEAD 2> /dev/null)
-    set -l branch '\e[38;5;250m '$branch_name(set_color normal)
-    echo -e "\n$dir $branch\n$next"
+    set -f branch ' \e[38;5;250m '$branch_name(set_color normal)
   else
-    echo -e "\n$dir\n$next"
+    set -f branch ''
   end
+  set -l next (set_color brgreen)"❯ "(set_color normal)
+  echo -e "\n$dir$branch\n$next"
 end
 
 function fish_right_prompt

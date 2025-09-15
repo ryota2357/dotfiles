@@ -14,6 +14,7 @@ in
   };
   xdg.configFile = builtins.foldl' (acc: name: acc // { ${name} = s name; }) { } [
     "zsh/alias.zsh"
+    "zsh/functions.zsh"
     "zsh/completion.zsh"
     "zsh/option.zsh"
     "zsh/prompt.zsh"
