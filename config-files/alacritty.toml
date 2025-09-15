@@ -38,18 +38,19 @@ args = ["-c", '''
   fi
   ''']
 
-# [[keyboard.bindings]]
-# chars = "\\"
-# key = "¥"
-#
-# [[keyboard.bindings]]
-# chars = "¥"
-# key = "¥"
-# mods = "Alt"
-
 [[keyboard.bindings]]
 action = "IncreaseFontSize"
-key = "Semicolon"
+key = "ArrowUp"
+mods = "Command|Shift"
+
+[[keyboard.bindings]]
+action = "DecreaseFontSize"
+key = "ArrowDown"
+mods = "Command|Shift"
+
+[[keyboard.bindings]]
+action = "ResetFontSize"
+key = "0"
 mods = "Command|Shift"
 
 [general]
