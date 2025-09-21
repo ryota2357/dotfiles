@@ -61,6 +61,7 @@ in
           rustup
           shellcheck
           typst
+          tinymist
         ];
       }
     ];

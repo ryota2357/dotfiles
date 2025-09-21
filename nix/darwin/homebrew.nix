@@ -68,6 +68,7 @@
     "iina"
     "karabiner-elements"
     "keycastr"
+    "logi-options+"
     "obs"
     "skim"
 

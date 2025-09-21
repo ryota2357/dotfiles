@@ -7,6 +7,7 @@ const excludeDirectories = [
   ".git",
   ".direnv",
   ".idea",
+  ".lake",
   "__pycache__",
   "node_modules",
   "target",

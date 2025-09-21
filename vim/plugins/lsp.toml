@@ -69,7 +69,7 @@ lua_source = '''
         "taplo",
         "texlab",
         "ts_ls",
-        "typst_lsp",
+        "tinymist",
         "vimls",
         "yamlls",
     }) do
