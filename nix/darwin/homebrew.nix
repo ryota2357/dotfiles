@@ -50,6 +50,7 @@
     # Dev Tools
     "docker-desktop"
     "dotnet-sdk"
+    "drawio"
     "fontforge-app"
     "obsidian"
     "unity-hub"
