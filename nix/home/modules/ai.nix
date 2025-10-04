@@ -3,6 +3,7 @@
   home.packages = with pkgs; [
     # aider-chat-full
     gemini-cli
+    github-copilot-cli
   ];
   home.file.".aider.conf.yml".text = ''
     auto-commits: false
@@ -10,9 +11,12 @@
   '';
   # home.file.".gemini/settings.json".text = ''
   #   {
-  #     "theme": "GitHub",
+  #     "disableAutoUpdate": true,
+  #     "preferredEditor": "vim",
+  #     "sandbox": true,
   #     "selectedAuthType": "oauth-personal",
-  #     "sandbox": true
+  #     "theme": "GitHub",
+  #     "hasSeenIdeIntegrationNudge": true
   #   }
   # '';
 }

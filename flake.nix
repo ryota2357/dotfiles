@@ -58,6 +58,7 @@
           username = "ryota2357";
           pkgs = import nixpkgs {
             inherit system;
+            config.allowUnfree = true;
             overlays = [
               neovim-nightly-overlay.overlays.default
             ];
