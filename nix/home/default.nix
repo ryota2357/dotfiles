@@ -42,6 +42,7 @@ in
           hyperfine
           imagemagick
           jq
+          nix-output-monitor
           rsync
           tokei
           tree
