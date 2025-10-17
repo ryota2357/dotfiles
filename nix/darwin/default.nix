@@ -6,11 +6,9 @@
   default = nix-darwin.lib.darwinSystem {
     inherit system;
     modules = [
-      {
-        nix = import ./nix.nix;
-        system = import ./system.nix;
-        homebrew = import ./homebrew.nix;
-      }
+      ./modules/nix.nix
+      ./modules/system.nix
+      ./modules/homebrew.nix
     ];
   };
 }
