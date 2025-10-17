@@ -51,7 +51,7 @@ eachSystem (
               if [[ ! "${pkgs.system}" =~ ^(aarch64|x86_64)-darwin$ ]]; then
                 echo "System is not supported: ${pkgs.system}" >&2
               else
-                sudo nix run nix-darwin -- switch --flake .#default
+                sudo nix --no-warn-dirty run nix-darwin -- switch --flake .#default
               fi
               ;;
             'home-manager switch')

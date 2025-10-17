@@ -10,13 +10,25 @@
     dark-mode: true
   '';
   # home.file.".gemini/settings.json".text = ''
-  #   {
+  # {
+  #   "general": {
   #     "disableAutoUpdate": true,
-  #     "preferredEditor": "vim",
-  #     "sandbox": true,
-  #     "selectedAuthType": "oauth-personal",
-  #     "theme": "GitHub",
-  #     "hasSeenIdeIntegrationNudge": true
+  #     "preferredEditor": "vim"
+  #   },
+  #   "ide": {
+  #     "hasSeenNudge": true
+  #   },
+  #   "tools": {
+  #     "sandbox": true
+  #   },
+  #   "security": {
+  #     "auth": {
+  #       "selectedType": "oauth-personal"
+  #     }
+  #   },
+  #   "ui": {
+  #     "theme": "GitHub"
   #   }
+  # }
   # '';
 }
