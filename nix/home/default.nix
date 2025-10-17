@@ -23,6 +23,7 @@ in
           homeDirectory = if isDarwin then "/Users/${username}" else throw "unsupported system: ${system}";
           stateVersion = "24.11"; # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
         };
+        programs.home-manager.enable = true;
       }
       ./modules/ai.nix
       ./modules/direnv.nix

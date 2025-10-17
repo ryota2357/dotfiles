@@ -9,6 +9,7 @@
       ./modules/nix.nix
       ./modules/system.nix
       ./modules/homebrew.nix
+      ./modules/programs.nix
     ];
   };
 }

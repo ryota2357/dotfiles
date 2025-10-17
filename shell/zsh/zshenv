@@ -1,8 +1,8 @@
-# XDG Base Directory (default)
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_CACHE_HOME="$HOME/.cache"
-export XDG_DATA_HOME="$HOME/.local/share"
-export XDG_STATE_HOME="$HOME/.local/state"
+# XDG Base Directory
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
+export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
+export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
 
 # rust
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
@@ -21,3 +21,8 @@ export VISUAL='vim'
 export LANG='ja_JP.UTF-8'
 export LC_ALL='ja_JP.UTF-8'
 export TZ='Asia/Tokyo'
+
+# If not using system-wide Nix installation, uncomment the following lines
+# if test -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+#     source '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+# end
