@@ -1,4 +1,25 @@
 { pkgs, ... }:
+let
+  writeShellScript =
+    name: text:
+    pkgs.writeShellScript name ''
+      set -e
+      fail() {
+        echo "Error: $1" >&2
+        exit 1
+      }
+      exec_var_or_fail() {
+        local var_name="$1"
+        shift
+        local var_value="''${!var_name}"
+        if [ -z "$var_value" ]; then
+          fail "$var_name is not set."
+        fi
+        exec "$var_value" "$@"
+      }
+      ${text}
+    '';
+in
 {
   home.packages = with pkgs; [
     direnv
@@ -12,48 +33,36 @@
       if ! command -v nom > /dev/null; then
         return
       fi
-      export ORIGINAL_NIX_COMMAND=$(command -v nix)
-      export ORIGINAL_NOM_COMMAND=$(command -v nom)
-      export NIX_USE_NOM_WRAPPER=1
+      export DIRENV_ORIGINAL_NIX=$(command -v nix)
+      export DIRENV_ORIGINAL_NOM=$(command -v nom)
+      export DIRENV_USE_NIX_WRAPPER=1
       export DIRENV_CUSTOM_BIN_DIR="$(dirname ''${BASH_SOURCE:-$0})/bin"
       export PATH="$DIRENV_CUSTOM_BIN_DIR:$PATH"
     '';
 
-    "direnv/bin/nix".source = pkgs.writeShellScript "direnv-bin-nix" ''
-      if [ "$NIX_USE_NOM_WRAPPER" = "1" ] && [ $# -ge 1 ]; then
+    "direnv/bin/nix".source = writeShellScript "direnv-bin-nix" ''
+      if [ "$DIRENV_USE_NIX_WRAPPER" = "1" ]; then
+        export DIRENV_USE_NIX_WRAPPER=0  # Prevent recursion
         case "$1" in
           build|shell|develop)
-            export NIX_USE_NOM_WRAPPER=0  # Prevent recursion
-            exec "$ORIGINAL_NOM_COMMAND" "$@"
-          ;;
+            exec_var_or_fail "DIRENV_ORIGINAL_NOM" "$@"
+            ;;
         esac
       fi
-      if [ -n "$ORIGINAL_NIX_COMMAND" ]; then
-        exec "$ORIGINAL_NIX_COMMAND" "$@"
-      else
-        echo "Error: ORIGINAL_NIX_COMMAND is not set and nix is not found in PATH." >&2
-        exit 1
-      fi
+      exec_var_or_fail "DIRENV_ORIGINAL_NIX" "$@"
     '';
 
-    "direnv/bin/nom".source = pkgs.writeShellScript "direnv-bin-nom" ''
-      if [ -n "$ORIGINAL_NOM_COMMAND" ]; then
-        export NIX_USE_NOM_WRAPPER=0  # Prevent recursion
-        exec "$ORIGINAL_NOM_COMMAND" "$@"
-      else
-        echo "Error: ORIGINAL_NOM_COMMAND is not set and nom is not found in PATH." >&2
-        exit 1
-      fi
+    "direnv/bin/nom".source = writeShellScript "direnv-bin-nom" ''
+      export DIRENV_USE_NIX_WRAPPER=0  # Prevent recursion
+      exec_var_or_fail "DIRENV_ORIGINAL_NOM" "$@"
     '';
 
-    "direnv/bin/sudo".source = pkgs.writeShellScript "direnv-bin-sudo" ''
+    "direnv/bin/sudo".source = writeShellScript "direnv-bin-sudo" ''
       if [ -z "$DIRENV_CUSTOM_BIN_DIR" ]; then
-        echo "Error: DIRENV_CUSTOM_BIN_DIR is not set." >&2
-        exit 1
+        fail "Error: DIRENV_CUSTOM_BIN_DIR is not set."
       fi
       if [[ ":$PATH:" != *":$DIRENV_CUSTOM_BIN_DIR:"* ]]; then
-        echo "Error: DIRENV_CUSTOM_BIN_DIR ($DIRENV_CUSTOM_BIN_DIR) not found in PATH." >&2
-        exit 1
+        fail "Error: DIRENV_CUSTOM_BIN_DIR ($DIRENV_CUSTOM_BIN_DIR) is not found in PATH."
       fi
       path_remove() {
         local path_i result target="$1"
@@ -71,6 +80,5 @@
       /usr/bin/sudo "$@"
       export PATH="$DIRENV_CUSTOM_BIN_DIR:$PATH"
     '';
-
   };
 }
