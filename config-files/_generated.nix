@@ -3,8 +3,10 @@
   "alacritty.toml" = ./. + "/alacritty.toml";
   "fd~ignore" = ./. + "/fd~ignore";
   "ghostty~config" = ./. + "/ghostty~config";
+  "git~config" = ./. + "/git~config";
   "git~ignore" = ./. + "/git~ignore";
   "karabiner_complex_modifications.json" = ./. + "/karabiner_complex_modifications.json";
   "latexmkrc" = ./. + "/latexmkrc";
+  "lazygit~config.yaml" = ./. + "/lazygit~config.yaml";
   "wezterm.lua" = ./. + "/wezterm.lua";
 }

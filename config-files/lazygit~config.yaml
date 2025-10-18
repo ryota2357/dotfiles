@@ -1,0 +1,13 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/jesseduffield/lazygit/master/schema/config.json
+gui:
+  nerdFontsVersion: ""
+  language: 'en'
+  showRootItemInFileTree: false
+git:
+  paging:
+    colorArg: always
+    pager: delta --dark --paging=never
+  # ↓ 次のバージョンで以下になる？
+  # pagers:
+  #   - pager: delta --dark --paging=never
+  parseEmoji: true
