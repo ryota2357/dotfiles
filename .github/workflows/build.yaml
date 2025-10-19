@@ -1,0 +1,39 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - '**.nix'
+      - 'flake.lock'
+  pull_request:
+    paths:
+      - '**.nix'
+      - 'flake.lock'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+
+      - name: Setup Nix
+        uses: ./.github/actions/setup-nix
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          skipPush: ${{ github.event_name == 'pull_request' }}
+
+      - name: Build devShell
+        run: nix develop --show-trace
+
+      - name: Build homeConfigurations
+        run: nix build --show-trace --no-link .#homeConfigurations.default.activationPackage
+
+      - name: Build darwinConfigurations
+        run: nix build --show-trace --no-link .#darwinConfigurations.default.system
+
+      - name: Print disk usage
+        run: df -h
