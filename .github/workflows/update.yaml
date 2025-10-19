@@ -1,0 +1,76 @@
+name: Update
+
+on:
+  schedule:
+    - cron: '0 9 */3 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+
+      - name: Setup Nix
+        uses: ./.github/actions/setup-nix
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          skipPush: true
+
+      - name: Initialize log files
+        run: |
+          mkdir ./ci-logs
+          TZ=Asia/Tokyo date > ./ci-logs/started_at.txt
+          echo '' > ./ci-logs/update.md
+
+      - name: Update Nix Flake
+        run: |
+          {
+            echo '### nix flake update'
+            echo ''
+            TZ=Asia/Tokyo date
+            echo ''
+            echo '```'
+          } >> ./ci-logs/update.md
+          nix flake update |& tee -a ./ci-logs/update.md
+          echo '```' >> ./ci-logs/update.md
+
+      - name: Set PR body output
+        id: pr-body-output
+        run: |
+          {
+            echo 'body<<EOF'
+            echo '## Automated update'
+            echo ''
+            echo -n 'started at:  '
+            cat ./ci-logs/started_at.txt
+            echo -n 'finished at: '
+            TZ=Asia/Tokyo date
+            echo ''
+            cat ./ci-logs/update.md
+            echo 'EOF'
+          } >> "$GITHUB_OUTPUT"
+          rm -rf ./ci-logs/
+
+      - name: Create GitHub App Token
+        uses: actions/create-github-app-token@67018539274d69449ef7c02e8e71183d1719ab42 # v2.1.4
+        id: app-token
+        with:
+          app-id: ${{ vars.RYOTA2357_PR_ACTION_APP_APP_ID }}
+          private-key: ${{ secrets.RYOTA2357_PR_ACTION_APP_PRIVATE_KEY }}
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
+        with:
+          title: "Automated updates"
+          commit-message: "[bot] update"
+          branch: auto-updates
+          author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          delete-branch: true
+          body: ${{ steps.pr-body-output.outputs.body }}
+          token: ${{ steps.app-token.outputs.token }}
