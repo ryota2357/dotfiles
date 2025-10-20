@@ -1,4 +1,9 @@
 {
+  pkgs,
+  lib,
+  ...
+}:
+{
   nix = {
     optimise.automatic = true;
     gc = {
@@ -22,6 +27,11 @@
         "ryota2357.cachix.org-1:1Biai//719bDFSnfV7FK0vKHw9C1b0S4/DQiNdkmWQo="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
+      trusted-users = [
+        "root"
+        "@wheel"
+      ]
+      ++ lib.optional pkgs.stdenv.isDarwin "@admin";
     };
   };
 }
