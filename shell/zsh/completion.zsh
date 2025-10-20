@@ -1,6 +1,3 @@
-# zsh補完を有効に
-# autoload -Uz compinit && compinit
-
 # オプション補完で解説部分を表示
 zstyle ':completion:*' verbose yes
 
@@ -34,3 +31,9 @@ zstyle ':completion:*:default' menu select=2
 zstyle ':completion:*:make:*:targets' call-command true
 zstyle ':completion:*:make::' tag-order targets:
 zstyle ':completion:*:*:*make:*:targets' command awk \''/^[a-zA-Z0-9][^\/\t=]+:/ {print $1}'\' \$file
+
+# zsh補完を有効に
+# nix-darwin が生成する /etc/zshrc には既に compinit があるので、それ以外で
+if [[ ! -f /etc/zshrc.before-nix-darwin ]]; then
+  autoload -Uz compinit && compinit
+fi

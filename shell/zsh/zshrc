@@ -49,13 +49,6 @@ for profile in ${(z)NIX_PROFILES}; do
   fpath+=($profile/share/zsh/site-functions $profile/share/zsh/$ZSH_VERSION/functions $profile/share/zsh/vendor-completions)
 done
 
-# My Configs
-source "$XDG_CONFIG_HOME/zsh/alias.zsh"
-source "$XDG_CONFIG_HOME/zsh/functions.zsh"
-source "$XDG_CONFIG_HOME/zsh/completion.zsh"
-source "$XDG_CONFIG_HOME/zsh/option.zsh"
-source "$XDG_CONFIG_HOME/zsh/prompt.zsh"
-
 # Command ine editor
 autoload -Uz edit-command-line
 zle -N edit-command-line
@@ -66,52 +59,19 @@ if type direnv > /dev/null 2>&1; then
   eval "$(direnv hook zsh)"
 fi
 
+# My Configs
+source "$XDG_CONFIG_HOME/zsh/alias.zsh"
+source "$XDG_CONFIG_HOME/zsh/functions.zsh"
+source "$XDG_CONFIG_HOME/zsh/completion.zsh"
+source "$XDG_CONFIG_HOME/zsh/option.zsh"
+source "$XDG_CONFIG_HOME/zsh/prompt.zsh"
+
 # ローカルの設定ファイルがあれば読み込む
 local local_config_file="$HOME/.zshrc.local"
 if [ -f "$local_config_file" ]; then
   source "$local_config_file"
 fi
 
-autoload -Uz compinit && compinit
 autoload -Uz colors && colors
 
 typeset -Ux path fpath manpath
-
-# overrid source command
-# function source {
-#   ensure_zcompiled $1
-#   builtin source $1
-# }
-# function ensure_zcompiled {
-#   if [[ $# -ne 1 ]]; then
-#     echo "Usage: ensure_zcompiled <target>"
-#     return 1
-#   fi
-#   local target="$1"
-#   local compiled="$target.zwc"
-#   if [[ -L "$target" ]]; then
-#     target=$(readlink -f "$1")
-#   fi
-#   if [[ ! -r "$compiled" || "$target" -nt "$compiled" ]]; then
-#     echo "\033[1;36mCompiling\033[m $1"
-#     zcompile $1
-#   fi
-# }
-# ensure_zcompiled ~/.zshrc
-# ensure_zcompiled ~/.zshenv
-# ensure_zcompiled ~/.zprofile
-#
-# sheldon source
-# () {
-#   type sheldon > /dev/null 2>&1 || return
-#   local sheldon_cache="$XDG_CACHE_HOME/zsh/sheldon.zsh"
-#   local sheldon_toml="$HOME/dotfiles/zsh/plugins.toml"
-#   if [[ ! -r "$sheldon_cache" || "$sheldon_toml" -nt "$sheldon_cache" ]]; then
-#       mkdir -p "$(dirname "$sheldon_cache")"
-#       sheldon source > "$sheldon_cache"
-#   fi
-#   source "$sheldon_cache"
-# }
-#
-# un-overrid source command
-# zsh-defer unfunction source

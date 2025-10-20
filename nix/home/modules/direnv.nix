@@ -42,24 +42,29 @@ in
 
     "direnv/bin/nix".source = writeShellScript "direnv-bin-nix" ''
       if [ "$DIRENV_USE_NIX_WRAPPER" = "1" ]; then
-        export DIRENV_USE_NIX_WRAPPER=0  # Prevent recursion
+        for arg in "$@"; do
+          if [ "$arg" = '--help' ]; then
+            exec_var_or_fail 'DIRENV_ORIGINAL_NIX' "$@"
+          fi
+        done
         case "$1" in
           build|shell|develop)
-            exec_var_or_fail "DIRENV_ORIGINAL_NOM" "$@"
+            export DIRENV_USE_NIX_WRAPPER=0  # Prevent recursion
+            exec_var_or_fail 'DIRENV_ORIGINAL_NOM' "$@"
             ;;
         esac
       fi
-      exec_var_or_fail "DIRENV_ORIGINAL_NIX" "$@"
+      exec_var_or_fail 'DIRENV_ORIGINAL_NIX' "$@"
     '';
 
     "direnv/bin/nom".source = writeShellScript "direnv-bin-nom" ''
       export DIRENV_USE_NIX_WRAPPER=0  # Prevent recursion
-      exec_var_or_fail "DIRENV_ORIGINAL_NOM" "$@"
+      exec_var_or_fail 'DIRENV_ORIGINAL_NOM' "$@"
     '';
 
     "direnv/bin/sudo".source = writeShellScript "direnv-bin-sudo" ''
       if [ -z "$DIRENV_CUSTOM_BIN_DIR" ]; then
-        fail "Error: DIRENV_CUSTOM_BIN_DIR is not set."
+        fail 'Error: DIRENV_CUSTOM_BIN_DIR is not set.'
       fi
       if [[ ":$PATH:" != *":$DIRENV_CUSTOM_BIN_DIR:"* ]]; then
         fail "Error: DIRENV_CUSTOM_BIN_DIR ($DIRENV_CUSTOM_BIN_DIR) is not found in PATH."

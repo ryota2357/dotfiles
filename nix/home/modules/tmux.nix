@@ -1,12 +1,8 @@
 { pkgs, ... }:
 {
   home.packages = [ pkgs.tmux ];
-  xdg.configFile =
-    let
-      s = name: { source = ../../../tmux + "/${name}"; };
-    in
-    {
-      "tmux/tmux.conf" = s "tmux.conf";
-      "tmux/config" = s "config";
-    };
+  xdg.configFile = {
+    "tmux/tmux.conf".source = ../../../tmux/tmux.conf;
+    "tmux/config".source = ../../../tmux/config;
+  };
 }

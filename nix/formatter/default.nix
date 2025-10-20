@@ -22,6 +22,7 @@ nixpkgs.lib.genAttrs
       };
       settings.global.excludes = [
         ".envrc"
+        ".github/*"
         "vim/**/*.vim"
         "shell/*"
         "ahk/*"

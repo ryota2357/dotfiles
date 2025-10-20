@@ -53,3 +53,6 @@ bind-key -T copy-mode-vi i send-keys -X cancel
 # Y: 行ヤンク
 bind-key -T copy-mode-vi V send-keys -X select-line
 bind-key -T copy-mode-vi Y send-keys -X copy-line
+
+# g: lazygit を popup window で起動
+bind-key g popup -d "#{pane_current_path}" -w 95% -h 97% -y P -b rounded -E "lazygit"
