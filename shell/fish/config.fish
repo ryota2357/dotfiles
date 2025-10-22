@@ -42,12 +42,6 @@ function mocword-data-install
   end
 end
 
-# nix complition path
-# TODO: zsh の (z) フラグ (シェルの解析によって単語を分割する。シングルクォートやダブルクォートで囲ったものは一つの文字列として分割する) の方法
-for profile in (string split ' ' $NIX_PROFILES)
-  set --prepend fish_complete_path "$profile/share/fish/completions" "$profile/share/fish/vendor_completions.d"
-end
-
 # My Configs
 fish_add_path "$HOME/.local/bin"
 source "$XDG_CONFIG_HOME/fish/prompt.fish"

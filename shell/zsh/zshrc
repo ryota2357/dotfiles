@@ -44,11 +44,6 @@ mocword-data-install() {
   fi
 }
 
-# nix fpath
-for profile in ${(z)NIX_PROFILES}; do
-  fpath+=($profile/share/zsh/site-functions $profile/share/zsh/$ZSH_VERSION/functions $profile/share/zsh/vendor-completions)
-done
-
 # Command ine editor
 autoload -Uz edit-command-line
 zle -N edit-command-line
