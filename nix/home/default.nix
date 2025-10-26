@@ -41,7 +41,16 @@
           hyperfine
           imagemagick
           jq
-          nix-output-monitor
+          # nix-output-monitor
+          (nix-output-monitor.overrideAttrs (prev: {
+            patches = prev.patches or [ ] ++ [
+              (fetchpatch2 {
+                name = "fix-local-store-url-parsing.patch";
+                url = "https://github.com/maralorn/nix-output-monitor/pull/203.patch";
+                hash = "sha256-unpJ+tZO2HLVion7vvhj+Xn2wFOzwxnqMohPIFACX+Q=";
+              })
+            ];
+          }))
           rsync
           tokei
           tree
