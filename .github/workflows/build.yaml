@@ -27,7 +27,7 @@ jobs:
           skipPush: ${{ github.event_name == 'pull_request' }}
 
       - name: Build devShell
-        run: nix develop --show-trace
+        run: nix develop --show-trace -c true
 
       - name: Build homeConfigurations
         run: nix build --show-trace --no-link .#homeConfigurations.default.activationPackage
