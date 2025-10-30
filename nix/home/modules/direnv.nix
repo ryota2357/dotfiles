@@ -19,6 +19,7 @@ let
       }
       ${text}
     '';
+  tomlFormat = pkgs.formats.toml { };
 in
 {
   home.packages = with pkgs; [
@@ -28,6 +29,11 @@ in
 
   xdg.configFile = {
     "direnv/lib/nix-direnv.sh".source = "${pkgs.nix-direnv}/share/nix-direnv/direnvrc";
+
+    "direnv/direnv.toml".source = tomlFormat.generate "direnv-config" {
+      strict_env = true;
+      warn_timeout = 0;
+    };
 
     "direnv/direnvrc".text = ''
       if ! command -v nom > /dev/null; then
