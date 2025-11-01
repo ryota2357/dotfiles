@@ -4,17 +4,6 @@ export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
 export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
 export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
 
-# rust
-export CARGO_HOME="$XDG_DATA_HOME/cargo"
-export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
-
-# ghq
-export GHQ_ROOT="$HOME/ghq"
-
-# man
-export MANPAGER='vim +MANPAGER --not-a-term -'
-# export MANPAGER='nvim +Man!'
-
 export EDITOR='vim'
 export VISUAL='vim'
 
@@ -26,3 +15,30 @@ export TZ='Asia/Tokyo'
 # if test -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
 #     source '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
 # end
+
+# man
+export MANPAGER='vim +MANPAGER --not-a-term -'
+# export MANPAGER='nvim +Man!'
+
+# Rust
+export CARGO_HOME="$XDG_DATA_HOME/cargo"
+export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
+
+# Go
+export GOPATH="$XDG_DATA_HOME/go"
+
+# Haskell
+export STACK_ROOT="$XDG_DATA_HOME/stack"
+export STACK_XDG=1
+
+# OCaml
+export OPAMROOT="$XDG_DATA_HOME/opam"
+
+# Node.js
+export NODE_REPL_HISTORY="$XDG_STATE_HOME/node_repl_history"
+export NPM_CONFIG_INIT_MODULE="$XDG_CONFIG_HOME/npm/config/npm-init.js"
+export NPM_CONFIG_CACHE="$XDG_CACHE_HOME/npm"
+# export NPM_CONFIG_TMP="$XDG_RUNTIME_DIR/npm"
+
+# ghq
+export GHQ_ROOT="$HOME/ghq"

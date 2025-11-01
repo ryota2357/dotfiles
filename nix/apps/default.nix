@@ -34,6 +34,7 @@ eachSystem (
           ${script}
         ''
       );
+    system = pkgs.stdenv.hostPlatform.system;
   in
   {
     default = {
@@ -48,14 +49,22 @@ eachSystem (
           message "$choice"
           case "$choice" in
             'darwin-rebuild switch')
-              if [[ ! "${pkgs.system}" =~ ^(aarch64|x86_64)-darwin$ ]]; then
-                echo "System is not supported: ${pkgs.system}" >&2
+              if [[ ! "${system}" =~ ^(aarch64|x86_64)-darwin$ ]]; then
+                echo "System is not supported: ${system}" >&2
               else
-                sudo nix run nix-darwin -- switch --flake .#default
+                if type darwin-rebuild >/dev/null; then
+                  sudo darwin-rebuild switch --flake .#default
+                else
+                  sudo nix run nix-darwin -- switch --flake .#default
+                fi
               fi
               ;;
             'home-manager switch')
-              ${getExe pkgs.home-manager} switch --flake .#default
+              if type home-manager >/dev/null; then
+                home-manager switch --flake .#default
+              else
+                ${getExe pkgs.home-manager} switch --flake .#default
+              fi
               ;;
             'brew upgrade')
               brew upgrade
