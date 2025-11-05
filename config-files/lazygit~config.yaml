@@ -4,10 +4,6 @@ gui:
   language: 'en'
   showRootItemInFileTree: false
 git:
-  paging:
-    colorArg: always
-    pager: delta --dark --paging=never
-  # ↓ 次のバージョンで以下になる？
-  # pagers:
-  #   - pager: delta --dark --paging=never
+  pagers:
+    - pager: delta --dark --paging=never
   parseEmoji: true
