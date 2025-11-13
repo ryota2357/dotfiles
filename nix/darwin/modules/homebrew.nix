@@ -81,5 +81,20 @@
       # Game
       "osu"
     ];
+
+    masApps = {
+      # Development
+      "Xcode" = 497799835;
+      "TestFlight" = 899247664;
+
+      # Productivity
+      "RunCat" = 1429033973;
+      "AS Timer" = 512464723;
+      "Toggl Track" = 1291898086;
+
+      # Safari Extensions
+      "AdGuard for Safari" = 1440147259;
+      "Dark Reader for Safari" = 1438243180;
+    };
   };
 }
