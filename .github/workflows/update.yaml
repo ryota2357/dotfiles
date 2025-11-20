@@ -40,6 +40,19 @@ jobs:
           nix flake update |& tee -a ./ci-logs/update.md
           echo '```' >> ./ci-logs/update.md
 
+      - name: Update GitHub Actions
+        run: |
+          {
+            echo ''
+            echo '### pinact run -u'
+            echo ''
+            TZ=Asia/Tokyo date
+            echo ''
+            echo '```diff'
+          } >> ./ci-logs/update.md
+          nix run nixpkgs#pinact -- run -u --diff |& tee -a ./ci-logs/update.md
+          echo '```' >> ./ci-logs/update.md
+
       - name: Set PR body output
         id: pr-body-output
         run: |
