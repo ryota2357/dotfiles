@@ -36,10 +36,11 @@
       "tor-browser"
 
       # Text Editor
+      "antigravity"
       "coteditor"
       "jetbrains-toolbox"
-      "visual-studio-code"
       "obsidian"
+      "visual-studio-code"
 
       # Fonts
       "font-cica"
