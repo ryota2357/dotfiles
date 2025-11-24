@@ -11,6 +11,7 @@ in
     general = {
       disableAutoUpdate = true;
       preferredEditor = "vim";
+      previewFeatures = true;
     };
     ide.hasSeenNudge = true;
     tools.sandbox = true;
