@@ -50,7 +50,7 @@ jobs:
             echo ''
             echo '```diff'
           } >> ./ci-logs/update.md
-          nix run nixpkgs#pinact -- run -u --diff |& tee -a ./ci-logs/update.md
+          nix run nixpkgs#pinact -- run -u --fix --diff |& tee -a ./ci-logs/update.md
           echo '```' >> ./ci-logs/update.md
 
       - name: Set PR body output
