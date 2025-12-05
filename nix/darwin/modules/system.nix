@@ -23,9 +23,14 @@
         largesize = 128;
         tilesize = 48;
         persistent-apps = [ ];
+        expose-animation-duration = 0.0;
+      };
+      spaces = {
+        spans-displays = true;
       };
       trackpad = {
         Clicking = true;
+        TrackpadThreeFingerTapGesture = 2; # trigger Look up & data detectors
       };
     };
   };
