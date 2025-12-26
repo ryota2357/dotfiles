@@ -1,0 +1,72 @@
+module schema
+
+class ComplexModifications {
+  title: String
+  rules: Listing<Rule>
+}
+
+class Rule {
+  description: String
+  manipulators: Listing<Manipulator>
+}
+
+// https://karabiner-elements.pqrs.org/docs/json/complex-modifications-manipulator-definition/
+class Manipulator {
+  type: String = "basic"
+  from: FromEvent
+  to: Listing<ToEvent>?
+  to_if_alone: Listing<ToEvent>?
+  // to_if_held_down:
+  // to_after_key_up:
+  // to_delayed_action:
+  conditions: Listing<Condition>?
+  // parameters:
+  description: String?
+}
+
+// https://karabiner-elements.pqrs.org/docs/json/complex-modifications-manipulator-definition/from/
+class FromEvent {
+  key_code: String?
+  consumer_key_code: String?
+  pointing_button: String?
+  any: ("key_code" | "consumer_key_code" | "pointing_button")?
+  integer_value: Int(this >= 0)?
+  modifiers: FromModifiers?
+  // simultaneous:
+  // simultaneous_options:
+}
+
+// https://karabiner-elements.pqrs.org/docs/json/complex-modifications-manipulator-definition/from/modifiers/
+class FromModifiers {
+  mandatory: Listing<Modifier | "any">?
+  optional: Listing<Modifier | "any">?
+}
+
+// https://karabiner-elements.pqrs.org/docs/json/complex-modifications-manipulator-definition/to/
+class ToEvent {
+  key_code: String?
+  consumer_key_code: String?
+  pointing_button: String?
+  shell_command: String?
+  // select_input_source:
+  // set_variable:
+  // mouse_key:
+  sticky_modifier: Mapping<String, "on" | "off" | "toggle">? // https://karabiner-elements.pqrs.org/docs/json/complex-modifications-manipulator-definition/to/sticky-modifier/
+  // software_function:
+  modifiers: Listing<Modifier>?   lazy: Boolean? // false
+  repeat: Boolean? // true
+  halt: Boolean? // false
+  hold_down_milliseconds: Int(this >= 0)? // 0
+  conditions: Listing<Condition>?
+}
+
+typealias Condition = Dynamic
+// typealias Condition = Mapping<"type" | String, Any>
+
+// https://karabiner-elements.pqrs.org/docs/json/complex-modifications-manipulator-definition/to/modifiers/
+typealias Modifier = "caps_lock"
+    | "left_command"  | "left_control"  | "left_option"  | "left_shift"
+    | "right_command" | "right_control" | "right_option" | "right_shift" | "fn"
+    | "command"       | "control"       | "option"       | "shift"
+    | "left_alt"  | "left_gui"
+    | "right_alt" | "right_gui"

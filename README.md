@@ -10,10 +10,6 @@
 
 ---
 
-## ahk/
-
-2024 年夏のインターンシップで Windows を使用した際に作成した AutoHotkey の設定。
-
 ## bin/
 
 `$HOME/.local/bin` に配置されるスクリプト (Home Manager によって配置される)。
@@ -31,6 +27,12 @@
 
 Nixから利用する場合、`_generated.nix` を `import` することで各設定ファイルへのパスを取得できる。
 この `_generated.nix` は `config-files/_generate_nix` スクリプトによって自動生成されるため、ファイルを追加・変更した際はスクリプトを再実行すること。
+
+## keymap/
+
+キーマッピング設定をまとめている。
+
+`kaymap/ahk` は 2024 年夏のインターンシップで Windows を使用した際に作成した AutoHotkey の設定。
 
 ## nix/
 

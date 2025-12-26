@@ -1,0 +1,290 @@
+module complex_modifications
+
+import "./schema.pkl"
+
+output {
+  value = root
+  renderer = new JsonRenderer {
+    omitNullProperties = true
+  }
+}
+
+root: schema.ComplexModifications = new {
+  title = "ryota2357's complex modifications (JIS)"
+  rules = new {
+    new {
+      description = "escキーを押したときに、英数キーも送信する"
+      manipulators = new { new {
+        from = new { key_code = "escape" }
+        to = new {
+          new { key_code = "escape" }
+          new { key_code = "japanese_eisuu" }
+        }
+      }}
+    }
+    new {
+      description = "右コマンド単押しで かな にする"
+      manipulators = new { new {
+        from = new {
+          key_code = "right_command"
+          modifiers = new { optional = new { "any" } }
+        }
+        to = new { new { key_code = "right_command" } }
+        to_if_alone = new { new { key_code = "japanese_kana" } }
+      } }
+    }
+    new {
+      description = "C-j で かな にする"
+      manipulators = new { new {
+        from = new {
+          key_code = "j"
+          modifiers = new { mandatory = new { "control" } }
+        }
+        to = new { new { key_code = "japanese_kana" } }
+      } }
+    }
+    new {
+      description = "かな入力中で l で英数にする"
+      manipulators = new { new {
+        from = new { key_code = "l" }
+        to = new { new { key_code = "japanese_eisuu" } }
+        conditions = new { new {
+          type = "input_source_if"
+          input_sources = new { new { language = "ja" } }
+        } }
+      } }
+    }
+    new {
+      description = "左シフト/左コマンド単押しで 英数 にする"
+      manipulators = new {
+        new {
+          from = new {
+            key_code = "left_shift"
+            modifiers = new { optional = new { "any" } }
+          }
+          to = new { new { key_code = "left_shift" } }
+          to_if_alone = new { new { key_code = "japanese_eisuu" } }
+        }
+        new {
+          from = new {
+            key_code = "left_command"
+            modifiers = new { optional = new { "any" } }
+          }
+          to = new { new { key_code = "right_command" } }
+          to_if_alone = new { new { key_code = "japanese_eisuu" } }
+        }
+      }
+    }
+    new {
+      description = "かな入力中の C-w と ` は英数に入って入力する"
+      manipulators = new {
+        new {
+          from = new {
+            key_code = "open_bracket"
+            modifiers = new { mandatory = new { "shift" } }
+          }
+          to = new {
+            new { key_code = "japanese_eisuu" }
+            new { key_code = "open_bracket" modifiers = new { "shift" } }
+          }
+          conditions = new { new {
+            type = "input_source_if"
+            input_sources = new { new { language = "ja" } }
+          } }
+        }
+        new {
+          from = new {
+            key_code = "w"
+            modifiers = new { mandatory = new { "control" } }
+          }
+          to = new {
+            new { key_code = "japanese_eisuu" }
+            new { key_code = "w" modifiers = new { "control" } }
+          }
+          conditions = new { new {
+            type = "input_source_if"
+            input_sources = new { new { language = "ja" } }
+          } }
+        }
+      }
+    }
+    new {
+      description = "[{ と ]} を入れ替える"
+      manipulators = new {
+        new {
+          from = new { key_code = "backslash" }
+          to = new { new { key_code = "close_bracket" } }
+        }
+        new {
+          from = new { key_code = "close_bracket" }
+          to = new { new { key_code = "backslash" } }
+        }
+        new {
+          from = new {
+            key_code = "backslash"
+            modifiers = new { mandatory = new { "shift" } }
+          }
+          to = new { new {
+            key_code = "close_bracket"
+            modifiers = new { "shift" }
+          } }
+        }
+        new {
+          from = new {
+            key_code = "close_bracket"
+            modifiers = new { mandatory = new { "shift" } }
+          }
+          to = new { new {
+            key_code = "backslash"
+            modifiers = new { "shift" }
+          } }
+        }
+      }
+    }
+    new {
+      description = "シンボルキー周り"
+      manipulators = new {
+        // 2 + shift -> @
+        new {
+          from = new {
+            key_code = "2"
+            modifiers = new { mandatory = new { "shift" } }
+          }
+          to = new { new { key_code = "open_bracket" } }
+        }
+        // 6 + shift -> 0
+        new {
+          from = new {
+            key_code = "6"
+            modifiers = new { mandatory = new { "shift" } }
+          }
+          to = new { new {
+            key_code = "0"
+            modifiers = new { "shift" }
+          } }
+        }
+        // 7 + shift -> &
+        new {
+          from = new {
+            key_code = "7"
+            modifiers = new { mandatory = new { "shift" } }
+          }
+          to = new { new {
+            key_code = "6"
+            modifiers = new { "shift" }
+          } }
+        }
+        // 8 + shift -> *
+        new {
+          from = new {
+            key_code = "8"
+            modifiers = new { mandatory = new { "shift" } }
+          }
+          to = new { new {
+            key_code = "quote"
+            modifiers = new { "shift" }
+          } }
+        }
+        // 9 + shift -> (
+        new {
+          from = new {
+            key_code = "9"
+            modifiers = new { mandatory = new { "shift" } }
+          }
+          to = new { new {
+            key_code = "8"
+            modifiers = new { "shift" }
+          } }
+        }
+        // 0 + shift -> )
+        new {
+          from = new {
+            key_code = "0"
+            modifiers = new { mandatory = new { "shift" } }
+          }
+          to = new { new {
+            key_code = "9"
+            modifiers = new { "shift" }
+          } }
+        }
+        // - -> =
+        new {
+          from = new { key_code = "hyphen" }
+          to = new { new {
+            key_code = "hyphen"
+            modifiers = new { "shift" }
+          } }
+        }
+        // - + shift -> +
+        new {
+          from = new {
+            key_code = "hyphen"
+            modifiers = new { mandatory = new { "shift" } }
+          }
+          to = new { new {
+            key_code = "semicolon"
+            modifiers = new { "shift" }
+          } }
+        }
+        // @ -> -
+        new {
+          from = new { key_code = "open_bracket" }
+          to = new { new { key_code = "hyphen" } }
+        }
+        // ; -> :
+        new {
+          from = new { key_code = "semicolon" }
+          to = new { new { key_code = "quote" } }
+        }
+        // ; + shift -> "
+        new {
+          from = new {
+            key_code = "semicolon"
+            modifiers = new { mandatory = new { "shift" } }
+          }
+          to = new { new {
+            key_code = "2"
+            modifiers = new { "shift" }
+          } }
+        }
+        // : -> ;
+        new {
+          from = new { key_code = "quote" }
+          to = new { new { key_code = "semicolon" } }
+        }
+        // : + shift -> '
+        new {
+          from = new {
+            key_code = "quote"
+            modifiers = new { mandatory = new { "shift" } }
+          }
+          to = new { new {
+            key_code = "7"
+            modifiers = new { "shift" }
+          } }
+        }
+        // / -> _
+        new {
+          from = new { key_code = "slash" }
+          to = new { new { key_code = "international1" } }
+        }
+        // _ -> /
+        new {
+          from = new { key_code = "international1" }
+          to = new { new { key_code = "slash" } }
+        }
+        // _ + shift -> \
+        new {
+          from = new {
+            key_code = "international1"
+            modifiers = new { mandatory = new { "shift" } }
+          }
+          to = new { new {
+            key_code = "international3"
+            modifiers = new { "option" }
+          } }
+        }
+      }
+    }
+  }
+}
