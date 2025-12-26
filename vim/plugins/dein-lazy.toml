@@ -451,6 +451,17 @@ tex = '''
 '''
 
 [[plugins]]
+repo = 'apple/pkl-neovim'
+on_ft = 'pkl'
+lua_add = '''
+  vim.g.pkl_neovim = {
+    start_command = { "pkl-lsp" },
+    pkl_cli_path = "/Users/ryota2357/.nix-profile/bin/pkl"
+  }
+'''
+
+
+[[plugins]]
 repo = 'vim-fall/fall.vim'
 depends = ['denops.vim', 'vim-glyph-palette']
 on_cmd = 'Fall'

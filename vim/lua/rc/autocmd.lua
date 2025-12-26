@@ -84,7 +84,7 @@ autocmd "CmdlineEnter" {
 autocmd "CmdwinEnter" {
     desc = "cmdwin の設定",
     callback = function(context)
-        vim.cmd("TSContextDisable")
+        vim.cmd("TSContext disable")
         vim.cmd([[g/\v(^qa?!?|^wq?a?!?)$/d]])
         vim.opt_local.number = false
         vim.opt_local.signcolumn = "no"
@@ -93,7 +93,7 @@ autocmd "CmdwinEnter" {
         vim.keymap.set("n", "<ESC>", "<Cmd>:q<CR>", { buffer = context.buf })
         autocmd "CmdwinLeave" {
             callback = function()
-                vim.cmd("TSContextEnable")
+                vim.cmd("TSContext enable")
                 vim.opt.cmdheight = save_cmdheight
             end,
             once = true,

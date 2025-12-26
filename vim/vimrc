@@ -269,7 +269,7 @@ for motion in [['i2', 'i"'], ['i8', "i'"], ['i9', 'i('], ['i0', 'i)'],
   execute 'xnoremap ' .. motion[0] .. ' ' .. motion[1]
 endfor
 for motion in ['f', 't', 'F', 'T']
-  for char in [['1', '!'], ['2', '"'], ['3', '#'], ['4', '$'], ['5', '%'], ['6', '&'], ['7', "'"], ['8', "'"], ['9', '('], ['0', ')']]
+  for char in [['1', '!'], ['2', '+'], ['3', '#'], ['4', '$'], ['5', '%'], ['6', '0'], ['7', "&"], ['8', "*"], ['9', '('], ['0', ')']]
     for mode in ['n', 'o', 'x']
       execute mode .. 'noremap ' .. motion .. char[0] .. ' ' .. motion .. char[1]
       execute mode .. 'noremap ' .. motion .. char[1] .. ' ' .. motion .. char[0]
