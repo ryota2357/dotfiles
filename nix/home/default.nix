@@ -57,7 +57,7 @@
           # Language/Framework tools
           deno
           elan
-          nodejs_24
+          nodejs_latest
           rustup
           shellcheck
           typst
