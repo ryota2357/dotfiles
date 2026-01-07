@@ -54,4 +54,4 @@ key = "0"
 mods = "Command|Shift"
 
 [general]
-live_config_reload = true
+live_config_reload = false

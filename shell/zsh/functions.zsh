@@ -19,6 +19,10 @@ git() {
 }
 
 mkcd() {
+  if [ $# -eq 0 ]; then
+    echo "Pass a directory name"
+    return 2
+  fi
   mkdir -p "$1" && cd "$1"
 }
 

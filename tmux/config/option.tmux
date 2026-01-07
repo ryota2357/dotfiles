@@ -29,6 +29,9 @@ set-option -g default-shell "$HOME/.nix-profile/bin/fish"
 set-option -g default-terminal "tmux-256color"
 set-option -ga terminal-overrides ",$TERM:Tc"
 
+# 拡張キーシーケンスを有効にする
+set -s extended-keys on
+
 # ↓はよくわかってない。これがないとtmuxで下線に色がつかなくなる。
 set -as terminal-overrides ',*:Setulc=\E[58::2::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'
 

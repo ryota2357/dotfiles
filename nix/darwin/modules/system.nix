@@ -24,6 +24,7 @@
         tilesize = 48;
         persistent-apps = [ ];
         expose-animation-duration = 0.0;
+        expose-group-apps = true;
       };
       spaces = {
         spans-displays = true;

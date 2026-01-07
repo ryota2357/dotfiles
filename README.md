@@ -32,7 +32,7 @@ Nixから利用する場合、`_generated.nix` を `import` することで各�
 
 キーマッピング設定をまとめている。
 
-`kaymap/ahk` は 2024 年夏のインターンシップで Windows を使用した際に作成した AutoHotkey の設定。
+`keymap/ahk` は 2024 年夏のインターンシップで Windows を使用した際に作成した AutoHotkey の設定。
 
 ## nix/
 
