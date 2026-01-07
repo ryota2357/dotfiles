@@ -25,6 +25,7 @@
         programs.man.enable = false;
       }
       ./modules/ai.nix
+      ./modules/desktop.nix
       ./modules/direnv.nix
       ./modules/fd.nix
       ./modules/git.nix

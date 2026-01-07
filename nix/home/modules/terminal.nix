@@ -1,7 +1,10 @@
 { config-file, ... }:
 {
   home.packages = [
-    # install with homebrew
+    # installed via Homebrew
+    # - alacritty
+    # - wezterm
+    # - ghostty
   ];
   xdg.configFile = {
     "alacritty/alacritty.toml".source = config-file."alacritty.toml";

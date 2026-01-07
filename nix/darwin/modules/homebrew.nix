@@ -8,6 +8,8 @@
     taps = [
       "buo/cask-upgrade"
       "ryota2357/pleck-jp"
+      "nikitabobko/tap" # aerospace
+      "FelixKratz/formulae" # sketchybar
     ];
     brews = [
       "docker-completion"
@@ -48,6 +50,7 @@
       "font-harano-aji"
       "font-plemol-jp-nf"
       "pleck-jp"
+      "sf-symbols"
 
       # Dev Tools
       "docker-desktop"
@@ -64,6 +67,7 @@
       "zoom"
 
       # macOS improvements
+      "aerospace"
       "alfred"
       "alt-tab"
       "hhkb"
@@ -73,6 +77,7 @@
       "keycastr"
       "logi-options+"
       "obs"
+      "sketchybar"
       "skim"
 
       # AI

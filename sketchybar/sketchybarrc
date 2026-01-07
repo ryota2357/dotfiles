@@ -1,0 +1,182 @@
+#!/usr/bin/env bash
+
+PLUGIN_DIR="$CONFIG_DIR/plugins"
+
+##### Bar Appearance #####
+# https://felixkratz.github.io/SketchyBar/config/bar
+bar=(
+  position=top
+  height=40
+  color=0x00000000
+)
+sketchybar --bar "${bar[@]}"
+
+##### Changing Defaults #####
+# https://felixkratz.github.io/SketchyBar/config/items
+default=(
+  label.font='PleckJP:Bold:16' # or 'Osaka:Regular-Mono:16'
+  label.color=0xffffffff
+  label.padding_left=4
+  label.padding_right=10
+  icon.font.size=18
+  icon.color=0xffffffff
+  icon.padding_left=10
+  icon.padding_right=4
+  popup.background.color=0x6a282a36
+  popup.background.border_width=1
+  popup.background.border_color=0x48ffffff
+  popup.background.corner_radius=3
+  popup.blur_radius=10
+)
+sketchybar --default "${default[@]}"
+
+add_item() {
+  local name="$1"
+  local position="$2"
+  shift 2
+  sketchybar --add item "$name" "$position" --set "$name" "$@"
+}
+add_bracket() {
+  local name="$1"
+  shift
+  local config=(
+    blur_radius=10
+    background.height=32
+    background.color=0x6a282a36
+    background.corner_radius=8
+    background.border_width=1
+    background.border_color=0x48ffffff
+  )
+  sketchybar --add bracket "$name" "$@" --set "$name" "${config[@]}"
+}
+_SPACER_COUNT=0
+add_spacer() {
+  _SPACER_COUNT=$((_SPACER_COUNT + 1))
+  local name="spacer.$_SPACER_COUNT"
+  sketchybar --add item "$name" "$1" --set "$name" width=25
+}
+
+########## Events ##########
+
+sketchybar --add event aerospace_workspace_change
+
+########## Left Items ##########
+
+# Apple Logo
+add_item apple_logo left \
+  icon='􀣺' \
+  label.drawing=off \
+  icon.padding_left=10 \
+  icon.padding_right=11 \
+  click_script="sketchybar -m --set \$NAME popup.drawing=toggle"
+add_item preferences_button popup.apple_logo \
+  icon='􀺽' \
+  label="Preferences" \
+  click_script="open -a 'System Preferences';
+                sketchybar -m --set apple_logo popup.drawing=off"
+add_item activity_button popup.apple_logo \
+  icon='􀒓' \
+  label="Activity Monitor" \
+  click_script="open -a 'Activity Monitor';
+               sketchybar -m --set apple_logo popup.drawing=off"
+add_item lock_button popup.apple_logo \
+  icon='􀒳' \
+  label="Lock Screen" \
+  click_script="pmset displaysleepnow;
+                sketchybar -m --set apple_logo popup.drawing=off"
+add_item sleep_button popup.apple_logo \
+  icon='􀶠' \
+  label="Sleep" \
+  click_script="pmset sleepnow;
+                sketchybar -m --set apple_logo popup.drawing=off"
+add_item reload_button popup.apple_logo \
+  icon='􀖋' \
+  label="Reload SketchyBar" \
+  click_script="sketchybar --reload"
+add_bracket apple_logo_bracket apple_logo
+
+# Spacer
+add_spacer left
+
+# Workspaces
+add_item workspace.icon left \
+  icon='􀨧' \
+  icon.font.size=14 \
+  icon.padding_right=5 \
+  label.drawing=off
+for sid in {1..9} 0; do
+  add_item "workspace.$sid" left \
+    icon.drawing=off \
+    label="$sid" \
+    label.font.size=18 \
+    label.padding_right=10 \
+    label.padding_left=10 \
+    script="$PLUGIN_DIR/workspace.sh" \
+    click_script="aerospace workspace $sid" \
+    --subscribe "workspace.$sid" aerospace_workspace_change
+done
+add_bracket workspace_bracket '/workspace\..*/'
+
+# Spacer
+add_spacer left
+
+# Front App
+add_item front_app left \
+  icon='􀆊' \
+  icon.font.size=14 \
+  label.padding_left=10 \
+  script="$PLUGIN_DIR/front_app.sh" \
+  --subscribe front_app front_app_switched
+add_bracket front_app_bracket front_app
+
+########## Right Items ##########
+
+# Time & Date
+add_item time right \
+  icon='􀐫' \
+  script="$PLUGIN_DIR/time.sh" \
+  update_freq=1 \
+  label.width=80
+add_item date right \
+  icon='􀉉' \
+  script="$PLUGIN_DIR/date.sh" \
+  update_freq=1
+add_bracket datetime_bracket date time
+
+# Spacer
+add_spacer right
+
+add_item battery right \
+  script="$PLUGIN_DIR/battery.sh" \
+  update_freq=1
+add_bracket battery_bracket battery
+
+# Spacer
+add_spacer right
+
+# Wifi & Volume
+add_item wifi right \
+  script="$PLUGIN_DIR/wifi.sh" \
+  update_freq=5
+add_item volume right \
+  script="$PLUGIN_DIR/volume.sh" \
+  icon.width=36 \
+  --subscribe volume volume_change
+add_bracket wifi_volume_bracket volume wifi
+
+# Spacer
+add_spacer right
+
+# Memory & CPU
+add_item memory right \
+  icon='􀫦' \
+  script="$PLUGIN_DIR/memory.sh" \
+  update_freq=4
+add_item cpu right \
+  icon='􀫥' \
+  script="$PLUGIN_DIR/cpu.sh" \
+  update_freq=4
+add_bracket sysinfo_bracket memory cpu
+
+##### Force all scripts to run the first time (never do this in a script) #####
+sketchybar --update

@@ -19,6 +19,10 @@
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    vm_stat2 = {
+      url = "github:ryota2357/vm_stat2";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   nixConfig = {
@@ -40,6 +44,7 @@
       nix-darwin,
       treefmt-nix,
       neovim-nightly-overlay,
+      vm_stat2,
     }:
     let
       system = "aarch64-darwin";
@@ -72,6 +77,9 @@
             config.allowUnfree = true;
             overlays = [
               neovim-nightly-overlay.overlays.default
+              (final: prev: {
+                vm_stat2 = vm_stat2.packages.${system}.default;
+              })
             ];
           };
         }

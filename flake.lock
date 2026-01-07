@@ -121,7 +121,8 @@
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs",
-        "treefmt-nix": "treefmt-nix"
+        "treefmt-nix": "treefmt-nix",
+        "vm_stat2": "vm_stat2"
       }
     },
     "treefmt-nix": {
@@ -141,6 +142,26 @@
       "original": {
         "owner": "numtide",
         "repo": "treefmt-nix",
+        "type": "github"
+      }
+    },
+    "vm_stat2": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1767980242,
+        "narHash": "sha256-bmhkJzuSsvBqkpliU8vVGf4OHZUnAR1u6Y06xpc9/Pg=",
+        "owner": "ryota2357",
+        "repo": "vm_stat2",
+        "rev": "06d1628fa66e826ec331bbc776667bb1fea56297",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ryota2357",
+        "repo": "vm_stat2",
         "type": "github"
       }
     }
