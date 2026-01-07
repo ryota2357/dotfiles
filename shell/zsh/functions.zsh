@@ -26,6 +26,16 @@ mkcd() {
   mkdir -p "$1" && cd "$1"
 }
 
+mktouch() {
+  if [ $# -eq 0 ]; then
+    echo "Pass at least one file path"
+    return 2
+  fi
+  for file in "$@"; do
+    mkdir -p "$(dirname "$file")" && touch "$file"
+  done
+}
+
 nix() {
   command nix "$@"
   local exit_code=$?
