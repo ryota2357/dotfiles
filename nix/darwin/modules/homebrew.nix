@@ -9,7 +9,6 @@
       "buo/cask-upgrade"
       "ryota2357/pleck-jp"
       "nikitabobko/tap" # aerospace
-      "FelixKratz/formulae" # sketchybar
     ];
     brews = [
       "docker-completion"
@@ -77,7 +76,6 @@
       "keycastr"
       "logi-options+"
       "obs"
-      "sketchybar"
       "skim"
 
       # AI

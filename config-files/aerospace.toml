@@ -31,7 +31,7 @@ exec-on-workspace-change = [
 [exec]
 inherit-env-vars = true
 [exec.env-vars]
-PATH = '/opt/homebrew/bin:/opt/homebrew/sbin:${PATH}'
+PATH = '/opt/homebrew/bin:/opt/homebrew/sbin:${HOME}/.nix-profile/bin:${PATH}'
 
 [gaps]
 inner.horizontal = 1
