@@ -66,6 +66,8 @@ Home Managerの利用方針:
 
 ![sketchybar screenshot](./sketchybar/screenshot.png)
 
+デスクトップ画像: [DAYBREAK FRONTLINE - adsuger](https://www.pixiv.net/artworks/89756191)
+
 ## tmux/
 
 プラグインマネージャは使用していない。
