@@ -64,14 +64,14 @@ Home Managerの利用方針:
 
 ## sketchybar/
 
-![./sketchybar/screenshot.png]
+![sketchybar screenshot](./sketchybar/screenshot.png)
 
 ## tmux/
 
 プラグインマネージャは使用していない。
 ステータスバーについては、sketchybar に時刻等の情報を載せているので、最小限にしている。
 
-![./tmux/screenshot.png]
+![tmux statusline screenshot](./tmux/screenshot.png)
 
 ## vim/
 
