@@ -64,9 +64,9 @@ Home Managerの利用方針:
 
 ## tmux/
 
-プラグインマネージャ: [TPM (Tmux Plugin Manager)](https://github.com/tmux-plugins/tpm)
+プラグインマネージャは使用していない。
 
-プラグインのインストールは `prefix` + <kbd>I</kbd> で行える。
+ステータスバーについては、sketchybar に時刻等の情報を載せているので、最小限にしている。
 
 ## vim/
 
