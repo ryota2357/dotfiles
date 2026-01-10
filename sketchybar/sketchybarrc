@@ -34,7 +34,16 @@ add_item() {
   local name="$1"
   local position="$2"
   shift 2
-  sketchybar --add item "$name" "$position" --set "$name" "$@"
+  local args=("$name")
+  while [[ $# -gt 0 ]]; do
+    if [[ "$1" == --* ]]; then
+      args+=("$1" "$name")
+    else
+      args+=("$1")
+    fi
+    shift
+  done
+  sketchybar --add item "$name" "$position" --set "${args[@]}"
 }
 add_bracket() {
   local name="$1"
@@ -59,6 +68,7 @@ add_spacer() {
 ########## Events ##########
 
 sketchybar --add event aerospace_workspace_change
+sketchybar --add event date_boundary
 
 ########## Left Items ##########
 
@@ -100,7 +110,7 @@ add_spacer left
 
 # Workspaces
 add_item workspace.icon left \
-  icon='􀨧' \
+  icon='􀏧' \
   icon.font.size=14 \
   icon.padding_right=5 \
   label.drawing=off
@@ -113,7 +123,7 @@ for sid in {1..9} 0; do
     label.padding_left=10 \
     script="$PLUGIN_DIR/workspace.sh" \
     click_script="aerospace workspace $sid" \
-    --subscribe "workspace.$sid" aerospace_workspace_change
+    --subscribe aerospace_workspace_change
 done
 add_bracket workspace_bracket '/workspace\..*/'
 
@@ -126,7 +136,7 @@ add_item front_app left \
   icon.font.size=14 \
   label.padding_left=10 \
   script="$PLUGIN_DIR/front_app.sh" \
-  --subscribe front_app front_app_switched
+  --subscribe front_app_switched
 add_bracket front_app_bracket front_app
 
 ########## Right Items ##########
@@ -140,7 +150,7 @@ add_item time right \
 add_item date right \
   icon='􀉉' \
   script="$PLUGIN_DIR/date.sh" \
-  update_freq=1
+  --subscribe date_boundary
 add_bracket datetime_bracket date time
 
 # Spacer
@@ -148,7 +158,8 @@ add_spacer right
 
 add_item battery right \
   script="$PLUGIN_DIR/battery.sh" \
-  update_freq=1
+  update_freq=5 \
+  --subscribe power_source_change
 add_bracket battery_bracket battery
 
 # Spacer
@@ -157,11 +168,11 @@ add_spacer right
 # Wifi & Volume
 add_item wifi right \
   script="$PLUGIN_DIR/wifi.sh" \
-  update_freq=5
+  --subscribe wifi_change
 add_item volume right \
   script="$PLUGIN_DIR/volume.sh" \
   icon.width=36 \
-  --subscribe volume volume_change
+  --subscribe volume_change
 add_bracket wifi_volume_bracket volume wifi
 
 # Spacer
@@ -171,11 +182,11 @@ add_spacer right
 add_item memory right \
   icon='􀫦' \
   script="$PLUGIN_DIR/memory.sh" \
-  update_freq=4
+  update_freq=5
 add_item cpu right \
   icon='􀫥' \
   script="$PLUGIN_DIR/cpu.sh" \
-  update_freq=4
+  update_freq=5
 add_bracket sysinfo_bracket memory cpu
 
 ##### Force all scripts to run the first time (never do this in a script) #####

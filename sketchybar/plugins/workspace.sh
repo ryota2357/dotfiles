@@ -11,7 +11,7 @@ if [ "$FOCUSED" = "?" ]; then
   exit 0
 fi
 
-SID=$(echo "$NAME" | sed 's/workspace\.//')
+SID=${NAME#workspace.}
 if [ "$FOCUSED" = "$SID" ]; then
   sketchybar --set "$NAME" label.color=0xffffffff
 else

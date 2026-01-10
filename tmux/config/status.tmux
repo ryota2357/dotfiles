@@ -1,8 +1,8 @@
-# ステータスバーをトップに配置する
+# ステータスラインをトップに配置する
 set-option -g status-position top
 
-# 更新間隔を 1 秒に
-set-option -g status-interval 1
+# 定期更新をしない
+set-option -g status-interval 0
 
 # 背景色
 set-option -g status-bg "#494949"
