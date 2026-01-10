@@ -62,11 +62,16 @@ Home Managerの利用方針:
 デフォルトシェルは **zsh**、インタラクティブシェルとして **fish** を使用している。
 どちらもプラグインマネージャは使用していない。
 
+## sketchybar/
+
+![./sketchybar/screenshot.png]
+
 ## tmux/
 
 プラグインマネージャは使用していない。
-
 ステータスバーについては、sketchybar に時刻等の情報を載せているので、最小限にしている。
+
+![./tmux/screenshot.png]
 
 ## vim/
 
