@@ -150,22 +150,23 @@ add_item time right \
 add_item date right \
   icon='􀉉' \
   script="$PLUGIN_DIR/date.sh" \
-  --subscribe date_boundary
+  --subscribe system_woke date_boundary
 add_bracket datetime_bracket date time
 
 # Spacer
 add_spacer right
 
+# Battery
 add_item battery right \
   script="$PLUGIN_DIR/battery.sh" \
-  update_freq=5 \
+  update_freq=30 \
   --subscribe power_source_change
 add_bracket battery_bracket battery
 
 # Spacer
 add_spacer right
 
-# Wifi & Volume
+# Wi-Fi & Volume
 add_item wifi right \
   script="$PLUGIN_DIR/wifi.sh" \
   --subscribe wifi_change

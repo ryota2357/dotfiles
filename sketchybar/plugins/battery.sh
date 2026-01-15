@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
-PERCENTAGE=$(pmset -g batt | grep -Eo "[0-9]+%" | cut -d% -f1)
-CHARGING=$(pmset -g batt | grep 'AC Power')
+PMSET_OUTPUT=$(pmset -g batt)
+PERCENTAGE=$(echo "$PMSET_OUTPUT" | grep -Eo "[0-9]+%" | cut -d% -f1)
+CHARGING=$(echo "$PMSET_OUTPUT" | grep 'AC Power')
 
 if [ "$PERCENTAGE" = "" ]; then
   exit 0
