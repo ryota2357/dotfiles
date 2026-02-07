@@ -64,6 +64,7 @@
       "discord"
       "slack"
       "zoom"
+      "zulip"
 
       # macOS improvements
       "aerospace"

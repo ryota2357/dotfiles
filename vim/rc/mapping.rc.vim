@@ -44,8 +44,12 @@ endif
 if has('nvim')
   nnoremap j gj
   nnoremap k gk
-  nnoremap <Up> g<Up>
+  nnoremap <Up>   g<Up>
   nnoremap <Down> g<Down>
+  xnoremap <expr> k mode() ==# 'V' ? 'k' : 'gk'
+  xnoremap <expr> j mode() ==# 'V' ? 'j' : 'gj'
+  xnoremap <expr> <Up>   mode() ==# 'V' ? '<Up>'   : 'g<Up>'
+  xnoremap <expr> <Down> mode() ==# 'V' ? '<Down>' : 'g<Down>'
 endif
 
 " 行頭行末移動
