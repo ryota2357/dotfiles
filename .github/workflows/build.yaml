@@ -65,4 +65,5 @@ jobs:
               attribute: homeConfigurations.default.activationPackage
             - displayName: nix-darwin
               attribute: darwinConfigurations.default.system
+          build: false
           comment-strategy: update
