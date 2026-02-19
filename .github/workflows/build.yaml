@@ -40,3 +40,29 @@ jobs:
 
       - name: Print disk usage
         run: df -h
+
+  nix-diff:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Setup Nix
+        uses: ./.github/actions/setup-nix
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          skipPush: true
+
+      - name: Nix Diff
+        uses: natsukium/nix-diff-action@09eba6cfd3ccb94ba8ebf6e3bde90d86a9181f77
+        with:
+          attributes: |
+            - displayName: home-manager
+              attribute: homeConfigurations.default.activationPackage
+            - displayName: nix-darwin
+              attribute: darwinConfigurations.default.system
+          comment-strategy: update
