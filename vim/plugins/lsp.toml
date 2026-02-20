@@ -68,8 +68,8 @@ lua_source = '''
         "tailwindcss",
         "taplo",
         "texlab",
-        "ts_ls",
         "tinymist",
+        "ts_ls",
         "vimls",
         "yamlls",
     }) do
@@ -93,6 +93,9 @@ lua << EOF
   local notify = vim.notify
   vim.notify = function(msg, ...)
     if msg:match('warning: multiple different client offset_encodings') then
+      return
+    end
+    if msg:match('vim.lsp: method "completionItem/resolve" is not supported by any server activated for this buffer') then
       return
     end
     notify(msg, ...)
