@@ -19,6 +19,10 @@
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    edgepkgs = {
+      url = "github:natsukium/edgepkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     vm_stat2 = {
       url = "github:ryota2357/vm_stat2";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -44,6 +48,7 @@
       nix-darwin,
       treefmt-nix,
       neovim-nightly-overlay,
+      edgepkgs,
       vm_stat2,
     }:
     let
@@ -77,6 +82,7 @@
             config.allowUnfree = true;
             overlays = [
               neovim-nightly-overlay.overlays.default
+              edgepkgs.overlays.default
               (final: prev: {
                 vm_stat2 = vm_stat2.packages.${system}.default;
               })
@@ -94,6 +100,7 @@
             lua-language-server
             vim-language-server
             yaml-language-server
+            vscode-json-languageserver
             nil
           ];
         };

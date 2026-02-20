@@ -24,7 +24,7 @@
         programs.home-manager.enable = true;
         programs.man.enable = false;
       }
-      ./modules/ai.nix
+      ./modules/coding-agent.nix
       ./modules/desktop.nix
       ./modules/direnv.nix
       ./modules/fd.nix
