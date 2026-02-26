@@ -1,0 +1,37 @@
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = [
+  "gh issue list",
+  "gh issue status",
+  "gh issue view",
+  "gh pr list",
+  "gh pr status",
+  "gh pr view",
+  "gh run list",
+  "gh run status",
+  "gh run view",
+  "gh run watch",
+]
+decision = "allow"
+priority = 100
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = [
+  "git blame",
+  "git diff",
+  "git log",
+  "git show",
+]
+decision = "allow"
+priority = 100
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = [
+  "grep",
+  "ls",
+  "rg",
+]
+decision = "allow"
+priority = 100

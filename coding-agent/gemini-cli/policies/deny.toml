@@ -1,0 +1,5 @@
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = ["sudo"]
+decision = "deny"
+priority = 999

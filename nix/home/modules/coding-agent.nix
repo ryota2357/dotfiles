@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    claude-code-bin
+    edge.claude-code-bin
     gemini-cli
     github-copilot-cli
   ];
@@ -11,7 +11,8 @@
     ".claude/CLAUDE.md".source = ../../../coding-agent/AGENTS.md;
 
     ".gemini/settings.json".source = ../../../coding-agent/gemini-cli/settings.json;
-    ".gemini/AGENTS.md".source = ../../../coding-agent/AGENTS.md;
+    ".gemini/policies".source = ../../../coding-agent/gemini-cli/policies;
+    ".gemini/GEMINI.md".source = ../../../coding-agent/AGENTS.md;
 
     ".copilot/copilot-instructions.md".source = ../../../coding-agent/AGENTS.md;
   };

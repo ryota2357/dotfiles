@@ -104,6 +104,9 @@ lua_source = '''
 repo = 'koka-lang/koka'
 rtp = 'support/vim'
 
+[[plugins]]
+repo = '~/ghq/github.com/mical-lang/mical.vim'
+
 # [[plugins]]
 # repo = '~/Projects/VimPlugin/qfind'
 #
