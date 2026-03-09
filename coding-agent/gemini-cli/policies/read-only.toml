@@ -4,6 +4,7 @@ commandPrefix = [
   "gh issue list",
   "gh issue status",
   "gh issue view",
+  "gh pr diff",
   "gh pr list",
   "gh pr status",
   "gh pr view",

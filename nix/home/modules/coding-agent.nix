@@ -3,7 +3,7 @@
   home.packages = with pkgs; [
     edge.claude-code-bin
     gemini-cli
-    github-copilot-cli
+    edge.github-copilot-cli
   ];
 
   home.file = {
