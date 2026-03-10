@@ -23,8 +23,8 @@
       url = "github:natsukium/edgepkgs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    vm_stat2 = {
-      url = "github:ryota2357/vm_stat2";
+    nur-packages = {
+      url = "github:ryota2357/nur-packages";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -49,7 +49,7 @@
       treefmt-nix,
       neovim-nightly-overlay,
       edgepkgs,
-      vm_stat2,
+      nur-packages
     }:
     let
       system = "aarch64-darwin";
@@ -83,9 +83,7 @@
             overlays = [
               neovim-nightly-overlay.overlays.default
               edgepkgs.overlays.default
-              (final: prev: {
-                vm_stat2 = vm_stat2.packages.${system}.default;
-              })
+              nur-packages.overlays.default
             ];
           };
         }
