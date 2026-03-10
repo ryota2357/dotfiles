@@ -1,9 +1,24 @@
 { pkgs, ... }:
+let
+  edge = pkgs.edge;
+in
 {
-  home.packages = with pkgs; [
+  home.packages = [
     edge.claude-code-bin
-    gemini-cli
-    edge.github-copilot-cli
+    pkgs.gemini-cli
+    # edge.github-copilot-cli
+    (pkgs.writeShellApplication {
+      name = "copilot";
+      runtimeInputs = [
+        pkgs.bashInteractive # https://github.com/github/copilot-cli/issues/731
+        edge.github-copilot-cli
+      ];
+      text = ''
+        BASH_PATH="$(which bash)"
+        export SHELL="$BASH_PATH"
+        exec copilot "$@"
+      '';
+    })
   ];
 
   home.file = {

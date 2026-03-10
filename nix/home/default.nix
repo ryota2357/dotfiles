@@ -64,6 +64,9 @@
           shellcheck
           typst
           tinymist
+
+          # my packages
+          mical
         ];
       }
     ];
