@@ -20,6 +20,11 @@
 | `tmux-connect` | 既存の tmux セッションへの接続や、新規セッションの立ち上げを簡単に行う。 |
 | `trash`        | macOS の Finder と同様の「ゴミ箱への移動」機能を提供する。               |
 
+## coding-agent/
+
+[Claude Code](https://claude.ai/code)、[Gemini CLI](https://github.com/google-gemini/gemini-cli)、[GitHub Copilot CLI](https://githubnext.com/projects/copilot-cli) の設定をまとめている。
+
+`AGENTS.md` はすべてのエージェントで共通のコーディング規約を定義しており、各エージェントの instructions ファイルにシンボリックリンクが貼られる。
 
 ## config-files/
 

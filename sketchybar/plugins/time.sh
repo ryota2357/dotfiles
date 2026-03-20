@@ -3,4 +3,6 @@
 TIME=$(date '+%H:%M:%S')
 sketchybar --set "$NAME" label="$TIME"
 
-[[ "${TIME%:*}" =~ ^(23:59|00:00)$ ]] && sketchybar --trigger date_boundary
+if [[ "${TIME%:*}" =~ ^(23:59|00:00)$ ]]; then
+  sketchybar --trigger date_boundary
+fi

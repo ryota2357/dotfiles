@@ -8,7 +8,7 @@ if [ "$PERCENTAGE" = "" ]; then
   exit 0
 fi
 
-case ${PERCENTAGE} in
+case "$PERCENTAGE" in
   100)    ICON="󰁹"; COLOR="0xff4caf50" ;; #4caf50
   9[0-9]) ICON="󰂂"; COLOR="0xff4caf50" ;;
   8[0-9]) ICON="󰂁"; COLOR="0xff80e27e" ;; #80e27e
