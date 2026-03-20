@@ -99,7 +99,7 @@
             vim-language-server
             yaml-language-server
             vscode-json-languageserver
-            nil
+            nixd
           ];
         };
     };

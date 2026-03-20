@@ -26,7 +26,10 @@
       "Bash(git show *)",
       "Bash(grep *)",
       "Bash(ls *)",
-      "Bash(rg *)",
+      "Bash(nix build *)",
+      "Bash(nix fmt *)",
+      "Bash(nix log *)",
+      "Bash(nix-build *)",
       "WebFetch(domain:api.github.com)",
       "WebFetch(domain:docs.github.com)",
       "WebFetch(domain:docs.renovatebot.com)"

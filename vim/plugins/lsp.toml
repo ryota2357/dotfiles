@@ -60,6 +60,7 @@ lua_source = '''
         "koka",
         "lua_ls",
         "nil_ls",
+        "nixd",
         "ocamllsp",
         -- "omnisharp",
         "pyright",

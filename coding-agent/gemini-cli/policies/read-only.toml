@@ -32,7 +32,6 @@ toolName = "run_shell_command"
 commandPrefix = [
   "grep",
   "ls",
-  "rg",
 ]
 decision = "allow"
 priority = 100

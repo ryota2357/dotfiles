@@ -59,7 +59,7 @@
           # Language/Framework tools
           deno
           elan
-          nodejs_latest
+          nodejs-slim_latest
           rustup
           shellcheck
           typst
