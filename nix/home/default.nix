@@ -50,7 +50,7 @@
           watchexec
           wget
 
-          nodePackages.svgo
+          svgo
           pdf2svg
 
           # gnuplot_qt  # qt周りでエラー起こしてterm qtが使えない
