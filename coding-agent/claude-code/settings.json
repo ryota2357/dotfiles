@@ -16,6 +16,8 @@
       "Bash(gh pr list *)",
       "Bash(gh pr status *)",
       "Bash(gh pr view *)",
+      "Bash(gh release list *)",
+      "Bash(gh release view *)",
       "Bash(gh run list *)",
       "Bash(gh run status *)",
       "Bash(gh run view *)",

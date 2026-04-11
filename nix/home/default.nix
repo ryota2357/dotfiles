@@ -67,6 +67,7 @@
 
           # my packages
           mical
+          macos-ime
         ];
       }
     ];

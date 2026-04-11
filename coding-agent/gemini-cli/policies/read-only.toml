@@ -8,6 +8,8 @@ commandPrefix = [
   "gh pr list",
   "gh pr status",
   "gh pr view",
+  "gh release list",
+  "gh release view",
   "gh run list",
   "gh run status",
   "gh run view",

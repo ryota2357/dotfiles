@@ -53,14 +53,12 @@ autocmd "CmdlineLeave" {
     desc = "検索コマンドからの離脱時にIMEをoffにする",
     pattern = { "/", "?" },
     callback = function()
-        if vim.fn.has("nvim") then
-            local res = vim.system({
-                "osascript",
-                "-e",
-                'tell application "System Events" to key code 102', -- 102: EISU
-            }):wait()
+        if vim.fn.has("mac") then
+            local res = vim.system({"ime", "set", "com.apple.keylayout.ABC"}):wait()
             if res.code ~= 0 or res.signal ~= 0 then
-                error(vim.inspect(res))
+                vim.notify(vim.inspect(res), vim.log.levels.ERROR, {
+                    title = "Failed to turn off IME"
+                })
             end
         end
     end,
