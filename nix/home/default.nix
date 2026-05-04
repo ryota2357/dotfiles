@@ -47,11 +47,7 @@
           rsync
           tokei
           tree
-          watchexec
           wget
-
-          svgo
-          pdf2svg
 
           # gnuplot_qt  # qt周りでエラー起こしてterm qtが使えない
           # gcc         # ccがgccになってしまうしapple clangとぶつかると怖いので
