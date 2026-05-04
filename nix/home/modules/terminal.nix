@@ -1,4 +1,3 @@
-{ config-file, ... }:
 {
   home.packages = [
     # installed via Homebrew
@@ -7,8 +6,8 @@
     # - ghostty
   ];
   xdg.configFile = {
-    "alacritty/alacritty.toml".source = config-file."alacritty.toml";
-    "wezterm/wezterm.lua".source = config-file."wezterm.lua";
-    "ghostty/config".source = config-file."ghostty~config";
+    "alacritty/alacritty.toml".source = ../../../terminal/alacritty.toml;
+    "wezterm/wezterm.lua".source = ../../../terminal/wezterm.lua;
+    "ghostty/config".source = ../../../terminal/ghostty.ini;
   };
 }

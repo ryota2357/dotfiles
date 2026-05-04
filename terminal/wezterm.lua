@@ -38,19 +38,6 @@ wezterm.on("gui-startup", function(cmd)
     local _, _, window = wezterm.mux.spawn_window(cmd or {})
     window:gui_window():toggle_fullscreen()
 end)
-config.default_prog = {
-    "/bin/bash",
-    "-c",
-    [=[
-    tmux_connect="$HOME/.local/bin/tmux-connect"
-    tmux_paths="$HOME/.nix-profile/bin/tmux"
-    if [[ -x "$tmux_connect" ]]; then
-      "$tmux_connect" --paths "$tmux_paths"
-    else
-      echo "Command not found: $tmux_connect"
-      /bin/zsh
-    fi
-    ]=],
-}
+config.default_prog = "~/dotfiles/terminal/startup.sh"
 
 return config
