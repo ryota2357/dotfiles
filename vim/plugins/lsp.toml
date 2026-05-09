@@ -80,11 +80,10 @@ lua_source = '''
             return
         end
         local cmd = config.cmd
-        if cmd == nil or #cmd == 0 then
-            return
-        end
-        if vim.fn.executable(cmd[1]) == 1 then
+        if type(cmd) == "table" and vim.fn.executable(cmd[1]) == 1 then
             table.insert(available_ls, name)
+        elseif type(cmd) == "function" then
+            -- TODO: add settings to after/lsp/
         end
     end
     vim.lsp.enable(available_ls)
