@@ -2,6 +2,7 @@ local root_pattern = require("lspconfig.util").root_pattern
 
 ---@type vim.lsp.Config
 return {
+    cmd = { "typescript-language-server", "--stdio" },
     single_file_support = false,
     root_dir = function(bufnr, on_dir)
         local fname = vim.api.nvim_buf_get_name(bufnr)

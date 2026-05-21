@@ -6,6 +6,7 @@ end
 
 ---@type vim.lsp.Config
 return {
+    cmd = { "vscode-json-language-server", "--stdio" },
     settings = {
         json = {
             validate = { enable = true },
