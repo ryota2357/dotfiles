@@ -1,0 +1,32 @@
+{
+  "altScreenMode": "always",
+  "colorScheme": "dark",
+  "notifications": true,
+  "permissions": {
+    "allow": [
+      "command(gh issue list)",
+      "command(gh issue status)",
+      "command(gh issue view)",
+      "command(gh pr diff)",
+      "command(gh pr list)",
+      "command(gh pr status)",
+      "command(gh pr view)",
+      "command(gh release list)",
+      "command(gh release view)",
+      "command(gh run list)",
+      "command(gh run status)",
+      "command(gh run view)",
+      "command(gh run watch)",
+      "command(git blame)",
+      "command(git diff)",
+      "command(git log)",
+      "command(git ls-files)",
+      "command(git show)",
+      "command(grep)",
+      "command(ls)"
+    ],
+    "deny": [
+      "command(sudo)"
+    ]
+  }
+}

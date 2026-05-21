@@ -1,17 +1,16 @@
 { pkgs, ... }:
 let
-  edge = pkgs.edge;
+  llm-agents = pkgs.llm-agents;
 in
 {
   home.packages = [
-    edge.claude-code-bin
-    pkgs.gemini-cli
-    # edge.github-copilot-cli
+    llm-agents.claude-code
+    llm-agents.antigravity
     (pkgs.writeShellApplication {
       name = "copilot";
       runtimeInputs = [
         pkgs.bashInteractive # https://github.com/github/copilot-cli/issues/731
-        edge.github-copilot-cli
+        llm-agents.copilot-cli
       ];
       text = ''
         BASH_PATH="$(which bash)"
@@ -28,6 +27,7 @@ in
     ".gemini/settings.json".source = ../../../coding-agent/gemini-cli/settings.json;
     ".gemini/policies".source = ../../../coding-agent/gemini-cli/policies;
     ".gemini/GEMINI.md".source = ../../../coding-agent/AGENTS.md;
+    ".gemini/antigravity-cli/settings.json".source = ../../../coding-agent/antigravity-cli/settings.json;
 
     ".copilot/copilot-instructions.md".source = ../../../coding-agent/AGENTS.md;
   };

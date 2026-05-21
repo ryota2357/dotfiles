@@ -19,9 +19,10 @@
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    edgepkgs = {
-      url = "github:natsukium/edgepkgs";
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.treefmt-nix.follows = "treefmt-nix";
     };
     nur-packages = {
       url = "github:ryota2357/nur-packages";
@@ -48,7 +49,7 @@
       nix-darwin,
       treefmt-nix,
       neovim-nightly-overlay,
-      edgepkgs,
+      llm-agents,
       nur-packages
     }:
     let
@@ -82,7 +83,7 @@
             config.allowUnfree = true;
             overlays = [
               neovim-nightly-overlay.overlays.default
-              edgepkgs.overlays.default
+              llm-agents.overlays.default
               nur-packages.overlays.default
             ];
           };

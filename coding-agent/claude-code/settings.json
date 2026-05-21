@@ -29,6 +29,7 @@
       "Bash(git blame *)",
       "Bash(git diff *)",
       "Bash(git log *)",
+      "Bash(git ls-files *)",
       "Bash(git show *)",
       "Bash(grep *)",
       "Bash(ls *)",

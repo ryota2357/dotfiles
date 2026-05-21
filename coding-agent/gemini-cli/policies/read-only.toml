@@ -24,6 +24,7 @@ commandPrefix = [
   "git blame",
   "git diff",
   "git log",
+  "git ls-files",
   "git show",
 ]
 decision = "allow"
