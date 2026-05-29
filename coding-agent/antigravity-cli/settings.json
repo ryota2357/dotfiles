@@ -21,9 +21,12 @@
       "command(git diff)",
       "command(git log)",
       "command(git ls-files)",
+      "command(git ls-remote)",
+      "command(git ls-tree)",
       "command(git show)",
       "command(grep)",
-      "command(ls)"
+      "command(ls)",
+      "command(rg)"
     ],
     "deny": [
       "command(sudo)"

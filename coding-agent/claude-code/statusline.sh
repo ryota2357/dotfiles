@@ -6,7 +6,7 @@ IFS=$'\n' read -r -d '' model ctx_used ctx_total five_pct five_reset seven_pct s
 $(jq -r '
   (.model.display_name // "n/a"),
   (.context_window.used_percentage // 0 | floor),
-  (.context_window.context_window_size // 0 | if . >= 1000 then "\((. / 1000 * 10 | round / 10))K" else . end),
+  (.context_window.context_window_size // 0 | if . >= 1000000 then "\((. / 1000000 | round))M" else "\((. / 1000 | round))K" end),
   (.rate_limits.five_hour.used_percentage // 0 | floor),
   (.rate_limits.five_hour.resets_at // "-"),
   (.rate_limits.seven_day.used_percentage // 0 | floor),

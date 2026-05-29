@@ -29,7 +29,6 @@
       "xquartz"
 
       # Browser
-      "arc"
       "brave-browser"
       "firefox"
       "google-chrome"
@@ -57,8 +56,9 @@
       "drawio"
       "fontforge-app"
       "obsidian"
-      "unity-hub"
       "racket" # nixのはminimal版しかdarwinに対応していない
+      "tailscale-app"
+      "unity-hub"
 
       # Social
       "discord"

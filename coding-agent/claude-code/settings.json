@@ -1,6 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "model": "opus",
+  "effortLevel": "xhigh",
   "tui": "fullscreen",
   "enabledPlugins": {
     "commit-commands@claude-plugins-official": true
@@ -30,6 +31,8 @@
       "Bash(git diff *)",
       "Bash(git log *)",
       "Bash(git ls-files *)",
+      "Bash(git ls-remote *)",
+      "Bash(git ls-tree  *)",
       "Bash(git show *)",
       "Bash(grep *)",
       "Bash(ls *)",
@@ -37,6 +40,7 @@
       "Bash(nix fmt *)",
       "Bash(nix log *)",
       "Bash(nix-build *)",
+      "Bash(rg *)",
       "WebFetch(domain:api.anthropic.com)",
       "WebFetch(domain:api.github.com)",
       "WebFetch(domain:docs.github.com)",

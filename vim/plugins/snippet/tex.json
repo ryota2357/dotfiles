@@ -179,6 +179,10 @@
     "prefix": "left",
     "body": "\\left"
   },
+  "lstinline": {
+    "prefix": "lstinline",
+    "body": "\\lstinline{$0}"
+  },
   "lstlisting": {
     "prefix": "lstlisting",
     "body": [

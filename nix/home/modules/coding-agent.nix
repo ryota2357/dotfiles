@@ -5,7 +5,7 @@ in
 {
   home.packages = [
     llm-agents.claude-code
-    llm-agents.antigravity
+    llm-agents.antigravity-cli
     (pkgs.writeShellApplication {
       name = "copilot";
       runtimeInputs = [
