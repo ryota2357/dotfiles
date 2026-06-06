@@ -1,6 +1,6 @@
 {
   system = {
-    stateVersion = 6;
+    stateVersion = 6; # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
     primaryUser = "ryota2357";
     defaults = {
       NSGlobalDomain = {

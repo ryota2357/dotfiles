@@ -4,6 +4,7 @@
     onActivation = {
       autoUpdate = true;
       cleanup = "uninstall";
+      extraFlags = [ "--force-cleanup" ]; # https://github.com/nix-darwin/nix-darwin/issues/1787
     };
     taps = [
       "buo/cask-upgrade"

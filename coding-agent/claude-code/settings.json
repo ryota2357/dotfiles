@@ -34,6 +34,7 @@
       "Bash(git ls-remote *)",
       "Bash(git ls-tree  *)",
       "Bash(git show *)",
+      "Bash(git status *)",
       "Bash(grep *)",
       "Bash(ls *)",
       "Bash(nix build *)",

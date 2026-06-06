@@ -24,6 +24,7 @@
       "command(git ls-remote)",
       "command(git ls-tree)",
       "command(git show)",
+      "command(git status)",
       "command(grep)",
       "command(ls)",
       "command(rg)"
