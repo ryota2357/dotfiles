@@ -4,15 +4,8 @@
     onActivation = {
       autoUpdate = true;
       cleanup = "uninstall";
-      extraFlags = [ "--force-cleanup" ]; # https://github.com/nix-darwin/nix-darwin/issues/1787
     };
-    taps = [
-      "buo/cask-upgrade"
-      "ryota2357/pleck-jp"
-      "nikitabobko/tap" # aerospace
-    ];
     brews = [
-      "docker-completion"
       "gawk"
       "gcc"
       "gnu-sed"
@@ -48,7 +41,7 @@
       "font-hack-nerd-font"
       "font-harano-aji"
       "font-plemol-jp-nf"
-      "pleck-jp"
+      "ryota2357/pleck-jp/pleck-jp"
       "sf-symbols"
 
       # Dev Tools
@@ -68,7 +61,6 @@
       "zulip"
 
       # macOS improvements
-      "aerospace"
       "alfred"
       "alt-tab"
       "hhkb"
@@ -77,6 +69,7 @@
       "karabiner-elements"
       "keycastr"
       "logi-options+"
+      "nikitabobko/tap/aerospace"
       "obs"
       "skim"
 

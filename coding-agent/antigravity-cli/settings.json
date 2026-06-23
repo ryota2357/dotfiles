@@ -1,6 +1,7 @@
 {
   "altScreenMode": "always",
   "colorScheme": "dark",
+  "model": "Gemini 3.5 Flash (High)",
   "notifications": true,
   "permissions": {
     "allow": [
