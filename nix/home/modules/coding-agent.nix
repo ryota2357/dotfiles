@@ -24,8 +24,6 @@ in
     ".claude/settings.json".source = ../../../coding-agent/claude-code/settings.json;
     ".claude/CLAUDE.md".source = ../../../coding-agent/AGENTS.md;
 
-    ".gemini/settings.json".source = ../../../coding-agent/gemini-cli/settings.json;
-    ".gemini/policies".source = ../../../coding-agent/gemini-cli/policies;
     ".gemini/GEMINI.md".source = ../../../coding-agent/AGENTS.md;
     ".gemini/antigravity-cli/settings.json".source = ../../../coding-agent/antigravity-cli/settings.json;
 
