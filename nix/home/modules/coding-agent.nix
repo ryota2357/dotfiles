@@ -25,7 +25,10 @@ in
     ".claude/CLAUDE.md".source = ../../../coding-agent/AGENTS.md;
 
     ".gemini/GEMINI.md".source = ../../../coding-agent/AGENTS.md;
-    ".gemini/antigravity-cli/settings.json".source = ../../../coding-agent/antigravity-cli/settings.json;
+    ".gemini/antigravity-cli/settings.json" = {
+      source = ../../../coding-agent/antigravity-cli/settings.json;
+      force = true; # 元を削除してまでして trustedWorkspaces を書き込んでくるので
+    };
 
     ".copilot/copilot-instructions.md".source = ../../../coding-agent/AGENTS.md;
   };

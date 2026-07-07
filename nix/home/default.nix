@@ -43,6 +43,7 @@
           hyperfine
           imagemagick
           jq
+          mo-viewer
           nix-output-monitor
           rsync
           tokei
