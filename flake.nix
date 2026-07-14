@@ -83,7 +83,7 @@
             config.allowUnfree = true;
             overlays = [
               neovim-nightly-overlay.overlays.default
-              llm-agents.overlays.default
+              llm-agents.overlays.shared-nixpkgs
               nur-packages.overlays.default
             ];
           };
