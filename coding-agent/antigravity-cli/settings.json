@@ -1,7 +1,7 @@
 {
   "altScreenMode": "always",
   "colorScheme": "dark",
-  "model": "Gemini 3.5 Flash (High)",
+  "model": "Gemini 3.6 Flash (High)",
   "notifications": true,
   "permissions": {
     "allow": [
@@ -28,10 +28,15 @@
       "command(git status)",
       "command(grep)",
       "command(ls)",
-      "command(rg)"
+      "command(pwd)",
+      "command(rg)",
+      "read_file(/Users/ryota2357/ghq/github.com/ryota2357)"
     ],
     "deny": [
       "command(sudo)"
+    ],
+    "trustedWorkspaces": [
+      "/Users/ryota2357/ghq/github.com/ryota2357/"
     ]
   }
 }

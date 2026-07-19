@@ -26,20 +26,18 @@
       "brave-browser"
       "firefox"
       "google-chrome"
-      "microsoft-edge"
       "tor-browser"
 
       # Text Editor
-      "antigravity"
       "coteditor"
       "jetbrains-toolbox"
       "obsidian"
-      "visual-studio-code"
 
       # Fonts
       "font-cica"
       "font-hack-nerd-font"
       "font-harano-aji"
+      "font-inconsolata"
       "font-plemol-jp-nf"
       "ryota2357/pleck-jp/pleck-jp"
       "sf-symbols"
@@ -50,7 +48,6 @@
       "drawio"
       "fontforge-app"
       "obsidian"
-      "racket" # nixのはminimal版しかdarwinに対応していない
       "tailscale-app"
       "unity-hub"
 
@@ -62,7 +59,6 @@
 
       # macOS improvements
       "alfred"
-      "alt-tab"
       "hhkb"
       "hiddenbar"
       "iina"
@@ -74,8 +70,8 @@
       "skim"
 
       # AI
-      "chatgpt"
-      "claude"
+      # "chatgpt"
+      # "claude"
 
       # Game
       "osu"
@@ -87,7 +83,6 @@
       "TestFlight" = 899247664;
 
       # Productivity
-      "RunCat" = 1429033973;
       "AS Timer" = 512464723;
       "Toggl Track" = 1291898086;
 

@@ -1,11 +1,8 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "model": "opus",
+  "model": "sonnet",
   "effortLevel": "xhigh",
   "tui": "fullscreen",
-  "enabledPlugins": {
-    "commit-commands@claude-plugins-official": true
-  },
   "permissions": {
     "allow": [
       "Bash(cargo build *)",
@@ -41,11 +38,13 @@
       "Bash(nix fmt *)",
       "Bash(nix log *)",
       "Bash(nix-build *)",
+      "Bash(pwd)",
       "Bash(rg *)",
       "WebFetch(domain:api.anthropic.com)",
       "WebFetch(domain:api.github.com)",
       "WebFetch(domain:docs.github.com)",
-      "WebFetch(domain:docs.renovatebot.com)"
+      "WebFetch(domain:docs.renovatebot.com)",
+      "WebFetch(domain:ryota2357.com)"
     ],
     "deny": [
       "Bash(sudo *)"
