@@ -9,6 +9,7 @@
         ApplePressAndHoldEnabled = false;
         InitialKeyRepeat = 15; # 225 ms
         KeyRepeat = 2; # 30 ms
+        _HIHideMenuBar = true;
       };
       finder = {
         AppleShowAllFiles = true;

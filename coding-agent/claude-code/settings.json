@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "model": "sonnet",
+  "model": "opus",
   "effortLevel": "xhigh",
   "tui": "fullscreen",
   "permissions": {
@@ -24,6 +24,7 @@
       "Bash(gh run status *)",
       "Bash(gh run view *)",
       "Bash(gh run watch *)",
+      "Bash(gh search *)",
       "Bash(git blame *)",
       "Bash(git diff *)",
       "Bash(git log *)",

@@ -18,6 +18,7 @@
       "command(gh run status)",
       "command(gh run view)",
       "command(gh run watch)",
+      "command(gh search)",
       "command(git blame)",
       "command(git diff)",
       "command(git log)",
