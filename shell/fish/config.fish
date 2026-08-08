@@ -12,8 +12,7 @@ set --prepend fish_complete_path "$HOMEBREW_PREFIX/share/fish/vendor_completions
 
 # llvm
 fish_add_path "$HOMEBREW_PREFIX/opt/llvm/bin"
-set -gx LDFLAGS "-L$HOMEBREW_PREFIX/opt/llvm/lib"
-set -gx CPPFLAGS "-I$HOMEBREW_PREFIX/opt/llvm/include"
+set -gx LDFLAGS "-L$HOMEBREW_PREFIX/opt/llvm/lib/c++ -L$HOMEBREW_PREFIX/opt/llvm/lib/unwind -lunwind"
 
 # Rust
 fish_add_path "$CARGO_HOME/bin"

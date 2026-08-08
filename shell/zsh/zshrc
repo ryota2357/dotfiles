@@ -13,8 +13,7 @@ fpath=("$HOMEBREW_PREFIX/share/zsh/site-functions" $fpath)
 
 # llvm
 path=("$HOMEBREW_PREFIX/opt/llvm/bin" $path)
-export LDFLAGS="-L$HOMEBREW_PREFIX/opt/llvm/lib"
-export CPPFLAGS="-I$HOMEBREW_PREFIX/opt/llvm/include"
+export LDFLAGS="-L$HOMEBREW_PREFIX/opt/llvm/lib/c++ -L$HOMEBREW_PREFIX/opt/llvm/lib/unwind -lunwind"
 
 # Rust
 path=("$CARGO_HOME/bin"(N-/) $path)
