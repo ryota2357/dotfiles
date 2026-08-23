@@ -23,13 +23,16 @@ in
   home.file = {
     ".claude/settings.json".source = ../../../coding-agent/claude-code/settings.json;
     ".claude/CLAUDE.md".source = ../../../coding-agent/AGENTS.md;
+    ".claude/skills".source = ../../../coding-agent/skills;
 
-    ".gemini/GEMINI.md".source = ../../../coding-agent/AGENTS.md;
     ".gemini/antigravity-cli/settings.json" = {
       source = ../../../coding-agent/antigravity-cli/settings.json;
       force = true; # 元を削除してまでして trustedWorkspaces を書き込んでくるので
     };
+    ".gemini/GEMINI.md".source = ../../../coding-agent/AGENTS.md;
+    ".gemini/antigravity-cli/skills".source = ../../../coding-agent/skills;
 
     ".copilot/copilot-instructions.md".source = ../../../coding-agent/AGENTS.md;
+    ".agents/skills".source = ../../../coding-agent/skills;
   };
 }
