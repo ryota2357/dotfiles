@@ -4,11 +4,8 @@ set-option -g status-position top
 # 定期更新をしない
 set-option -g status-interval 0
 
-# 背景色
-set-option -g status-bg "#494949"
-
-# 文字色
-set-option -g status-fg "#ffffff"
+# 背景色・文字色
+set-option -g status-style "bg=#494949,fg=#ffffff"
 
 # command prompt (prefix + :) では emacs キーバインドを使う
 set-option -g status-keys emacs
@@ -17,9 +14,9 @@ set-option -g status-keys emacs
 # 中央よせ
 set-option -g status-justify "absolute-centre"
 # window-status のフォーマットを指定
-set-window-option -g window-status-format " #I: #W "
+set-option -g window-status-format " #I: #W "
 # カレントウィンドウの window-status のフォーマットを指定
-set-window-option -g window-status-current-format "#[fg=#0069c0,bg=#494949]#[bg=#0069c0,fg=#ffffff,bold]#I: #W#[fg=#0069c0,bg=#494949]"
+set-option -g window-status-current-format "#[fg=#0069c0,bg=#494949]#[bg=#0069c0,fg=#ffffff,bold]#I: #W#[fg=#0069c0,bg=#494949]"
 
 # == 左 ==
 # 最大の長さ

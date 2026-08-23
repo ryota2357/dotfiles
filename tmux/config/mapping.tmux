@@ -1,6 +1,7 @@
 # prefixキーをC-sに変更
 set-option -g prefix C-s
 unbind-key C-b
+bind-key C-s send-prefix
 
 # c: 新規ウィンドウ作成
 bind-key c new-window -c '#{pane_current_path}'
@@ -40,13 +41,13 @@ bind-key q kill-pane
 bind-key y copy-mode
 
 # コピーモードでvimキーバインドを使う
-set-window-option -g mode-keys vi
+set-option -g mode-keys vi
 
 # v: 選択開始
 # y: ヤンク
 # i: ノーマルモードに戻る
 bind-key -T copy-mode-vi v send-keys -X begin-selection
-bind-key -T copy-mode-vi y send-keys -X copy-pipe "reattach-to-user-namespace pbcopy" \; send -X clear-selection
+bind-key -T copy-mode-vi y send-keys -X copy-pipe "pbcopy"
 bind-key -T copy-mode-vi i send-keys -X cancel
 
 # V: 行選択

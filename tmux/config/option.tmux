@@ -12,31 +12,23 @@ set-option -g pane-base-index 1
 set-option -g renumber-windows on
 
 # ESC の遅延を 0 に
-set-option -sg escape-time 0
+set -s escape-time 0
 
 # vim とかの focus イベントが発火するように
 set-option -g focus-events on
 
 # セッション間での自動的なリサイズを有効化
-set-window-option -g aggressive-resize on
+set-option -g aggressive-resize on
 
 # tmux起動時のシェル
 set-option -g default-shell "$HOME/.nix-profile/bin/fish"
 # set-option -g default-shell "/bin/zsh"
 # set-option -g default-shell "$HOMEBREW_PREFIX/bin/zsh"
 
-# 256色対応
+# 256色、TrueColor, Undercurl の対応
 set-option -g default-terminal "tmux-256color"
-set-option -ga terminal-overrides ",$TERM:Tc"
+set -as terminal-features ",*:RGB"
+set -as terminal-features ",*:usstyle"
 
 # 拡張キーシーケンスを有効にする
 set -s extended-keys on
-
-# ↓はよくわかってない。これがないとtmuxで下線に色がつかなくなる。
-set -as terminal-overrides ',*:Setulc=\E[58::2::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'
-
-# undercurl 対応 (できてないのだが。。。はて)
-set -as terminal-overrides ',*:Smulx=\E[4::%p1%dm'
-
-# :git で lazygit を popup window で実行
-set -g command-alias[1] 'git=popup -d "#{pane_current_path}" -w 95% -h 97% -y P -b rounded -E "/bin/zsh -ic lazygit"'

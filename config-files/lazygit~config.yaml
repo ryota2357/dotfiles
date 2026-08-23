@@ -4,6 +4,6 @@ gui:
   language: 'en'
   showRootItemInFileTree: false
 git:
-  pagers:
-    - pager: delta --dark --paging=never
+  diffRenderers:
+    - command: delta --dark --paging=never
   parseEmoji: true
