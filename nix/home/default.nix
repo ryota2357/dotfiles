@@ -19,7 +19,7 @@
               "/Users/${username}"
             else
               throw "unsupported system: ${system}";
-          stateVersion = "24.11"; # https://nix-community.github.io/home-manager/release-notes.xhtml
+          stateVersion = "26.11"; # https://nix-community.github.io/home-manager/release-notes.xhtml
         };
         programs.home-manager.enable = true;
         programs.man.enable = false;
