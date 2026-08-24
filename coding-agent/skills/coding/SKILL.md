@@ -1,6 +1,6 @@
 ---
 name: coding
-description: Principles for writing and designing code — API and abstraction design, naming, comment discipline, and standards of evidence for claims about code behavior. Use whenever the task is to write or modify code, design an API or software architecture, or review code (a diff, a PR, an implementation). Load before starting any such task, including small edits.
+description: Principles for writing and designing code — API and abstraction design, naming, comment discipline, and standards of evidence for claims about code behavior. Use whenever the task is to write or modify code, design an API or software architecture, or review code.
 ---
 
 # Coding

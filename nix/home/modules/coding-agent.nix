@@ -5,6 +5,7 @@ in
 {
   home.packages = [
     llm-agents.claude-code
+    llm-agents.codex
     llm-agents.antigravity-cli
     (pkgs.writeShellApplication {
       name = "copilot";
@@ -24,6 +25,9 @@ in
     ".claude/settings.json".source = ../../../coding-agent/claude-code/settings.json;
     ".claude/CLAUDE.md".source = ../../../coding-agent/AGENTS.md;
     ".claude/skills".source = ../../../coding-agent/skills;
+
+    ".codex/AGENTS.md".source = ../../../coding-agent/AGENTS.md;
+    ".codex/rules/permission.rules".source = ../../../coding-agent/codex/permission.rules;
 
     ".gemini/antigravity-cli/settings.json" = {
       source = ../../../coding-agent/antigravity-cli/settings.json;

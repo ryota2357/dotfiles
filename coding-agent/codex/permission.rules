@@ -1,0 +1,52 @@
+# 検証: codex execpolicy check --pretty --rules ~/.codex/rules/permission.rules -- <command>
+
+prefix_rule(
+    pattern = ["sudo"],
+    decision = "forbidden",
+    justification = "Do not escalate privileges; ask the user to run it instead.",
+)
+
+prefix_rule(
+    pattern = ["cargo", ["build", "check", "clippy", "doc", "fmt", "test"]],
+    decision = "allow",
+)
+
+prefix_rule(
+    pattern = ["gh", "issue", ["list", "status", "view"]],
+    decision = "allow",
+)
+prefix_rule(
+    pattern = ["gh", "pr", ["diff", "list", "status", "view"]],
+    decision = "allow",
+)
+prefix_rule(
+    pattern = ["gh", "release", ["list", "view"]],
+    decision = "allow",
+)
+prefix_rule(
+    pattern = ["gh", "run", ["list", "status", "view", "watch"]],
+    decision = "allow",
+)
+prefix_rule(
+    pattern = ["gh", "search"],
+    decision = "allow",
+)
+
+prefix_rule(
+    pattern = ["git", ["blame", "diff", "log", "ls-files", "ls-remote", "ls-tree", "show", "status"]],
+    decision = "allow",
+)
+
+prefix_rule(
+    pattern = ["nix", ["build", "fmt", "log"]],
+    decision = "allow",
+)
+prefix_rule(
+    pattern = ["nix-build"],
+    decision = "allow",
+)
+
+prefix_rule(pattern = ["grep"], decision = "allow")
+prefix_rule(pattern = ["ls"],   decision = "allow")
+prefix_rule(pattern = ["pwd"],  decision = "allow")
+prefix_rule(pattern = ["rg"],   decision = "allow")
