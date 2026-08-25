@@ -39,7 +39,6 @@ inner.vertical = 1
 outer.left = 0
 outer.bottom = 0
 outer.top = [{monitor."Built-in Retina Display" = 0}, 40]
-outer.top = 0
 outer.right = 0
 
 [mode.main.binding]
