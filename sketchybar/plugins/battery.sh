@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
 
 PMSET_OUTPUT=$(pmset -g batt)
-PERCENTAGE=$(echo "$PMSET_OUTPUT" | grep -Eo "[0-9]+%" | cut -d% -f1)
-CHARGING=$(echo "$PMSET_OUTPUT" | grep 'AC Power')
 
-if [ "$PERCENTAGE" = "" ]; then
+if [[ ! $PMSET_OUTPUT =~ ([0-9]+)% ]]; then
   exit 0
 fi
+PERCENTAGE=${BASH_REMATCH[1]}
 
 case "$PERCENTAGE" in
   100)    ICON="󰁹"; COLOR="0xff4caf50" ;; #4caf50
@@ -22,8 +21,8 @@ case "$PERCENTAGE" in
   *)      ICON="󰂎"; COLOR="0xffff0000" ;; #ff0000
 esac
 
-if [ -n "$CHARGING" ]; then
-  ICON=""
+if [[ $PMSET_OUTPUT == *"AC Power"* ]]; then
+  ICON=""
 fi
 
 sketchybar --set "$NAME" icon="$ICON" label="$PERCENTAGE%" label.color="$COLOR"

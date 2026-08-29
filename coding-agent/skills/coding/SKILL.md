@@ -9,10 +9,10 @@ These principles are language-agnostic: they say what to aim for, and each langu
 
 ## Design
 
-- Information hiding, in Parnas's sense: a module boundary is defined by the design decisions it hides, and hiding is what creates constraints a reader can rely on. What a component happens to know is not what its interface may use: "it already knows X, so using X is simpler" is precisely how implementation detail leaks across a boundary. Shape an interface around the abstraction its consumers need — one designed for the concept rather than for the convenience of today's single caller.
+- Information hiding, in Parnas's sense: a module boundary is defined by the design decisions it hides, and hiding is what creates constraints a reader can rely on. What a component happens to know is not what its interface may use: "it already knows X, so using X is simpler" is precisely how implementation details leak across a boundary. Shape an interface around the abstraction its consumers need — one designed for the concept rather than for the convenience of today's single caller.
 - An interface expresses domain concepts, not implementation convenience. Give each distinct operation its own precise verb rather than a catch-all verb. Where the domain says states are exclusive, make illegal states unrepresentable; prefer structure that makes misuse inexpressible over discipline that forbids it.
 - Don't open with generalities; refine stepwise. Derive each fact where it is first used, even at the cost of repeating a short derivation. Extract functions for stepwise refinement and conceptual abstraction, not for deduplication; tolerate structural duplication between distinct intentions.
-- Assert an invariant at the existing boundary where it holds — the constructor that makes it true, the accessor that already requires it — not through a parallel entry point that callers must remember to choose. Adding surface only so a checker can see what the code already guarantees turns a structural property into caller discipline. Taking in what a callee cannot know on its own (a capacity, a batch size, a precondition only the caller can vouch for) is a different, legitimate design decision.
+- Assert an invariant at the existing boundary where it holds: the constructor that makes it true, the accessor that already requires it. Don't introduce a parallel entry point that callers must remember to choose. When you add surface only so a checker can see what the code already guarantees, you turn a structural property into caller discipline. Taking in what a callee cannot know on its own (a capacity, a batch size, a precondition only the caller can vouch for) is a different, legitimate design decision.
 
 ## Naming
 
@@ -22,12 +22,12 @@ These principles are language-agnostic: they say what to aim for, and each langu
 
 ## Comments
 
-A comment is an unchecked claim: nothing verifies it, and nothing forces it to evolve with the code. First, treat the urge to write one as a signal about the code: try to move the content into something the language checks or names — a type, a better name, an extracted function, a named constant, an assertion, a test. What survives that attempt is the legitimate residue:
+A comment is an unchecked claim: nothing verifies it, and nothing forces it to evolve with the code. First, treat the urge to write one as a signal about the code. Try to move the content into something the language checks or names: a type, a better name, an extracted function, a named constant, an assertion, a test. What survives that attempt is the legitimate residue:
 
 - Rationale: why this design over the alternatives; constraints, non-obvious domain rules, upstream quirks that no naming can carry.
 - Obligations beyond the type system (safety conditions, ordering or aliasing invariants), stated as precise propositions in the ecosystem's conventional form.
 
-Everything else has a better home: change history in the commit message, task references in the issue tracker, justification of the current change in the PR or the commit body. Never narrate control flow or restate the code at its own abstraction level. Doc comments are prose documentation of an API, not an escape hatch; a contract left in doc prose when the language could enforce it is formalization debt.
+Never narrate control flow or restate the code at its own abstraction level. Doc comments are prose documentation of an API, not an escape hatch; a contract left in doc prose when the language could enforce it is formalization debt.
 
 Two cautions. Never delete a comment while leaving the code cryptic; relocate the information instead. And notice that the urge to write a long comment grows exactly where confidence is low: resolve the uncertainty or surface it as a question; don't pad.
 
@@ -37,7 +37,7 @@ Explaining a result and justifying it are different activities. When the questio
 
 Keep verified observation and hypothesis explicitly separate, and mark that status in the first draft, not after being challenged. "Probably X, and X is hard to measure directly" is an honest, acceptable conclusion; a confident mechanism that merely fits is not. A deliverable states only what is currently believed true, with no history of retracted claims.
 
-When writing about changes (changelog, PR summary), read each commit's full diff and message body; never let a qualified claim read as an unqualified one, and name only public API in user-facing prose.
+When writing about changes (changelog, PR summary), read each commit's full diff and message body. Never let a qualified claim read as an unqualified one, and name only public API in user-facing prose.
 
 ## Style
 

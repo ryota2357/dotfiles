@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 
-CPU=$(top -l 3 -n 0 | awk '/CPU usage/ {sum += $3 + $5} END {printf "%.1f", sum / 3}')
+# top's first sample is skewed by its own startup, so read the second one.
+CPU=$(top -l 2 -n 0 | awk '/CPU usage/ {usage = $3 + $5} END {printf "%.1f", usage}')
 sketchybar --set "$NAME" label="$CPU%"

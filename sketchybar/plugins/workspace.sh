@@ -3,11 +3,13 @@
 if [ -n "$FOCUSED_WORKSPACE" ]; then
   FOCUSED="$FOCUSED_WORKSPACE"
 else
-  AEROSPACE="$(brew --prefix)/bin/aerospace"
-  FOCUSED=$("$AEROSPACE" list-workspaces --focused 2>/dev/null || echo "?")
+  FOCUSED=$(aerospace list-workspaces --focused 2>/dev/null) || {
+    BREW_PREFIX="${HOMEBREW_PREFIX:-$(brew --prefix 2>/dev/null)}"
+    FOCUSED=$("$BREW_PREFIX/bin/aerospace" list-workspaces --focused 2>/dev/null)
+  }
 fi
 
-if [ "$FOCUSED" = "?" ]; then
+if [ -z "$FOCUSED" ]; then
   exit 0
 fi
 
