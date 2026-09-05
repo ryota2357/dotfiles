@@ -22,7 +22,7 @@ case "$PERCENTAGE" in
 esac
 
 if [[ $PMSET_OUTPUT == *"AC Power"* ]]; then
-  ICON=""
+  ICON=""
 fi
 
 sketchybar --set "$NAME" icon="$ICON" label="$PERCENTAGE%" label.color="$COLOR"

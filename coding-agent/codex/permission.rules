@@ -24,11 +24,19 @@ prefix_rule(
     decision = "allow",
 )
 prefix_rule(
+    pattern = ["gh", "repo", ["list", "view"]],
+    decision = "allow",
+)
+prefix_rule(
     pattern = ["gh", "run", ["list", "status", "view", "watch"]],
     decision = "allow",
 )
 prefix_rule(
     pattern = ["gh", "search"],
+    decision = "allow",
+)
+prefix_rule(
+    pattern = ["gh", "workflow", ["list", "view"]],
     decision = "allow",
 )
 
