@@ -1,19 +1,28 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "model": "opus",
-  "effortLevel": "xhigh",
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "high"
+    },
+    "claude-sonnet-5": {
+      "effortLevel": "xhigh"
+    }
+  },
   "tui": "fullscreen",
+  "promptSuggestionEnabled": false,
+  "awaySummaryEnabled": false,
+  "disableClaudeAiConnectors": true,
+  "includeGitInstructions": false,
+  "attribution": {
+    "sessionUrl": false
+  },
   "permissions": {
     "allow": [
-      "Bash(cargo build *)",
-      "Bash(cargo check *)",
-      "Bash(cargo clippy *)",
-      "Bash(cargo doc *)",
-      "Bash(cargo fmt *)",
-      "Bash(cargo test *)",
       "Bash(gh issue list *)",
       "Bash(gh issue status *)",
       "Bash(gh issue view *)",
+      "Bash(gh pr checks *)",
       "Bash(gh pr diff *)",
       "Bash(gh pr list *)",
       "Bash(gh pr status *)",
@@ -31,13 +40,15 @@
       "Bash(gh workflow view *)",
       "Bash(git blame *)",
       "Bash(git diff *)",
+      "Bash(git grep *)",
       "Bash(git log *)",
       "Bash(git ls-files *)",
       "Bash(git ls-remote *)",
-      "Bash(git ls-tree  *)",
+      "Bash(git ls-tree *)",
       "Bash(git show *)",
       "Bash(git status *)",
       "Bash(grep *)",
+      "Bash(head *)",
       "Bash(ls *)",
       "Bash(nix build *)",
       "Bash(nix fmt *)",
@@ -45,6 +56,10 @@
       "Bash(nix-build *)",
       "Bash(pwd)",
       "Bash(rg *)",
+      "Bash(stat *)",
+      "Bash(tail *)",
+      "Bash(wc *)",
+      "Bash(which *)",
       "WebFetch(domain:api.anthropic.com)",
       "WebFetch(domain:api.github.com)",
       "WebFetch(domain:docs.github.com)",
