@@ -1,76 +1,42 @@
 ---
 name: coding
-description: Principles for writing and designing code and its specification, covering API and abstraction design, naming, (doc-)comment discipline, tests, and standards of evidence for claims about code behavior.
+description: Principles for writing, changing, and testing code, covering readability at every scale, abstraction and naming, interfaces, comments and documentation, tests as maintained code, and standards of evidence for claims about code behavior.
 ---
 
 # Coding
 
-These principles are language-agnostic. They say what to aim for, and each language has its own purpose and its own abstraction tools for getting there. Express them through what the language offers, and where a facility is missing, use the idiom its community has settled on, which may legitimately be a comment or a naming convention. Take a project's conventions the same way, from its best current code. Where conventions conflict, follow the most recently revised code rather than the most common one, which is often just the oldest.
+These principles apply in any language. Express each one with the abstraction the language provides, or, where it has none, with the idiom its community uses. Where a project's conventions conflict with each other, follow the ones it is moving toward rather than the most common ones, which are often just the oldest. Write comments, documentation, and commit messages in English unless the project uses another language for them.
 
-## Specification and code
+## Code is read
 
-Software is a specification together with an implementation. Code on its own is neither correct nor incorrect, because a system nobody has specified cannot fail, only surprise. The specification is part of the software, not an external description of it, and it is written in several places at once: types, names, assertions, doc comments, tests, and, where nothing else will hold a fact, comments. Some of those places are checked mechanically and the rest only by a reader, so where you state a given fact is a design decision. Prefer a place that is checked. When only prose can state a fact, design that prose as deliberately as the code, by giving each fact one place and making each part of a document answer a question its reader will ask.
+A program is executed for its effect, but it is also a text, and most of its cost lies in being read and changed. Readers understand code by predicting what comes next, and they take everything present as meaningful: a branch that handles a case implies the case can occur, a declaration implies the value is about to be used, a separate function implies a separate concept, a comment implies something the code could not say. Write so that these implications hold. Good code makes a complex problem look straightforward: each routine turns out to do roughly what the reader expected, and each line follows from the ones before it.
 
-Doc comments and tests that no longer match the code are defects in the software. Review them as you review the code.
+Complex behavior becomes readable when it is broken into steps that are each simple at their own level, and functions and types exist to create those levels. Introduce a function or a type when it gives a name and a precise meaning to a step or a concept, so that the code using it reads at a higher level. Repeated code is not in itself a reason to abstract, and code that looks similar but means different things should stay separate.
 
-## Design
+Design decisions like these are made at every scale, from a module boundary down to a single expression. A variable's scope is the smallest instance of information hiding: declare the variable where it is first needed and keep its scope as narrow as the data flow allows. A name is the smallest interface: it says what the thing is or does in the domain's terms, and mentions how it is implemented only when callers may rely on that. When no good name comes to mind, the decomposition is usually wrong.
 
-- Information hiding, in Parnas's sense: a module boundary is defined by the design decisions it hides, and hiding is what creates constraints a reader can rely on. What a module happens to know is not what its interface may be built on. Reasoning that "it already knows X, so using X is simpler" is how implementation details leak across a boundary.
-- An interface expresses domain concepts, shaped for the concept its callers need rather than for the convenience of today's single caller. Where the domain says states are exclusive, make illegal states unrepresentable, preferring structure that makes misuse inexpressible over discipline that forbids it.
-- Assert an invariant at the boundary that establishes or requires it, the constructor that makes it true or the accessor that already depends on it, and don't add a parallel entry point that callers must remember to choose.
-  - Even when the second entry point exists only to tell a compiler or a verifier what the code already guarantees, it converts an invariant the supplier maintained into a precondition the caller must discharge. What held by construction now holds by convention.
-  - Where no other route exists, give that obligation an owner and discharge it somewhere, and mark the path that skips the check rather than leaving it indistinguishable from the checked one.
-  - Taking in what a callee cannot know on its own (a capacity, a batch size, a precondition only the caller can vouch for) is a different, legitimate design decision.
-- Refine stepwise rather than beginning with a general abstraction. Derive each fact where it is first used, even at the cost of repeating a short derivation. Extract functions for stepwise refinement and abstraction, not for deduplication, so tolerate structural duplication where the intentions differ. Two copies of one rule are one intention, and belong in one place.
-- Declare variables immediately before use and minimize their scope, so that a block's declarations read as a summary of its data flow.
+## Interfaces
 
-## Naming
+A module, a type, or a function is defined by the design decisions it hides, in Parnas's sense of information hiding, and its interface by the behavior it promises. Build only on what an interface promises. Reasoning that some code "already knows X, so using X is simpler" is how implementation details leak across a boundary. Shape an interface around the concept its callers need rather than around the convenience of the caller at hand, and where states are mutually exclusive in the domain, make the illegal ones unrepresentable.
 
-- A name is earned by a distinction it makes: a named type declares a conceptual boundary, and an operation's name declares a promise. Where there is no distinction, the thing itself probably should not exist separately.
-  - Operations: name one for its effect and purpose, never for the means by which it keeps its promise. Two entry points with the same contract are one operation under two spellings, so a second name has to be earned by a promise the first does not make. A performance property callers may rely on is such a promise, but the reason you wrote it is not. A catch-all verb is the same rule inverted, several operations under one spelling, and should be split. Name, return shape, and call-site usage should agree: a function every caller uses as a predicate should be a predicate.
-  - Types and parameters: abstraction exists to create a level at which you can be precise about something you could not state before, so a name that constrains no values and hides no decision has created no such level. Before binding values that travel together into a type, delete one of them and see what happens to the rest. If they stop making sense, an invariant relates them and the type is real. If they carry on unaffected, you have a tuple. Take names from the language the domain already speaks, not from the shorthand of your working session.
-- When no good name comes, the fault is in the split rather than your vocabulary, so change the decomposition instead of the word.
+A second entry point to an operation is justified only by a contract that differs from the first, and its name states that difference. A faster implementation of the same contract should replace the original rather than sit beside it. When a compiler, optimizer, or verifier cannot see an invariant the code already guarantees, tell it directly, with a type, a checked assertion, or, failing those, an unchecked hint, rather than contorting the implementation or adding an entry point that turns the guarantee into an obligation on callers.
 
-## Comments and docs
+## Comments and documentation
 
-A comment states part of the specification in the one place nothing can check, and nothing forces it to evolve with the code. So first, treat the urge to write one as a signal about where the fact belongs. Try to move it into something the language checks or names: a type, a better name, an extracted function, a named constant, an assertion, a test. What survives that attempt is the legitimate residue:
+Ideally, the code states its own intent, and comments carry what it cannot: the reason for a choice that is not the obvious one, domain or business rules, constraints imposed from outside the code, invariants beyond the type system, and layouts or algorithms that are clearer as a picture (ASCII diagrams are fine). Write a comment for whoever opens the file next, who knows nothing about your session. A comment explains the code as it stands; the discussion that produced it, what the code used to do, and the change you just made belong outside the code, in the commit message or your report.
 
-- Rationale: why this design over the alternatives, and the constraints, non-obvious domain rules, or upstream quirks that naming alone cannot capture.
-- Obligations beyond the type system (safety conditions, ordering or aliasing invariants), stated as precise propositions in the ecosystem's conventional form.
-
-A doc comment is not this residue. It is the interface specification, owed to callers whether or not some other construct could have stated it. What it owes them is the externally visible behavior: what they must establish before calling, what they may rely on afterwards, and what the call costs them. The internal representation that produced a value belongs to the module's internal design, and naming it in the doc comment leaks what the interface exists to hide. A detail the caller cannot act on is padding. An obligation left in prose that the language could enforce is formalization debt.
-
-Two cautions:
-
-- Never delete a comment while leaving the code cryptic. Relocate the information instead.
-- Because the urge to write a long comment grows where confidence is low, resolve the uncertainty or raise it as a question rather than padding.
-
-## Prose about code
-
-Prose about code fails in three ways, each of them the writer intruding on the reader:
-
-- Stream of consciousness: a fact lands wherever the author happened to think of it.
-- Stream of execution: the prose retells the code in the code's own terms, at the same level of abstraction.
-- Myopia: it records the details you are afraid of forgetting and passes over the design decisions you have lived with too long to notice.
-
-Write for whoever opens the file next, knowing none of what you know now, rather than for whoever reads today's diff. Prose that reaches users names only the public API.
-
-Reach for the concept the field has already named rather than the case you happened to meet, because examples encode only the cases you have seen, and a reader will generalize them into cases where they do not hold. An example is there to fix the meaning of a stated principle, never to carry it.
-
-Write comments, documentation, and commit messages in English unless the project says otherwise.
+Doc comments are documentation, and whether to write one depends on who reads it rather than on visibility. A library's users read its documentation instead of its source, so there the documentation is part of the deliverable: document the public API thoroughly, with the ecosystem's conventional sections and examples. Where readers read the source, write a doc comment only when they need something the signature and the code cannot tell them. In both cases, express a constraint in types or structure where possible, and state it in prose only as a last resort or where the language's conventions call for it, as with Rust's `# Safety` and `# Panics` sections. Describe what a caller can observe, not how it is achieved.
 
 ## Tests
 
-A test is the contract written as code: the setup establishes the precondition, the check states the postcondition, and the name states the claim. Write so that a failure names the claim that broke rather than the line that failed.
+Tests are software too. They are read, maintained, and changed along with the code, and the principles above apply to them. A suite is the specification of behavior written as code, so choose and organize cases by the distinctions the specification makes (its boundaries and the cases it treats differently) rather than by listing every input you can think of or by the order in which changes and bugs arrived. Name each test for the behavior it pins down. Test through the interface, so that changing internals does not require changing tests.
 
-A test pins that contract at one point only, and can show the presence of a bug but never its absence, so choose the points the specification itself distinguishes: its boundaries, and the cases it treats differently. Where a claim holds for every input, an assertion or a property states it once instead of sampling it repeatedly.
+## Changing code
 
-Test through the interface, not the representation. A test that has to change whenever the internals change was written on the wrong side of the boundary.
+Change code strategically, in Ousterhout's sense: when the change is done, the code should look as if it had been designed with the change in mind from the start. The request decides what behavior changes. The code decides how much must change for the result to be coherent: rename anything whose meaning the change altered, update the callers of an internal API instead of preserving its old shape, turn a special case that exposes a missing concept into that concept, delete what the change left unused, and rewrite the comments, documentation, and tests that no longer describe the intended behavior rather than adjusting them just enough to match the code. Instructions to keep a change focused limit which behaviors change, not how well the change is integrated. Follow the project's conventions, but treat its existing structure as something the change may need to reshape.
+
+Ask the user when a coherent change would extend well beyond what the request implies, when the request leaves the scope unclear, or when you find a pre-existing problem and it is not obvious whether to fix it now. If the answer would change the approach, ask before implementing. Treat the size of the patch as a constraint only when the user says it is one.
 
 ## Claims about code behavior
 
-Investigation and justification are different activities. When the question is why code behaves as it does (a benchmark, a bug, an anomaly), the deliverable is the mechanism, not a story consistent with the outcome. Consistency is a weak filter, since many candidate mechanisms fit any given result. A candidate earns belief by surviving attempts to rule it out, whether by domain knowledge, by elimination, or by an experiment chosen to tell candidates apart. If being challenged makes you swap to a different mechanism with the same confidence, you were justifying, not investigating.
-
-Keep verified observation and hypothesis separate, and label each claim in the first draft, not after being challenged. "Probably X, and X is hard to measure directly" is an honest, acceptable conclusion; a mechanism asserted with confidence because it fits is not. A deliverable states only what is currently believed true, and does not narrate the claims you retracted along the way.
-
-When writing about changes (changelog, PR summary), read each commit's full diff and message body, and never let a claim the commit qualified read as an unqualified one.
+When explaining why code behaves as it does (a bug, a benchmark, an anomaly), the deliverable is the mechanism, not a story consistent with the outcome. Many mechanisms fit any given result, and a candidate earns credence by surviving attempts to rule it out, using domain knowledge or an experiment that tells the candidates apart. If being challenged makes you switch to a different explanation with the same confidence, you were justifying, not investigating. When you first state a claim, say whether you verified it or inferred it. Report what you currently believe, including what you ruled out and how, rather than the sequence of explanations you held along the way; "probably X, which is hard to measure directly" is an acceptable conclusion.

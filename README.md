@@ -22,9 +22,10 @@
 
 ## coding-agent/
 
-[Claude Code](https://claude.ai/code)、[Gemini CLI](https://github.com/google-gemini/gemini-cli)、[GitHub Copilot CLI](https://githubnext.com/projects/copilot-cli) の設定をまとめている。
+[Claude Code](https://claude.ai/code)、[Codex](https://github.com/openai/codex)、[Antigravity CLI](https://antigravity.google/product/antigravity-cli/)、[GitHub Copilot CLI](https://githubnext.com/projects/copilot-cli) の設定をまとめている。
 
-`AGENTS.md` はすべてのエージェントで共通のコーディング規約を定義しており、各エージェントの instructions ファイルにシンボリックリンクが貼られる。
+`AGENTS.md` はすべてのエージェントで共通の作業スタイルを定義しており、各エージェントの instructions ファイルにシンボリックリンクが貼られる。
+コーディング規約は `skills/coding/SKILL.md` に skill として定義しており、`skills/` ディレクトリごと各エージェントの skills ディレクトリにリンクされる。
 
 ## config-files/
 
