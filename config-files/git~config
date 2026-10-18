@@ -5,6 +5,18 @@
 	name = "ryota2357"
 	email = "noreply@ryota2357.com"
 
+[init]
+	defaultBranch = main
+
+[merge]
+	conflictStyle = zdiff3
+
+[diff]
+	algorithm = histogram
+
+[safe]
+	bareRepository = explicit
+
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f

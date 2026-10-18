@@ -39,6 +39,10 @@ prefix_rule(
     pattern = ["git", ["blame", "diff", "grep", "log", "ls-files", "ls-remote", "ls-tree", "show", "status"]],
     decision = "allow",
 )
+prefix_rule(
+    pattern = ["git", "submodule", ["status", "summary"]],
+    decision = "allow",
+)
 
 prefix_rule(
     pattern = ["nix", ["build", "fmt", "log"]],

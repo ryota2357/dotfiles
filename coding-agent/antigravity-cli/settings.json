@@ -3,6 +3,11 @@
   "colorScheme": "dark",
   "model": "Gemini 3.8 Flash (High)",
   "notifications": true,
+  "verbosity": "high",
+  "statusLine": {
+    "type": "command",
+    "command": "~/dotfiles/coding-agent/antigravity-cli/statusline.sh"
+  },
   "permissions": {
     "allow": [
       "command(gh issue list)",
@@ -33,6 +38,8 @@
       "command(git ls-tree)",
       "command(git show)",
       "command(git status)",
+      "command(git submodule status)",
+      "command(git submodule summary)",
       "command(grep)",
       "command(head)",
       "command(ls)",

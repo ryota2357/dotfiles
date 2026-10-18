@@ -47,6 +47,8 @@
       "Bash(git ls-tree *)",
       "Bash(git show *)",
       "Bash(git status *)",
+      "Bash(git submodule status *)",
+      "Bash(git submodule summary *)",
       "Bash(grep *)",
       "Bash(head *)",
       "Bash(ls *)",
