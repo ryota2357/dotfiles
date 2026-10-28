@@ -27,7 +27,7 @@ bind-key -T WINDOW k if-shell "$is_vim" "send-keys C-w k" "select-pane -U"
 bind-key -T WINDOW l if-shell "$is_vim" "send-keys C-w l" "select-pane -R"
 bind-key -T WINDOW -r Left  if-shell "$is_vim" "send-keys C-w Left"  "resize-pane -L 1"
 bind-key -T WINDOW -r Down  if-shell "$is_vim" "send-keys C-w Down"  "resize-pane -D 1"
-bind-key -T WINDOW -r Up    if-shell "$is_vim" "send-keys C-w Up  "  "resize-pane -U 1"
+bind-key -T WINDOW -r Up    if-shell "$is_vim" "send-keys C-w Up"    "resize-pane -U 1"
 bind-key -T WINDOW -r Right if-shell "$is_vim" "send-keys C-w Right" "resize-pane -R 1"
 
 # `C-w` が tmux に喰われてしまうので，2回打つことで Vim に `C-w` を送れるようにして救う
@@ -47,7 +47,7 @@ set-option -g mode-keys vi
 # y: ヤンク
 # i: ノーマルモードに戻る
 bind-key -T copy-mode-vi v send-keys -X begin-selection
-bind-key -T copy-mode-vi y send-keys -X copy-pipe "pbcopy"
+bind-key -T copy-mode-vi y send-keys -X copy-selection
 bind-key -T copy-mode-vi i send-keys -X cancel
 
 # V: 行選択

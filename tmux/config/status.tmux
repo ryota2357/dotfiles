@@ -17,6 +17,8 @@ set-option -g status-justify "absolute-centre"
 set-option -g window-status-format " #I: #W "
 # カレントウィンドウの window-status のフォーマットを指定
 set-option -g window-status-current-format "#[fg=#0069c0,bg=#494949]#[bg=#0069c0,fg=#ffffff,bold]#I: #W#[fg=#0069c0,bg=#494949]"
+# カレントウィンドウの window-status のスタイルを指定 (tmux 3.8 からデフォルトが underscore になったため明示)
+set-option -g window-status-current-style "default"
 
 # == 左 ==
 # 最大の長さ

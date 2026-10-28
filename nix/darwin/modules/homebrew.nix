@@ -17,7 +17,7 @@
     casks = [
       # Terminal
       "alacritty"
-      "iterm2"
+      # "iterm2"
       "wezterm"
       "ghostty"
       "xquartz"
@@ -30,7 +30,7 @@
 
       # Text Editor
       "coteditor"
-      "jetbrains-toolbox"
+      # "jetbrains-toolbox"
       "obsidian"
 
       # Fonts
@@ -49,7 +49,7 @@
       "fontforge-app"
       "obsidian"
       "tailscale-app"
-      "unity-hub"
+      # "unity-hub"
 
       # Social
       "discord"
@@ -71,7 +71,7 @@
 
       # AI
       # "chatgpt"
-      # "claude"
+      "claude"
 
       # Game
       "osu"
