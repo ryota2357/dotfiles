@@ -5,8 +5,8 @@
     "claude-opus-5-5": {
       "effortLevel": "high"
     },
-    "claude-sonnet-5": {
-      "effortLevel": "xhigh"
+    "claude-sonnet-5-5": {
+      "effortLevel": "high"
     }
   },
   "tui": "fullscreen",
@@ -14,6 +14,7 @@
   "awaySummaryEnabled": false,
   "disableClaudeAiConnectors": true,
   "includeGitInstructions": false,
+  "respondToBashCommands": false,
   "attribution": {
     "sessionUrl": false
   },
@@ -69,7 +70,9 @@
       "WebFetch(domain:ryota2357.com)"
     ],
     "deny": [
-      "Bash(sudo *)"
+      "Bash(sudo *)",
+      "Edit(.env)",
+      "Read(.env)"
     ],
     "defaultMode": "default"
   },

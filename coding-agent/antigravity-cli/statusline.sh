@@ -30,9 +30,10 @@ fmt_7d=$(fmt_reset "$seven_reset" "%a %H:%M")
 
 case "$mode" in
   "accept-edits") color="\033[38;5;114m" ;;
+  "auto")         color="\033[38;5;226m" ;;
   "plan")         color="\033[38;5;75m" ;;
   "default")      color="\033[38;5;242m" ;;
-  *)              color="\033[38;5;226m" ;;
+  *)              color="\033[38;5;203m" ;;
 esac
 
 left="$model | $ctx_used% / $ctx_total | 5h: $five_pct% / $fmt_5h | 7d: $seven_pct% / $fmt_7d | ${cwd/#$HOME/\~}"

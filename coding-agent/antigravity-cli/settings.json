@@ -1,8 +1,11 @@
 {
+  "$schema": "https://antigravity.google/schemas/v1/settings.json",
+  "agentMode": "",
   "altScreenMode": "always",
   "colorScheme": "dark",
-  "model": "Gemini 3.8 Flash (High)",
+  "model": "Gemini 4 Hydrogen (High)",
   "notifications": true,
+  "pickerGrouping": "grouped",
   "verbosity": "high",
   "statusLine": {
     "type": "command",
@@ -54,14 +57,12 @@
       "command(wc)",
       "command(which)",
       "read_file(/Users/ryota2357/dotfiles)",
-      "read_file(/Users/ryota2357/ghq/github.com/ryota2357)",
       "read_url(ryota2357.com)"
     ],
     "deny": [
-      "command(sudo)"
-    ],
-    "trustedWorkspaces": [
-      "/Users/ryota2357/ghq/github.com/ryota2357/"
+      "command(sudo)",
+      "read_file(.env)",
+      "write_file(.env)"
     ]
   }
 }

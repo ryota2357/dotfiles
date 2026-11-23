@@ -232,8 +232,8 @@ lua_source = '''
 repo = 'Julian/lean.nvim'
 on_ft = 'lean'
 depends = ['nvim-lspconfig', 'plenary.nvim']
-lua_source = '''
-  require('lean').setup{ mappings = true }
+lua_add = '''
+  vim.g.lean_config = { mappings = true }
 '''
 
 [[plugins]]
