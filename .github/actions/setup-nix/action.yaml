@@ -13,7 +13,7 @@ runs:
   using: composite
   steps:
     - name: Install Nix
-      uses: nixbuild/nix-quick-install-action@9f63be77f412a248c9d9a65a4c82cf066cdf8f0c # v35
+      uses: nixbuild/nix-quick-install-action@e0ea8f6061c766e5c1d927cea8be769a1c5108a9 # v36
 
     - name: Setup Cachix
       uses: cachix/cachix-action@38b082610b782e7e93e209c35fd730d399dee866 # v17
